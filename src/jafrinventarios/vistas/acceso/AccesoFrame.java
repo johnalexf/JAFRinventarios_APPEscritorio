@@ -17,6 +17,9 @@ public class AccesoFrame extends javax.swing.JFrame {
     public AccesoFrame() {
         initComponents();
         
+        // Asignar el icono personalizado de JAFR a la ventana
+        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/jafrinventarios/recursos/imagenes/logo.png")));
+        
         // Forzar que la ventana se abra maximizada ocupando toda la pantalla
         this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
     }
