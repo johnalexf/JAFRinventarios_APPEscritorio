@@ -20,6 +20,9 @@ public class AccesoFrame extends javax.swing.JFrame {
         // Asignar el icono personalizado de JAFR a la ventana
         setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/jafrinventarios/recursos/imagenes/logo.png")));
         
+        // Cambiar el color de fondo del lienzo principal (ContentPane)
+        this.getContentPane().setBackground(new java.awt.Color(255, 255, 255)); // O el color RGB que prefieras
+        
         // Forzar que la ventana se abra maximizada ocupando toda la pantalla
         this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
     }
@@ -33,21 +36,28 @@ public class AccesoFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        inicioSesionPanel = new jafrinventarios.vistas.acceso.InicioSesionPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JAFR inventarios");
+        setAutoRequestFocus(false);
+        setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1024, 768));
         setName("VentanaAcceso"); // NOI18N
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE)
+        javax.swing.GroupLayout inicioSesionPanelLayout = new javax.swing.GroupLayout(inicioSesionPanel);
+        inicioSesionPanel.setLayout(inicioSesionPanelLayout);
+        inicioSesionPanelLayout.setHorizontalGroup(
+            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
+        inicioSesionPanelLayout.setVerticalGroup(
+            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
+
+        getContentPane().add(inicioSesionPanel, new java.awt.GridBagConstraints());
 
         pack();
         setLocationRelativeTo(null);
@@ -90,5 +100,6 @@ public class AccesoFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private jafrinventarios.vistas.acceso.InicioSesionPanel inicioSesionPanel;
     // End of variables declaration//GEN-END:variables
 }

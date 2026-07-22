@@ -5,6 +5,8 @@
  */
 package jafrinventarios;
 
+import jafrinventarios.vistas.acceso.AccesoFrame;
+
 /**
  *
  * @author JOHN FORERO
@@ -16,6 +18,9 @@ public class JAFRinventarios {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        AccesoFrame vistaInicial = new AccesoFrame();
+        
+        vistaInicial.setVisible(true);
     }
     
 }
