@@ -1,0 +1,34 @@
+# ==========================================
+# ARCHIVOS DE COMPILACIÓN JAVA
+# ==========================================
+# Ignora los archivos compilados. Son el resultado de compilar el código fuente en Java y no deben subirse, ya que cada computadora los regenera automáticamente.
+*.class
+
+# ==========================================
+# CARPETAS AUTOGENERADAS DE NETBEANS
+# ==========================================
+# Ignora las carpetas donde NetBeans guarda la aplicación ya empaquetada y lista para ejecutarse. Todo esto se vuelve a crear cuando se le da a "Build" o "Clean and Build".
+/build/
+/dist/
+
+# ==========================================
+# CONFIGURACIONES PRIVADAS DEL IDE
+# ==========================================
+# Ignora las configuraciones privadas del entorno local (como contraseñas guardadas en el IDE, rutas específicas de tu PC o configuraciones de servidor local).
+/nbproject/private/
+
+# Ignora preferencias de sesión del usuario en el archivo de proyecto (por ejemplo, en qué línea se dejo el cursor o qué pestañas se tienen abiertas).
+nbproject/project.xml.user
+
+# Ignora scripts temporales de compilación que NetBeans puede llegar a generar automáticamente dependiendo de los plugins que se usen.
+/nbproject/Makefile-*.mk
+/nbproject/Package-*.bash
+
+# ==========================================
+# ARCHIVOS BASURA DEL SISTEMA OPERATIVO
+# ==========================================
+# Ignora archivos ocultos de metadatos visuales creados por macOS (si alguien más abre el proyecto en Mac o si en algún momento se pasa la carpeta por USB).
+.DS_Store
+
+# Ignora el caché de vistas previas de imágenes generado por Windows.
+Thumbs.db
