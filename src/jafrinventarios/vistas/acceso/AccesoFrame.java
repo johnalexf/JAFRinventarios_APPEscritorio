@@ -16,12 +16,14 @@ public class AccesoFrame extends javax.swing.JFrame {
      */
     public AccesoFrame() {
         initComponents();
-        
+              
         // Asignar el icono personalizado de JAFR a la ventana
-        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/jafrinventarios/recursos/imagenes/logo.png")));
+        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/jafrinventarios/recursos/imagenes/icono.png")));
         
-        // Cambiar el color de fondo del lienzo principal (ContentPane)
-        this.getContentPane().setBackground(new java.awt.Color(255, 255, 255)); // O el color RGB que prefieras
+        // Convertimos el icono del JLabel tituloLogo en una imagen escalada al tamaño actual del JLabel
+        java.awt.Image imgEscalada = ((javax.swing.ImageIcon)tituloLogo.getIcon()).getImage().getScaledInstance(tituloLogo.getWidth(), tituloLogo.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        //Le volvemos a asignar la imagen ya ajustada al JLabel tituloLogo
+        tituloLogo.setIcon(new javax.swing.ImageIcon(imgEscalada));
         
         // Forzar que la ventana se abra maximizada ocupando toda la pantalla
         this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
@@ -35,8 +37,16 @@ public class AccesoFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        inicioSesionPanel = new jafrinventarios.vistas.acceso.InicioSesionPanel();
+        contenedorPrincipal = new javax.swing.JPanel();
+        contenedorHeader = new javax.swing.JPanel();
+        tituloPrincipalParte1 = new javax.swing.JLabel();
+        tituloLogo = new javax.swing.JLabel();
+        tituloPrincipalParte2 = new javax.swing.JLabel();
+        contenedorCuerpo = new javax.swing.JPanel();
+        contenedorInicioSesion = new javax.swing.JPanel();
+        contenedorRegistroUsuario = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JAFR inventarios");
@@ -46,18 +56,72 @@ public class AccesoFrame extends javax.swing.JFrame {
         setName("VentanaAcceso"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout inicioSesionPanelLayout = new javax.swing.GroupLayout(inicioSesionPanel);
-        inicioSesionPanel.setLayout(inicioSesionPanelLayout);
-        inicioSesionPanelLayout.setHorizontalGroup(
-            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
+        contenedorPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorPrincipal.setLayout(new java.awt.BorderLayout());
+
+        contenedorHeader.setMinimumSize(new java.awt.Dimension(0, 60));
+        contenedorHeader.setOpaque(false);
+        contenedorHeader.setPreferredSize(new java.awt.Dimension(1024, 60));
+        contenedorHeader.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 10));
+
+        tituloPrincipalParte1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        tituloPrincipalParte1.setForeground(new java.awt.Color(17, 35, 85));
+        tituloPrincipalParte1.setText("Bienvenido a");
+        contenedorHeader.add(tituloPrincipalParte1);
+
+        tituloLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/imagenes/logo.png"))); // NOI18N
+        tituloLogo.setMaximumSize(new java.awt.Dimension(150, 37));
+        tituloLogo.setMinimumSize(new java.awt.Dimension(150, 37));
+        tituloLogo.setPreferredSize(new java.awt.Dimension(150, 37));
+        contenedorHeader.add(tituloLogo);
+
+        tituloPrincipalParte2.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        tituloPrincipalParte2.setForeground(new java.awt.Color(17, 35, 85));
+        tituloPrincipalParte2.setText("administra tu negocio");
+        contenedorHeader.add(tituloPrincipalParte2);
+
+        contenedorPrincipal.add(contenedorHeader, java.awt.BorderLayout.NORTH);
+
+        contenedorCuerpo.setOpaque(false);
+        contenedorCuerpo.setLayout(new java.awt.GridLayout(1, 2));
+
+        contenedorInicioSesion.setOpaque(false);
+
+        javax.swing.GroupLayout contenedorInicioSesionLayout = new javax.swing.GroupLayout(contenedorInicioSesion);
+        contenedorInicioSesion.setLayout(contenedorInicioSesionLayout);
+        contenedorInicioSesionLayout.setHorizontalGroup(
+            contenedorInicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 512, Short.MAX_VALUE)
         );
-        inicioSesionPanelLayout.setVerticalGroup(
-            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+        contenedorInicioSesionLayout.setVerticalGroup(
+            contenedorInicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 708, Short.MAX_VALUE)
         );
 
-        getContentPane().add(inicioSesionPanel, new java.awt.GridBagConstraints());
+        contenedorCuerpo.add(contenedorInicioSesion);
+
+        contenedorRegistroUsuario.setOpaque(false);
+
+        javax.swing.GroupLayout contenedorRegistroUsuarioLayout = new javax.swing.GroupLayout(contenedorRegistroUsuario);
+        contenedorRegistroUsuario.setLayout(contenedorRegistroUsuarioLayout);
+        contenedorRegistroUsuarioLayout.setHorizontalGroup(
+            contenedorRegistroUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 512, Short.MAX_VALUE)
+        );
+        contenedorRegistroUsuarioLayout.setVerticalGroup(
+            contenedorRegistroUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 708, Short.MAX_VALUE)
+        );
+
+        contenedorCuerpo.add(contenedorRegistroUsuario);
+
+        contenedorPrincipal.add(contenedorCuerpo, java.awt.BorderLayout.CENTER);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(contenedorPrincipal, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -100,6 +164,13 @@ public class AccesoFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private jafrinventarios.vistas.acceso.InicioSesionPanel inicioSesionPanel;
+    private javax.swing.JPanel contenedorCuerpo;
+    private javax.swing.JPanel contenedorHeader;
+    private javax.swing.JPanel contenedorInicioSesion;
+    private javax.swing.JPanel contenedorPrincipal;
+    private javax.swing.JPanel contenedorRegistroUsuario;
+    private javax.swing.JLabel tituloLogo;
+    private javax.swing.JLabel tituloPrincipalParte1;
+    private javax.swing.JLabel tituloPrincipalParte2;
     // End of variables declaration//GEN-END:variables
 }
