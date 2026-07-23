@@ -9,12 +9,12 @@ package jafrinventarios.vistas.acceso;
  *
  * @author JOHN FORERO
  */
-public class InicioSesionPanel extends javax.swing.JPanel {
+public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form InicioSesionPanel
+     * Creates new form RegistroUsuarioPanel
      */
-    public InicioSesionPanel() {
+    public RegistroUsuarioPanel() {
         initComponents();
     }
 
@@ -28,10 +28,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(205, 205, 205));
-        setForeground(new java.awt.Color(205, 205, 205));
-        setMinimumSize(new java.awt.Dimension(500, 420));
-        setPreferredSize(new java.awt.Dimension(500, 420));
-        setRequestFocusEnabled(false);
+        setMinimumSize(new java.awt.Dimension(500, 700));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -41,7 +38,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

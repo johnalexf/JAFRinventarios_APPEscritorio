@@ -46,7 +46,13 @@ public class AccesoFrame extends javax.swing.JFrame {
         tituloPrincipalParte2 = new javax.swing.JLabel();
         contenedorCuerpo = new javax.swing.JPanel();
         contenedorInicioSesion = new javax.swing.JPanel();
+        panelDinamicoInicioSesion = new javax.swing.JPanel();
+        invitacionInicioSesionPanel = new javax.swing.JPanel();
+        inicioSesionPanel = new jafrinventarios.vistas.acceso.InicioSesionPanel();
         contenedorRegistroUsuario = new javax.swing.JPanel();
+        panelDinamicoRegistro = new javax.swing.JPanel();
+        invitacionRegistroPanel = new javax.swing.JPanel();
+        registroUsuarioPanel = new jafrinventarios.vistas.acceso.RegistroUsuarioPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JAFR inventarios");
@@ -57,6 +63,8 @@ public class AccesoFrame extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         contenedorPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorPrincipal.setMinimumSize(new java.awt.Dimension(1024, 768));
+        contenedorPrincipal.setPreferredSize(new java.awt.Dimension(1024, 768));
         contenedorPrincipal.setLayout(new java.awt.BorderLayout());
 
         contenedorHeader.setMinimumSize(new java.awt.Dimension(0, 60));
@@ -82,36 +90,100 @@ public class AccesoFrame extends javax.swing.JFrame {
 
         contenedorPrincipal.add(contenedorHeader, java.awt.BorderLayout.NORTH);
 
+        contenedorCuerpo.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        contenedorCuerpo.setMinimumSize(new java.awt.Dimension(1024, 728));
         contenedorCuerpo.setOpaque(false);
+        contenedorCuerpo.setPreferredSize(new java.awt.Dimension(1024, 720));
         contenedorCuerpo.setLayout(new java.awt.GridLayout(1, 2));
 
+        contenedorInicioSesion.setMinimumSize(new java.awt.Dimension(512, 708));
         contenedorInicioSesion.setOpaque(false);
+        contenedorInicioSesion.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout contenedorInicioSesionLayout = new javax.swing.GroupLayout(contenedorInicioSesion);
-        contenedorInicioSesion.setLayout(contenedorInicioSesionLayout);
-        contenedorInicioSesionLayout.setHorizontalGroup(
-            contenedorInicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 512, Short.MAX_VALUE)
+        panelDinamicoInicioSesion.setOpaque(false);
+        panelDinamicoInicioSesion.setPreferredSize(new java.awt.Dimension(500, 420));
+        panelDinamicoInicioSesion.setLayout(new java.awt.CardLayout());
+
+        invitacionInicioSesionPanel.setBackground(new java.awt.Color(217, 217, 217));
+        invitacionInicioSesionPanel.setMinimumSize(new java.awt.Dimension(500, 420));
+
+        javax.swing.GroupLayout invitacionInicioSesionPanelLayout = new javax.swing.GroupLayout(invitacionInicioSesionPanel);
+        invitacionInicioSesionPanel.setLayout(invitacionInicioSesionPanelLayout);
+        invitacionInicioSesionPanelLayout.setHorizontalGroup(
+            invitacionInicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
-        contenedorInicioSesionLayout.setVerticalGroup(
-            contenedorInicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+        invitacionInicioSesionPanelLayout.setVerticalGroup(
+            invitacionInicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 420, Short.MAX_VALUE)
         );
+
+        panelDinamicoInicioSesion.add(invitacionInicioSesionPanel, "vistaInvitacionInicioSesion");
+
+        javax.swing.GroupLayout inicioSesionPanelLayout = new javax.swing.GroupLayout(inicioSesionPanel);
+        inicioSesionPanel.setLayout(inicioSesionPanelLayout);
+        inicioSesionPanelLayout.setHorizontalGroup(
+            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+        inicioSesionPanelLayout.setVerticalGroup(
+            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 420, Short.MAX_VALUE)
+        );
+
+        panelDinamicoInicioSesion.add(inicioSesionPanel, "vistaFormularioInicioSesion");
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorInicioSesion.add(panelDinamicoInicioSesion, gridBagConstraints);
 
         contenedorCuerpo.add(contenedorInicioSesion);
 
         contenedorRegistroUsuario.setOpaque(false);
+        contenedorRegistroUsuario.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout contenedorRegistroUsuarioLayout = new javax.swing.GroupLayout(contenedorRegistroUsuario);
-        contenedorRegistroUsuario.setLayout(contenedorRegistroUsuarioLayout);
-        contenedorRegistroUsuarioLayout.setHorizontalGroup(
-            contenedorRegistroUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 512, Short.MAX_VALUE)
+        panelDinamicoRegistro.setMinimumSize(new java.awt.Dimension(500, 700));
+        panelDinamicoRegistro.setOpaque(false);
+        panelDinamicoRegistro.setPreferredSize(new java.awt.Dimension(500, 700));
+        panelDinamicoRegistro.setLayout(new java.awt.CardLayout());
+
+        invitacionRegistroPanel.setBackground(new java.awt.Color(217, 217, 217));
+        invitacionRegistroPanel.setMinimumSize(new java.awt.Dimension(0, 0));
+        invitacionRegistroPanel.setName(""); // NOI18N
+
+        javax.swing.GroupLayout invitacionRegistroPanelLayout = new javax.swing.GroupLayout(invitacionRegistroPanel);
+        invitacionRegistroPanel.setLayout(invitacionRegistroPanelLayout);
+        invitacionRegistroPanelLayout.setHorizontalGroup(
+            invitacionRegistroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
-        contenedorRegistroUsuarioLayout.setVerticalGroup(
-            contenedorRegistroUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+        invitacionRegistroPanelLayout.setVerticalGroup(
+            invitacionRegistroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
+
+        panelDinamicoRegistro.add(invitacionRegistroPanel, "vistaInvitacionRegistro");
+
+        javax.swing.GroupLayout registroUsuarioPanelLayout = new javax.swing.GroupLayout(registroUsuarioPanel);
+        registroUsuarioPanel.setLayout(registroUsuarioPanelLayout);
+        registroUsuarioPanelLayout.setHorizontalGroup(
+            registroUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+        registroUsuarioPanelLayout.setVerticalGroup(
+            registroUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+        );
+
+        panelDinamicoRegistro.add(registroUsuarioPanel, "vistaFormularioRegistro");
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorRegistroUsuario.add(panelDinamicoRegistro, gridBagConstraints);
 
         contenedorCuerpo.add(contenedorRegistroUsuario);
 
@@ -169,6 +241,12 @@ public class AccesoFrame extends javax.swing.JFrame {
     private javax.swing.JPanel contenedorInicioSesion;
     private javax.swing.JPanel contenedorPrincipal;
     private javax.swing.JPanel contenedorRegistroUsuario;
+    private jafrinventarios.vistas.acceso.InicioSesionPanel inicioSesionPanel;
+    private javax.swing.JPanel invitacionInicioSesionPanel;
+    private javax.swing.JPanel invitacionRegistroPanel;
+    private javax.swing.JPanel panelDinamicoInicioSesion;
+    private javax.swing.JPanel panelDinamicoRegistro;
+    private jafrinventarios.vistas.acceso.RegistroUsuarioPanel registroUsuarioPanel;
     private javax.swing.JLabel tituloLogo;
     private javax.swing.JLabel tituloPrincipalParte1;
     private javax.swing.JLabel tituloPrincipalParte2;
