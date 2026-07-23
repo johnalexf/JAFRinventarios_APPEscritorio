@@ -32,3 +32,7 @@ nbproject/project.xml.user
 
 # Ignora el caché de vistas previas de imágenes generado por Windows.
 Thumbs.db
+
+
+#Este archivo es para hacer auditoria en local de los cambios realizados cuando sea necesario
+auditoriaDiff.txt
