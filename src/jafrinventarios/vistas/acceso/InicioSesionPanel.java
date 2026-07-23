@@ -27,25 +27,111 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        contenedorTituloFormulario1 = new javax.swing.JPanel();
+        tituloFormulario = new javax.swing.JLabel();
+        contenedorCuerpoFormulario = new javax.swing.JPanel();
+        labelCorreo = new javax.swing.JLabel();
+        inputCorreo = new javax.swing.JTextField();
+        labelContrasena = new javax.swing.JLabel();
+        inputContrasena = new javax.swing.JTextField();
+        contenedorRecuperarContrasena = new javax.swing.JPanel();
+        labelBtnRecuperarContrasena = new javax.swing.JLabel();
+        contenedorBotonEnviarFormulario = new javax.swing.JPanel();
+        btnIngresar = new javax.swing.JButton();
+
         setBackground(new java.awt.Color(205, 205, 205));
-        setForeground(new java.awt.Color(205, 205, 205));
         setMinimumSize(new java.awt.Dimension(500, 420));
         setPreferredSize(new java.awt.Dimension(500, 420));
         setRequestFocusEnabled(false);
+        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 5));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
+        contenedorTituloFormulario1.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 1, 1, 1));
+        contenedorTituloFormulario1.setMinimumSize(new java.awt.Dimension(500, 80));
+        contenedorTituloFormulario1.setOpaque(false);
+        contenedorTituloFormulario1.setPreferredSize(new java.awt.Dimension(500, 80));
+
+        tituloFormulario.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        tituloFormulario.setForeground(new java.awt.Color(17, 35, 85));
+        tituloFormulario.setText("Iniciar sesión");
+        tituloFormulario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        contenedorTituloFormulario1.add(tituloFormulario);
+
+        add(contenedorTituloFormulario1);
+
+        contenedorCuerpoFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 0, 40));
+        contenedorCuerpoFormulario.setOpaque(false);
+        contenedorCuerpoFormulario.setPreferredSize(new java.awt.Dimension(500, 180));
+        contenedorCuerpoFormulario.setLayout(new java.awt.GridLayout(4, 1, 0, 10));
+
+        labelCorreo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelCorreo.setText("Correo:");
+        labelCorreo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        contenedorCuerpoFormulario.add(labelCorreo);
+
+        inputCorreo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputCorreo.setMargin(new java.awt.Insets(2, 15, 2, 15));
+        contenedorCuerpoFormulario.add(inputCorreo);
+
+        labelContrasena.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelContrasena.setText("Contraseña:");
+        labelContrasena.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        contenedorCuerpoFormulario.add(labelContrasena);
+
+        inputContrasena.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputContrasena.setMargin(new java.awt.Insets(2, 15, 2, 15));
+        contenedorCuerpoFormulario.add(inputContrasena);
+
+        add(contenedorCuerpoFormulario);
+
+        contenedorRecuperarContrasena.setMinimumSize(new java.awt.Dimension(500, 30));
+        contenedorRecuperarContrasena.setOpaque(false);
+        contenedorRecuperarContrasena.setPreferredSize(new java.awt.Dimension(500, 30));
+        contenedorRecuperarContrasena.setRequestFocusEnabled(false);
+
+        labelBtnRecuperarContrasena.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        labelBtnRecuperarContrasena.setForeground(new java.awt.Color(17, 35, 85));
+        labelBtnRecuperarContrasena.setText("Recuperar Contraseña");
+        contenedorRecuperarContrasena.add(labelBtnRecuperarContrasena);
+
+        add(contenedorRecuperarContrasena);
+
+        contenedorBotonEnviarFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        contenedorBotonEnviarFormulario.setOpaque(false);
+        contenedorBotonEnviarFormulario.setPreferredSize(new java.awt.Dimension(500, 90));
+
+        btnIngresar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        btnIngresar.setText("Ingresar");
+        btnIngresar.setToolTipText("");
+        btnIngresar.setMargin(new java.awt.Insets(6, 12, 6, 12));
+        btnIngresar.setMaximumSize(new java.awt.Dimension(200, 40));
+        btnIngresar.setMinimumSize(new java.awt.Dimension(200, 40));
+        btnIngresar.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
+        contenedorBotonEnviarFormulario.add(btnIngresar);
+
+        add(contenedorBotonEnviarFormulario);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JPanel contenedorBotonEnviarFormulario;
+    private javax.swing.JPanel contenedorCuerpoFormulario;
+    private javax.swing.JPanel contenedorRecuperarContrasena;
+    private javax.swing.JPanel contenedorTituloFormulario1;
+    private javax.swing.JTextField inputContrasena;
+    private javax.swing.JTextField inputCorreo;
+    private javax.swing.JLabel labelBtnRecuperarContrasena;
+    private javax.swing.JLabel labelContrasena;
+    private javax.swing.JLabel labelCorreo;
+    private javax.swing.JLabel tituloFormulario;
     // End of variables declaration//GEN-END:variables
 }
