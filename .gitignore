@@ -34,5 +34,8 @@ nbproject/project.xml.user
 Thumbs.db
 
 
-#Este archivo es para hacer auditoria en local de los cambios realizados cuando sea necesario
-auditoriaDiff.txt
+# Ignora cualquier archivo que termine en Diff.txt sin importar qué haya antes
+*Diff.txt
+
+# Ignora cualquier archivo de texto que contenga la palabra "auditoria"
+*auditoria*.txt
