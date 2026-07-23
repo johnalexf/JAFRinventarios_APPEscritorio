@@ -47,10 +47,10 @@ public class AccesoFrame extends javax.swing.JFrame {
         contenedorCuerpo = new javax.swing.JPanel();
         contenedorInicioSesion = new javax.swing.JPanel();
         panelDinamicoInicioSesion = new javax.swing.JPanel();
+        inicioSesionPanel = new jafrinventarios.vistas.acceso.InicioSesionPanel();
         invitacionInicioSesionPanel = new javax.swing.JPanel();
         subtituloInvitacionInicio = new javax.swing.JLabel();
         invitacionIniciarSesionBtn = new javax.swing.JButton();
-        inicioSesionPanel = new jafrinventarios.vistas.acceso.InicioSesionPanel();
         contenedorRegistroUsuario = new javax.swing.JPanel();
         panelDinamicoRegistro = new javax.swing.JPanel();
         invitacionRegistroPanel = new javax.swing.JPanel();
@@ -108,6 +108,19 @@ public class AccesoFrame extends javax.swing.JFrame {
         panelDinamicoInicioSesion.setPreferredSize(new java.awt.Dimension(500, 420));
         panelDinamicoInicioSesion.setLayout(new java.awt.CardLayout());
 
+        javax.swing.GroupLayout inicioSesionPanelLayout = new javax.swing.GroupLayout(inicioSesionPanel);
+        inicioSesionPanel.setLayout(inicioSesionPanelLayout);
+        inicioSesionPanelLayout.setHorizontalGroup(
+            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+        inicioSesionPanelLayout.setVerticalGroup(
+            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 420, Short.MAX_VALUE)
+        );
+
+        panelDinamicoInicioSesion.add(inicioSesionPanel, "vistaFormularioInicioSesion");
+
         invitacionInicioSesionPanel.setBackground(new java.awt.Color(217, 217, 217));
         invitacionInicioSesionPanel.setMinimumSize(new java.awt.Dimension(500, 420));
         invitacionInicioSesionPanel.setLayout(new java.awt.GridBagLayout());
@@ -126,6 +139,11 @@ public class AccesoFrame extends javax.swing.JFrame {
         invitacionIniciarSesionBtn.setMaximumSize(new java.awt.Dimension(200, 40));
         invitacionIniciarSesionBtn.setMinimumSize(new java.awt.Dimension(200, 40));
         invitacionIniciarSesionBtn.setPreferredSize(new java.awt.Dimension(200, 40));
+        invitacionIniciarSesionBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                invitacionIniciarSesionBtnActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -133,19 +151,6 @@ public class AccesoFrame extends javax.swing.JFrame {
         invitacionInicioSesionPanel.add(invitacionIniciarSesionBtn, gridBagConstraints);
 
         panelDinamicoInicioSesion.add(invitacionInicioSesionPanel, "vistaInvitacionInicioSesion");
-
-        javax.swing.GroupLayout inicioSesionPanelLayout = new javax.swing.GroupLayout(inicioSesionPanel);
-        inicioSesionPanel.setLayout(inicioSesionPanelLayout);
-        inicioSesionPanelLayout.setHorizontalGroup(
-            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        inicioSesionPanelLayout.setVerticalGroup(
-            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
-        );
-
-        panelDinamicoInicioSesion.add(inicioSesionPanel, "vistaFormularioInicioSesion");
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
@@ -183,6 +188,11 @@ public class AccesoFrame extends javax.swing.JFrame {
         invitacionRegistrateBtn.setMaximumSize(new java.awt.Dimension(200, 40));
         invitacionRegistrateBtn.setMinimumSize(new java.awt.Dimension(200, 40));
         invitacionRegistrateBtn.setPreferredSize(new java.awt.Dimension(200, 40));
+        invitacionRegistrateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                invitacionRegistrateBtnActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -223,6 +233,14 @@ public class AccesoFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void invitacionIniciarSesionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invitacionIniciarSesionBtnActionPerformed
+        intercambiarVistasFormularios(false); 
+    }//GEN-LAST:event_invitacionIniciarSesionBtnActionPerformed
+
+    private void invitacionRegistrateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invitacionRegistrateBtnActionPerformed
+        intercambiarVistasFormularios(true);
+    }//GEN-LAST:event_invitacionRegistrateBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,4 +298,23 @@ public class AccesoFrame extends javax.swing.JFrame {
     private javax.swing.JLabel tituloPrincipalParte1;
     private javax.swing.JLabel tituloPrincipalParte2;
     // End of variables declaration//GEN-END:variables
+
+
+    private void intercambiarVistasFormularios( boolean mostrarFormularioRegistro ){
+        
+        /* Como tal cada panel dinamico internamente distribute su contenido con la ayuda de CardLayout
+           Pero para poder hacer el intercambio de que ventana mostrar es necesario crear una variable
+           que ofrezca la funcion .show() para poder seleccionar que card interna mostrar
+        */
+        java.awt.CardLayout layoutInicio = (java.awt.CardLayout) panelDinamicoInicioSesion.getLayout();
+        java.awt.CardLayout layoutRegistro = (java.awt.CardLayout) panelDinamicoRegistro.getLayout();
+        
+        if(mostrarFormularioRegistro){
+            layoutInicio.show(panelDinamicoInicioSesion, "vistaInvitacionInicioSesion");
+            layoutRegistro.show(panelDinamicoRegistro, "vistaFormularioRegistro");
+        }else{
+            layoutInicio.show(panelDinamicoInicioSesion, "vistaFormularioInicioSesion");
+            layoutRegistro.show(panelDinamicoRegistro, "vistaInvitacionRegistro");
+        }
+    }
 }
