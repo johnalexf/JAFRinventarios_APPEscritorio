@@ -48,10 +48,14 @@ public class AccesoFrame extends javax.swing.JFrame {
         contenedorInicioSesion = new javax.swing.JPanel();
         panelDinamicoInicioSesion = new javax.swing.JPanel();
         invitacionInicioSesionPanel = new javax.swing.JPanel();
+        subtituloInvitacionInicio = new javax.swing.JLabel();
+        invitacionIniciarSesionBtn = new javax.swing.JButton();
         inicioSesionPanel = new jafrinventarios.vistas.acceso.InicioSesionPanel();
         contenedorRegistroUsuario = new javax.swing.JPanel();
         panelDinamicoRegistro = new javax.swing.JPanel();
         invitacionRegistroPanel = new javax.swing.JPanel();
+        subtituloInvitacionRegistrate = new javax.swing.JLabel();
+        invitacionRegistrateBtn = new javax.swing.JButton();
         registroUsuarioPanel = new jafrinventarios.vistas.acceso.RegistroUsuarioPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,17 +110,27 @@ public class AccesoFrame extends javax.swing.JFrame {
 
         invitacionInicioSesionPanel.setBackground(new java.awt.Color(217, 217, 217));
         invitacionInicioSesionPanel.setMinimumSize(new java.awt.Dimension(500, 420));
+        invitacionInicioSesionPanel.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout invitacionInicioSesionPanelLayout = new javax.swing.GroupLayout(invitacionInicioSesionPanel);
-        invitacionInicioSesionPanel.setLayout(invitacionInicioSesionPanelLayout);
-        invitacionInicioSesionPanelLayout.setHorizontalGroup(
-            invitacionInicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        invitacionInicioSesionPanelLayout.setVerticalGroup(
-            invitacionInicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
-        );
+        subtituloInvitacionInicio.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        subtituloInvitacionInicio.setForeground(new java.awt.Color(33, 37, 41));
+        subtituloInvitacionInicio.setText("¿Ya tienes una Cuenta?");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        invitacionInicioSesionPanel.add(subtituloInvitacionInicio, gridBagConstraints);
+
+        invitacionIniciarSesionBtn.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        invitacionIniciarSesionBtn.setText("Inicia Sesión");
+        invitacionIniciarSesionBtn.setMargin(new java.awt.Insets(6, 12, 6, 12));
+        invitacionIniciarSesionBtn.setMaximumSize(new java.awt.Dimension(200, 40));
+        invitacionIniciarSesionBtn.setMinimumSize(new java.awt.Dimension(200, 40));
+        invitacionIniciarSesionBtn.setPreferredSize(new java.awt.Dimension(200, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
+        invitacionInicioSesionPanel.add(invitacionIniciarSesionBtn, gridBagConstraints);
 
         panelDinamicoInicioSesion.add(invitacionInicioSesionPanel, "vistaInvitacionInicioSesion");
 
@@ -152,17 +166,28 @@ public class AccesoFrame extends javax.swing.JFrame {
         invitacionRegistroPanel.setBackground(new java.awt.Color(217, 217, 217));
         invitacionRegistroPanel.setMinimumSize(new java.awt.Dimension(0, 0));
         invitacionRegistroPanel.setName(""); // NOI18N
+        invitacionRegistroPanel.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout invitacionRegistroPanelLayout = new javax.swing.GroupLayout(invitacionRegistroPanel);
-        invitacionRegistroPanel.setLayout(invitacionRegistroPanelLayout);
-        invitacionRegistroPanelLayout.setHorizontalGroup(
-            invitacionRegistroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        invitacionRegistroPanelLayout.setVerticalGroup(
-            invitacionRegistroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
-        );
+        subtituloInvitacionRegistrate.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        subtituloInvitacionRegistrate.setForeground(new java.awt.Color(33, 37, 41));
+        subtituloInvitacionRegistrate.setText("¿No tienes una Cuenta?");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        invitacionRegistroPanel.add(subtituloInvitacionRegistrate, gridBagConstraints);
+
+        invitacionRegistrateBtn.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        invitacionRegistrateBtn.setText("Registrate");
+        invitacionRegistrateBtn.setToolTipText("");
+        invitacionRegistrateBtn.setMargin(new java.awt.Insets(6, 12, 6, 12));
+        invitacionRegistrateBtn.setMaximumSize(new java.awt.Dimension(200, 40));
+        invitacionRegistrateBtn.setMinimumSize(new java.awt.Dimension(200, 40));
+        invitacionRegistrateBtn.setPreferredSize(new java.awt.Dimension(200, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
+        invitacionRegistroPanel.add(invitacionRegistrateBtn, gridBagConstraints);
 
         panelDinamicoRegistro.add(invitacionRegistroPanel, "vistaInvitacionRegistro");
 
@@ -242,11 +267,15 @@ public class AccesoFrame extends javax.swing.JFrame {
     private javax.swing.JPanel contenedorPrincipal;
     private javax.swing.JPanel contenedorRegistroUsuario;
     private jafrinventarios.vistas.acceso.InicioSesionPanel inicioSesionPanel;
+    private javax.swing.JButton invitacionIniciarSesionBtn;
     private javax.swing.JPanel invitacionInicioSesionPanel;
+    private javax.swing.JButton invitacionRegistrateBtn;
     private javax.swing.JPanel invitacionRegistroPanel;
     private javax.swing.JPanel panelDinamicoInicioSesion;
     private javax.swing.JPanel panelDinamicoRegistro;
     private jafrinventarios.vistas.acceso.RegistroUsuarioPanel registroUsuarioPanel;
+    private javax.swing.JLabel subtituloInvitacionInicio;
+    private javax.swing.JLabel subtituloInvitacionRegistrate;
     private javax.swing.JLabel tituloLogo;
     private javax.swing.JLabel tituloPrincipalParte1;
     private javax.swing.JLabel tituloPrincipalParte2;
