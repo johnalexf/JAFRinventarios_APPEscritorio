@@ -47,6 +47,7 @@ public class AccesoFrame extends javax.swing.JFrame {
         contenedorCuerpo = new javax.swing.JPanel();
         contenedorInicioSesion = new javax.swing.JPanel();
         panelDinamicoInicioSesion = new javax.swing.JPanel();
+        contenedorInicioSesionPanel = new javax.swing.JPanel();
         inicioSesionPanel = new jafrinventarios.vistas.acceso.InicioSesionPanel();
         invitacionInicioSesionPanel = new javax.swing.JPanel();
         subtituloInvitacionInicio = new javax.swing.JLabel();
@@ -108,18 +109,10 @@ public class AccesoFrame extends javax.swing.JFrame {
         panelDinamicoInicioSesion.setPreferredSize(new java.awt.Dimension(500, 420));
         panelDinamicoInicioSesion.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout inicioSesionPanelLayout = new javax.swing.GroupLayout(inicioSesionPanel);
-        inicioSesionPanel.setLayout(inicioSesionPanelLayout);
-        inicioSesionPanelLayout.setHorizontalGroup(
-            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        inicioSesionPanelLayout.setVerticalGroup(
-            inicioSesionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
-        );
+        contenedorInicioSesionPanel.setLayout(new javax.swing.BoxLayout(contenedorInicioSesionPanel, javax.swing.BoxLayout.LINE_AXIS));
+        contenedorInicioSesionPanel.add(inicioSesionPanel);
 
-        panelDinamicoInicioSesion.add(inicioSesionPanel, "vistaFormularioInicioSesion");
+        panelDinamicoInicioSesion.add(contenedorInicioSesionPanel, "vistaFormularioInicioSesion");
 
         invitacionInicioSesionPanel.setBackground(new java.awt.Color(217, 217, 217));
         invitacionInicioSesionPanel.setMinimumSize(new java.awt.Dimension(500, 420));
@@ -282,6 +275,7 @@ public class AccesoFrame extends javax.swing.JFrame {
     private javax.swing.JPanel contenedorCuerpo;
     private javax.swing.JPanel contenedorHeader;
     private javax.swing.JPanel contenedorInicioSesion;
+    private javax.swing.JPanel contenedorInicioSesionPanel;
     private javax.swing.JPanel contenedorPrincipal;
     private javax.swing.JPanel contenedorRegistroUsuario;
     private jafrinventarios.vistas.acceso.InicioSesionPanel inicioSesionPanel;
