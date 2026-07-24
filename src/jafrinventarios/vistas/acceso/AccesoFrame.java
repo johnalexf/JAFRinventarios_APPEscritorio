@@ -57,7 +57,8 @@ public class AccesoFrame extends javax.swing.JFrame {
         invitacionRegistroPanel = new javax.swing.JPanel();
         subtituloInvitacionRegistrate = new javax.swing.JLabel();
         invitacionRegistrateBtn = new javax.swing.JButton();
-        registroUsuarioPanel = new jafrinventarios.vistas.acceso.RegistroUsuarioPanel();
+        contenedorRegistroUsuarioPanel = new javax.swing.JPanel();
+        registroUsuarioPanel1 = new jafrinventarios.vistas.acceso.RegistroUsuarioPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JAFR inventarios");
@@ -196,18 +197,10 @@ public class AccesoFrame extends javax.swing.JFrame {
 
         panelDinamicoRegistro.add(invitacionRegistroPanel, "vistaInvitacionRegistro");
 
-        javax.swing.GroupLayout registroUsuarioPanelLayout = new javax.swing.GroupLayout(registroUsuarioPanel);
-        registroUsuarioPanel.setLayout(registroUsuarioPanelLayout);
-        registroUsuarioPanelLayout.setHorizontalGroup(
-            registroUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        registroUsuarioPanelLayout.setVerticalGroup(
-            registroUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
-        );
+        contenedorRegistroUsuarioPanel.setLayout(new javax.swing.BoxLayout(contenedorRegistroUsuarioPanel, javax.swing.BoxLayout.LINE_AXIS));
+        contenedorRegistroUsuarioPanel.add(registroUsuarioPanel1);
 
-        panelDinamicoRegistro.add(registroUsuarioPanel, "vistaFormularioRegistro");
+        panelDinamicoRegistro.add(contenedorRegistroUsuarioPanel, "vistaFormularioRegistro");
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -280,6 +273,7 @@ public class AccesoFrame extends javax.swing.JFrame {
     private javax.swing.JPanel contenedorInicioSesionPanel;
     private javax.swing.JPanel contenedorPrincipal;
     private javax.swing.JPanel contenedorRegistroUsuario;
+    private javax.swing.JPanel contenedorRegistroUsuarioPanel;
     private jafrinventarios.vistas.acceso.InicioSesionPanel inicioSesionPanel;
     private javax.swing.JButton invitacionIniciarSesionBtn;
     private javax.swing.JPanel invitacionInicioSesionPanel;
@@ -287,7 +281,7 @@ public class AccesoFrame extends javax.swing.JFrame {
     private javax.swing.JPanel invitacionRegistroPanel;
     private javax.swing.JPanel panelDinamicoInicioSesion;
     private javax.swing.JPanel panelDinamicoRegistro;
-    private jafrinventarios.vistas.acceso.RegistroUsuarioPanel registroUsuarioPanel;
+    private jafrinventarios.vistas.acceso.RegistroUsuarioPanel registroUsuarioPanel1;
     private javax.swing.JLabel subtituloInvitacionInicio;
     private javax.swing.JLabel subtituloInvitacionRegistrate;
     private javax.swing.JLabel tituloLogo;
