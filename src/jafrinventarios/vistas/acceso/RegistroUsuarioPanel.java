@@ -521,7 +521,9 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorBotonEnviarFormulario.setOpaque(false);
         contenedorBotonEnviarFormulario.setPreferredSize(new java.awt.Dimension(500, 90));
 
+        btnRegistrar.setBackground(new java.awt.Color(30, 166, 177));
         btnRegistrar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrarme");
         btnRegistrar.setToolTipText("");
         btnRegistrar.setMargin(new java.awt.Insets(6, 12, 6, 12));

@@ -117,7 +117,9 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         contenedorBotonEnviarFormulario.setOpaque(false);
         contenedorBotonEnviarFormulario.setPreferredSize(new java.awt.Dimension(500, 90));
 
+        btnIngresar.setBackground(new java.awt.Color(30, 166, 177));
         btnIngresar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("Ingresar");
         btnIngresar.setToolTipText("");
         btnIngresar.setMargin(new java.awt.Insets(6, 12, 6, 12));

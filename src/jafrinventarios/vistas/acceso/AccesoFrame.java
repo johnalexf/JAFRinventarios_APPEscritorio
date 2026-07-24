@@ -143,7 +143,9 @@ public class AccesoFrame extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         invitacionInicioSesionPanel.add(subtituloInvitacionInicio, gridBagConstraints);
 
+        invitacionIniciarSesionBtn.setBackground(new java.awt.Color(30, 166, 177));
         invitacionIniciarSesionBtn.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        invitacionIniciarSesionBtn.setForeground(new java.awt.Color(255, 255, 255));
         invitacionIniciarSesionBtn.setText("Inicia Sesión");
         invitacionIniciarSesionBtn.setMargin(new java.awt.Insets(6, 12, 6, 12));
         invitacionIniciarSesionBtn.setMaximumSize(new java.awt.Dimension(200, 40));
@@ -201,7 +203,9 @@ public class AccesoFrame extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         invitacionRegistroPanel.add(subtituloInvitacionRegistrate, gridBagConstraints);
 
+        invitacionRegistrateBtn.setBackground(new java.awt.Color(30, 166, 177));
         invitacionRegistrateBtn.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        invitacionRegistrateBtn.setForeground(new java.awt.Color(255, 255, 255));
         invitacionRegistrateBtn.setText("Registrate");
         invitacionRegistrateBtn.setToolTipText("");
         invitacionRegistrateBtn.setMargin(new java.awt.Insets(6, 12, 6, 12));
