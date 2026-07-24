@@ -181,12 +181,14 @@ public class AccesoFrame extends javax.swing.JFrame {
         contenedorRegistroUsuario.setPreferredSize(new java.awt.Dimension(0, 0));
         contenedorRegistroUsuario.setLayout(new java.awt.GridBagLayout());
 
+        panelDinamicoRegistro.setMaximumSize(new java.awt.Dimension(2147483647, 850));
         panelDinamicoRegistro.setMinimumSize(new java.awt.Dimension(500, 700));
         panelDinamicoRegistro.setOpaque(false);
-        panelDinamicoRegistro.setPreferredSize(new java.awt.Dimension(500, 700));
+        panelDinamicoRegistro.setPreferredSize(new java.awt.Dimension(500, 850));
         panelDinamicoRegistro.setLayout(new java.awt.CardLayout());
 
         invitacionRegistroPanel.setBackground(new java.awt.Color(217, 217, 217));
+        invitacionRegistroPanel.setMaximumSize(new java.awt.Dimension(2147483647, 850));
         invitacionRegistroPanel.setMinimumSize(new java.awt.Dimension(0, 0));
         invitacionRegistroPanel.setName(""); // NOI18N
         invitacionRegistroPanel.setLayout(new java.awt.GridBagLayout());
@@ -219,13 +221,14 @@ public class AccesoFrame extends javax.swing.JFrame {
 
         panelDinamicoRegistro.add(invitacionRegistroPanel, "vistaInvitacionRegistro");
 
+        contenedorRegistroUsuarioPanel.setMaximumSize(new java.awt.Dimension(32767, 850));
         contenedorRegistroUsuarioPanel.setLayout(new javax.swing.BoxLayout(contenedorRegistroUsuarioPanel, javax.swing.BoxLayout.LINE_AXIS));
         contenedorRegistroUsuarioPanel.add(registroUsuarioPanel);
 
         panelDinamicoRegistro.add(contenedorRegistroUsuarioPanel, "vistaFormularioRegistro");
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;

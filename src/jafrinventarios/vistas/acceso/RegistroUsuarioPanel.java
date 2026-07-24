@@ -77,7 +77,9 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         btnRegistrar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(205, 205, 205));
+        setMaximumSize(new java.awt.Dimension(32767, 850));
         setMinimumSize(new java.awt.Dimension(500, 700));
+        setPreferredSize(new java.awt.Dimension(502, 850));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         panelPrincipalScrolleable.setBackground(new java.awt.Color(205, 205, 205));
@@ -100,7 +102,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         contenedorFormulario.add(contenedorTituloFormulario, java.awt.BorderLayout.PAGE_START);
 
-        contenedorCuerpoFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 20));
+        contenedorCuerpoFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 50, 0, 50));
         contenedorCuerpoFormulario.setOpaque(false);
         java.awt.GridBagLayout contenedorCuerpoFormularioLayout = new java.awt.GridBagLayout();
         contenedorCuerpoFormularioLayout.columnWeights = new double[] {1.0};
