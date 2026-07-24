@@ -5,6 +5,7 @@
  */
 package jafrinventarios;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import jafrinventarios.vistas.acceso.AccesoFrame;
 
 /**
@@ -18,9 +19,22 @@ public class JAFRinventarios {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        AccesoFrame vistaInicial = new AccesoFrame();
         
-        vistaInicial.setVisible(true);
+        // Activar FlatLaf (esto cambia el motor gráfico globalmente)
+        FlatLightLaf.setup();
+        
+        // Le pasamos la tarea de crear la ventana al "trabajador exclusivo" de la interfaz (EDT), quitandoselo al main de esta clase
+        // Si dejamos que el programa principal intente dibujarla directamente, 
+        // chocarían haciendo el mismo trabajo y la pantalla se podría congelar.
+        java.awt.EventQueue.invokeLater(() -> {
+
+            AccesoFrame vistaInicial = new AccesoFrame();
+
+            vistaInicial.setVisible(true);
+
+        });
+        
+       
     }
     
 }
