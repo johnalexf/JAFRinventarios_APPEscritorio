@@ -26,23 +26,572 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        panelPrincipalScrolleable = new javax.swing.JScrollPane();
+        contenedorFormulario = new javax.swing.JPanel();
+        contenedorTituloFormulario = new javax.swing.JPanel();
+        tituloFormulario = new javax.swing.JLabel();
+        contenedorCuerpoFormulario = new javax.swing.JPanel();
+        contenedorComboBox = new javax.swing.JPanel();
+        comboBoxRolUsuario = new javax.swing.JComboBox<>();
+        contenedorNombreCompleto = new javax.swing.JPanel();
+        contenedorTituloNombreCompleto = new javax.swing.JPanel();
+        subtituloNombreCompleto = new javax.swing.JLabel();
+        contenedorEntradasNombreCompleto = new javax.swing.JPanel();
+        labelPrimerNombre = new javax.swing.JLabel();
+        inputPrimerNombre = new javax.swing.JTextField();
+        labelSegundoNombre = new javax.swing.JLabel();
+        inputSegundoNombre = new javax.swing.JTextField();
+        labelPrimerApellido = new javax.swing.JLabel();
+        inputPrimerApellido = new javax.swing.JTextField();
+        labelSegundoApellido = new javax.swing.JLabel();
+        inputSegundoApellido = new javax.swing.JTextField();
+        contenedorDatosContacto = new javax.swing.JPanel();
+        contenedorTituloDatosContacto = new javax.swing.JPanel();
+        subtituloDatosContacto = new javax.swing.JLabel();
+        contenedorEntradasDatosContacto = new javax.swing.JPanel();
+        labelTelefono = new javax.swing.JLabel();
+        inputTelefono = new javax.swing.JTextField();
+        labelCorreo = new javax.swing.JLabel();
+        inputCorreo = new javax.swing.JTextField();
+        contenedorCredenciales = new javax.swing.JPanel();
+        contenedorTituloCredenciales = new javax.swing.JPanel();
+        subtituloCredenciales = new javax.swing.JLabel();
+        contenedorEntradasCredenciales = new javax.swing.JPanel();
+        labelAlias = new javax.swing.JLabel();
+        inputAlias = new javax.swing.JTextField();
+        labelContrasena = new javax.swing.JLabel();
+        inputContrasena = new javax.swing.JTextField();
+        labelConfirmarContrasena = new javax.swing.JLabel();
+        inputConfirmarContrasena = new javax.swing.JTextField();
+        labelCodigo = new javax.swing.JLabel();
+        inputCodigo = new javax.swing.JTextField();
+        contenedorDatosEmpresa = new javax.swing.JPanel();
+        contenedorTituloDatosEmpresa = new javax.swing.JPanel();
+        subtituloDatosEmpresa = new javax.swing.JLabel();
+        contenedorEntradasDatosEmpresa = new javax.swing.JPanel();
+        labelNombreComercial = new javax.swing.JLabel();
+        inputNombreComercial = new javax.swing.JTextField();
+        contenedorBotonEnviarFormulario = new javax.swing.JPanel();
+        btnRegistrar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(205, 205, 205));
         setMinimumSize(new java.awt.Dimension(500, 700));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
-        );
+        panelPrincipalScrolleable.setBackground(new java.awt.Color(205, 205, 205));
+        panelPrincipalScrolleable.setOpaque(false);
+
+        contenedorFormulario.setBackground(new java.awt.Color(205, 205, 205));
+        contenedorFormulario.setLayout(new java.awt.BorderLayout());
+
+        contenedorTituloFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1));
+        contenedorTituloFormulario.setMinimumSize(new java.awt.Dimension(500, 65));
+        contenedorTituloFormulario.setOpaque(false);
+        contenedorTituloFormulario.setPreferredSize(new java.awt.Dimension(500, 65));
+
+        tituloFormulario.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        tituloFormulario.setForeground(new java.awt.Color(17, 35, 85));
+        tituloFormulario.setText("Registrarse");
+        tituloFormulario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        tituloFormulario.setVerifyInputWhenFocusTarget(false);
+        contenedorTituloFormulario.add(tituloFormulario);
+
+        contenedorFormulario.add(contenedorTituloFormulario, java.awt.BorderLayout.PAGE_START);
+
+        contenedorCuerpoFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 20));
+        contenedorCuerpoFormulario.setOpaque(false);
+        java.awt.GridBagLayout contenedorCuerpoFormularioLayout = new java.awt.GridBagLayout();
+        contenedorCuerpoFormularioLayout.columnWeights = new double[] {1.0};
+        contenedorCuerpoFormularioLayout.rowWeights = new double[] {0.0, 0.0, 0.0, 0.0};
+        contenedorCuerpoFormulario.setLayout(contenedorCuerpoFormularioLayout);
+
+        contenedorComboBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 1, 1));
+        contenedorComboBox.setOpaque(false);
+
+        comboBoxRolUsuario.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        comboBoxRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tipo Usuario", "Administrador", "Vendedor" }));
+        comboBoxRolUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 11, 0, 11));
+        comboBoxRolUsuario.setMinimumSize(new java.awt.Dimension(230, 27));
+        comboBoxRolUsuario.setPreferredSize(new java.awt.Dimension(230, 27));
+        contenedorComboBox.add(comboBoxRolUsuario);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        contenedorCuerpoFormulario.add(contenedorComboBox, gridBagConstraints);
+
+        contenedorNombreCompleto.setOpaque(false);
+        contenedorNombreCompleto.setLayout(new javax.swing.BoxLayout(contenedorNombreCompleto, javax.swing.BoxLayout.Y_AXIS));
+
+        contenedorTituloNombreCompleto.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(5, 10, -5, 0)));
+        contenedorTituloNombreCompleto.setOpaque(false);
+        contenedorTituloNombreCompleto.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        subtituloNombreCompleto.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        subtituloNombreCompleto.setText("Nombre Completo");
+        subtituloNombreCompleto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        subtituloNombreCompleto.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        contenedorTituloNombreCompleto.add(subtituloNombreCompleto);
+
+        contenedorNombreCompleto.add(contenedorTituloNombreCompleto);
+
+        contenedorEntradasNombreCompleto.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        contenedorEntradasNombreCompleto.setOpaque(false);
+        contenedorEntradasNombreCompleto.setLayout(new java.awt.GridBagLayout());
+
+        labelPrimerNombre.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelPrimerNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelPrimerNombre.setText("Primer Nombre :");
+        labelPrimerNombre.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelPrimerNombre.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelPrimerNombre.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelPrimerNombre.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
+        contenedorEntradasNombreCompleto.add(labelPrimerNombre, gridBagConstraints);
+
+        inputPrimerNombre.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputPrimerNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        contenedorEntradasNombreCompleto.add(inputPrimerNombre, gridBagConstraints);
+
+        labelSegundoNombre.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelSegundoNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelSegundoNombre.setText("Segundo Nombre :");
+        labelSegundoNombre.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelSegundoNombre.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelSegundoNombre.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelSegundoNombre.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
+        contenedorEntradasNombreCompleto.add(labelSegundoNombre, gridBagConstraints);
+
+        inputSegundoNombre.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputSegundoNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        contenedorEntradasNombreCompleto.add(inputSegundoNombre, gridBagConstraints);
+
+        labelPrimerApellido.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelPrimerApellido.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelPrimerApellido.setText("Primer Apellido :");
+        labelPrimerApellido.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelPrimerApellido.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelPrimerApellido.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelPrimerApellido.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
+        contenedorEntradasNombreCompleto.add(labelPrimerApellido, gridBagConstraints);
+
+        inputPrimerApellido.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputPrimerApellido.setToolTipText("");
+        inputPrimerApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        contenedorEntradasNombreCompleto.add(inputPrimerApellido, gridBagConstraints);
+
+        labelSegundoApellido.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelSegundoApellido.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelSegundoApellido.setText("Segundo Apellido :");
+        labelSegundoApellido.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelSegundoApellido.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelSegundoApellido.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelSegundoApellido.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        contenedorEntradasNombreCompleto.add(labelSegundoApellido, gridBagConstraints);
+
+        inputSegundoApellido.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputSegundoApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        contenedorEntradasNombreCompleto.add(inputSegundoApellido, gridBagConstraints);
+
+        contenedorNombreCompleto.add(contenedorEntradasNombreCompleto);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        contenedorCuerpoFormulario.add(contenedorNombreCompleto, gridBagConstraints);
+
+        contenedorDatosContacto.setOpaque(false);
+        contenedorDatosContacto.setLayout(new javax.swing.BoxLayout(contenedorDatosContacto, javax.swing.BoxLayout.Y_AXIS));
+
+        contenedorTituloDatosContacto.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(5, 10, -5, 0)));
+        contenedorTituloDatosContacto.setOpaque(false);
+        contenedorTituloDatosContacto.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        subtituloDatosContacto.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        subtituloDatosContacto.setText("Datos de contacto");
+        subtituloDatosContacto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        subtituloDatosContacto.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        contenedorTituloDatosContacto.add(subtituloDatosContacto);
+
+        contenedorDatosContacto.add(contenedorTituloDatosContacto);
+
+        contenedorEntradasDatosContacto.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        contenedorEntradasDatosContacto.setOpaque(false);
+        contenedorEntradasDatosContacto.setLayout(new java.awt.GridBagLayout());
+
+        labelTelefono.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelTelefono.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelTelefono.setText("Telefono :");
+        labelTelefono.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelTelefono.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelTelefono.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelTelefono.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
+        contenedorEntradasDatosContacto.add(labelTelefono, gridBagConstraints);
+
+        inputTelefono.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputTelefono.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        contenedorEntradasDatosContacto.add(inputTelefono, gridBagConstraints);
+
+        labelCorreo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelCorreo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelCorreo.setText("Correo :");
+        labelCorreo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelCorreo.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelCorreo.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelCorreo.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        contenedorEntradasDatosContacto.add(labelCorreo, gridBagConstraints);
+
+        inputCorreo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputCorreo.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        contenedorEntradasDatosContacto.add(inputCorreo, gridBagConstraints);
+
+        contenedorDatosContacto.add(contenedorEntradasDatosContacto);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        contenedorCuerpoFormulario.add(contenedorDatosContacto, gridBagConstraints);
+
+        contenedorCredenciales.setOpaque(false);
+        contenedorCredenciales.setLayout(new javax.swing.BoxLayout(contenedorCredenciales, javax.swing.BoxLayout.Y_AXIS));
+
+        contenedorTituloCredenciales.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(5, 10, -5, 0)));
+        contenedorTituloCredenciales.setOpaque(false);
+        contenedorTituloCredenciales.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        subtituloCredenciales.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        subtituloCredenciales.setText("Credenciales de Acceso");
+        subtituloCredenciales.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        subtituloCredenciales.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        contenedorTituloCredenciales.add(subtituloCredenciales);
+
+        contenedorCredenciales.add(contenedorTituloCredenciales);
+
+        contenedorEntradasCredenciales.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        contenedorEntradasCredenciales.setOpaque(false);
+        contenedorEntradasCredenciales.setLayout(new java.awt.GridBagLayout());
+
+        labelAlias.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelAlias.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelAlias.setText("Alias :");
+        labelAlias.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelAlias.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelAlias.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelAlias.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
+        contenedorEntradasCredenciales.add(labelAlias, gridBagConstraints);
+
+        inputAlias.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputAlias.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        contenedorEntradasCredenciales.add(inputAlias, gridBagConstraints);
+
+        labelContrasena.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelContrasena.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelContrasena.setText("Contraseña :");
+        labelContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelContrasena.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelContrasena.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
+        contenedorEntradasCredenciales.add(labelContrasena, gridBagConstraints);
+
+        inputContrasena.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        contenedorEntradasCredenciales.add(inputContrasena, gridBagConstraints);
+
+        labelConfirmarContrasena.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelConfirmarContrasena.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelConfirmarContrasena.setText("Confirmar Contraseña :");
+        labelConfirmarContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelConfirmarContrasena.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelConfirmarContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
+        contenedorEntradasCredenciales.add(labelConfirmarContrasena, gridBagConstraints);
+
+        inputConfirmarContrasena.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputConfirmarContrasena.setToolTipText("");
+        inputConfirmarContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        contenedorEntradasCredenciales.add(inputConfirmarContrasena, gridBagConstraints);
+
+        labelCodigo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelCodigo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelCodigo.setText("Código de acceso :");
+        labelCodigo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelCodigo.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelCodigo.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelCodigo.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        contenedorEntradasCredenciales.add(labelCodigo, gridBagConstraints);
+
+        inputCodigo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        contenedorEntradasCredenciales.add(inputCodigo, gridBagConstraints);
+
+        contenedorCredenciales.add(contenedorEntradasCredenciales);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        contenedorCuerpoFormulario.add(contenedorCredenciales, gridBagConstraints);
+
+        contenedorDatosEmpresa.setOpaque(false);
+        contenedorDatosEmpresa.setLayout(new javax.swing.BoxLayout(contenedorDatosEmpresa, javax.swing.BoxLayout.Y_AXIS));
+
+        contenedorTituloDatosEmpresa.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(5, 10, -5, 0)));
+        contenedorTituloDatosEmpresa.setOpaque(false);
+        contenedorTituloDatosEmpresa.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        subtituloDatosEmpresa.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        subtituloDatosEmpresa.setText("Datos de la empresa");
+        subtituloDatosEmpresa.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        subtituloDatosEmpresa.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        contenedorTituloDatosEmpresa.add(subtituloDatosEmpresa);
+
+        contenedorDatosEmpresa.add(contenedorTituloDatosEmpresa);
+
+        contenedorEntradasDatosEmpresa.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        contenedorEntradasDatosEmpresa.setOpaque(false);
+        contenedorEntradasDatosEmpresa.setLayout(new java.awt.GridBagLayout());
+
+        labelNombreComercial.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelNombreComercial.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelNombreComercial.setText("Nombre comercial :");
+        labelNombreComercial.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        labelNombreComercial.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelNombreComercial.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelNombreComercial.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        contenedorEntradasDatosEmpresa.add(labelNombreComercial, gridBagConstraints);
+
+        inputNombreComercial.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputNombreComercial.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        contenedorEntradasDatosEmpresa.add(inputNombreComercial, gridBagConstraints);
+
+        contenedorDatosEmpresa.add(contenedorEntradasDatosEmpresa);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        contenedorCuerpoFormulario.add(contenedorDatosEmpresa, gridBagConstraints);
+
+        contenedorFormulario.add(contenedorCuerpoFormulario, java.awt.BorderLayout.CENTER);
+
+        contenedorBotonEnviarFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        contenedorBotonEnviarFormulario.setOpaque(false);
+        contenedorBotonEnviarFormulario.setPreferredSize(new java.awt.Dimension(500, 90));
+
+        btnRegistrar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        btnRegistrar.setText("Registrarme");
+        btnRegistrar.setToolTipText("");
+        btnRegistrar.setMargin(new java.awt.Insets(6, 12, 6, 12));
+        btnRegistrar.setMaximumSize(new java.awt.Dimension(200, 40));
+        btnRegistrar.setMinimumSize(new java.awt.Dimension(200, 40));
+        btnRegistrar.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        contenedorBotonEnviarFormulario.add(btnRegistrar);
+
+        contenedorFormulario.add(contenedorBotonEnviarFormulario, java.awt.BorderLayout.PAGE_END);
+
+        panelPrincipalScrolleable.setViewportView(contenedorFormulario);
+
+        add(panelPrincipalScrolleable);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<String> comboBoxRolUsuario;
+    private javax.swing.JPanel contenedorBotonEnviarFormulario;
+    private javax.swing.JPanel contenedorComboBox;
+    private javax.swing.JPanel contenedorCredenciales;
+    private javax.swing.JPanel contenedorCuerpoFormulario;
+    private javax.swing.JPanel contenedorDatosContacto;
+    private javax.swing.JPanel contenedorDatosEmpresa;
+    private javax.swing.JPanel contenedorEntradasCredenciales;
+    private javax.swing.JPanel contenedorEntradasDatosContacto;
+    private javax.swing.JPanel contenedorEntradasDatosEmpresa;
+    private javax.swing.JPanel contenedorEntradasNombreCompleto;
+    private javax.swing.JPanel contenedorFormulario;
+    private javax.swing.JPanel contenedorNombreCompleto;
+    private javax.swing.JPanel contenedorTituloCredenciales;
+    private javax.swing.JPanel contenedorTituloDatosContacto;
+    private javax.swing.JPanel contenedorTituloDatosEmpresa;
+    private javax.swing.JPanel contenedorTituloFormulario;
+    private javax.swing.JPanel contenedorTituloNombreCompleto;
+    private javax.swing.JTextField inputAlias;
+    private javax.swing.JTextField inputCodigo;
+    private javax.swing.JTextField inputConfirmarContrasena;
+    private javax.swing.JTextField inputContrasena;
+    private javax.swing.JTextField inputCorreo;
+    private javax.swing.JTextField inputNombreComercial;
+    private javax.swing.JTextField inputPrimerApellido;
+    private javax.swing.JTextField inputPrimerNombre;
+    private javax.swing.JTextField inputSegundoApellido;
+    private javax.swing.JTextField inputSegundoNombre;
+    private javax.swing.JTextField inputTelefono;
+    private javax.swing.JLabel labelAlias;
+    private javax.swing.JLabel labelCodigo;
+    private javax.swing.JLabel labelConfirmarContrasena;
+    private javax.swing.JLabel labelContrasena;
+    private javax.swing.JLabel labelCorreo;
+    private javax.swing.JLabel labelNombreComercial;
+    private javax.swing.JLabel labelPrimerApellido;
+    private javax.swing.JLabel labelPrimerNombre;
+    private javax.swing.JLabel labelSegundoApellido;
+    private javax.swing.JLabel labelSegundoNombre;
+    private javax.swing.JLabel labelTelefono;
+    private javax.swing.JScrollPane panelPrincipalScrolleable;
+    private javax.swing.JLabel subtituloCredenciales;
+    private javax.swing.JLabel subtituloDatosContacto;
+    private javax.swing.JLabel subtituloDatosEmpresa;
+    private javax.swing.JLabel subtituloNombreCompleto;
+    private javax.swing.JLabel tituloFormulario;
     // End of variables declaration//GEN-END:variables
 }
