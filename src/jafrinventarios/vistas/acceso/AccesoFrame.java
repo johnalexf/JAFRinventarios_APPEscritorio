@@ -105,8 +105,10 @@ public class AccesoFrame extends javax.swing.JFrame {
         contenedorInicioSesion.setOpaque(false);
         contenedorInicioSesion.setLayout(new java.awt.GridBagLayout());
 
+        panelDinamicoInicioSesion.setMaximumSize(new java.awt.Dimension(2147483647, 380));
+        panelDinamicoInicioSesion.setMinimumSize(new java.awt.Dimension(500, 380));
         panelDinamicoInicioSesion.setOpaque(false);
-        panelDinamicoInicioSesion.setPreferredSize(new java.awt.Dimension(500, 420));
+        panelDinamicoInicioSesion.setPreferredSize(new java.awt.Dimension(500, 380));
         panelDinamicoInicioSesion.setLayout(new java.awt.CardLayout());
 
         contenedorInicioSesionPanel.setLayout(new javax.swing.BoxLayout(contenedorInicioSesionPanel, javax.swing.BoxLayout.LINE_AXIS));
