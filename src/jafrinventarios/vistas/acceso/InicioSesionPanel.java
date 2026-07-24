@@ -40,16 +40,17 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         btnIngresar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(205, 205, 205));
-        setMaximumSize(new java.awt.Dimension(32767, 380));
-        setMinimumSize(new java.awt.Dimension(400, 380));
-        setPreferredSize(new java.awt.Dimension(400, 380));
+        setMaximumSize(new java.awt.Dimension(32767, 400));
+        setMinimumSize(new java.awt.Dimension(380, 400));
+        setPreferredSize(new java.awt.Dimension(380, 400));
         setRequestFocusEnabled(false);
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
-        contenedorTituloFormulario.setMaximumSize(new java.awt.Dimension(2147483647, 65));
-        contenedorTituloFormulario.setMinimumSize(new java.awt.Dimension(500, 65));
+        contenedorTituloFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 1, 1));
+        contenedorTituloFormulario.setMaximumSize(new java.awt.Dimension(2147483647, 70));
+        contenedorTituloFormulario.setMinimumSize(new java.awt.Dimension(500, 70));
         contenedorTituloFormulario.setOpaque(false);
-        contenedorTituloFormulario.setPreferredSize(new java.awt.Dimension(500, 65));
+        contenedorTituloFormulario.setPreferredSize(new java.awt.Dimension(500, 90));
         contenedorTituloFormulario.setLayout(new java.awt.BorderLayout());
 
         tituloFormulario.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
@@ -57,7 +58,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         tituloFormulario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloFormulario.setText("Iniciar sesión");
         tituloFormulario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        contenedorTituloFormulario.add(tituloFormulario, java.awt.BorderLayout.SOUTH);
+        contenedorTituloFormulario.add(tituloFormulario, java.awt.BorderLayout.CENTER);
 
         add(contenedorTituloFormulario);
 
