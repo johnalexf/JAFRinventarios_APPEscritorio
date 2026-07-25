@@ -161,6 +161,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         inputPrimerNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputPrimerNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputPrimerNombre.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -188,6 +189,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         inputSegundoNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputSegundoNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputSegundoNombre.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -215,6 +217,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         inputPrimerApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputPrimerApellido.setToolTipText("");
         inputPrimerApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputPrimerApellido.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -241,6 +244,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         inputSegundoApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputSegundoApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputSegundoApellido.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -292,6 +296,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         inputTelefono.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputTelefono.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputTelefono.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -319,6 +324,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         inputCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCorreo.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputCorreo.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -370,6 +376,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         inputAlias.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputAlias.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputAlias.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -397,6 +404,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         inputContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputContrasena.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -424,6 +432,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         inputConfirmarContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputConfirmarContrasena.setToolTipText("");
         inputConfirmarContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -450,6 +459,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         inputCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputCodigo.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -501,6 +511,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         inputNombreComercial.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputNombreComercial.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputNombreComercial.setPreferredSize(new java.awt.Dimension(0, 31));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
