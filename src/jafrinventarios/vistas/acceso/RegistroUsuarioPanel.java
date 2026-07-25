@@ -110,13 +110,13 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorCuerpoFormulario.setLayout(contenedorCuerpoFormularioLayout);
 
         contenedorComboBox.setBackground(new java.awt.Color(205, 205, 205));
-        contenedorComboBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 1, 1));
+        contenedorComboBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
         contenedorComboBox.setOpaque(false);
 
-        comboBoxRolUsuario.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        comboBoxRolUsuario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         comboBoxRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tipo Usuario", "Administrador", "Vendedor" }));
         comboBoxRolUsuario.setMinimumSize(new java.awt.Dimension(230, 27));
-        comboBoxRolUsuario.setPreferredSize(new java.awt.Dimension(230, 27));
+        comboBoxRolUsuario.setPreferredSize(new java.awt.Dimension(230, 31));
         contenedorComboBox.add(comboBoxRolUsuario);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -131,7 +131,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorTituloNombreCompleto.setOpaque(false);
         contenedorTituloNombreCompleto.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        subtituloNombreCompleto.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        subtituloNombreCompleto.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         subtituloNombreCompleto.setText("Nombre Completo");
         subtituloNombreCompleto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         subtituloNombreCompleto.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
@@ -143,7 +143,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasNombreCompleto.setOpaque(false);
         contenedorEntradasNombreCompleto.setLayout(new java.awt.GridBagLayout());
 
-        labelPrimerNombre.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelPrimerNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelPrimerNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelPrimerNombre.setText("Primer Nombre :");
         labelPrimerNombre.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -159,7 +159,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasNombreCompleto.add(labelPrimerNombre, gridBagConstraints);
 
-        inputPrimerNombre.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputPrimerNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputPrimerNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -170,7 +170,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         contenedorEntradasNombreCompleto.add(inputPrimerNombre, gridBagConstraints);
 
-        labelSegundoNombre.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelSegundoNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelSegundoNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelSegundoNombre.setText("Segundo Nombre :");
         labelSegundoNombre.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -186,7 +186,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasNombreCompleto.add(labelSegundoNombre, gridBagConstraints);
 
-        inputSegundoNombre.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputSegundoNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputSegundoNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -196,7 +196,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         contenedorEntradasNombreCompleto.add(inputSegundoNombre, gridBagConstraints);
 
-        labelPrimerApellido.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelPrimerApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelPrimerApellido.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelPrimerApellido.setText("Primer Apellido :");
         labelPrimerApellido.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -212,7 +212,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasNombreCompleto.add(labelPrimerApellido, gridBagConstraints);
 
-        inputPrimerApellido.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputPrimerApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputPrimerApellido.setToolTipText("");
         inputPrimerApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -223,7 +223,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         contenedorEntradasNombreCompleto.add(inputPrimerApellido, gridBagConstraints);
 
-        labelSegundoApellido.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelSegundoApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelSegundoApellido.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelSegundoApellido.setText("Segundo Apellido :");
         labelSegundoApellido.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -239,7 +239,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorEntradasNombreCompleto.add(labelSegundoApellido, gridBagConstraints);
 
-        inputSegundoApellido.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputSegundoApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputSegundoApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -262,7 +262,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorTituloDatosContacto.setOpaque(false);
         contenedorTituloDatosContacto.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        subtituloDatosContacto.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        subtituloDatosContacto.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         subtituloDatosContacto.setText("Datos de contacto");
         subtituloDatosContacto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         subtituloDatosContacto.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
@@ -274,7 +274,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasDatosContacto.setOpaque(false);
         contenedorEntradasDatosContacto.setLayout(new java.awt.GridBagLayout());
 
-        labelTelefono.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelTelefono.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelTelefono.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelTelefono.setText("Telefono :");
         labelTelefono.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -290,7 +290,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasDatosContacto.add(labelTelefono, gridBagConstraints);
 
-        inputTelefono.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputTelefono.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputTelefono.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -301,7 +301,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         contenedorEntradasDatosContacto.add(inputTelefono, gridBagConstraints);
 
-        labelCorreo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelCorreo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelCorreo.setText("Correo :");
         labelCorreo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -317,7 +317,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorEntradasDatosContacto.add(labelCorreo, gridBagConstraints);
 
-        inputCorreo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCorreo.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -340,7 +340,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorTituloCredenciales.setOpaque(false);
         contenedorTituloCredenciales.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        subtituloCredenciales.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        subtituloCredenciales.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         subtituloCredenciales.setText("Credenciales de Acceso");
         subtituloCredenciales.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         subtituloCredenciales.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
@@ -352,7 +352,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasCredenciales.setOpaque(false);
         contenedorEntradasCredenciales.setLayout(new java.awt.GridBagLayout());
 
-        labelAlias.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelAlias.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelAlias.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelAlias.setText("Alias :");
         labelAlias.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -368,7 +368,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasCredenciales.add(labelAlias, gridBagConstraints);
 
-        inputAlias.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputAlias.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputAlias.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -379,7 +379,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         contenedorEntradasCredenciales.add(inputAlias, gridBagConstraints);
 
-        labelContrasena.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelContrasena.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelContrasena.setText("Contraseña :");
         labelContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -395,7 +395,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasCredenciales.add(labelContrasena, gridBagConstraints);
 
-        inputContrasena.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -405,7 +405,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         contenedorEntradasCredenciales.add(inputContrasena, gridBagConstraints);
 
-        labelConfirmarContrasena.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelConfirmarContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelConfirmarContrasena.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelConfirmarContrasena.setText("Confirmar Contraseña :");
         labelConfirmarContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -421,7 +421,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasCredenciales.add(labelConfirmarContrasena, gridBagConstraints);
 
-        inputConfirmarContrasena.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputConfirmarContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputConfirmarContrasena.setToolTipText("");
         inputConfirmarContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -432,7 +432,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         contenedorEntradasCredenciales.add(inputConfirmarContrasena, gridBagConstraints);
 
-        labelCodigo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelCodigo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelCodigo.setText("Código de acceso :");
         labelCodigo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -448,7 +448,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorEntradasCredenciales.add(labelCodigo, gridBagConstraints);
 
-        inputCodigo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -471,7 +471,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorTituloDatosEmpresa.setOpaque(false);
         contenedorTituloDatosEmpresa.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        subtituloDatosEmpresa.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        subtituloDatosEmpresa.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         subtituloDatosEmpresa.setText("Datos de la empresa");
         subtituloDatosEmpresa.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         subtituloDatosEmpresa.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
@@ -483,7 +483,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasDatosEmpresa.setOpaque(false);
         contenedorEntradasDatosEmpresa.setLayout(new java.awt.GridBagLayout());
 
-        labelNombreComercial.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        labelNombreComercial.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelNombreComercial.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelNombreComercial.setText("Nombre comercial :");
         labelNombreComercial.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -499,7 +499,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorEntradasDatosEmpresa.add(labelNombreComercial, gridBagConstraints);
 
-        inputNombreComercial.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        inputNombreComercial.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputNombreComercial.setMargin(new java.awt.Insets(4, 10, 4, 10));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;

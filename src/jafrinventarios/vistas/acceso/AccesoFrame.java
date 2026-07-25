@@ -144,7 +144,7 @@ public class AccesoFrame extends javax.swing.JFrame {
         invitacionInicioSesionPanel.add(subtituloInvitacionInicio, gridBagConstraints);
 
         invitacionIniciarSesionBtn.setBackground(new java.awt.Color(30, 166, 177));
-        invitacionIniciarSesionBtn.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        invitacionIniciarSesionBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         invitacionIniciarSesionBtn.setForeground(new java.awt.Color(255, 255, 255));
         invitacionIniciarSesionBtn.setText("Inicia Sesión");
         invitacionIniciarSesionBtn.setMargin(new java.awt.Insets(6, 12, 6, 12));
@@ -204,7 +204,7 @@ public class AccesoFrame extends javax.swing.JFrame {
         invitacionRegistroPanel.add(subtituloInvitacionRegistrate, gridBagConstraints);
 
         invitacionRegistrateBtn.setBackground(new java.awt.Color(30, 166, 177));
-        invitacionRegistrateBtn.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        invitacionRegistrateBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         invitacionRegistrateBtn.setForeground(new java.awt.Color(255, 255, 255));
         invitacionRegistrateBtn.setText("Registrate");
         invitacionRegistrateBtn.setToolTipText("");
