@@ -66,6 +66,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         labelConfirmarContrasena = new javax.swing.JLabel();
         inputConfirmarContrasena = new javax.swing.JTextField();
         labelCodigo = new javax.swing.JLabel();
+        contenedorInputCodigo = new javax.swing.JPanel();
+        btnAyudaCodigo = new javax.swing.JButton();
         inputCodigo = new javax.swing.JTextField();
         contenedorDatosEmpresa = new javax.swing.JPanel();
         contenedorTituloDatosEmpresa = new javax.swing.JPanel();
@@ -457,15 +459,42 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorEntradasCredenciales.add(labelCodigo, gridBagConstraints);
 
+        contenedorInputCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorInputCodigo.setMaximumSize(new java.awt.Dimension(0, 0));
+        contenedorInputCodigo.setOpaque(false);
+        contenedorInputCodigo.setPreferredSize(new java.awt.Dimension(0, 31));
+        contenedorInputCodigo.setLayout(new javax.swing.OverlayLayout(contenedorInputCodigo));
+
+        btnAyudaCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        btnAyudaCodigo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnAyudaCodigo.setForeground(new java.awt.Color(17, 35, 85));
+        btnAyudaCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/icono_fluent--chat-help-24-filled.png"))); // NOI18N
+        btnAyudaCodigo.setToolTipText("");
+        btnAyudaCodigo.setAlignmentX(1.0F);
+        btnAyudaCodigo.setBorderPainted(false);
+        btnAyudaCodigo.setFocusCycleRoot(true);
+        btnAyudaCodigo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAyudaCodigo.setIconTextGap(0);
+        btnAyudaCodigo.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnAyudaCodigo.setMaximumSize(new java.awt.Dimension(30, 26));
+        btnAyudaCodigo.setMinimumSize(new java.awt.Dimension(30, 26));
+        btnAyudaCodigo.setPreferredSize(new java.awt.Dimension(30, 26));
+        contenedorInputCodigo.add(btnAyudaCodigo);
+
         inputCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputCodigo.setMinimumSize(new java.awt.Dimension(0, 31));
         inputCodigo.setPreferredSize(new java.awt.Dimension(0, 31));
+        contenedorInputCodigo.add(inputCodigo);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
-        contenedorEntradasCredenciales.add(inputCodigo, gridBagConstraints);
+        contenedorEntradasCredenciales.add(contenedorInputCodigo, gridBagConstraints);
 
         contenedorCredenciales.add(contenedorEntradasCredenciales);
 
@@ -561,6 +590,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAyudaCodigo;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> comboBoxRolUsuario;
     private javax.swing.JPanel contenedorBotonEnviarFormulario;
@@ -574,6 +604,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private javax.swing.JPanel contenedorEntradasDatosEmpresa;
     private javax.swing.JPanel contenedorEntradasNombreCompleto;
     private javax.swing.JPanel contenedorFormulario;
+    private javax.swing.JPanel contenedorInputCodigo;
     private javax.swing.JPanel contenedorNombreCompleto;
     private javax.swing.JPanel contenedorTituloCredenciales;
     private javax.swing.JPanel contenedorTituloDatosContacto;
