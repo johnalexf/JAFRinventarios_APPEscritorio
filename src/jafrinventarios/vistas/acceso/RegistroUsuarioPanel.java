@@ -10,12 +10,17 @@ package jafrinventarios.vistas.acceso;
  * @author JOHN FORERO
  */
 public class RegistroUsuarioPanel extends javax.swing.JPanel {
+    
+    //TO-DO: Estos indices despues se tienen que acceder a la base de datos para obtenerlos
+    private int indiceRolAdministrador = 1;
+    private int indiceRolVendedor = 2;
 
     /**
      * Creates new form RegistroUsuarioPanel
      */
     public RegistroUsuarioPanel() {
         initComponents();
+        mostrarContenedorDatosEmpresa(false);
     }
 
     /**
@@ -91,16 +96,18 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorFormulario.setLayout(new java.awt.BorderLayout());
 
         contenedorTituloFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1));
-        contenedorTituloFormulario.setMinimumSize(new java.awt.Dimension(500, 65));
+        contenedorTituloFormulario.setMinimumSize(new java.awt.Dimension(500, 80));
         contenedorTituloFormulario.setOpaque(false);
-        contenedorTituloFormulario.setPreferredSize(new java.awt.Dimension(500, 65));
+        contenedorTituloFormulario.setPreferredSize(new java.awt.Dimension(500, 80));
+        contenedorTituloFormulario.setLayout(new java.awt.BorderLayout());
 
         tituloFormulario.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         tituloFormulario.setForeground(new java.awt.Color(17, 35, 85));
+        tituloFormulario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloFormulario.setText("Registrarse");
         tituloFormulario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tituloFormulario.setVerifyInputWhenFocusTarget(false);
-        contenedorTituloFormulario.add(tituloFormulario);
+        contenedorTituloFormulario.add(tituloFormulario, java.awt.BorderLayout.PAGE_END);
 
         contenedorFormulario.add(contenedorTituloFormulario, java.awt.BorderLayout.PAGE_START);
 
@@ -119,6 +126,11 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         comboBoxRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tipo Usuario", "Administrador", "Vendedor" }));
         comboBoxRolUsuario.setMinimumSize(new java.awt.Dimension(230, 27));
         comboBoxRolUsuario.setPreferredSize(new java.awt.Dimension(230, 31));
+        comboBoxRolUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxRolUsuarioActionPerformed(evt);
+            }
+        });
         contenedorComboBox.add(comboBoxRolUsuario);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -161,6 +173,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasNombreCompleto.add(labelPrimerNombre, gridBagConstraints);
 
+        inputPrimerNombre.setEditable(false);
         inputPrimerNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputPrimerNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputPrimerNombre.setPreferredSize(new java.awt.Dimension(0, 31));
@@ -189,6 +202,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasNombreCompleto.add(labelSegundoNombre, gridBagConstraints);
 
+        inputSegundoNombre.setEditable(false);
         inputSegundoNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputSegundoNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputSegundoNombre.setPreferredSize(new java.awt.Dimension(0, 31));
@@ -216,6 +230,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasNombreCompleto.add(labelPrimerApellido, gridBagConstraints);
 
+        inputPrimerApellido.setEditable(false);
         inputPrimerApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputPrimerApellido.setToolTipText("");
         inputPrimerApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
@@ -244,6 +259,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorEntradasNombreCompleto.add(labelSegundoApellido, gridBagConstraints);
 
+        inputSegundoApellido.setEditable(false);
         inputSegundoApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputSegundoApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputSegundoApellido.setPreferredSize(new java.awt.Dimension(0, 31));
@@ -296,6 +312,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasDatosContacto.add(labelTelefono, gridBagConstraints);
 
+        inputTelefono.setEditable(false);
         inputTelefono.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputTelefono.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputTelefono.setPreferredSize(new java.awt.Dimension(0, 31));
@@ -324,6 +341,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorEntradasDatosContacto.add(labelCorreo, gridBagConstraints);
 
+        inputCorreo.setEditable(false);
         inputCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCorreo.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputCorreo.setPreferredSize(new java.awt.Dimension(0, 31));
@@ -376,6 +394,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasCredenciales.add(labelAlias, gridBagConstraints);
 
+        inputAlias.setEditable(false);
         inputAlias.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputAlias.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputAlias.setPreferredSize(new java.awt.Dimension(0, 31));
@@ -404,6 +423,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasCredenciales.add(labelContrasena, gridBagConstraints);
 
+        inputContrasena.setEditable(false);
         inputContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputContrasena.setPreferredSize(new java.awt.Dimension(0, 31));
@@ -431,6 +451,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         contenedorEntradasCredenciales.add(labelConfirmarContrasena, gridBagConstraints);
 
+        inputConfirmarContrasena.setEditable(false);
         inputConfirmarContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputConfirmarContrasena.setToolTipText("");
         inputConfirmarContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
@@ -472,6 +493,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         btnAyudaCodigo.setToolTipText("");
         btnAyudaCodigo.setAlignmentX(1.0F);
         btnAyudaCodigo.setBorderPainted(false);
+        btnAyudaCodigo.setEnabled(false);
         btnAyudaCodigo.setFocusCycleRoot(true);
         btnAyudaCodigo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAyudaCodigo.setIconTextGap(0);
@@ -481,6 +503,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         btnAyudaCodigo.setPreferredSize(new java.awt.Dimension(30, 26));
         contenedorInputCodigo.add(btnAyudaCodigo);
 
+        inputCodigo.setEditable(false);
         inputCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputCodigo.setMinimumSize(new java.awt.Dimension(0, 31));
@@ -588,6 +611,21 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
+    private void comboBoxRolUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRolUsuarioActionPerformed
+        // TODO add your handling code here:
+        int idRolSeleccionado = comboBoxRolUsuario.getSelectedIndex();
+        
+        // Simulación temporal basada en el índice visual
+        if(idRolSeleccionado == 0){
+            desactivarFormulario();
+        }else if (idRolSeleccionado == indiceRolAdministrador) {
+            activarFormularioAdministrador();
+        }else if (idRolSeleccionado == indiceRolVendedor){
+            activarFormularioVendedor();
+        }
+
+    }//GEN-LAST:event_comboBoxRolUsuarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAyudaCodigo;
@@ -640,4 +678,42 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private javax.swing.JLabel subtituloNombreCompleto;
     private javax.swing.JLabel tituloFormulario;
     // End of variables declaration//GEN-END:variables
+
+    private void activarFormularioAdministrador(){
+        asignarEdicionCamposFormulario(true);
+        mostrarContenedorDatosEmpresa(true);
+    }
+    
+    private void activarFormularioVendedor(){   
+        asignarEdicionCamposFormulario(true);
+        mostrarContenedorDatosEmpresa(false);
+    }
+    
+    private void desactivarFormulario(){
+        asignarEdicionCamposFormulario(false);
+        mostrarContenedorDatosEmpresa(false);
+    }
+    
+    private void asignarEdicionCamposFormulario(boolean editable){
+        
+        inputPrimerNombre.setEditable(editable);
+        inputSegundoNombre.setEditable(editable);
+        inputPrimerApellido.setEditable(editable);
+        inputSegundoApellido.setEditable(editable);
+        
+        inputTelefono.setEditable(editable);
+        inputCorreo.setEditable(editable);
+        
+        inputAlias.setEditable(editable);
+        inputContrasena.setEditable(editable);
+        inputConfirmarContrasena.setEditable(editable);
+        inputCodigo.setEditable(editable);
+        btnAyudaCodigo.setEnabled(editable);
+
+    }
+    
+    private void mostrarContenedorDatosEmpresa(boolean mostrar){
+        contenedorDatosEmpresa.setVisible(mostrar);
+    }
+
 }

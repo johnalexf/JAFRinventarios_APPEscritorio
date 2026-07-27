@@ -57,11 +57,11 @@
                   </Border>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[500, 65]"/>
+                  <Dimension value="[500, 80]"/>
                 </Property>
                 <Property name="opaque" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[500, 65]"/>
+                  <Dimension value="[500, 80]"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -70,7 +70,7 @@
                 </Constraint>
               </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="tituloFormulario">
                   <Properties>
@@ -80,10 +80,16 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="55" green="23" red="11" type="rgb"/>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="Registrarse"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
                   </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                      <BorderConstraints direction="Last"/>
+                    </Constraint>
+                  </Constraints>
                 </Component>
               </SubComponents>
             </Container>
@@ -141,6 +147,9 @@
                           <Dimension value="[230, 31]"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxRolUsuarioActionPerformed"/>
+                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
@@ -232,6 +241,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="inputPrimerNombre">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arial" size="16" style="0"/>
                             </Property>
@@ -274,6 +284,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="inputSegundoNombre">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arial" size="16" style="0"/>
                             </Property>
@@ -316,6 +327,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="inputPrimerApellido">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arial" size="16" style="0"/>
                             </Property>
@@ -359,6 +371,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="inputSegundoApellido">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arial" size="16" style="0"/>
                             </Property>
@@ -464,6 +477,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="inputTelefono">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arial" size="16" style="0"/>
                             </Property>
@@ -506,6 +520,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="inputCorreo">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arial" size="16" style="0"/>
                             </Property>
@@ -611,6 +626,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="inputAlias">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arial" size="16" style="0"/>
                             </Property>
@@ -653,6 +669,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="inputContrasena">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arial" size="16" style="0"/>
                             </Property>
@@ -695,6 +712,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="inputConfirmarContrasena">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Arial" size="16" style="0"/>
                             </Property>
@@ -772,6 +790,7 @@
                                 <Property name="toolTipText" type="java.lang.String" value=""/>
                                 <Property name="alignmentX" type="float" value="1.0"/>
                                 <Property name="borderPainted" type="boolean" value="false"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="focusCycleRoot" type="boolean" value="true"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="iconTextGap" type="int" value="0"/>
@@ -791,6 +810,7 @@
                             </Component>
                             <Component class="javax.swing.JTextField" name="inputCodigo">
                               <Properties>
+                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Arial" size="16" style="0"/>
                                 </Property>
