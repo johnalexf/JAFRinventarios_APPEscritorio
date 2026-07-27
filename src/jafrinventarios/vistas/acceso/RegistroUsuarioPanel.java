@@ -5,6 +5,8 @@
  */
 package jafrinventarios.vistas.acceso;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author JOHN FORERO
@@ -501,6 +503,11 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         btnAyudaCodigo.setMaximumSize(new java.awt.Dimension(30, 26));
         btnAyudaCodigo.setMinimumSize(new java.awt.Dimension(30, 26));
         btnAyudaCodigo.setPreferredSize(new java.awt.Dimension(30, 26));
+        btnAyudaCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAyudaCodigoActionPerformed(evt);
+            }
+        });
         contenedorInputCodigo.add(btnAyudaCodigo);
 
         inputCodigo.setEditable(false);
@@ -626,6 +633,13 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_comboBoxRolUsuarioActionPerformed
 
+    private void btnAyudaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaCodigoActionPerformed
+        // TODO add your handling code here:
+        mostrarMensajeAyudaCodigo(
+                comboBoxRolUsuario.getSelectedIndex()
+        );
+    }//GEN-LAST:event_btnAyudaCodigoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAyudaCodigo;
@@ -714,6 +728,28 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     
     private void mostrarContenedorDatosEmpresa(boolean mostrar){
         contenedorDatosEmpresa.setVisible(mostrar);
+    }
+    
+    
+    private void mostrarMensajeAyudaCodigo (int idRol){
+    
+        String mensaje = "";
+
+        if(idRol == indiceRolAdministrador){
+            mensaje = "El código de acceso se obtiene con el creador del programa.";
+        }else if(idRol == indiceRolVendedor){
+            mensaje = "El código de acceso se obtiene con el administrador de la empresa.";
+        }else{
+            System.err.println("id de Rol desconocido");
+            return;
+        }
+        
+        JOptionPane.showMessageDialog(
+                this, 
+                mensaje, 
+                "Información código de acceso",
+                JOptionPane.INFORMATION_MESSAGE);
+           
     }
 
 }
