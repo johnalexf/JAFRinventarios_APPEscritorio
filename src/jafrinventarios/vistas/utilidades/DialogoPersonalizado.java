@@ -29,17 +29,20 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         private final GlassPaneSemiOscuro panelSemiOscuro = new GlassPaneSemiOscuro();
         
         private final JFrame padreFrame;
+        
+        private boolean respuesta = false;
     /**
      * Creates new form DialogoPersonalizado
      */
-    private DialogoPersonalizado(JFrame parent, boolean modal, String titulo, String mensaje, TipoIcono tipoIcono) {
+    private DialogoPersonalizado(JFrame parent, boolean modal, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
         super(parent, modal);
         this.padreFrame = parent;
         
         initComponents();
 
         configurarContenidoDialogo(titulo, mensaje, tipoIcono);
-        contenedorBotonUnico.setVisible(false);
+        
+        contenedorBotonesAdvertencia.setVisible(mostrarBotones);
     }
     
 
@@ -62,8 +65,9 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         contenedorCuerpo = new javax.swing.JPanel();
         tituloDialogo = new javax.swing.JLabel();
         mensajeDialogo = new javax.swing.JLabel();
-        contenedorBotonUnico = new javax.swing.JPanel();
-        btnCentro = new javax.swing.JButton();
+        contenedorBotonesAdvertencia = new javax.swing.JPanel();
+        btnContinuar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setForeground(new java.awt.Color(255, 255, 255));
@@ -109,7 +113,7 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         btnCerrar.setPreferredSize(new java.awt.Dimension(30, 26));
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarActionPerformed(evt);
+                cerrarDialogo(evt);
             }
         });
         contenedorBtnCerrar.add(btnCerrar);
@@ -135,35 +139,63 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
 
         contenedorFondoBlanco.add(contenedorCuerpo, java.awt.BorderLayout.CENTER);
 
-        contenedorBotonUnico.setMaximumSize(new java.awt.Dimension(0, 60));
-        contenedorBotonUnico.setMinimumSize(new java.awt.Dimension(0, 60));
-        contenedorBotonUnico.setOpaque(false);
-        contenedorBotonUnico.setPreferredSize(new java.awt.Dimension(0, 60));
+        contenedorBotonesAdvertencia.setMaximumSize(new java.awt.Dimension(0, 60));
+        contenedorBotonesAdvertencia.setMinimumSize(new java.awt.Dimension(0, 60));
+        contenedorBotonesAdvertencia.setOpaque(false);
+        contenedorBotonesAdvertencia.setPreferredSize(new java.awt.Dimension(0, 60));
+        contenedorBotonesAdvertencia.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 60, 5));
 
-        btnCentro.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        btnCentro.setText("Entendido");
-        btnCentro.setMaximumSize(new java.awt.Dimension(160, 35));
-        btnCentro.setMinimumSize(new java.awt.Dimension(160, 35));
-        btnCentro.setPreferredSize(new java.awt.Dimension(160, 35));
-        contenedorBotonUnico.add(btnCentro);
+        btnContinuar.setBackground(new java.awt.Color(255, 0, 0));
+        btnContinuar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnContinuar.setForeground(new java.awt.Color(255, 255, 255));
+        btnContinuar.setText("Continuar");
+        btnContinuar.setMaximumSize(new java.awt.Dimension(160, 35));
+        btnContinuar.setMinimumSize(new java.awt.Dimension(160, 35));
+        btnContinuar.setPreferredSize(new java.awt.Dimension(160, 35));
+        btnContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinuarActionPerformed(evt);
+            }
+        });
+        contenedorBotonesAdvertencia.add(btnContinuar);
 
-        contenedorFondoBlanco.add(contenedorBotonUnico, java.awt.BorderLayout.PAGE_END);
+        btnCancelar.setBackground(new java.awt.Color(17, 35, 85));
+        btnCancelar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setMaximumSize(new java.awt.Dimension(160, 35));
+        btnCancelar.setMinimumSize(new java.awt.Dimension(160, 35));
+        btnCancelar.setPreferredSize(new java.awt.Dimension(160, 35));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarDialogo(evt);
+            }
+        });
+        contenedorBotonesAdvertencia.add(btnCancelar);
+
+        contenedorFondoBlanco.add(contenedorBotonesAdvertencia, java.awt.BorderLayout.PAGE_END);
 
         getContentPane().add(contenedorFondoBlanco, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // Cerrar el modal
+    private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+        // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_btnCerrarActionPerformed
+        this.respuesta = true;
+    }//GEN-LAST:event_btnContinuarActionPerformed
+
+    private void cerrarDialogo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarDialogo
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_cerrarDialogo
 
     
     // Método estático que podrás llamar desde cualquier parte del proyecto
-    public static void mostrarDialogo(JFrame padreFrame, String titulo, String mensaje, TipoIcono tipoIcono) {
+    public static boolean mostrarDialogo(JFrame padreFrame, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
         
-        DialogoPersonalizado dialogo = new DialogoPersonalizado(padreFrame, true, titulo, mensaje, tipoIcono);
+        DialogoPersonalizado dialogo = new DialogoPersonalizado(padreFrame, true, titulo, mensaje, tipoIcono, mostrarBotones);
         
         dialogo.hacerVisibleDialogo();
         // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
@@ -171,6 +203,7 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         // Al cerrar el modal, se deja de mostrar el fondo semitransparente
         dialogo.ocultarGlassPanePadreDialogo();
         
+        return dialogo.respuesta;
     }
     
     private void configurarContenidoDialogo( String titulo, String mensaje, TipoIcono tipoIcono){
@@ -267,9 +300,10 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCentro;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JPanel contenedorBotonUnico;
+    private javax.swing.JButton btnContinuar;
+    private javax.swing.JPanel contenedorBotonesAdvertencia;
     private javax.swing.JPanel contenedorBtnCerrar;
     private javax.swing.JPanel contenedorCuerpo;
     private javax.swing.JPanel contenedorFondoBlanco;
