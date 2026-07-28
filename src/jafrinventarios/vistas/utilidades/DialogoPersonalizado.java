@@ -149,6 +149,7 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         btnContinuar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnContinuar.setForeground(new java.awt.Color(255, 255, 255));
         btnContinuar.setText("Continuar");
+        btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnContinuar.setMaximumSize(new java.awt.Dimension(160, 35));
         btnContinuar.setMinimumSize(new java.awt.Dimension(160, 35));
         btnContinuar.setPreferredSize(new java.awt.Dimension(160, 35));
@@ -163,6 +164,7 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.setMaximumSize(new java.awt.Dimension(160, 35));
         btnCancelar.setMinimumSize(new java.awt.Dimension(160, 35));
         btnCancelar.setPreferredSize(new java.awt.Dimension(160, 35));

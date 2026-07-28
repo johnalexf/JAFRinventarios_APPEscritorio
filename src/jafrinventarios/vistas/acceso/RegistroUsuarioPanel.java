@@ -127,6 +127,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         comboBoxRolUsuario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         comboBoxRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tipo Usuario", "Administrador", "Vendedor" }));
+        comboBoxRolUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comboBoxRolUsuario.setMinimumSize(new java.awt.Dimension(230, 27));
         comboBoxRolUsuario.setPreferredSize(new java.awt.Dimension(230, 31));
         comboBoxRolUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -496,6 +497,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         btnAyudaCodigo.setToolTipText("");
         btnAyudaCodigo.setAlignmentX(1.0F);
         btnAyudaCodigo.setBorderPainted(false);
+        btnAyudaCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAyudaCodigo.setEnabled(false);
         btnAyudaCodigo.setFocusCycleRoot(true);
         btnAyudaCodigo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -597,6 +599,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrarme");
         btnRegistrar.setToolTipText("");
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrar.setMargin(new java.awt.Insets(6, 12, 6, 12));
         btnRegistrar.setMaximumSize(new java.awt.Dimension(200, 40));
         btnRegistrar.setMinimumSize(new java.awt.Dimension(200, 40));

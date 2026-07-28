@@ -131,6 +131,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("Ingresar");
         btnIngresar.setToolTipText("");
+        btnIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIngresar.setMargin(new java.awt.Insets(6, 12, 6, 12));
         btnIngresar.setMaximumSize(new java.awt.Dimension(200, 40));
         btnIngresar.setMinimumSize(new java.awt.Dimension(200, 40));
