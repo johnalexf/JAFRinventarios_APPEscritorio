@@ -5,6 +5,7 @@
  */
 package jafrinventarios.vistas.acceso;
 
+import jafrinventarios.vistas.utilidades.DialogoPersonalizado;
 import javax.swing.JOptionPane;
 
 /**
@@ -744,12 +745,21 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
             return;
         }
         
-        JOptionPane.showMessageDialog(
+     /*   JOptionPane.showMessageDialog(
                 this, 
                 mensaje, 
                 "Información código de acceso",
                 JOptionPane.INFORMATION_MESSAGE);
-           
+     */  
+    
+        // Buscamos cuál es el JFrame padre (AccesoFrame) que contiene a este panel
+        javax.swing.JFrame ventanaPadre = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+     
+        DialogoPersonalizado.mostrarDialogo(ventanaPadre, 
+                "Información código de acceso",
+                mensaje,
+               // "¡Cuidado! Esta a punto de entrar en el modo verificar el inventario, el cual esta diseñado para ayudar en la confirmación del inventario manual que se realice, allí se podrá editar la cantidad de los productos y se ira confirmando las cantidades si concuerdan con las contadas realmente.", 
+                DialogoPersonalizado.TipoIcono.INFORMACION);
     }
 
 }
