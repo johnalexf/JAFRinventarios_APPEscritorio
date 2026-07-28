@@ -118,6 +118,11 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         btnLinkRecuperarContraseña.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnLinkRecuperarContraseña.setForeground(new java.awt.Color(30, 166, 177));
         btnLinkRecuperarContraseña.setText("Recuperar Contraseña");
+        btnLinkRecuperarContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLinkRecuperarContraseñaActionPerformed(evt);
+            }
+        });
         contenedorRecuperarContrasena.add(btnLinkRecuperarContraseña);
 
         add(contenedorRecuperarContrasena);
@@ -147,8 +152,15 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        
+
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnLinkRecuperarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLinkRecuperarContraseñaActionPerformed
+        // Buscamos cuál es el JFrame padre (AccesoFrame) que contiene a este panel
+        javax.swing.JFrame ventanaPadre = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+     
+        DialogoCambiarContrasena.recuperarContrasena(ventanaPadre);
+    }//GEN-LAST:event_btnLinkRecuperarContraseñaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
