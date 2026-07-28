@@ -5,6 +5,8 @@
  */
 package jafrinventarios.vistas.acceso;
 
+import jafrinventarios.vistas.utilidades.DinamismoLink;
+
 /**
  *
  * @author JOHN FORERO
@@ -16,6 +18,9 @@ public class InicioSesionPanel extends javax.swing.JPanel {
      */
     public InicioSesionPanel() {
         initComponents();
+        
+        DinamismoLink.aplicarEfecto(btnLinkRecuperarContraseña);
+    
     }
 
     /**
@@ -35,7 +40,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         labelContrasena = new javax.swing.JLabel();
         inputContrasena = new javax.swing.JTextField();
         contenedorRecuperarContrasena = new javax.swing.JPanel();
-        labelBtnRecuperarContrasena = new javax.swing.JLabel();
+        btnLinkRecuperarContraseña = new javax.swing.JButton();
         contenedorBotonEnviarFormulario = new javax.swing.JPanel();
         btnIngresar = new javax.swing.JButton();
 
@@ -110,10 +115,10 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         contenedorRecuperarContrasena.setPreferredSize(new java.awt.Dimension(500, 30));
         contenedorRecuperarContrasena.setRequestFocusEnabled(false);
 
-        labelBtnRecuperarContrasena.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        labelBtnRecuperarContrasena.setForeground(new java.awt.Color(30, 166, 177));
-        labelBtnRecuperarContrasena.setText("Recuperar Contraseña");
-        contenedorRecuperarContrasena.add(labelBtnRecuperarContrasena);
+        btnLinkRecuperarContraseña.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnLinkRecuperarContraseña.setForeground(new java.awt.Color(30, 166, 177));
+        btnLinkRecuperarContraseña.setText("Recuperar Contraseña");
+        contenedorRecuperarContrasena.add(btnLinkRecuperarContraseña);
 
         add(contenedorRecuperarContrasena);
 
@@ -147,13 +152,13 @@ public class InicioSesionPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnLinkRecuperarContraseña;
     private javax.swing.JPanel contenedorBotonEnviarFormulario;
     private javax.swing.JPanel contenedorCuerpoFormulario;
     private javax.swing.JPanel contenedorRecuperarContrasena;
     private javax.swing.JPanel contenedorTituloFormulario;
     private javax.swing.JTextField inputContrasena;
     private javax.swing.JTextField inputCorreo;
-    private javax.swing.JLabel labelBtnRecuperarContrasena;
     private javax.swing.JLabel labelContrasena;
     private javax.swing.JLabel labelCorreo;
     private javax.swing.JLabel tituloFormulario;
