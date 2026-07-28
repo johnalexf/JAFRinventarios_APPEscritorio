@@ -13,7 +13,7 @@ import javax.swing.JFrame;
  * Esta clase se realiza para poder personalizar dialogos propios
  * y asi mantener el diseño de la aplicacion uniforme
  */
-public class DialogoPersonalizado extends javax.swing.JDialog {
+public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
 
         //Variable enum para poder mostrar en codigo las opciones validas de TipoIcono
         public enum TipoIcono{
@@ -24,20 +24,13 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         CARGANDO
         }
         
-        //Variable global para mejorar legibilidad del codigo
-        // Se crea un JPanel especial con transparencia dedicado para asignar al glassPane del frame padre
-        private final GlassPaneSemiOscuro panelSemiOscuro = new GlassPaneSemiOscuro();
-        
-        private final JFrame padreFrame;
-        
         private boolean respuesta = false;
     /**
-     * Creates new form DialogoPersonalizado
+     * Creates new form DialogoMensajePersonalizado
      */
-    private DialogoPersonalizado(JFrame parent, boolean modal, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
-        super(parent, modal);
-        this.padreFrame = parent;
-        
+    private DialogoMensajePersonalizado(JFrame parent, boolean modal, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
+        super(parent);
+
         initComponents();
 
         configurarContenidoDialogo(titulo, mensaje, tipoIcono);
@@ -45,7 +38,6 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         contenedorBotonesAdvertencia.setVisible(mostrarBotones);
     }
     
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,7 +63,6 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setForeground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(500, 2147483647));
         setUndecorated(true);
 
         contenedorFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
@@ -197,13 +188,10 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
     // Método estático que podrás llamar desde cualquier parte del proyecto
     public static boolean mostrarDialogo(JFrame padreFrame, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
         
-        DialogoPersonalizado dialogo = new DialogoPersonalizado(padreFrame, true, titulo, mensaje, tipoIcono, mostrarBotones);
+        DialogoMensajePersonalizado dialogo = new DialogoMensajePersonalizado(padreFrame, true, titulo, mensaje, tipoIcono, mostrarBotones);
         
         dialogo.hacerVisibleDialogo();
         // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
-        
-        // Al cerrar el modal, se deja de mostrar el fondo semitransparente
-        dialogo.ocultarGlassPanePadreDialogo();
         
         return dialogo.respuesta;
     }
@@ -241,31 +229,6 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
                 + "</div>"
                 + "</html>";
     }
-    
-    private void mostrarGlassPanePadreDialogo(){
-        if (padreFrame != null) {
-            padreFrame.setGlassPane(panelSemiOscuro);
-            panelSemiOscuro.setVisible(true); 
-        }
-    }
-    
-    private void ocultarGlassPanePadreDialogo(){
-        if (padreFrame != null) {
-            panelSemiOscuro.setVisible(false);
-        }
-    }
-    
-    private void hacerVisibleDialogo(){
-        // mostrar fondo semitransparente
-        mostrarGlassPanePadreDialogo();
-        // Recalcular tamaño del dialog segun el tamaño que necesite cada componente interno
-        pack();
-        // Centrar el dialogo con respecto a su padre
-        setLocationRelativeTo(padreFrame);
-        // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
-        setVisible(true);
-    }
-    
     
     
     private javax.swing.ImageIcon obtenerImagenIcono(TipoIcono icono){

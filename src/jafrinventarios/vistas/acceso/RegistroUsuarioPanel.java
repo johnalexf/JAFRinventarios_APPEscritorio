@@ -5,7 +5,7 @@
  */
 package jafrinventarios.vistas.acceso;
 
-import jafrinventarios.vistas.utilidades.DialogoPersonalizado;
+import jafrinventarios.vistas.utilidades.DialogoMensajePersonalizado;
 import javax.swing.JOptionPane;
 
 /**
@@ -762,11 +762,10 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         // Buscamos cuál es el JFrame padre (AccesoFrame) que contiene a este panel
         javax.swing.JFrame ventanaPadre = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
      
-        DialogoPersonalizado.mostrarDialogo(
-                ventanaPadre, 
+        DialogoMensajePersonalizado.mostrarDialogo(ventanaPadre, 
                 "Información código de acceso",
                 mensaje,
-                DialogoPersonalizado.TipoIcono.INFORMACION,
+                DialogoMensajePersonalizado.TipoIcono.INFORMACION,
                 false
                 );
         
