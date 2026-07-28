@@ -5,6 +5,8 @@
  */
 package jafrinventarios.vistas.utilidades;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author johna
@@ -13,25 +15,34 @@ package jafrinventarios.vistas.utilidades;
  */
 public class DialogoPersonalizado extends javax.swing.JDialog {
 
-    /**
-     * Creates new form DialogoPersonalizado
-     */
-    public DialogoPersonalizado(javax.swing.JFrame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        
-        // Centrar en pantalla relativo al padre
-        setLocationRelativeTo(parent);
-        contenedorBotonUnico.setVisible(false);
-    }
-    
-    public enum TipoIcono{
+        //Variable enum para poder mostrar en codigo las opciones validas de TipoIcono
+        public enum TipoIcono{
         ERROR,
         ADVERTENCIA,
         INFORMACION,
         EXITO,
         CARGANDO
+        }
+        
+        //Variable global para mejorar legibilidad del codigo
+        // Se crea un JPanel especial con transparencia dedicado para asignar al glassPane del frame padre
+        private final GlassPaneSemiOscuro panelSemiOscuro = new GlassPaneSemiOscuro();
+        
+        private final JFrame padreFrame;
+    /**
+     * Creates new form DialogoPersonalizado
+     */
+    private DialogoPersonalizado(JFrame parent, boolean modal, String titulo, String mensaje, TipoIcono tipoIcono) {
+        super(parent, modal);
+        this.padreFrame = parent;
+        
+        initComponents();
+
+        configurarContenidoDialogo(titulo, mensaje, tipoIcono);
+        contenedorBotonUnico.setVisible(false);
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,21 +61,22 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         btnCerrar = new javax.swing.JButton();
         contenedorCuerpo = new javax.swing.JPanel();
         tituloDialogo = new javax.swing.JLabel();
-        mensajeDialogo = new javax.swing.JTextArea();
+        mensajeDialogo = new javax.swing.JLabel();
         contenedorBotonUnico = new javax.swing.JPanel();
         btnCentro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setForeground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(500, 2147483647));
         setUndecorated(true);
 
         contenedorFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorFondoBlanco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        contenedorFondoBlanco.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 0, 20, 0)));
         contenedorFondoBlanco.setLayout(new java.awt.BorderLayout());
 
-        contenedorHeader.setMinimumSize(new java.awt.Dimension(0, 80));
+        contenedorHeader.setMinimumSize(new java.awt.Dimension(0, 100));
         contenedorHeader.setOpaque(false);
-        contenedorHeader.setPreferredSize(new java.awt.Dimension(0, 80));
+        contenedorHeader.setPreferredSize(new java.awt.Dimension(0, 100));
         contenedorHeader.setLayout(new java.awt.BorderLayout());
         contenedorHeader.add(margin_left, java.awt.BorderLayout.WEST);
 
@@ -72,9 +84,9 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         iconoDialogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconoDialogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/vaadin--ban.png"))); // NOI18N
         iconoDialogo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        iconoDialogo.setMaximumSize(new java.awt.Dimension(3000, 50));
-        iconoDialogo.setMinimumSize(new java.awt.Dimension(0, 50));
-        iconoDialogo.setPreferredSize(new java.awt.Dimension(0, 50));
+        iconoDialogo.setMaximumSize(new java.awt.Dimension(3000, 60));
+        iconoDialogo.setMinimumSize(new java.awt.Dimension(0, 60));
+        iconoDialogo.setPreferredSize(new java.awt.Dimension(0, 60));
         contenedorHeader.add(iconoDialogo, java.awt.BorderLayout.CENTER);
 
         contenedorBtnCerrar.setMinimumSize(new java.awt.Dimension(40, 0));
@@ -106,24 +118,19 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
 
         contenedorFondoBlanco.add(contenedorHeader, java.awt.BorderLayout.PAGE_START);
 
-        contenedorCuerpo.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        contenedorCuerpo.setBorder(javax.swing.BorderFactory.createEmptyBorder(25, 60, 25, 60));
         contenedorCuerpo.setOpaque(false);
-        contenedorCuerpo.setLayout(new java.awt.BorderLayout(0, 15));
+        contenedorCuerpo.setLayout(new java.awt.BorderLayout(0, 25));
 
-        tituloDialogo.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        tituloDialogo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         tituloDialogo.setForeground(new java.awt.Color(17, 35, 85));
         tituloDialogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloDialogo.setText("titulo del dialogo");
         contenedorCuerpo.add(tituloDialogo, java.awt.BorderLayout.PAGE_START);
 
-        mensajeDialogo.setEditable(false);
-        mensajeDialogo.setColumns(25);
-        mensajeDialogo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        mensajeDialogo.setLineWrap(true);
-        mensajeDialogo.setRows(1);
-        mensajeDialogo.setTabSize(1);
-        mensajeDialogo.setWrapStyleWord(true);
-        mensajeDialogo.setOpaque(false);
+        mensajeDialogo.setFont(new java.awt.Font("Segoe UI", 0, 19)); // NOI18N
+        mensajeDialogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mensajeDialogo.setText("Texto de prueba");
         contenedorCuerpo.add(mensajeDialogo, java.awt.BorderLayout.CENTER);
 
         contenedorFondoBlanco.add(contenedorCuerpo, java.awt.BorderLayout.CENTER);
@@ -148,83 +155,82 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // TODO add your handling code here:
+        // Cerrar el modal
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogoPersonalizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogoPersonalizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogoPersonalizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogoPersonalizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogoPersonalizado dialog = new DialogoPersonalizado(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    
+    // Método estático que podrás llamar desde cualquier parte del proyecto
+    public static void mostrarDialogo(JFrame padreFrame, String titulo, String mensaje, TipoIcono tipoIcono) {
+        
+        DialogoPersonalizado dialogo = new DialogoPersonalizado(padreFrame, true, titulo, mensaje, tipoIcono);
+        
+        dialogo.hacerVisibleDialogo();
+        // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
+        
+        // Al cerrar el modal, se deja de mostrar el fondo semitransparente
+        dialogo.ocultarGlassPanePadreDialogo();
+        
     }
     
-    // Método estático que podrás llamar desde cualquier parte de tu código
-    public static void mostrarDialogo(javax.swing.JFrame padreFrame, String titulo, String mensaje, TipoIcono tipoIcono) {
-        
-        DialogoPersonalizado dialogo = new DialogoPersonalizado(padreFrame, true);
-        
-        // Asignar los textos a tus JLabels del diseño
-        dialogo.tituloDialogo.setText(titulo);
-        dialogo.mensajeDialogo.setText(mensaje);
-    
-        
-        dialogo.iconoDialogo.setIcon(
-                dialogo.obtenerImagenIcono(tipoIcono)
+    private void configurarContenidoDialogo( String titulo, String mensaje, TipoIcono tipoIcono){
+        //Asignar el incono segun el tipo recibido
+        iconoDialogo.setIcon(
+                obtenerImagenIcono(tipoIcono)
         );  
         
-        // Se crea un JPanel especial con transparencia dedicado para asignar al glassPane del frame padre
-        GlassPaneSemiOscuro panelSemiOscuro = new GlassPaneSemiOscuro();
+        // Asignar los textos a los JLabels del diseño
+        tituloDialogo.setText(titulo);
+        mensajeDialogo.setText(empaquetarMensaje(mensaje));
+    }
+    
+    private String empaquetarMensaje(String mensaje){
+        int ancho;
 
+        if (mensaje.length() < 120) {
+            ancho = 250;
+        } else if (mensaje.length() < 250) {
+            ancho = 300;
+        } else {
+            ancho = 350;   
+        }
+        
+        return  "<html>"
+                + "<div style=' "
+                +   "width:" + ancho + "px; "
+                +   "font-family:'Segoe UI', Arial; "
+                +   "font-size:18px; "
+                +   "text-align:center;"
+                + " '>"
+                + mensaje
+                + "</div>"
+                + "</html>";
+    }
+    
+    private void mostrarGlassPanePadreDialogo(){
         if (padreFrame != null) {
             padreFrame.setGlassPane(panelSemiOscuro);
             panelSemiOscuro.setVisible(true); 
         }
-        
-        // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
-        dialogo.pack();
-        dialogo.setVisible(true);
-        
-        // Al cerrar el modal, dejamos de mostrar el fondo semitransparente
+    }
+    
+    private void ocultarGlassPanePadreDialogo(){
         if (padreFrame != null) {
             panelSemiOscuro.setVisible(false);
         }
     }
+    
+    private void hacerVisibleDialogo(){
+        // mostrar fondo semitransparente
+        mostrarGlassPanePadreDialogo();
+        // Recalcular tamaño del dialog segun el tamaño que necesite cada componente interno
+        pack();
+        // Centrar el dialogo con respecto a su padre
+        setLocationRelativeTo(padreFrame);
+        // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
+        setVisible(true);
+    }
+    
     
     
     private javax.swing.ImageIcon obtenerImagenIcono(TipoIcono icono){
@@ -270,7 +276,7 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
     private javax.swing.JPanel contenedorHeader;
     private javax.swing.JLabel iconoDialogo;
     private javax.swing.Box.Filler margin_left;
-    private javax.swing.JTextArea mensajeDialogo;
+    private javax.swing.JLabel mensajeDialogo;
     private javax.swing.JLabel tituloDialogo;
     // End of variables declaration//GEN-END:variables
 }
