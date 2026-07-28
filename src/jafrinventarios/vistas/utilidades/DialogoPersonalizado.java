@@ -82,7 +82,7 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
 
         iconoDialogo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         iconoDialogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconoDialogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/vaadin--ban.png"))); // NOI18N
+        iconoDialogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/dialogos/vaadin--ban.png"))); // NOI18N
         iconoDialogo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         iconoDialogo.setMaximumSize(new java.awt.Dimension(3000, 60));
         iconoDialogo.setMinimumSize(new java.awt.Dimension(0, 60));
@@ -96,7 +96,7 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         btnCerrar.setBackground(new java.awt.Color(255, 255, 255));
         btnCerrar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnCerrar.setForeground(new java.awt.Color(17, 35, 85));
-        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/carbon--close-filled.png"))); // NOI18N
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/carbon--close-filled.png"))); // NOI18N
         btnCerrar.setToolTipText("");
         btnCerrar.setAlignmentY(0.0F);
         btnCerrar.setBorderPainted(false);
@@ -122,7 +122,7 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
         contenedorCuerpo.setOpaque(false);
         contenedorCuerpo.setLayout(new java.awt.BorderLayout(0, 25));
 
-        tituloDialogo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        tituloDialogo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         tituloDialogo.setForeground(new java.awt.Color(17, 35, 85));
         tituloDialogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloDialogo.setText("titulo del dialogo");
@@ -199,7 +199,7 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
                 + "<div style=' "
                 +   "width:" + ancho + "px; "
                 +   "font-family:'Segoe UI', Arial; "
-                +   "font-size:18px; "
+                +   "font-size:19px; "
                 +   "text-align:center;"
                 + " '>"
                 + mensaje
@@ -235,7 +235,7 @@ public class DialogoPersonalizado extends javax.swing.JDialog {
     
     private javax.swing.ImageIcon obtenerImagenIcono(TipoIcono icono){
         
-        String rutaCarpetaIconos = "/jafrinventarios/recursos/iconos/";
+        String rutaCarpetaIconos = "/jafrinventarios/recursos/iconos/dialogos/";
         String nombreArchivoIcono = "icono_fluent--chat-help-24-filled.png";
         
         switch(icono){

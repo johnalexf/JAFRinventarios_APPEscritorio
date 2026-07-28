@@ -492,7 +492,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         btnAyudaCodigo.setBackground(new java.awt.Color(255, 255, 255));
         btnAyudaCodigo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnAyudaCodigo.setForeground(new java.awt.Color(17, 35, 85));
-        btnAyudaCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/icono_fluent--chat-help-24-filled.png"))); // NOI18N
+        btnAyudaCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/icono_fluent--chat-help-24-filled.png"))); // NOI18N
         btnAyudaCodigo.setToolTipText("");
         btnAyudaCodigo.setAlignmentX(1.0F);
         btnAyudaCodigo.setBorderPainted(false);
@@ -758,8 +758,10 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         DialogoPersonalizado.mostrarDialogo(ventanaPadre, 
                 "Información código de acceso",
                 mensaje,
-               // "¡Cuidado! Esta a punto de entrar en el modo verificar el inventario, el cual esta diseñado para ayudar en la confirmación del inventario manual que se realice, allí se podrá editar la cantidad de los productos y se ira confirmando las cantidades si concuerdan con las contadas realmente.", 
+              //"¡Cuidado! Esta a punto de entrar en el modo verificar el inventario, el cual esta diseñado para ayudar en la confirmación del inventario manual que se realice, allí se podrá editar la cantidad de los productos y se ira confirmando las cantidades si concuerdan con las contadas realmente.", 
                 DialogoPersonalizado.TipoIcono.INFORMACION);
+        
+       
     }
 
 }
