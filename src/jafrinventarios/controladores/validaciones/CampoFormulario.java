@@ -48,6 +48,11 @@ public class CampoFormulario {
             }
         });
         
+        input.putClientProperty(
+            "FlatLaf.style",
+            "borderColor:#000000;focusedBorderColor:#112355"
+        );
+        
     }
     
     
