@@ -5,6 +5,8 @@
  */
 package jafrinventarios.vistas.acceso;
 
+import jafrinventarios.controladores.validaciones.TipoDatoFormulario;
+import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.DialogoMensajePersonalizado;
 import javax.swing.JOptionPane;
 
@@ -17,6 +19,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     //TO-DO: Estos indices despues se tienen que acceder a la base de datos para obtenerlos
     private int indiceRolAdministrador = 1;
     private int indiceRolVendedor = 2;
+    private ValidadorFormulario camposFormularioRegistro = new ValidadorFormulario();
 
     /**
      * Creates new form RegistroUsuarioPanel
@@ -25,8 +28,54 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         initComponents();
         mostrarContenedorDatosEmpresa(false);
         
-        inputPrimerNombre.putClientProperty("JComponent.outline", "error");
-        //textField.putClientProperty("JComponent.outline", "error");
+        inyectarCamposAValidador();
+          
+    }
+    
+    private void inyectarCamposAValidador(){
+        
+        // Campos Nombre completo
+        camposFormularioRegistro.agregarCampo(
+                inputPrimerNombre, lblErrorInputPrimerNombre, 
+                TipoDatoFormulario.NOMBRE, true);
+        camposFormularioRegistro.agregarCampo(
+                inputSegundoNombre, lblErrorInputSegundoNombre, 
+                TipoDatoFormulario.NOMBRE, false);
+        camposFormularioRegistro.agregarCampo(
+                inputPrimerApellido, lblErrorInputPrimerApellido, 
+                TipoDatoFormulario.NOMBRE, true);
+        camposFormularioRegistro.agregarCampo(
+                inputSegundoApellido, lblErrorInputSegundoApellido, 
+                TipoDatoFormulario.NOMBRE, false);
+        
+        //Campos Datos de contacto
+        camposFormularioRegistro.agregarCampo(
+                inputTelefono, lblErrorInputTelefono, 
+                TipoDatoFormulario.TELEFONO, true);
+        camposFormularioRegistro.agregarCampo(
+                inputCorreo, lblErrorInputCorreo, 
+                TipoDatoFormulario.CORREO, true);
+        
+        //Campos credenciales de acceso
+        camposFormularioRegistro.agregarCampo(
+                inputAlias, lblErrorInputAlias, 
+                TipoDatoFormulario.ALIAS, true);
+        camposFormularioRegistro.agregarCampo(
+                inputContrasena, lblErrorInputContrasena, 
+                TipoDatoFormulario.CONTRASENA, true);
+        camposFormularioRegistro.agregarCampo(
+                inputConfirmarContrasena, lblErrorInputConfirmarContrasena, 
+                TipoDatoFormulario.CONTRASENA, true);
+        camposFormularioRegistro.agregarCampo(
+                inputCodigo, lblErrorInputCodigo, 
+                TipoDatoFormulario.CODIGO, true);
+        
+        //Campo datos de la empresa
+        camposFormularioRegistro.agregarCampo(
+                inputNombreComercial, lblErrorInputNombreComercial, 
+                TipoDatoFormulario.NOMBRE, true);
+
+    
     }
 
     /**
@@ -794,7 +843,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-
+        camposFormularioRegistro.validar();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void comboBoxRolUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRolUsuarioActionPerformed
@@ -924,7 +973,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         inputConfirmarContrasena.setEditable(editable);
         inputCodigo.setEditable(editable);
         btnAyudaCodigo.setEnabled(editable);
-
+        btnRegistrar.setEnabled(editable);
+        
     }
     
     private void mostrarContenedorDatosEmpresa(boolean mostrar){

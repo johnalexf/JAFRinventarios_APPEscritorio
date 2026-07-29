@@ -18,7 +18,7 @@ public enum TipoDatoFormulario {
     TELEFONO("^[0-9]{10}$", "Debe contener 10 números"),
     CORREO("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$", "Formato de correo inválido"),
     ALIAS("^[\\w]{5,}$","Formato de Alias no valido"),
-    CONTRASEÑA(
+    CONTRASENA(
         "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
         "Debe contener mayúsculas, minúsculas, números y un carácter especial"
     ),
