@@ -9,6 +9,9 @@ package jafrinventarios.controladores.validaciones;
 import javax.swing.text.JTextComponent;
 import javax.swing.JLabel;
 import java.awt.Color;
+import javax.swing.InputMap;
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 
 /**
  *
@@ -34,7 +37,20 @@ public class CampoFormulario {
             this.lblError.setText(""); 
         }
         
+        // Usamos InputVerifier para validar el campo despues de perder el foco
+        this.input.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent c) {
+                // Como InputVerifier pide retornar true o false, 
+                // simplemente llamamos a nuestro propio método validar()
+                // que ya hace todo el trabajo de Regex y pintar de rojo.
+                return validar(); 
+            }
+        });
+        
     }
+    
+    
     
     
     public boolean validar() {
