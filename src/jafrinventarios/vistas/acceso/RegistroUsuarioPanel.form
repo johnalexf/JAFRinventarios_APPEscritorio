@@ -265,10 +265,10 @@
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="inputPrimerNombre">
                               <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Arial" size="16" style="0"/>
                                 </Property>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[4, 10, 4, 10]"/>
                                 </Property>
@@ -352,10 +352,10 @@
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="inputSegundoNombre">
                               <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Arial" size="16" style="0"/>
                                 </Property>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[4, 10, 4, 10]"/>
                                 </Property>
@@ -439,11 +439,11 @@
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="inputPrimerApellido">
                               <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Arial" size="16" style="0"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" value=""/>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[4, 10, 4, 10]"/>
                                 </Property>
@@ -527,10 +527,10 @@
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="inputSegundoApellido">
                               <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Arial" size="16" style="0"/>
                                 </Property>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[4, 10, 4, 10]"/>
                                 </Property>
@@ -677,10 +677,10 @@
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="inputTelefono">
                               <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Arial" size="16" style="0"/>
                                 </Property>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[4, 10, 4, 10]"/>
                                 </Property>
@@ -764,10 +764,10 @@
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="inputCorreo">
                               <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Arial" size="16" style="0"/>
                                 </Property>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[4, 10, 4, 10]"/>
                                 </Property>
@@ -914,10 +914,10 @@
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="inputAlias">
                               <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Arial" size="16" style="0"/>
                                 </Property>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[4, 10, 4, 10]"/>
                                 </Property>
@@ -1001,10 +1001,10 @@
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="inputContrasena">
                               <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Arial" size="16" style="0"/>
                                 </Property>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[4, 10, 4, 10]"/>
                                 </Property>
@@ -1088,11 +1088,11 @@
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="inputConfirmarContrasena">
                               <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Arial" size="16" style="0"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" value=""/>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[4, 10, 4, 10]"/>
                                 </Property>
@@ -1236,10 +1236,10 @@
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="inputCodigo">
                                   <Properties>
-                                    <Property name="editable" type="boolean" value="false"/>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Arial" size="16" style="0"/>
                                     </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                       <Insets value="[4, 10, 4, 10]"/>
                                     </Property>

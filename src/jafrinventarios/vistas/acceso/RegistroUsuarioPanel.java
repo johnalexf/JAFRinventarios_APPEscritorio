@@ -257,8 +257,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorPrimerNombre.setPreferredSize(new java.awt.Dimension(0, 45));
         contenedorInputYErrorPrimerNombre.setLayout(new java.awt.BorderLayout());
 
-        inputPrimerNombre.setEditable(false);
         inputPrimerNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputPrimerNombre.setEnabled(false);
         inputPrimerNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputPrimerNombre.setPreferredSize(new java.awt.Dimension(0, 31));
         contenedorInputYErrorPrimerNombre.add(inputPrimerNombre, java.awt.BorderLayout.NORTH);
@@ -299,8 +299,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorSegundoNombre.setPreferredSize(new java.awt.Dimension(0, 45));
         contenedorInputYErrorSegundoNombre.setLayout(new java.awt.BorderLayout());
 
-        inputSegundoNombre.setEditable(false);
         inputSegundoNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputSegundoNombre.setEnabled(false);
         inputSegundoNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputSegundoNombre.setPreferredSize(new java.awt.Dimension(0, 31));
         contenedorInputYErrorSegundoNombre.add(inputSegundoNombre, java.awt.BorderLayout.NORTH);
@@ -341,9 +341,9 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorPrimerApellido.setPreferredSize(new java.awt.Dimension(0, 45));
         contenedorInputYErrorPrimerApellido.setLayout(new java.awt.BorderLayout());
 
-        inputPrimerApellido.setEditable(false);
         inputPrimerApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputPrimerApellido.setToolTipText("");
+        inputPrimerApellido.setEnabled(false);
         inputPrimerApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputPrimerApellido.setPreferredSize(new java.awt.Dimension(0, 31));
         contenedorInputYErrorPrimerApellido.add(inputPrimerApellido, java.awt.BorderLayout.NORTH);
@@ -384,8 +384,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorSegundoApellido.setPreferredSize(new java.awt.Dimension(0, 45));
         contenedorInputYErrorSegundoApellido.setLayout(new java.awt.BorderLayout());
 
-        inputSegundoApellido.setEditable(false);
         inputSegundoApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputSegundoApellido.setEnabled(false);
         inputSegundoApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputSegundoApellido.setPreferredSize(new java.awt.Dimension(0, 31));
         contenedorInputYErrorSegundoApellido.add(inputSegundoApellido, java.awt.BorderLayout.NORTH);
@@ -451,8 +451,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorTelefono.setPreferredSize(new java.awt.Dimension(0, 45));
         contenedorInputYErrorTelefono.setLayout(new java.awt.BorderLayout());
 
-        inputTelefono.setEditable(false);
         inputTelefono.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputTelefono.setEnabled(false);
         inputTelefono.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputTelefono.setPreferredSize(new java.awt.Dimension(0, 31));
         contenedorInputYErrorTelefono.add(inputTelefono, java.awt.BorderLayout.NORTH);
@@ -493,8 +493,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorCorreo.setPreferredSize(new java.awt.Dimension(0, 45));
         contenedorInputYErrorCorreo.setLayout(new java.awt.BorderLayout());
 
-        inputCorreo.setEditable(false);
         inputCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputCorreo.setEnabled(false);
         inputCorreo.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputCorreo.setPreferredSize(new java.awt.Dimension(0, 31));
         contenedorInputYErrorCorreo.add(inputCorreo, java.awt.BorderLayout.NORTH);
@@ -560,8 +560,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorAlias.setPreferredSize(new java.awt.Dimension(0, 45));
         contenedorInputYErrorAlias.setLayout(new java.awt.BorderLayout());
 
-        inputAlias.setEditable(false);
         inputAlias.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputAlias.setEnabled(false);
         inputAlias.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputAlias.setPreferredSize(new java.awt.Dimension(0, 31));
         contenedorInputYErrorAlias.add(inputAlias, java.awt.BorderLayout.NORTH);
@@ -602,8 +602,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorContrasena.setPreferredSize(new java.awt.Dimension(0, 45));
         contenedorInputYErrorContrasena.setLayout(new java.awt.BorderLayout());
 
-        inputContrasena.setEditable(false);
         inputContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputContrasena.setEnabled(false);
         inputContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputContrasena.setPreferredSize(new java.awt.Dimension(0, 31));
         contenedorInputYErrorContrasena.add(inputContrasena, java.awt.BorderLayout.NORTH);
@@ -644,9 +644,9 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 45));
         contenedorInputYErrorConfirmarContrasena.setLayout(new java.awt.BorderLayout());
 
-        inputConfirmarContrasena.setEditable(false);
         inputConfirmarContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputConfirmarContrasena.setToolTipText("");
+        inputConfirmarContrasena.setEnabled(false);
         inputConfirmarContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 31));
         contenedorInputYErrorConfirmarContrasena.add(inputConfirmarContrasena, java.awt.BorderLayout.NORTH);
@@ -716,8 +716,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         });
         contenedorInputCodigo.add(btnAyudaCodigo);
 
-        inputCodigo.setEditable(false);
         inputCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputCodigo.setEnabled(false);
         inputCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputCodigo.setMinimumSize(new java.awt.Dimension(0, 31));
         inputCodigo.setPreferredSize(new java.awt.Dimension(0, 31));
@@ -960,18 +960,18 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     
     private void asignarEdicionCamposFormulario(boolean editable){
         
-        inputPrimerNombre.setEditable(editable);
-        inputSegundoNombre.setEditable(editable);
-        inputPrimerApellido.setEditable(editable);
-        inputSegundoApellido.setEditable(editable);
+        inputPrimerNombre.setEnabled(editable);
+        inputSegundoNombre.setEnabled(editable);
+        inputPrimerApellido.setEnabled(editable);
+        inputSegundoApellido.setEnabled(editable);
         
-        inputTelefono.setEditable(editable);
-        inputCorreo.setEditable(editable);
+        inputTelefono.setEnabled(editable);
+        inputCorreo.setEnabled(editable);
         
-        inputAlias.setEditable(editable);
-        inputContrasena.setEditable(editable);
-        inputConfirmarContrasena.setEditable(editable);
-        inputCodigo.setEditable(editable);
+        inputAlias.setEnabled(editable);
+        inputContrasena.setEnabled(editable);
+        inputConfirmarContrasena.setEnabled(editable);
+        inputCodigo.setEnabled(editable);
         btnAyudaCodigo.setEnabled(editable);
         btnRegistrar.setEnabled(editable);
         
