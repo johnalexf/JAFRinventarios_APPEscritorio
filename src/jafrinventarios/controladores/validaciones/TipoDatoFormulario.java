@@ -9,7 +9,7 @@ package jafrinventarios.controladores.validaciones;
  *
  * @author JOHN FORERO
  */
-public enum TipoValidacion {
+public enum TipoDatoFormulario {
     // Definimos las reglas con su Regex y su mensaje
     
     NOMBRE("^[a-zA-ZáéíóúÁÉÍÓÚñÑ'\\-\\s]+$", "Solo se permiten letras"),
@@ -32,7 +32,7 @@ public enum TipoValidacion {
     //Estando dentro de un enum, podemos definir de cada variable que hemos creado
     //que interpretacion poseen cada uno de los elementos internos, por medio del
     //Constructor del mismo enum
-    TipoValidacion(String regex, String mensajeError) {
+    TipoDatoFormulario(String regex, String mensajeError) {
         this.regex = regex;
         this.mensajeError = mensajeError;
     }
