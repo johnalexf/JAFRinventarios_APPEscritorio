@@ -16,10 +16,10 @@ import java.awt.Color;
  */
 public class CampoFormulario {
     
-    private JTextComponent input;
-    private JLabel lblError;
-    private TipoDatoFormulario tipo;
-    private boolean esObligatorio;
+    private final JTextComponent input;
+    private final JLabel lblError;
+    private final TipoDatoFormulario tipo;
+    private final boolean esObligatorio;
 
     
     public CampoFormulario(JTextComponent input, JLabel lblError, TipoDatoFormulario tipo, boolean esObligatorio) {
