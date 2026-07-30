@@ -882,6 +882,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         }else if (idRolSeleccionado == indiceRolVendedor){
             activarFormularioVendedor();
         }
+        
+        camposFormularioRegistro.limpiarErrores();
 
     }//GEN-LAST:event_comboBoxRolUsuarioActionPerformed
 
