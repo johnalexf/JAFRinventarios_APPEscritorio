@@ -9,9 +9,8 @@ package jafrinventarios.controladores.validaciones;
 import javax.swing.text.JTextComponent;
 import javax.swing.JLabel;
 import java.awt.Color;
-import javax.swing.InputMap;
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -39,18 +38,9 @@ public class CampoFormulario {
             this.lblError.setText(""); 
         }
         
-        // Usamos InputVerifier para validar el campo despues de perder el foco
-        this.input.setInputVerifier(new InputVerifier() {
-            @Override
-            public boolean verify(JComponent c) {
-                // Como InputVerifier pide retornar true o false, 
-                // simplemente llamamos a nuestro propio método validar()
-                // que ya hace todo el trabajo de Regex y pintar de rojo.
-                return validar(); 
-            }
-        });
-        
         asignarEstilosInput(false);
+        
+        asignarValidacionEnTiempoReal();
         
     }
     
@@ -69,6 +59,36 @@ public class CampoFormulario {
         }
         
     }
+    
+    public void asignarValidacionEnTiempoReal(){
+    
+        // Escuchamos cualquier cambio que ocurra en el contenido del input.
+        // A diferencia de KeyListener, DocumentListener detecta escritura,
+        // borrado, pegado, cortar, deshacer, etc.
+        input.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                // Se ejecuta cuando el usuario agrega texto al campo.
+                validar();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                // Se ejecuta cuando el usuario elimina texto del campo.
+                validar();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // Se ejecuta cuando cambian atributos del documento (por ejemplo,
+                // estilos de texto). En un JTextField normalmente este método
+                // no se utiliza, pero debe implementarse por la interfaz.
+                validar();
+            }
+        });
+    }
+        
     
     
     public boolean validar() {
