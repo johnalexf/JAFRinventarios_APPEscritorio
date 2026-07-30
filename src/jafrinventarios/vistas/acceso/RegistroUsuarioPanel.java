@@ -9,6 +9,7 @@ import jafrinventarios.controladores.validaciones.TipoDatoFormulario;
 import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.MostrarOcultarContrasena;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,7 +21,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     //TO-DO: Estos indices despues se tienen que acceder a la base de datos para obtenerlos
     private int indiceRolAdministrador = 1;
     private int indiceRolVendedor = 2;
-    private ValidadorFormulario camposFormularioRegistro = new ValidadorFormulario();
+    private final ValidadorFormulario camposFormularioRegistro = new ValidadorFormulario();
+    private final JFrame ventanaPadre;
 
     /**
      * Creates new form RegistroUsuarioPanel
@@ -39,6 +41,9 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         javax.swing.SwingUtilities.invokeLater(() -> {
             panelPrincipalScrolleable.getVerticalScrollBar().setValue(0);
         });
+        
+        // Buscamos cuál es el JFrame padre (AccesoFrame) que contiene a este panel
+        ventanaPadre = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
     }
     
     private void inyectarCamposAValidador(){
@@ -994,7 +999,15 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        camposFormularioRegistro.validar();
+        if( !camposFormularioRegistro.validar() ){
+            DialogoMensajePersonalizado.mostrarDialogo(
+                    ventanaPadre,
+                    "Error en los campos", 
+                    "Uno o mas campos tienen errores, por favor verifique e intente nuevamente despues de corregirlos", 
+                    DialogoMensajePersonalizado.TipoIcono.ERROR, 
+                    false
+            );
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void comboBoxRolUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRolUsuarioActionPerformed
@@ -1170,9 +1183,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
                 JOptionPane.INFORMATION_MESSAGE);
      */
     
-        // Buscamos cuál es el JFrame padre (AccesoFrame) que contiene a este panel
-        javax.swing.JFrame ventanaPadre = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
-     
+             
         DialogoMensajePersonalizado.mostrarDialogo(ventanaPadre, 
                 "Información código de acceso",
                 mensaje,
