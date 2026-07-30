@@ -38,29 +38,28 @@ public class CampoFormulario {
             this.lblError.setText(""); 
         }
         
-        asignarEstilosInput(false);
+        aplicarEstiloNormalAInput();
         
         asignarValidacionEnTiempoReal();
         
     }
     
-    private void asignarEstilosInput(boolean Error){
-        
-        if(Error){
-            // Con FlatLaf, esto pinta el borde del input en rojo
-            input.putClientProperty("JComponent.outline", "error");
-        }else{
-            input.putClientProperty("JComponent.outline", null); 
-            input.putClientProperty(
-                "FlatLaf.style",
-                ESTILO_NORMAL_INPUT
-            );
-        
-        }
-        
+    
+    private void aplicarEstiloNormalAInput(){
+        input.putClientProperty("JComponent.outline", null); 
+        input.putClientProperty(
+            "FlatLaf.style",
+            ESTILO_NORMAL_INPUT
+        );
     }
     
-    public void asignarValidacionEnTiempoReal(){
+    private void aplicarEstiloErrorAInput(){
+         // Con FlatLaf, esto pinta el borde del input en rojo
+            input.putClientProperty("JComponent.outline", "error");
+    }
+    
+    
+    private void asignarValidacionEnTiempoReal(){
     
         // Escuchamos cualquier cambio que ocurra en el contenido del input.
         // A diferencia de KeyListener, DocumentListener detecta escritura,
@@ -125,7 +124,7 @@ public class CampoFormulario {
             lblError.setText(mensaje);
         }
         
-        asignarEstilosInput(true);
+        aplicarEstiloErrorAInput();
 
     }
 
@@ -135,7 +134,7 @@ public class CampoFormulario {
             lblError.setText("");
         }
         // Limpiamos el borde de FlatLaf
-        asignarEstilosInput(false);
+        aplicarEstiloNormalAInput();
     }
     
     
