@@ -45,5 +45,11 @@ public class ValidadorFormulario {
         return respuesta;
     }
     
+    public void limpiarErrores(){
+        for(CampoFormulario campo : camposFormulario){
+            campo.limpiarError();
+        }
+    }
+    
 
 }

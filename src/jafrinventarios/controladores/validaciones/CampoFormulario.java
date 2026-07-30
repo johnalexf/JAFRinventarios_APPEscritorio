@@ -23,6 +23,8 @@ public class CampoFormulario {
     private final JLabel lblError;
     private final TipoDatoFormulario tipo;
     private final boolean esObligatorio;
+    private static final String ESTILO_NORMAL_INPUT =
+                            " borderColor:#777777; focusedBorderColor:#112355 ";
 
     
     public CampoFormulario(JTextComponent input, JLabel lblError, TipoDatoFormulario tipo, boolean esObligatorio) {
@@ -48,14 +50,25 @@ public class CampoFormulario {
             }
         });
         
-        input.putClientProperty(
-            "FlatLaf.style",
-            "borderColor:#000000;focusedBorderColor:#112355"
-        );
+        asignarEstilosInput(false);
         
     }
     
-    
+    private void asignarEstilosInput(boolean Error){
+        
+        if(Error){
+            // Con FlatLaf, esto pinta el borde del input en rojo
+            input.putClientProperty("JComponent.outline", "error");
+        }else{
+            input.putClientProperty("JComponent.outline", null); 
+            input.putClientProperty(
+                "FlatLaf.style",
+                ESTILO_NORMAL_INPUT
+            );
+        
+        }
+        
+    }
     
     
     public boolean validar() {
@@ -91,17 +104,18 @@ public class CampoFormulario {
         if (lblError != null) {
             lblError.setText(mensaje);
         }
-        // Con FlatLaf, esto pinta el borde del input en rojo
-        input.putClientProperty("JComponent.outline", "error"); 
+        
+        asignarEstilosInput(true);
+
     }
 
     
-    private void limpiarError() {
+    public void limpiarError() {
         if (lblError != null) {
             lblError.setText("");
         }
         // Limpiamos el borde de FlatLaf
-        input.putClientProperty("JComponent.outline", null); 
+        asignarEstilosInput(false);
     }
     
     
