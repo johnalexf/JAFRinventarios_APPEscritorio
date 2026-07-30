@@ -71,7 +71,7 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
 
         contenedorHeader.setMinimumSize(new java.awt.Dimension(0, 100));
         contenedorHeader.setOpaque(false);
-        contenedorHeader.setPreferredSize(new java.awt.Dimension(0, 100));
+        contenedorHeader.setPreferredSize(new java.awt.Dimension(0, 120));
         contenedorHeader.setLayout(new java.awt.BorderLayout());
         contenedorHeader.add(margin_left, java.awt.BorderLayout.WEST);
 
@@ -219,14 +219,14 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
         }
         
         return  "<html>"
-                + "<div style=' "
+                + "<p style=' "
                 +   "width:" + ancho + "px; "
                 +   "font-family:'Segoe UI', Arial; "
                 +   "font-size:19px; "
                 +   "text-align:center;"
                 + " '>"
                 + mensaje
-                + "</div>"
+                + "</p>"
                 + "</html>";
     }
     

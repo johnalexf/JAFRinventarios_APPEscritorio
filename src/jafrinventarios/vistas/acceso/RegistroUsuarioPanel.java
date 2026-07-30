@@ -1003,7 +1003,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
             DialogoMensajePersonalizado.mostrarDialogo(
                     ventanaPadre,
                     "Error en los campos", 
-                    "Uno o mas campos tienen errores, por favor verifique e intente nuevamente despues de corregirlos", 
+                    "Uno o mas campos tienen errores, \n por favor verifique e intente nuevamente despues de corregirlos", 
                     DialogoMensajePersonalizado.TipoIcono.ERROR, 
                     false
             );
