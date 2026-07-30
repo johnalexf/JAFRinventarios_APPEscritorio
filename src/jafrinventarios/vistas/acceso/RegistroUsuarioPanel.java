@@ -29,7 +29,13 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         mostrarContenedorDatosEmpresa(false);
         
         inyectarCamposAValidador();
-          
+         
+        //Mostramos el formulario desde el inicio, ya que el lblTextAreaDescripcionContrasena
+        //por defecto mueve el cursor de escritura hasta su ubicacion, haciendo que el formulario
+        //haga scroll hasta su posicion.
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            panelPrincipalScrolleable.getVerticalScrollBar().setValue(0);
+        });
     }
     
     private void inyectarCamposAValidador(){
@@ -139,6 +145,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorContrasena = new javax.swing.JPanel();
         inputContrasena = new javax.swing.JTextField();
         lblErrorInputContrasena = new javax.swing.JLabel();
+        contenedorDescripcionContrasena = new javax.swing.JPanel();
+        lblTextAreaDescripcionContrasena = new javax.swing.JTextArea();
         labelConfirmarContrasena = new javax.swing.JLabel();
         contenedorInputYErrorConfirmarContrasena = new javax.swing.JPanel();
         inputConfirmarContrasena = new javax.swing.JTextField();
@@ -631,8 +639,31 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasCredenciales.add(contenedorInputYErrorContrasena, gridBagConstraints);
+
+        contenedorDescripcionContrasena.setOpaque(false);
+        contenedorDescripcionContrasena.setPreferredSize(new java.awt.Dimension(0, 96));
+        contenedorDescripcionContrasena.setLayout(new java.awt.BorderLayout());
+
+        lblTextAreaDescripcionContrasena.setEditable(false);
+        lblTextAreaDescripcionContrasena.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        lblTextAreaDescripcionContrasena.setRows(5);
+        lblTextAreaDescripcionContrasena.setText("La contraseña debe contener por lo menos:\n* Una mayuscula\n* Una minuscula\n* Un número\n* Un caracter especial\n* Minimo 8 caraceres");
+        lblTextAreaDescripcionContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
+        lblTextAreaDescripcionContrasena.setCaretPosition(0);
+        lblTextAreaDescripcionContrasena.setEnabled(false);
+        lblTextAreaDescripcionContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTextAreaDescripcionContrasena.setOpaque(false);
+        lblTextAreaDescripcionContrasena.setPreferredSize(new java.awt.Dimension(0, 85));
+        contenedorDescripcionContrasena.add(lblTextAreaDescripcionContrasena, java.awt.BorderLayout.CENTER);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
+        contenedorEntradasCredenciales.add(contenedorDescripcionContrasena, gridBagConstraints);
 
         labelConfirmarContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelConfirmarContrasena.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -645,7 +676,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         labelConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 2.0;
@@ -672,7 +703,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
@@ -689,7 +720,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         labelCodigo.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 2.0;
@@ -754,7 +785,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
@@ -906,6 +937,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private javax.swing.JPanel contenedorCuerpoFormulario;
     private javax.swing.JPanel contenedorDatosContacto;
     private javax.swing.JPanel contenedorDatosEmpresa;
+    private javax.swing.JPanel contenedorDescripcionContrasena;
     private javax.swing.JPanel contenedorEntradasCredenciales;
     private javax.swing.JPanel contenedorEntradasDatosContacto;
     private javax.swing.JPanel contenedorEntradasDatosEmpresa;
@@ -962,6 +994,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblErrorInputSegundoApellido;
     private javax.swing.JLabel lblErrorInputSegundoNombre;
     private javax.swing.JLabel lblErrorInputTelefono;
+    private javax.swing.JTextArea lblTextAreaDescripcionContrasena;
     private javax.swing.JScrollPane panelPrincipalScrolleable;
     private javax.swing.JLabel subtituloCredenciales;
     private javax.swing.JLabel subtituloDatosContacto;
