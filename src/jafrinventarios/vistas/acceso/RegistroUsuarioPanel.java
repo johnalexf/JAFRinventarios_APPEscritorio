@@ -8,6 +8,7 @@ package jafrinventarios.vistas.acceso;
 import jafrinventarios.controladores.validaciones.TipoDatoFormulario;
 import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.DialogoMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.MostrarOcultarContrasena;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +30,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         mostrarContenedorDatosEmpresa(false);
         
         inyectarCamposAValidador();
+        
+        configurarDinamismoAContrasenas();
          
         //Mostramos el formulario desde el inicio, ya que el lblTextAreaDescripcionContrasena
         //por defecto mueve el cursor de escritura hasta su ubicacion, haciendo que el formulario
@@ -81,6 +84,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
                 inputNombreComercial, lblErrorInputNombreComercial, 
                 TipoDatoFormulario.NOMBRE, true);
 
+    
+    }
+    
+    
+    private void configurarDinamismoAContrasenas(){
+        
+        MostrarOcultarContrasena.agregarFuncionalidad(inputContrasena, btnMostrarOcultarContrasena);
+        MostrarOcultarContrasena.agregarFuncionalidad(inputConfirmarContrasena, btnMostrarOcultarConfirmarContrasena);
     
     }
 
@@ -143,13 +154,19 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         lblErrorInputAlias = new javax.swing.JLabel();
         labelContrasena = new javax.swing.JLabel();
         contenedorInputYErrorContrasena = new javax.swing.JPanel();
-        inputContrasena = new javax.swing.JTextField();
+        contenedorInputContrasena = new javax.swing.JPanel();
+        contenedorBtnMostrarOcultarContrasena = new javax.swing.JPanel();
+        btnMostrarOcultarContrasena = new javax.swing.JButton();
+        inputContrasena = new javax.swing.JPasswordField();
         lblErrorInputContrasena = new javax.swing.JLabel();
         contenedorDescripcionContrasena = new javax.swing.JPanel();
         lblTextAreaDescripcionContrasena = new javax.swing.JTextArea();
         labelConfirmarContrasena = new javax.swing.JLabel();
         contenedorInputYErrorConfirmarContrasena = new javax.swing.JPanel();
-        inputConfirmarContrasena = new javax.swing.JTextField();
+        contenedorInputConfirmarContrasena = new javax.swing.JPanel();
+        contenedorBtnMostrarOcultarConfirmarContrasena = new javax.swing.JPanel();
+        btnMostrarOcultarConfirmarContrasena = new javax.swing.JButton();
+        inputConfirmarContrasena = new javax.swing.JPasswordField();
         lblErrorInputConfirmarContrasena = new javax.swing.JLabel();
         labelCodigo = new javax.swing.JLabel();
         contenedorInputYErrorCodigo = new javax.swing.JPanel();
@@ -621,11 +638,52 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorContrasena.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorContrasena.setLayout(new java.awt.BorderLayout());
 
+        contenedorInputContrasena.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorInputContrasena.setMaximumSize(new java.awt.Dimension(0, 0));
+        contenedorInputContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
+        contenedorInputContrasena.setName(""); // NOI18N
+        contenedorInputContrasena.setOpaque(false);
+        contenedorInputContrasena.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorInputContrasena.setLayout(new javax.swing.OverlayLayout(contenedorInputContrasena));
+
+        contenedorBtnMostrarOcultarContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 4));
+        contenedorBtnMostrarOcultarContrasena.setAlignmentY(0.55F);
+        contenedorBtnMostrarOcultarContrasena.setMaximumSize(new java.awt.Dimension(34, 26));
+        contenedorBtnMostrarOcultarContrasena.setMinimumSize(new java.awt.Dimension(34, 26));
+        contenedorBtnMostrarOcultarContrasena.setOpaque(false);
+        contenedorBtnMostrarOcultarContrasena.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorBtnMostrarOcultarContrasena.setLayout(new javax.swing.BoxLayout(contenedorBtnMostrarOcultarContrasena, javax.swing.BoxLayout.Y_AXIS));
+
+        btnMostrarOcultarContrasena.setBackground(new java.awt.Color(255, 255, 255));
+        btnMostrarOcultarContrasena.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnMostrarOcultarContrasena.setForeground(new java.awt.Color(17, 35, 85));
+        btnMostrarOcultarContrasena.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/mdi-light--eye-off.png"))); // NOI18N
+        btnMostrarOcultarContrasena.setToolTipText("");
+        btnMostrarOcultarContrasena.setAlignmentX(1.0F);
+        btnMostrarOcultarContrasena.setAlignmentY(0.0F);
+        btnMostrarOcultarContrasena.setBorderPainted(false);
+        btnMostrarOcultarContrasena.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMostrarOcultarContrasena.setEnabled(false);
+        btnMostrarOcultarContrasena.setFocusCycleRoot(true);
+        btnMostrarOcultarContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMostrarOcultarContrasena.setIconTextGap(0);
+        btnMostrarOcultarContrasena.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnMostrarOcultarContrasena.setMaximumSize(new java.awt.Dimension(30, 26));
+        btnMostrarOcultarContrasena.setMinimumSize(new java.awt.Dimension(30, 26));
+        btnMostrarOcultarContrasena.setPreferredSize(new java.awt.Dimension(30, 26));
+        contenedorBtnMostrarOcultarContrasena.add(btnMostrarOcultarContrasena);
+
+        contenedorInputContrasena.add(contenedorBtnMostrarOcultarContrasena);
+
         inputContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputContrasena.setToolTipText("");
         inputContrasena.setEnabled(false);
         inputContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputContrasena.setMinimumSize(new java.awt.Dimension(0, 34));
         inputContrasena.setPreferredSize(new java.awt.Dimension(0, 34));
-        contenedorInputYErrorContrasena.add(inputContrasena, java.awt.BorderLayout.NORTH);
+        contenedorInputContrasena.add(inputContrasena);
+
+        contenedorInputYErrorContrasena.add(contenedorInputContrasena, java.awt.BorderLayout.NORTH);
 
         lblErrorInputContrasena.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputContrasena.setForeground(new java.awt.Color(179, 38, 30));
@@ -651,7 +709,6 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         lblTextAreaDescripcionContrasena.setText("La contraseña debe contener por lo menos:\n* Una mayuscula\n* Una minuscula\n* Un número\n* Un caracter especial\n* Minimo 8 caraceres");
         lblTextAreaDescripcionContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
         lblTextAreaDescripcionContrasena.setCaretPosition(0);
-        lblTextAreaDescripcionContrasena.setEnabled(false);
         lblTextAreaDescripcionContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
         lblTextAreaDescripcionContrasena.setOpaque(false);
         lblTextAreaDescripcionContrasena.setPreferredSize(new java.awt.Dimension(0, 85));
@@ -687,12 +744,50 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorInputYErrorConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorConfirmarContrasena.setLayout(new java.awt.BorderLayout());
 
+        contenedorInputConfirmarContrasena.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorInputConfirmarContrasena.setMaximumSize(new java.awt.Dimension(0, 0));
+        contenedorInputConfirmarContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
+        contenedorInputConfirmarContrasena.setName(""); // NOI18N
+        contenedorInputConfirmarContrasena.setOpaque(false);
+        contenedorInputConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorInputConfirmarContrasena.setLayout(new javax.swing.OverlayLayout(contenedorInputConfirmarContrasena));
+
+        contenedorBtnMostrarOcultarConfirmarContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 4));
+        contenedorBtnMostrarOcultarConfirmarContrasena.setAlignmentY(0.55F);
+        contenedorBtnMostrarOcultarConfirmarContrasena.setOpaque(false);
+        contenedorBtnMostrarOcultarConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorBtnMostrarOcultarConfirmarContrasena.setLayout(new javax.swing.BoxLayout(contenedorBtnMostrarOcultarConfirmarContrasena, javax.swing.BoxLayout.Y_AXIS));
+
+        btnMostrarOcultarConfirmarContrasena.setBackground(new java.awt.Color(255, 255, 255));
+        btnMostrarOcultarConfirmarContrasena.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnMostrarOcultarConfirmarContrasena.setForeground(new java.awt.Color(17, 35, 85));
+        btnMostrarOcultarConfirmarContrasena.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/mdi-light--eye-off.png"))); // NOI18N
+        btnMostrarOcultarConfirmarContrasena.setToolTipText("");
+        btnMostrarOcultarConfirmarContrasena.setAlignmentX(1.0F);
+        btnMostrarOcultarConfirmarContrasena.setAlignmentY(0.0F);
+        btnMostrarOcultarConfirmarContrasena.setBorderPainted(false);
+        btnMostrarOcultarConfirmarContrasena.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMostrarOcultarConfirmarContrasena.setEnabled(false);
+        btnMostrarOcultarConfirmarContrasena.setFocusCycleRoot(true);
+        btnMostrarOcultarConfirmarContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMostrarOcultarConfirmarContrasena.setIconTextGap(0);
+        btnMostrarOcultarConfirmarContrasena.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnMostrarOcultarConfirmarContrasena.setMaximumSize(new java.awt.Dimension(30, 26));
+        btnMostrarOcultarConfirmarContrasena.setMinimumSize(new java.awt.Dimension(30, 26));
+        btnMostrarOcultarConfirmarContrasena.setPreferredSize(new java.awt.Dimension(30, 26));
+        contenedorBtnMostrarOcultarConfirmarContrasena.add(btnMostrarOcultarConfirmarContrasena);
+
+        contenedorInputConfirmarContrasena.add(contenedorBtnMostrarOcultarConfirmarContrasena);
+
         inputConfirmarContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputConfirmarContrasena.setToolTipText("");
         inputConfirmarContrasena.setEnabled(false);
         inputConfirmarContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputConfirmarContrasena.setMinimumSize(new java.awt.Dimension(0, 34));
         inputConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 34));
-        contenedorInputYErrorConfirmarContrasena.add(inputConfirmarContrasena, java.awt.BorderLayout.NORTH);
+        contenedorInputConfirmarContrasena.add(inputConfirmarContrasena);
+
+        contenedorInputYErrorConfirmarContrasena.add(contenedorInputConfirmarContrasena, java.awt.BorderLayout.NORTH);
 
         lblErrorInputConfirmarContrasena.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputConfirmarContrasena.setForeground(new java.awt.Color(179, 38, 30));
@@ -733,6 +828,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         contenedorInputCodigo.setBackground(new java.awt.Color(255, 255, 255));
         contenedorInputCodigo.setMaximumSize(new java.awt.Dimension(0, 0));
+        contenedorInputCodigo.setMinimumSize(new java.awt.Dimension(0, 0));
         contenedorInputCodigo.setOpaque(false);
         contenedorInputCodigo.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputCodigo.setLayout(new javax.swing.OverlayLayout(contenedorInputCodigo));
@@ -928,10 +1024,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAyudaCodigo;
+    private javax.swing.JButton btnMostrarOcultarConfirmarContrasena;
+    private javax.swing.JButton btnMostrarOcultarContrasena;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> comboBoxRolUsuario;
     private javax.swing.JPanel contenedorBotonEnviarFormulario;
     private javax.swing.JPanel contenedorBtnAyudaCodigo;
+    private javax.swing.JPanel contenedorBtnMostrarOcultarConfirmarContrasena;
+    private javax.swing.JPanel contenedorBtnMostrarOcultarContrasena;
     private javax.swing.JPanel contenedorComboBox;
     private javax.swing.JPanel contenedorCredenciales;
     private javax.swing.JPanel contenedorCuerpoFormulario;
@@ -944,6 +1044,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private javax.swing.JPanel contenedorEntradasNombreCompleto;
     private javax.swing.JPanel contenedorFormulario;
     private javax.swing.JPanel contenedorInputCodigo;
+    private javax.swing.JPanel contenedorInputConfirmarContrasena;
+    private javax.swing.JPanel contenedorInputContrasena;
     private javax.swing.JPanel contenedorInputYErrorAlias;
     private javax.swing.JPanel contenedorInputYErrorCodigo;
     private javax.swing.JPanel contenedorInputYErrorConfirmarContrasena;
@@ -963,8 +1065,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private javax.swing.JPanel contenedorTituloNombreCompleto;
     private javax.swing.JTextField inputAlias;
     private javax.swing.JTextField inputCodigo;
-    private javax.swing.JTextField inputConfirmarContrasena;
-    private javax.swing.JTextField inputContrasena;
+    private javax.swing.JPasswordField inputConfirmarContrasena;
+    private javax.swing.JPasswordField inputContrasena;
     private javax.swing.JTextField inputCorreo;
     private javax.swing.JTextField inputNombreComercial;
     private javax.swing.JTextField inputPrimerApellido;
@@ -1030,7 +1132,9 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         
         inputAlias.setEnabled(editable);
         inputContrasena.setEnabled(editable);
+        btnMostrarOcultarContrasena.setEnabled(editable);
         inputConfirmarContrasena.setEnabled(editable);
+        btnMostrarOcultarConfirmarContrasena.setEnabled(editable);
         inputCodigo.setEnabled(editable);
         btnAyudaCodigo.setEnabled(editable);
         btnRegistrar.setEnabled(editable);
