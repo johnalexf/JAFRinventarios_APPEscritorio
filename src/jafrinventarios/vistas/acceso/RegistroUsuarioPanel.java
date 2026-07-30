@@ -146,6 +146,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         labelCodigo = new javax.swing.JLabel();
         contenedorInputYErrorCodigo = new javax.swing.JPanel();
         contenedorInputCodigo = new javax.swing.JPanel();
+        contenedorBtnAyudaCodigo = new javax.swing.JPanel();
         btnAyudaCodigo = new javax.swing.JButton();
         inputCodigo = new javax.swing.JTextField();
         lblErrorInputCodigo = new javax.swing.JLabel();
@@ -239,7 +240,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         labelPrimerNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelPrimerNombre.setText("Primer Nombre :");
         labelPrimerNombre.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelPrimerNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelPrimerNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelPrimerNombre.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelPrimerNombre.setMaximumSize(new java.awt.Dimension(0, 0));
         labelPrimerNombre.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -254,19 +255,21 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasNombreCompleto.add(labelPrimerNombre, gridBagConstraints);
 
         contenedorInputYErrorPrimerNombre.setOpaque(false);
-        contenedorInputYErrorPrimerNombre.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorPrimerNombre.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorPrimerNombre.setLayout(new java.awt.BorderLayout());
 
         inputPrimerNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputPrimerNombre.setEnabled(false);
         inputPrimerNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputPrimerNombre.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputPrimerNombre.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorPrimerNombre.add(inputPrimerNombre, java.awt.BorderLayout.NORTH);
 
         lblErrorInputPrimerNombre.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputPrimerNombre.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputPrimerNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputPrimerNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputPrimerNombre.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputPrimerNombre.setPreferredSize(new java.awt.Dimension(0, 17));
+        lblErrorInputPrimerNombre.setRequestFocusEnabled(false);
         contenedorInputYErrorPrimerNombre.add(lblErrorInputPrimerNombre, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -274,14 +277,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasNombreCompleto.add(contenedorInputYErrorPrimerNombre, gridBagConstraints);
 
         labelSegundoNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelSegundoNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelSegundoNombre.setText("Segundo Nombre :");
         labelSegundoNombre.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelSegundoNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelSegundoNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelSegundoNombre.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelSegundoNombre.setMaximumSize(new java.awt.Dimension(0, 0));
         labelSegundoNombre.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -296,19 +299,20 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasNombreCompleto.add(labelSegundoNombre, gridBagConstraints);
 
         contenedorInputYErrorSegundoNombre.setOpaque(false);
-        contenedorInputYErrorSegundoNombre.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorSegundoNombre.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorSegundoNombre.setLayout(new java.awt.BorderLayout());
 
         inputSegundoNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputSegundoNombre.setEnabled(false);
         inputSegundoNombre.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputSegundoNombre.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputSegundoNombre.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorSegundoNombre.add(inputSegundoNombre, java.awt.BorderLayout.NORTH);
 
         lblErrorInputSegundoNombre.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputSegundoNombre.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputSegundoNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputSegundoNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputSegundoNombre.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputSegundoNombre.setPreferredSize(new java.awt.Dimension(0, 17));
         contenedorInputYErrorSegundoNombre.add(lblErrorInputSegundoNombre, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -316,14 +320,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasNombreCompleto.add(contenedorInputYErrorSegundoNombre, gridBagConstraints);
 
         labelPrimerApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelPrimerApellido.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelPrimerApellido.setText("Primer Apellido :");
         labelPrimerApellido.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelPrimerApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelPrimerApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelPrimerApellido.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelPrimerApellido.setMaximumSize(new java.awt.Dimension(0, 0));
         labelPrimerApellido.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -338,20 +342,21 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasNombreCompleto.add(labelPrimerApellido, gridBagConstraints);
 
         contenedorInputYErrorPrimerApellido.setOpaque(false);
-        contenedorInputYErrorPrimerApellido.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorPrimerApellido.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorPrimerApellido.setLayout(new java.awt.BorderLayout());
 
         inputPrimerApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputPrimerApellido.setToolTipText("");
         inputPrimerApellido.setEnabled(false);
         inputPrimerApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputPrimerApellido.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputPrimerApellido.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorPrimerApellido.add(inputPrimerApellido, java.awt.BorderLayout.NORTH);
 
         lblErrorInputPrimerApellido.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputPrimerApellido.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputPrimerApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputPrimerApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputPrimerApellido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputPrimerApellido.setPreferredSize(new java.awt.Dimension(0, 17));
         contenedorInputYErrorPrimerApellido.add(lblErrorInputPrimerApellido, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -359,14 +364,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasNombreCompleto.add(contenedorInputYErrorPrimerApellido, gridBagConstraints);
 
         labelSegundoApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelSegundoApellido.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelSegundoApellido.setText("Segundo Apellido :");
         labelSegundoApellido.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelSegundoApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelSegundoApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelSegundoApellido.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelSegundoApellido.setMaximumSize(new java.awt.Dimension(0, 0));
         labelSegundoApellido.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -381,19 +386,20 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasNombreCompleto.add(labelSegundoApellido, gridBagConstraints);
 
         contenedorInputYErrorSegundoApellido.setOpaque(false);
-        contenedorInputYErrorSegundoApellido.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorSegundoApellido.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorSegundoApellido.setLayout(new java.awt.BorderLayout());
 
         inputSegundoApellido.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputSegundoApellido.setEnabled(false);
         inputSegundoApellido.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputSegundoApellido.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputSegundoApellido.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorSegundoApellido.add(inputSegundoApellido, java.awt.BorderLayout.NORTH);
 
         lblErrorInputSegundoApellido.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputSegundoApellido.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputSegundoApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputSegundoApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputSegundoApellido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputSegundoApellido.setPreferredSize(new java.awt.Dimension(0, 17));
         contenedorInputYErrorSegundoApellido.add(lblErrorInputSegundoApellido, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -401,6 +407,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasNombreCompleto.add(contenedorInputYErrorSegundoApellido, gridBagConstraints);
 
         contenedorNombreCompleto.add(contenedorEntradasNombreCompleto);
@@ -433,7 +440,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         labelTelefono.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelTelefono.setText("Telefono :");
         labelTelefono.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelTelefono.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelTelefono.setMaximumSize(new java.awt.Dimension(0, 0));
         labelTelefono.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -448,19 +455,20 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasDatosContacto.add(labelTelefono, gridBagConstraints);
 
         contenedorInputYErrorTelefono.setOpaque(false);
-        contenedorInputYErrorTelefono.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorTelefono.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorTelefono.setLayout(new java.awt.BorderLayout());
 
         inputTelefono.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputTelefono.setEnabled(false);
         inputTelefono.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputTelefono.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputTelefono.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorTelefono.add(inputTelefono, java.awt.BorderLayout.NORTH);
 
         lblErrorInputTelefono.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputTelefono.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputTelefono.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputTelefono.setPreferredSize(new java.awt.Dimension(0, 17));
         contenedorInputYErrorTelefono.add(lblErrorInputTelefono, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -468,14 +476,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasDatosContacto.add(contenedorInputYErrorTelefono, gridBagConstraints);
 
         labelCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelCorreo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelCorreo.setText("Correo :");
         labelCorreo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelCorreo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelCorreo.setMaximumSize(new java.awt.Dimension(0, 0));
         labelCorreo.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -490,19 +498,20 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasDatosContacto.add(labelCorreo, gridBagConstraints);
 
         contenedorInputYErrorCorreo.setOpaque(false);
-        contenedorInputYErrorCorreo.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorCorreo.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorCorreo.setLayout(new java.awt.BorderLayout());
 
         inputCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCorreo.setEnabled(false);
         inputCorreo.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputCorreo.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputCorreo.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorCorreo.add(inputCorreo, java.awt.BorderLayout.NORTH);
 
         lblErrorInputCorreo.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputCorreo.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputCorreo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputCorreo.setPreferredSize(new java.awt.Dimension(0, 17));
         contenedorInputYErrorCorreo.add(lblErrorInputCorreo, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -510,6 +519,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasDatosContacto.add(contenedorInputYErrorCorreo, gridBagConstraints);
 
         contenedorDatosContacto.add(contenedorEntradasDatosContacto);
@@ -542,7 +552,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         labelAlias.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelAlias.setText("Alias :");
         labelAlias.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelAlias.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelAlias.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelAlias.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelAlias.setMaximumSize(new java.awt.Dimension(0, 0));
         labelAlias.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -557,19 +567,20 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasCredenciales.add(labelAlias, gridBagConstraints);
 
         contenedorInputYErrorAlias.setOpaque(false);
-        contenedorInputYErrorAlias.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorAlias.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorAlias.setLayout(new java.awt.BorderLayout());
 
         inputAlias.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputAlias.setEnabled(false);
         inputAlias.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputAlias.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputAlias.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorAlias.add(inputAlias, java.awt.BorderLayout.NORTH);
 
         lblErrorInputAlias.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputAlias.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputAlias.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputAlias.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputAlias.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputAlias.setPreferredSize(new java.awt.Dimension(0, 17));
         contenedorInputYErrorAlias.add(lblErrorInputAlias, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -577,14 +588,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasCredenciales.add(contenedorInputYErrorAlias, gridBagConstraints);
 
         labelContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelContrasena.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelContrasena.setText("Contraseña :");
         labelContrasena.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelContrasena.setMaximumSize(new java.awt.Dimension(0, 0));
         labelContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -599,19 +610,20 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasCredenciales.add(labelContrasena, gridBagConstraints);
 
         contenedorInputYErrorContrasena.setOpaque(false);
-        contenedorInputYErrorContrasena.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorContrasena.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorContrasena.setLayout(new java.awt.BorderLayout());
 
         inputContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputContrasena.setEnabled(false);
         inputContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputContrasena.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputContrasena.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorContrasena.add(inputContrasena, java.awt.BorderLayout.NORTH);
 
         lblErrorInputContrasena.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputContrasena.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputContrasena.setPreferredSize(new java.awt.Dimension(0, 17));
         contenedorInputYErrorContrasena.add(lblErrorInputContrasena, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -619,14 +631,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasCredenciales.add(contenedorInputYErrorContrasena, gridBagConstraints);
 
         labelConfirmarContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelConfirmarContrasena.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelConfirmarContrasena.setText("Confirmar Contraseña :");
         labelConfirmarContrasena.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelConfirmarContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelConfirmarContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelConfirmarContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelConfirmarContrasena.setMaximumSize(new java.awt.Dimension(0, 0));
         labelConfirmarContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -641,20 +653,21 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasCredenciales.add(labelConfirmarContrasena, gridBagConstraints);
 
         contenedorInputYErrorConfirmarContrasena.setOpaque(false);
-        contenedorInputYErrorConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorConfirmarContrasena.setLayout(new java.awt.BorderLayout());
 
         inputConfirmarContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputConfirmarContrasena.setToolTipText("");
         inputConfirmarContrasena.setEnabled(false);
         inputConfirmarContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorConfirmarContrasena.add(inputConfirmarContrasena, java.awt.BorderLayout.NORTH);
 
         lblErrorInputConfirmarContrasena.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputConfirmarContrasena.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputConfirmarContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputConfirmarContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputConfirmarContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputConfirmarContrasena.setPreferredSize(new java.awt.Dimension(0, 17));
         contenedorInputYErrorConfirmarContrasena.add(lblErrorInputConfirmarContrasena, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -662,14 +675,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasCredenciales.add(contenedorInputYErrorConfirmarContrasena, gridBagConstraints);
 
         labelCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelCodigo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelCodigo.setText("Código de acceso :");
         labelCodigo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelCodigo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelCodigo.setMaximumSize(new java.awt.Dimension(0, 0));
         labelCodigo.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -684,14 +697,19 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasCredenciales.add(labelCodigo, gridBagConstraints);
 
         contenedorInputYErrorCodigo.setOpaque(false);
-        contenedorInputYErrorCodigo.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorCodigo.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorCodigo.setLayout(new java.awt.BorderLayout());
 
         contenedorInputCodigo.setBackground(new java.awt.Color(255, 255, 255));
         contenedorInputCodigo.setMaximumSize(new java.awt.Dimension(0, 0));
         contenedorInputCodigo.setOpaque(false);
-        contenedorInputCodigo.setPreferredSize(new java.awt.Dimension(0, 31));
+        contenedorInputCodigo.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputCodigo.setLayout(new javax.swing.OverlayLayout(contenedorInputCodigo));
+
+        contenedorBtnAyudaCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 4));
+        contenedorBtnAyudaCodigo.setOpaque(false);
+        contenedorBtnAyudaCodigo.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorBtnAyudaCodigo.setLayout(new javax.swing.BoxLayout(contenedorBtnAyudaCodigo, javax.swing.BoxLayout.Y_AXIS));
 
         btnAyudaCodigo.setBackground(new java.awt.Color(255, 255, 255));
         btnAyudaCodigo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -714,21 +732,24 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
                 btnAyudaCodigoActionPerformed(evt);
             }
         });
-        contenedorInputCodigo.add(btnAyudaCodigo);
+        contenedorBtnAyudaCodigo.add(btnAyudaCodigo);
+
+        contenedorInputCodigo.add(contenedorBtnAyudaCodigo);
 
         inputCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCodigo.setEnabled(false);
         inputCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputCodigo.setMinimumSize(new java.awt.Dimension(0, 31));
-        inputCodigo.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputCodigo.setMinimumSize(new java.awt.Dimension(0, 34));
+        inputCodigo.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputCodigo.add(inputCodigo);
 
         contenedorInputYErrorCodigo.add(contenedorInputCodigo, java.awt.BorderLayout.NORTH);
 
         lblErrorInputCodigo.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputCodigo.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputCodigo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputCodigo.setPreferredSize(new java.awt.Dimension(0, 17));
         contenedorInputYErrorCodigo.add(lblErrorInputCodigo, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -736,6 +757,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasCredenciales.add(contenedorInputYErrorCodigo, gridBagConstraints);
 
         contenedorCredenciales.add(contenedorEntradasCredenciales);
@@ -768,7 +790,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         labelNombreComercial.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelNombreComercial.setText("Nombre comercial :");
         labelNombreComercial.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelNombreComercial.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        labelNombreComercial.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         labelNombreComercial.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         labelNombreComercial.setMaximumSize(new java.awt.Dimension(0, 0));
         labelNombreComercial.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -783,18 +805,19 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorEntradasDatosEmpresa.add(labelNombreComercial, gridBagConstraints);
 
         contenedorInputYErrorNombreComercial.setOpaque(false);
-        contenedorInputYErrorNombreComercial.setPreferredSize(new java.awt.Dimension(0, 45));
+        contenedorInputYErrorNombreComercial.setPreferredSize(new java.awt.Dimension(0, 52));
         contenedorInputYErrorNombreComercial.setLayout(new java.awt.BorderLayout());
 
         inputNombreComercial.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputNombreComercial.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputNombreComercial.setPreferredSize(new java.awt.Dimension(0, 31));
+        inputNombreComercial.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorNombreComercial.add(inputNombreComercial, java.awt.BorderLayout.NORTH);
 
         lblErrorInputNombreComercial.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         lblErrorInputNombreComercial.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputNombreComercial.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 0, 0));
+        lblErrorInputNombreComercial.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
         lblErrorInputNombreComercial.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputNombreComercial.setPreferredSize(new java.awt.Dimension(0, 17));
         contenedorInputYErrorNombreComercial.add(lblErrorInputNombreComercial, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -802,6 +825,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasDatosEmpresa.add(contenedorInputYErrorNombreComercial, gridBagConstraints);
 
         contenedorDatosEmpresa.add(contenedorEntradasDatosEmpresa);
@@ -874,6 +898,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> comboBoxRolUsuario;
     private javax.swing.JPanel contenedorBotonEnviarFormulario;
+    private javax.swing.JPanel contenedorBtnAyudaCodigo;
     private javax.swing.JPanel contenedorComboBox;
     private javax.swing.JPanel contenedorCredenciales;
     private javax.swing.JPanel contenedorCuerpoFormulario;
