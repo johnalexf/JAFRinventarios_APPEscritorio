@@ -22,7 +22,6 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private int indiceRolAdministrador = 1;
     private int indiceRolVendedor = 2;
     private final ValidadorFormulario camposFormularioRegistro = new ValidadorFormulario();
-    private final JFrame ventanaPadre;
 
     /**
      * Creates new form RegistroUsuarioPanel
@@ -42,8 +41,6 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
             panelPrincipalScrolleable.getVerticalScrollBar().setValue(0);
         });
         
-        // Buscamos cuál es el JFrame padre (AccesoFrame) que contiene a este panel
-        ventanaPadre = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
     }
     
     private void inyectarCamposAValidador(){
@@ -77,9 +74,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         camposFormularioRegistro.agregarCampo(
                 inputContrasena, lblErrorInputContrasena, 
                 TipoDatoFormulario.CONTRASENA, true);
-        camposFormularioRegistro.agregarCampo(
-                inputConfirmarContrasena, lblErrorInputConfirmarContrasena, 
-                TipoDatoFormulario.CONTRASENA, true);
+        camposFormularioRegistro.agregarCampoConfirmarContrasena(
+                inputConfirmarContrasena, inputContrasena, lblErrorInputConfirmarContrasena);
         camposFormularioRegistro.agregarCampo(
                 inputCodigo, lblErrorInputCodigo, 
                 TipoDatoFormulario.CODIGO, true);
@@ -1000,8 +996,9 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         if( !camposFormularioRegistro.validar() ){
+            
             DialogoMensajePersonalizado.mostrarDialogo(
-                    ventanaPadre,
+                    (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this),
                     "Error en los campos", 
                     "Uno o mas campos tienen errores, \n por favor verifique e intente nuevamente despues de corregirlos", 
                     DialogoMensajePersonalizado.TipoIcono.ERROR, 
@@ -1184,7 +1181,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
      */
     
              
-        DialogoMensajePersonalizado.mostrarDialogo(ventanaPadre, 
+        DialogoMensajePersonalizado.mostrarDialogo(
+                (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
                 "Información código de acceso",
                 mensaje,
                 DialogoMensajePersonalizado.TipoIcono.INFORMACION,
