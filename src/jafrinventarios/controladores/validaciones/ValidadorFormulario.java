@@ -8,6 +8,7 @@ package jafrinventarios.controladores.validaciones;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.text.JTextComponent;
 
 /**
@@ -16,14 +17,21 @@ import javax.swing.text.JTextComponent;
  */
 public class ValidadorFormulario {
     
-    private List<CampoFormulario> camposFormulario;
+    private List<CampoValidable> listaCamposFormulario;
 
     public ValidadorFormulario() {
-        camposFormulario = new ArrayList<>();
+        listaCamposFormulario = new ArrayList<>();
     }
     
     public void agregarCampo( JTextComponent input, JLabel lblError, TipoDatoFormulario tipoDato, boolean esObligatorio ){
-        camposFormulario.add(new CampoFormulario( input, lblError, tipoDato, esObligatorio));
+        listaCamposFormulario.add(new CampoFormulario( input, lblError, tipoDato, esObligatorio));
+    }
+    
+    public void agregarCampoConfirmarContrasena( 
+                                    JPasswordField inputConfirmarContrasena, 
+                                    JPasswordField inputContrasena, 
+                                    JLabel lblError ){
+        listaCamposFormulario.add(new CampoConfirmarContrasena(inputConfirmarContrasena,inputContrasena,lblError));
     }
     
     public boolean validar(){
@@ -33,7 +41,7 @@ public class ValidadorFormulario {
         /*Con el for each hacemos que se validen todos los campos y se muestren
           los errores correspondientes en el lblError de cada input
         */
-        for(CampoFormulario campo : camposFormulario){
+        for(CampoValidable campo : listaCamposFormulario){
             // Cambiamos la respuesta a false si cualquiera de los campos
             // no es un dato valido
             if(!campo.validar()){
@@ -46,7 +54,7 @@ public class ValidadorFormulario {
     }
     
     public void limpiarErrores(){
-        for(CampoFormulario campo : camposFormulario){
+        for(CampoValidable campo : listaCamposFormulario){
             campo.limpiarError();
         }
     }
