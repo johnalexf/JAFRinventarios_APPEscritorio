@@ -8,7 +8,6 @@ package jafrinventarios.controladores.validaciones;
 
 import javax.swing.text.JTextComponent;
 import javax.swing.JLabel;
-import java.awt.Color;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -16,50 +15,26 @@ import javax.swing.event.DocumentListener;
  *
  * @author JOHN FORERO
  */
-public class CampoFormulario {
+public class CampoFormulario extends CampoValidable{
     
     private final JTextComponent input;
-    private final JLabel lblError;
     private final TipoDatoFormulario tipo;
     private final boolean esObligatorio;
-    private static final String ESTILO_NORMAL_INPUT =
-                            " borderColor:#777777; focusedBorderColor:#112355 ";
 
     
     public CampoFormulario(JTextComponent input, JLabel lblError, TipoDatoFormulario tipo, boolean esObligatorio) {
+        super(input, lblError);
+        
         this.input = input;
-        this.lblError = lblError;
         this.tipo = tipo;
         this.esObligatorio = esObligatorio;
         
-        // Configuramos el label en rojo para los errores y vacio
-        if (this.lblError != null) {
-            this.lblError.setForeground(new Color(179,38,30));
-            this.lblError.setText(""); 
-        }
-        
-        aplicarEstiloNormalAInput();
-        
         asignarValidacionEnTiempoReal();
-        
     }
+
     
-    
-    private void aplicarEstiloNormalAInput(){
-        input.putClientProperty("JComponent.outline", null); 
-        input.putClientProperty(
-            "FlatLaf.style",
-            ESTILO_NORMAL_INPUT
-        );
-    }
-    
-    private void aplicarEstiloErrorAInput(){
-         // Con FlatLaf, esto pinta el borde del input en rojo
-            input.putClientProperty("JComponent.outline", "error");
-    }
-    
-    
-    private void asignarValidacionEnTiempoReal(){
+    @Override
+    protected void asignarValidacionEnTiempoReal(){
     
         // Escuchamos cualquier cambio que ocurra en el contenido del input.
         // A diferencia de KeyListener, DocumentListener detecta escritura,
@@ -87,55 +62,43 @@ public class CampoFormulario {
             }
         });
     }
-        
     
-    
-    public boolean validar() {
+   
+    private String obtenerTextoInput(){
         //Eliminamos espacios antes y despues del texto que esta dentro del input
-        String texto = input.getText().trim();
+        return input.getText().trim();
+    }
+
+    @Override
+    protected boolean validar() {
+        String textoInput = obtenerTextoInput();
         
         // ¿Está vacío?
-        if (texto.isEmpty()) {
-            if (esObligatorio) {
+        if(textoInput.isEmpty()){
+            if( esObligatorio ){
                 mostrarError("Este campo es obligatorio");
                 return false;
-            } else {
-                // Si NO es obligatorio y está vacío, es válido 
-                limpiarError();
-                return true; 
             }
+            
+            // Si NO es obligatorio y está vacío, es válido
+            // limpiamos el error en dado caso que se haya escrito datos y
+            // despues el usuario los borro
+            limpiarError();
+            return true;
+
         }
         
         // Si llegó aquí es porque HAY texto. Evaluamos el Regex.
-        if (   !texto.matches( tipo.getRegex() )  ) {
+        if (   !textoInput.matches( tipo.getRegex() )  ) {
             mostrarError( tipo.getMensajeError() );
             return false;
         }
         
-        // El campo es correcto, en dado caso que sea una segunda validacion
+        // El campo es correcto si paso las dos validaciones
         // Limpiamos el error si ya se habia mostrado antes
         limpiarError();
         return true;
     }
 
-   
-    private void mostrarError(String mensaje) {
-        if (lblError != null) {
-            lblError.setText(mensaje);
-        }
-        
-        aplicarEstiloErrorAInput();
 
-    }
-
-    
-    public void limpiarError() {
-        if (lblError != null) {
-            lblError.setText("");
-        }
-        // Limpiamos el borde de FlatLaf
-        aplicarEstiloNormalAInput();
-    }
-    
-    
 }
