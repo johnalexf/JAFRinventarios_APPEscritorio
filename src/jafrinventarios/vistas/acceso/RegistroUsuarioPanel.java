@@ -10,7 +10,6 @@ import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.MostrarOcultarContrasena;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *

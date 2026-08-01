@@ -5,7 +5,12 @@
  */
 package jafrinventarios.vistas.acceso;
 
+import jafrinventarios.controladores.validaciones.TipoDatoFormulario;
+import jafrinventarios.controladores.validaciones.ValidadorFormulario;
+import jafrinventarios.vistas.utilidades.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.DinamismoLink;
+import jafrinventarios.vistas.utilidades.MostrarOcultarContrasena;
+import javax.swing.JFrame;
 
 /**
  *
@@ -13,14 +18,28 @@ import jafrinventarios.vistas.utilidades.DinamismoLink;
  */
 public class InicioSesionPanel extends javax.swing.JPanel {
 
+    private ValidadorFormulario camposFormularioIngreso ;
     /**
      * Creates new form InicioSesionPanel
      */
     public InicioSesionPanel() {
+        this.camposFormularioIngreso = new ValidadorFormulario();
         initComponents();
         
         DinamismoLink.aplicarEfecto(btnLinkRecuperarContraseña);
-    
+        MostrarOcultarContrasena.agregarFuncionalidad(inputContrasena, btnMostrarOcultarContrasena);
+        
+        // Agregar campos al validador
+        camposFormularioIngreso.agregarCampo(
+                                            inputCorreo, 
+                                            lblErrorInputCorreo, 
+                                            TipoDatoFormulario.CORREO, 
+                                            true);
+        camposFormularioIngreso.agregarCampo(
+                                            inputContrasena, 
+                                            lblErrorInputContrasena, 
+                                            TipoDatoFormulario.REQUERIDO, 
+                                            true);
     }
 
     /**
@@ -36,9 +55,16 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         tituloFormulario = new javax.swing.JLabel();
         contenedorCuerpoFormulario = new javax.swing.JPanel();
         labelCorreo = new javax.swing.JLabel();
+        contenedorInputYErrorCorreo = new javax.swing.JPanel();
         inputCorreo = new javax.swing.JTextField();
+        lblErrorInputCorreo = new javax.swing.JLabel();
         labelContrasena = new javax.swing.JLabel();
-        inputContrasena = new javax.swing.JTextField();
+        contenedorInputYErrorContrasena = new javax.swing.JPanel();
+        contenedorInputContrasena = new javax.swing.JPanel();
+        contenedorBtnMostrarOcultarContrasena = new javax.swing.JPanel();
+        btnMostrarOcultarContrasena = new javax.swing.JButton();
+        inputContrasena = new javax.swing.JPasswordField();
+        lblErrorInputContrasena = new javax.swing.JLabel();
         contenedorRecuperarContrasena = new javax.swing.JPanel();
         btnLinkRecuperarContraseña = new javax.swing.JButton();
         contenedorBotonEnviarFormulario = new javax.swing.JPanel();
@@ -47,7 +73,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(205, 205, 205));
         setMaximumSize(new java.awt.Dimension(32767, 400));
         setMinimumSize(new java.awt.Dimension(380, 400));
-        setPreferredSize(new java.awt.Dimension(380, 400));
+        setPreferredSize(new java.awt.Dimension(300, 400));
         setRequestFocusEnabled(false);
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
@@ -74,39 +100,100 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         contenedorCuerpoFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 0, 40));
         contenedorCuerpoFormulario.setMinimumSize(new java.awt.Dimension(80, 180));
         contenedorCuerpoFormulario.setOpaque(false);
-        contenedorCuerpoFormulario.setPreferredSize(new java.awt.Dimension(400, 180));
+        contenedorCuerpoFormulario.setPreferredSize(new java.awt.Dimension(500, 200));
         contenedorCuerpoFormulario.setRequestFocusEnabled(false);
-        contenedorCuerpoFormulario.setLayout(new java.awt.GridLayout(4, 1, 0, 10));
+        contenedorCuerpoFormulario.setLayout(new javax.swing.BoxLayout(contenedorCuerpoFormulario, javax.swing.BoxLayout.Y_AXIS));
 
         labelCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelCorreo.setText("Correo:");
-        labelCorreo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        labelCorreo.setMaximumSize(new java.awt.Dimension(0, 0));
-        labelCorreo.setMinimumSize(new java.awt.Dimension(0, 0));
-        labelCorreo.setPreferredSize(new java.awt.Dimension(0, 0));
+        labelCorreo.setAlignmentX(0.5F);
+        labelCorreo.setIconTextGap(0);
+        labelCorreo.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        labelCorreo.setPreferredSize(new java.awt.Dimension(53, 40));
         contenedorCuerpoFormulario.add(labelCorreo);
 
+        contenedorInputYErrorCorreo.setOpaque(false);
+        contenedorInputYErrorCorreo.setPreferredSize(new java.awt.Dimension(0, 60));
+        contenedorInputYErrorCorreo.setLayout(new java.awt.BorderLayout());
+
         inputCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        inputCorreo.setMargin(new java.awt.Insets(2, 15, 2, 15));
-        inputCorreo.setMaximumSize(new java.awt.Dimension(0, 0));
-        inputCorreo.setMinimumSize(new java.awt.Dimension(0, 0));
-        inputCorreo.setPreferredSize(new java.awt.Dimension(0, 0));
-        contenedorCuerpoFormulario.add(inputCorreo);
+        inputCorreo.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputCorreo.setMinimumSize(new java.awt.Dimension(0, 45));
+        inputCorreo.setPreferredSize(new java.awt.Dimension(0, 41));
+        contenedorInputYErrorCorreo.add(inputCorreo, java.awt.BorderLayout.NORTH);
+
+        lblErrorInputCorreo.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorInputCorreo.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorInputCorreo.setAlignmentX(0.5F);
+        lblErrorInputCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorInputCorreo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputCorreo.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorCorreo.add(lblErrorInputCorreo, java.awt.BorderLayout.SOUTH);
+
+        contenedorCuerpoFormulario.add(contenedorInputYErrorCorreo);
 
         labelContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelContrasena.setText("Contraseña:");
-        labelContrasena.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        labelContrasena.setMaximumSize(new java.awt.Dimension(0, 0));
-        labelContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
-        labelContrasena.setPreferredSize(new java.awt.Dimension(0, 0));
+        labelContrasena.setAlignmentX(0.5F);
+        labelContrasena.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        labelContrasena.setPreferredSize(new java.awt.Dimension(85, 40));
         contenedorCuerpoFormulario.add(labelContrasena);
 
+        contenedorInputYErrorContrasena.setOpaque(false);
+        contenedorInputYErrorContrasena.setPreferredSize(new java.awt.Dimension(400, 60));
+        contenedorInputYErrorContrasena.setLayout(new java.awt.BorderLayout());
+
+        contenedorInputContrasena.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorInputContrasena.setMaximumSize(new java.awt.Dimension(0, 0));
+        contenedorInputContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
+        contenedorInputContrasena.setName(""); // NOI18N
+        contenedorInputContrasena.setOpaque(false);
+        contenedorInputContrasena.setPreferredSize(new java.awt.Dimension(0, 41));
+        contenedorInputContrasena.setLayout(new javax.swing.OverlayLayout(contenedorInputContrasena));
+
+        contenedorBtnMostrarOcultarContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 4));
+        contenedorBtnMostrarOcultarContrasena.setAlignmentY(0.55F);
+        contenedorBtnMostrarOcultarContrasena.setOpaque(false);
+        contenedorBtnMostrarOcultarContrasena.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorBtnMostrarOcultarContrasena.setLayout(new javax.swing.BoxLayout(contenedorBtnMostrarOcultarContrasena, javax.swing.BoxLayout.Y_AXIS));
+
+        btnMostrarOcultarContrasena.setBackground(new java.awt.Color(255, 255, 255));
+        btnMostrarOcultarContrasena.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnMostrarOcultarContrasena.setForeground(new java.awt.Color(17, 35, 85));
+        btnMostrarOcultarContrasena.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/mdi-light--eye-off.png"))); // NOI18N
+        btnMostrarOcultarContrasena.setToolTipText("");
+        btnMostrarOcultarContrasena.setAlignmentX(1.0F);
+        btnMostrarOcultarContrasena.setAlignmentY(0.0F);
+        btnMostrarOcultarContrasena.setBorderPainted(false);
+        btnMostrarOcultarContrasena.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMostrarOcultarContrasena.setFocusCycleRoot(true);
+        btnMostrarOcultarContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMostrarOcultarContrasena.setIconTextGap(0);
+        btnMostrarOcultarContrasena.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnMostrarOcultarContrasena.setMaximumSize(new java.awt.Dimension(30, 26));
+        btnMostrarOcultarContrasena.setMinimumSize(new java.awt.Dimension(30, 26));
+        btnMostrarOcultarContrasena.setPreferredSize(new java.awt.Dimension(30, 26));
+        contenedorBtnMostrarOcultarContrasena.add(btnMostrarOcultarContrasena);
+
+        contenedorInputContrasena.add(contenedorBtnMostrarOcultarContrasena);
+
         inputContrasena.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        inputContrasena.setMargin(new java.awt.Insets(2, 15, 2, 15));
-        inputContrasena.setMaximumSize(new java.awt.Dimension(0, 0));
-        inputContrasena.setMinimumSize(new java.awt.Dimension(0, 0));
-        inputContrasena.setPreferredSize(new java.awt.Dimension(0, 0));
-        contenedorCuerpoFormulario.add(inputContrasena);
+        inputContrasena.setToolTipText("");
+        inputContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputContrasena.setMinimumSize(new java.awt.Dimension(0, 34));
+        inputContrasena.setPreferredSize(new java.awt.Dimension(0, 41));
+        contenedorInputContrasena.add(inputContrasena);
+
+        contenedorInputYErrorContrasena.add(contenedorInputContrasena, java.awt.BorderLayout.NORTH);
+
+        lblErrorInputContrasena.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorInputContrasena.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorInputContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorInputContrasena.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputContrasena.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorContrasena.add(lblErrorInputContrasena, java.awt.BorderLayout.SOUTH);
+
+        contenedorCuerpoFormulario.add(contenedorInputYErrorContrasena);
 
         add(contenedorCuerpoFormulario);
 
@@ -153,6 +240,15 @@ public class InicioSesionPanel extends javax.swing.JPanel {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
 
+        if( !camposFormularioIngreso.validar() ){
+           DialogoMensajePersonalizado.mostrarDialogo(
+                    (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this),
+                    "Error en los campos", 
+                    "Uno o mas campos tienen errores, \n por favor verifique e intente nuevamente despues de corregirlos", 
+                    DialogoMensajePersonalizado.TipoIcono.ERROR, 
+                    false
+            );
+        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnLinkRecuperarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLinkRecuperarContraseñaActionPerformed
@@ -166,14 +262,21 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnLinkRecuperarContraseña;
+    private javax.swing.JButton btnMostrarOcultarContrasena;
     private javax.swing.JPanel contenedorBotonEnviarFormulario;
+    private javax.swing.JPanel contenedorBtnMostrarOcultarContrasena;
     private javax.swing.JPanel contenedorCuerpoFormulario;
+    private javax.swing.JPanel contenedorInputContrasena;
+    private javax.swing.JPanel contenedorInputYErrorContrasena;
+    private javax.swing.JPanel contenedorInputYErrorCorreo;
     private javax.swing.JPanel contenedorRecuperarContrasena;
     private javax.swing.JPanel contenedorTituloFormulario;
-    private javax.swing.JTextField inputContrasena;
+    private javax.swing.JPasswordField inputContrasena;
     private javax.swing.JTextField inputCorreo;
     private javax.swing.JLabel labelContrasena;
     private javax.swing.JLabel labelCorreo;
+    private javax.swing.JLabel lblErrorInputContrasena;
+    private javax.swing.JLabel lblErrorInputCorreo;
     private javax.swing.JLabel tituloFormulario;
     // End of variables declaration//GEN-END:variables
 }
