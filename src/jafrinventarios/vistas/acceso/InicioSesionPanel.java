@@ -241,13 +241,9 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
 
         if( !camposFormularioIngreso.validar() ){
-           DialogoMensajePersonalizado.mostrarDialogo(
-                    (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this),
-                    "Error en los campos", 
-                    "Uno o mas campos tienen errores, \n por favor verifique e intente nuevamente despues de corregirlos", 
-                    DialogoMensajePersonalizado.TipoIcono.ERROR, 
-                    false
-            );
+           DialogoMensajePersonalizado.mostrarDialogoErrorDatos(
+                (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this)
+           );
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

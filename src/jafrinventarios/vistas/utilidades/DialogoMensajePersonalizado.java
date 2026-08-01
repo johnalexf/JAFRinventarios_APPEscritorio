@@ -196,6 +196,18 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
         return dialogo.respuesta;
     }
     
+    public static void mostrarDialogoErrorDatos(JFrame padreFrame){
+    
+        mostrarDialogo(
+                    padreFrame,
+                    "Error en los campos", 
+                    "Uno o mas campos tienen errores, \n por favor verifique e intente nuevamente despues de corregirlos", 
+                    DialogoMensajePersonalizado.TipoIcono.ERROR, 
+                    false
+            );
+    
+    }
+    
     private void configurarContenidoDialogo( String titulo, String mensaje, TipoIcono tipoIcono){
         //Asignar el incono segun el tipo recibido
         iconoDialogo.setIcon(
