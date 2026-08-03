@@ -5,6 +5,7 @@
  */
 package jafrinventarios.vistas.utilidades;
 
+import java.awt.Window;
 import javax.swing.JFrame;
 
 /**
@@ -28,7 +29,7 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
     /**
      * Creates new form DialogoMensajePersonalizado
      */
-    private DialogoMensajePersonalizado(JFrame parent, boolean modal, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
+    private DialogoMensajePersonalizado(Window parent, boolean modal, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
         super(parent);
 
         initComponents();
@@ -186,9 +187,9 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
 
     
     // Método estático que podrás llamar desde cualquier parte del proyecto
-    public static boolean mostrarDialogo(JFrame padreFrame, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
+    public static boolean mostrarDialogo(Window ventanaPadre, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
         
-        DialogoMensajePersonalizado dialogo = new DialogoMensajePersonalizado(padreFrame, true, titulo, mensaje, tipoIcono, mostrarBotones);
+        DialogoMensajePersonalizado dialogo = new DialogoMensajePersonalizado(ventanaPadre, true, titulo, mensaje, tipoIcono, mostrarBotones);
         
         dialogo.hacerVisibleDialogo();
         // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
@@ -196,10 +197,10 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
         return dialogo.respuesta;
     }
     
-    public static void mostrarDialogoErrorDatos(JFrame padreFrame){
+    public static void mostrarDialogoErrorDatos(Window ventanaPadre){
     
         mostrarDialogo(
-                    padreFrame,
+                    ventanaPadre,
                     "Error en los campos", 
                     "Uno o mas campos tienen errores, \n por favor verifique e intente nuevamente despues de corregirlos", 
                     DialogoMensajePersonalizado.TipoIcono.ERROR, 

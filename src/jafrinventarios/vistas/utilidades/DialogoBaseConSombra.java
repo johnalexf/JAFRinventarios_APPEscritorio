@@ -5,8 +5,9 @@
  */
 package jafrinventarios.vistas.utilidades;
 
+import java.awt.Dialog;
+import java.awt.Window;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 /**
  *
@@ -17,23 +18,29 @@ public class DialogoBaseConSombra extends JDialog {
     //Variable global para mejorar legibilidad del codigo
     // Se crea un JPanel especial con transparencia dedicado para asignar al glassPane del frame padre
     private final GlassPaneSemiOscuro panelSemiOscuro = new GlassPaneSemiOscuro();
-    protected JFrame padreFrame;
+    protected Window ventanaPadre;
 
-    public DialogoBaseConSombra(JFrame parent) {
-        //super(parent, modal);
-        super(parent, true);
-        this.padreFrame = parent;
+    public DialogoBaseConSombra(Window parent) {
+        /* Se decide usar Window para poder dibujar el fondo semioscuro sobre cualquier tipo de 
+            ventana, ya sea un Jframe, un Jdialog u otros.
+            super(parent, modal);
+            Usamos ModalityType.APPLICATION_MODAL en lugar del boolean true, firma correcta que exige la clase Window
+        */
+        super(parent, Dialog.ModalityType.APPLICATION_MODAL);
+        this.ventanaPadre = parent;
     }
 
     private void mostrarGlassPanePadreDialogo() {
-        if (padreFrame != null) {
-            padreFrame.setGlassPane(panelSemiOscuro);
+        // Evaluamos si la ventana implementa la interfaz que maneja GlassPanes
+        if (ventanaPadre instanceof javax.swing.RootPaneContainer) {
+            // Hacemos el cast directamente a la interfaz
+            ((javax.swing.RootPaneContainer) ventanaPadre).setGlassPane(panelSemiOscuro);
             panelSemiOscuro.setVisible(true);
         }
     }
 
     private void ocultarGlassPanePadreDialogo() {
-        if (padreFrame != null) {
+        if (ventanaPadre != null) {
             panelSemiOscuro.setVisible(false);
         }
     }
@@ -45,7 +52,7 @@ public class DialogoBaseConSombra extends JDialog {
         // Recalcular tamaño del dialog segun el tamaño que necesite cada componente interno
         pack();
         // Centrar el dialogo con respecto a su padre
-        setLocationRelativeTo(padreFrame);
+        setLocationRelativeTo(ventanaPadre);
         // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
         setVisible(true);
     }

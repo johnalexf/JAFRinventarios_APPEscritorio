@@ -611,7 +611,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
             // Este boton antes de continuar valida si el correo existe en la base de datos
             mostrarTarjeta("cardConfirmarCodigo");
         }else{
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(null);
+            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(this);
         }
         
     }//GEN-LAST:event_btnEnviarCodigoActionPerformed
@@ -621,7 +621,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         if(formularioContrasenaNueva.validar()){
             this.dispose();
         }else{
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(null);
+            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(this);
         }
         
     }//GEN-LAST:event_btnCambiarContrasenaActionPerformed
@@ -631,7 +631,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         if(formularioCodigo.validar()){
             mostrarTarjeta("cardContrasenaNueva");
         }else{
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(null);
+            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(this);
         }
         
     }//GEN-LAST:event_btnConfirmarCodigoActionPerformed
@@ -641,7 +641,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         if(formularioContrasenaAntigua.validar()){
             mostrarTarjeta("cardContrasenaNueva");
         }else{
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(null);
+            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(this);
         }
         
     }//GEN-LAST:event_btnConfirmarContrasenaAntiguaActionPerformed
