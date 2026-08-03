@@ -26,6 +26,9 @@ public class PrincipalFrame extends javax.swing.JFrame {
         //TO-DO Aqui se hara la consulta a la base de datos, para obtener los valores pertinentes
         headerPanel.asignarNombreEmpresa("Nombre de la empresa 1");
         headerPanel.asignarRolUsuario("Administrador1");
+        
+        //Codigo de prueba asignacion de una seccion
+        headerPanel.asignarSeccion(IconosSecciones.REPORTE);
     }
 
     /**

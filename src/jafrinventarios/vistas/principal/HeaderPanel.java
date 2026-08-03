@@ -42,6 +42,8 @@ public class HeaderPanel extends javax.swing.JPanel {
         tituloLogo = new javax.swing.JLabel();
         contenedorTituloPrincipal = new javax.swing.JPanel();
         tituloNombreEmpresa = new javax.swing.JLabel();
+        tituloIconoSeccion = new javax.swing.JLabel();
+        tituloNombreSeccion = new javax.swing.JLabel();
         contenedorRolYBtnMenu = new javax.swing.JPanel();
         contenedorRolUsuario = new javax.swing.JPanel();
         lblRolUsuario = new javax.swing.JLabel();
@@ -68,6 +70,22 @@ public class HeaderPanel extends javax.swing.JPanel {
         tituloNombreEmpresa.setText("Nombre de la empresa / ");
         tituloNombreEmpresa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         contenedorTituloPrincipal.add(tituloNombreEmpresa);
+
+        tituloIconoSeccion.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        tituloIconoSeccion.setForeground(new java.awt.Color(17, 35, 85));
+        tituloIconoSeccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloIconoSeccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mdi--home.png"))); // NOI18N
+        tituloIconoSeccion.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 1, 1, 1));
+        tituloIconoSeccion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        tituloIconoSeccion.setIconTextGap(0);
+        tituloIconoSeccion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        contenedorTituloPrincipal.add(tituloIconoSeccion);
+
+        tituloNombreSeccion.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        tituloNombreSeccion.setForeground(new java.awt.Color(17, 35, 85));
+        tituloNombreSeccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloNombreSeccion.setText("Inicio");
+        contenedorTituloPrincipal.add(tituloNombreSeccion);
 
         add(contenedorTituloPrincipal, java.awt.BorderLayout.CENTER);
 
@@ -126,6 +144,11 @@ public class HeaderPanel extends javax.swing.JPanel {
     public void asignarRolUsuario(String rolUsuario){
         lblRolUsuario.setText(rolUsuario);
     }
+    
+    public void asignarSeccion( IconosSecciones seccionAsignada){
+        tituloIconoSeccion.setIcon(seccionAsignada.getIcono());
+        tituloNombreSeccion.setText(seccionAsignada.getNombreSeccion());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
@@ -133,7 +156,9 @@ public class HeaderPanel extends javax.swing.JPanel {
     private javax.swing.JPanel contenedorRolYBtnMenu;
     private javax.swing.JPanel contenedorTituloPrincipal;
     private javax.swing.JLabel lblRolUsuario;
+    private javax.swing.JLabel tituloIconoSeccion;
     private javax.swing.JLabel tituloLogo;
     private javax.swing.JLabel tituloNombreEmpresa;
+    private javax.swing.JLabel tituloNombreSeccion;
     // End of variables declaration//GEN-END:variables
 }
