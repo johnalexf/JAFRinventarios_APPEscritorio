@@ -17,9 +17,9 @@ public enum TipoDatoFormulario {
     //ya que el telefono fijo ahora se escribe como 601#######
     TELEFONO("^[0-9]{10}$", "Debe contener 10 números"),
     CORREO("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$", "Formato de correo inválido"),
-    ALIAS("^[\\w]{5,}$","Solo se permiten letras y números"),
+    ALIAS("^[\\w]{5,}$","Solo se permiten letras y números, min 5 caracteres"),
     CONTRASENA(
-        "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+        "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d])\\S{8,}$",
         "Formato invalido"
     ),
     CODIGO("^.{10}$","Debe tener exactamente 10 caracteres"),
