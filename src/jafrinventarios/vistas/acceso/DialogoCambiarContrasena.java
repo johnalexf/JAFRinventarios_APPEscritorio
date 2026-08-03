@@ -5,6 +5,7 @@
  */
 package jafrinventarios.vistas.acceso;
 
+import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.DialogoBaseConSombra;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
@@ -46,22 +47,25 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         contenedorCorreo = new javax.swing.JPanel();
         contenedorEscribaCorreo = new javax.swing.JPanel();
         lblCorreo = new javax.swing.JLabel();
-        contenedorInputCorreo = new javax.swing.JPanel();
+        contenedorInputYErrorCorreo = new javax.swing.JPanel();
         inputCorreo = new javax.swing.JTextField();
+        lblErrorInputCorreo = new javax.swing.JLabel();
         contenedorBtnEnviarCodigo = new javax.swing.JPanel();
         btnEnviarCodigo = new javax.swing.JButton();
         contenedorConfirmarCodigo = new javax.swing.JPanel();
         contenedorEscribaCodigo = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
-        contenedorInputConfirmarCodigo = new javax.swing.JPanel();
+        contenedorInputYErrorConfirmarCodigo = new javax.swing.JPanel();
         inputConfirmarCodigo = new javax.swing.JTextField();
+        lblErrorInputConfirmarCodigo = new javax.swing.JLabel();
         contenedorBtnConfirmarCodigo = new javax.swing.JPanel();
         btnConfirmarCodigo = new javax.swing.JButton();
         contenedorContrasenaAntigua = new javax.swing.JPanel();
         contenedorEscribaContrasenaAntigua = new javax.swing.JPanel();
         lblContrasenaAntigua = new javax.swing.JLabel();
-        contenedorInputContrasenaAntigua = new javax.swing.JPanel();
+        contenedorInputYErrorContrasenaAntigua = new javax.swing.JPanel();
         inputContrasenaAntigua = new javax.swing.JTextField();
+        lblErrorInputContrasenaAntigua = new javax.swing.JLabel();
         contenedorBtnConfirmarContrasenaAntigua = new javax.swing.JPanel();
         btnConfirmarContrasenaAntigua = new javax.swing.JButton();
         contenedorContrasenaNueva = new javax.swing.JPanel();
@@ -76,10 +80,10 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         btnCambiarContrasena = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(500, 380));
+        setMinimumSize(new java.awt.Dimension(500, 350));
         setName("dialogCambiarContrasena"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(500, 380));
+        setPreferredSize(new java.awt.Dimension(500, 350));
 
         contenedorFondoBlanco.setMinimumSize(new java.awt.Dimension(500, 380));
         contenedorFondoBlanco.setPreferredSize(new java.awt.Dimension(500, 380));
@@ -136,7 +140,10 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         contenedorCorreo.setOpaque(false);
         contenedorCorreo.setLayout(new java.awt.BorderLayout());
 
+        contenedorEscribaCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 0, 40));
+        contenedorEscribaCorreo.setMinimumSize(new java.awt.Dimension(0, 0));
         contenedorEscribaCorreo.setOpaque(false);
+        contenedorEscribaCorreo.setPreferredSize(new java.awt.Dimension(0, 0));
         contenedorEscribaCorreo.setLayout(new java.awt.GridLayout(2, 1));
 
         lblCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -146,16 +153,26 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         lblCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 20, 1));
         contenedorEscribaCorreo.add(lblCorreo);
 
-        contenedorInputCorreo.setOpaque(false);
-        contenedorInputCorreo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 20));
+        contenedorInputYErrorCorreo.setOpaque(false);
+        contenedorInputYErrorCorreo.setPreferredSize(new java.awt.Dimension(0, 60));
+        contenedorInputYErrorCorreo.setLayout(new java.awt.BorderLayout());
 
         inputCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        inputCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        inputCorreo.setMinimumSize(new java.awt.Dimension(300, 35));
-        inputCorreo.setPreferredSize(new java.awt.Dimension(300, 35));
-        contenedorInputCorreo.add(inputCorreo);
+        inputCorreo.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputCorreo.setMinimumSize(new java.awt.Dimension(0, 45));
+        inputCorreo.setPreferredSize(new java.awt.Dimension(0, 41));
+        contenedorInputYErrorCorreo.add(inputCorreo, java.awt.BorderLayout.NORTH);
 
-        contenedorEscribaCorreo.add(contenedorInputCorreo);
+        lblErrorInputCorreo.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorInputCorreo.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorInputCorreo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblErrorInputCorreo.setAlignmentX(0.5F);
+        lblErrorInputCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorInputCorreo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputCorreo.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorCorreo.add(lblErrorInputCorreo, java.awt.BorderLayout.CENTER);
+
+        contenedorEscribaCorreo.add(contenedorInputYErrorCorreo);
 
         contenedorCorreo.add(contenedorEscribaCorreo, java.awt.BorderLayout.CENTER);
 
@@ -187,7 +204,10 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         contenedorConfirmarCodigo.setOpaque(false);
         contenedorConfirmarCodigo.setLayout(new java.awt.BorderLayout());
 
+        contenedorEscribaCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 0, 40));
+        contenedorEscribaCodigo.setMinimumSize(new java.awt.Dimension(0, 0));
         contenedorEscribaCodigo.setOpaque(false);
+        contenedorEscribaCodigo.setPreferredSize(new java.awt.Dimension(0, 0));
         contenedorEscribaCodigo.setLayout(new java.awt.GridLayout(2, 1));
 
         lblCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -197,16 +217,26 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         lblCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 20, 1));
         contenedorEscribaCodigo.add(lblCodigo);
 
-        contenedorInputConfirmarCodigo.setOpaque(false);
-        contenedorInputConfirmarCodigo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 20));
+        contenedorInputYErrorConfirmarCodigo.setOpaque(false);
+        contenedorInputYErrorConfirmarCodigo.setPreferredSize(new java.awt.Dimension(0, 60));
+        contenedorInputYErrorConfirmarCodigo.setLayout(new java.awt.BorderLayout());
 
         inputConfirmarCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        inputConfirmarCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        inputConfirmarCodigo.setMinimumSize(new java.awt.Dimension(300, 35));
-        inputConfirmarCodigo.setPreferredSize(new java.awt.Dimension(300, 35));
-        contenedorInputConfirmarCodigo.add(inputConfirmarCodigo);
+        inputConfirmarCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputConfirmarCodigo.setMinimumSize(new java.awt.Dimension(0, 45));
+        inputConfirmarCodigo.setPreferredSize(new java.awt.Dimension(0, 41));
+        contenedorInputYErrorConfirmarCodigo.add(inputConfirmarCodigo, java.awt.BorderLayout.NORTH);
 
-        contenedorEscribaCodigo.add(contenedorInputConfirmarCodigo);
+        lblErrorInputConfirmarCodigo.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorInputConfirmarCodigo.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorInputConfirmarCodigo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblErrorInputConfirmarCodigo.setAlignmentX(0.5F);
+        lblErrorInputConfirmarCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorInputConfirmarCodigo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputConfirmarCodigo.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorConfirmarCodigo.add(lblErrorInputConfirmarCodigo, java.awt.BorderLayout.CENTER);
+
+        contenedorEscribaCodigo.add(contenedorInputYErrorConfirmarCodigo);
 
         contenedorConfirmarCodigo.add(contenedorEscribaCodigo, java.awt.BorderLayout.CENTER);
 
@@ -238,7 +268,10 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         contenedorContrasenaAntigua.setOpaque(false);
         contenedorContrasenaAntigua.setLayout(new java.awt.BorderLayout());
 
+        contenedorEscribaContrasenaAntigua.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 0, 40));
+        contenedorEscribaContrasenaAntigua.setMinimumSize(new java.awt.Dimension(0, 0));
         contenedorEscribaContrasenaAntigua.setOpaque(false);
+        contenedorEscribaContrasenaAntigua.setPreferredSize(new java.awt.Dimension(0, 0));
         contenedorEscribaContrasenaAntigua.setLayout(new java.awt.GridLayout(2, 1));
 
         lblContrasenaAntigua.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -247,17 +280,28 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         lblContrasenaAntigua.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         lblContrasenaAntigua.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 20, 1));
         contenedorEscribaContrasenaAntigua.add(lblContrasenaAntigua);
+        lblContrasenaAntigua.getAccessibleContext().setAccessibleName("Escriba su contraseña actual");
 
-        contenedorInputContrasenaAntigua.setOpaque(false);
-        contenedorInputContrasenaAntigua.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 20));
+        contenedorInputYErrorContrasenaAntigua.setOpaque(false);
+        contenedorInputYErrorContrasenaAntigua.setPreferredSize(new java.awt.Dimension(0, 60));
+        contenedorInputYErrorContrasenaAntigua.setLayout(new java.awt.BorderLayout());
 
         inputContrasenaAntigua.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        inputContrasenaAntigua.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        inputContrasenaAntigua.setMinimumSize(new java.awt.Dimension(300, 35));
-        inputContrasenaAntigua.setPreferredSize(new java.awt.Dimension(300, 35));
-        contenedorInputContrasenaAntigua.add(inputContrasenaAntigua);
+        inputContrasenaAntigua.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputContrasenaAntigua.setMinimumSize(new java.awt.Dimension(0, 45));
+        inputContrasenaAntigua.setPreferredSize(new java.awt.Dimension(0, 41));
+        contenedorInputYErrorContrasenaAntigua.add(inputContrasenaAntigua, java.awt.BorderLayout.NORTH);
 
-        contenedorEscribaContrasenaAntigua.add(contenedorInputContrasenaAntigua);
+        lblErrorInputContrasenaAntigua.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorInputContrasenaAntigua.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorInputContrasenaAntigua.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblErrorInputContrasenaAntigua.setAlignmentX(0.5F);
+        lblErrorInputContrasenaAntigua.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorInputContrasenaAntigua.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputContrasenaAntigua.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorContrasenaAntigua.add(lblErrorInputContrasenaAntigua, java.awt.BorderLayout.CENTER);
+
+        contenedorEscribaContrasenaAntigua.add(contenedorInputYErrorContrasenaAntigua);
 
         contenedorContrasenaAntigua.add(contenedorEscribaContrasenaAntigua, java.awt.BorderLayout.CENTER);
 
@@ -432,11 +476,11 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     private javax.swing.JPanel contenedorEscribaCorreo;
     private javax.swing.JPanel contenedorFondoBlanco;
     private javax.swing.JPanel contenedorHeader;
-    private javax.swing.JPanel contenedorInputConfirmarCodigo;
-    private javax.swing.JPanel contenedorInputContrasenaAntigua;
     private javax.swing.JPanel contenedorInputContrasenaNueva;
     private javax.swing.JPanel contenedorInputContrasenaNueva1;
-    private javax.swing.JPanel contenedorInputCorreo;
+    private javax.swing.JPanel contenedorInputYErrorConfirmarCodigo;
+    private javax.swing.JPanel contenedorInputYErrorContrasenaAntigua;
+    private javax.swing.JPanel contenedorInputYErrorCorreo;
     private javax.swing.JPanel contenedorTarjetas;
     private javax.swing.JTextField inputConfirmarCodigo;
     private javax.swing.JTextField inputConfirmarContrasena;
@@ -448,6 +492,9 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     private javax.swing.JLabel lblContrasenaAntigua;
     private javax.swing.JLabel lblContrasenaNueva;
     private javax.swing.JLabel lblCorreo;
+    private javax.swing.JLabel lblErrorInputConfirmarCodigo;
+    private javax.swing.JLabel lblErrorInputContrasenaAntigua;
+    private javax.swing.JLabel lblErrorInputCorreo;
     private javax.swing.Box.Filler margin_left;
     private javax.swing.JLabel tituloDialogo;
     // End of variables declaration//GEN-END:variables
