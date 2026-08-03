@@ -8,6 +8,7 @@ package jafrinventarios;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import jafrinventarios.vistas.acceso.AccesoFrame;
+import jafrinventarios.vistas.principal.PrincipalFrame;
 
 
 /**
@@ -34,7 +35,8 @@ public class JAFRinventarios {
         // chocarían haciendo el mismo trabajo y la pantalla se podría congelar.
         java.awt.EventQueue.invokeLater(() -> {
 
-            AccesoFrame vistaInicial = new AccesoFrame();
+            //AccesoFrame vistaInicial = new AccesoFrame();
+            PrincipalFrame vistaInicial = new PrincipalFrame();
 
             vistaInicial.setVisible(true);
 
