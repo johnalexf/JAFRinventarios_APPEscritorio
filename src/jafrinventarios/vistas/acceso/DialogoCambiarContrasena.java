@@ -5,8 +5,10 @@
  */
 package jafrinventarios.vistas.acceso;
 
+import jafrinventarios.controladores.validaciones.TipoDatoFormulario;
 import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.DialogoBaseConSombra;
+import jafrinventarios.vistas.utilidades.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.MostrarOcultarContrasena;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
@@ -18,6 +20,10 @@ import javax.swing.JFrame;
 public class DialogoCambiarContrasena extends DialogoBaseConSombra {
 
     private final CardLayout layaoutTarjetas;
+    private final ValidadorFormulario formularioCorreo = new ValidadorFormulario();
+    private final ValidadorFormulario formularioCodigo = new ValidadorFormulario();
+    private final ValidadorFormulario formularioContrasenaAntigua = new ValidadorFormulario();
+    private final ValidadorFormulario formularioContrasenaNueva = new ValidadorFormulario();
     /**
      * Creates new form DialogoCambiarContrasena
      */
@@ -29,6 +35,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         tituloDialogo.setText(titulo);
         
         configurarDinamismoAContrasenas(contrasenaAntigua);
+        inyectarCamposAValidadores(contrasenaAntigua);
         mostrarTarjeta(tarjeta);
         hacerVisibleDialogo();
     }
@@ -41,6 +48,23 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
            MostrarOcultarContrasena.agregarFuncionalidad(inputContrasenaAntigua, btnMostrarOcultarContrasenaAntigua); 
         }
     
+    }
+    
+    private void inyectarCamposAValidadores(boolean contrasenaAntigua){
+        if(contrasenaAntigua){
+            formularioContrasenaAntigua.agregarCampo(
+                    inputContrasenaAntigua, lblErrorInputContrasenaAntigua, TipoDatoFormulario.REQUERIDO, true);
+        }else{
+            formularioCorreo.agregarCampo(
+                    inputCorreo, lblErrorInputCorreo, TipoDatoFormulario.CORREO, true);
+            formularioCodigo.agregarCampo(
+                    inputConfirmarCodigo, lblErrorInputConfirmarCodigo, TipoDatoFormulario.CODIGO, true);
+        }
+        
+        formularioContrasenaNueva.agregarCampo(
+                inputContrasenaNueva, lblErrorInputContrasenaNueva, TipoDatoFormulario.CONTRASENA, true);
+        formularioContrasenaNueva.agregarCampoConfirmarContrasena(
+                inputConfirmarContrasenaNueva, inputContrasenaNueva, lblErrorInputConfirmarContrasenaNueva);
     }
 
     /**
@@ -582,23 +606,44 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     }//GEN-LAST:event_btnCerrarcerrarDialogo
 
     private void btnEnviarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarCodigoActionPerformed
-        // Este boton antes de continuar valida si el correo existe en la base de datos
-        mostrarTarjeta("cardConfirmarCodigo");
+        
+        if(formularioCorreo.validar()){
+            // Este boton antes de continuar valida si el correo existe en la base de datos
+            mostrarTarjeta("cardConfirmarCodigo");
+        }else{
+            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(null);
+        }
+        
     }//GEN-LAST:event_btnEnviarCodigoActionPerformed
 
     private void btnCambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarContrasenaActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        if(formularioContrasenaNueva.validar()){
+            this.dispose();
+        }else{
+            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(null);
+        }
+        
     }//GEN-LAST:event_btnCambiarContrasenaActionPerformed
 
     private void btnConfirmarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCodigoActionPerformed
         // TODO add your handling code here:
-        mostrarTarjeta("cardContrasenaNueva");
+        if(formularioCodigo.validar()){
+            mostrarTarjeta("cardContrasenaNueva");
+        }else{
+            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(null);
+        }
+        
     }//GEN-LAST:event_btnConfirmarCodigoActionPerformed
 
     private void btnConfirmarContrasenaAntiguaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarContrasenaAntiguaActionPerformed
         // TODO add your handling code here:
-        mostrarTarjeta("cardContrasenaNueva");
+        if(formularioContrasenaAntigua.validar()){
+            mostrarTarjeta("cardContrasenaNueva");
+        }else{
+            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(null);
+        }
+        
     }//GEN-LAST:event_btnConfirmarContrasenaAntiguaActionPerformed
 
     
@@ -609,8 +654,8 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         // Evaluamos si la tarjeta actual es la de la contraseña nueva
         // Para poder redimensionar el Dialog ya que esta card ocupa mas espacio
         if (nombreTarjeta.equals("cardContrasenaNueva")) {
-            // Aumentamos el tamaño del JDialog (500 de ancho por 580 de alto)
-            this.setSize(500, 580); 
+            // Aumentamos el tamaño del JDialog (500 de ancho por 640 de alto)
+            this.setSize(500, 640); 
         } else {
             // Si es cualquier otra tarjeta, mantenemos el tamaño original de 500x320
             this.setSize(500, 320); 
