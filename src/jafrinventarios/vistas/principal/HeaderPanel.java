@@ -40,8 +40,8 @@ public class HeaderPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         tituloLogo = new javax.swing.JLabel();
-        contenedorTitulo = new javax.swing.JPanel();
-        tituloPrincipalParte1 = new javax.swing.JLabel();
+        contenedorTituloPrincipal = new javax.swing.JPanel();
+        tituloNombreEmpresa = new javax.swing.JLabel();
         contenedorRolYBtnMenu = new javax.swing.JPanel();
         contenedorRolUsuario = new javax.swing.JPanel();
         lblRolUsuario = new javax.swing.JLabel();
@@ -59,16 +59,17 @@ public class HeaderPanel extends javax.swing.JPanel {
         tituloLogo.setPreferredSize(new java.awt.Dimension(150, 37));
         add(tituloLogo, java.awt.BorderLayout.WEST);
 
-        contenedorTitulo.setOpaque(false);
-        contenedorTitulo.setPreferredSize(new java.awt.Dimension(500, 52));
+        contenedorTituloPrincipal.setOpaque(false);
+        contenedorTituloPrincipal.setPreferredSize(new java.awt.Dimension(500, 52));
+        contenedorTituloPrincipal.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
-        tituloPrincipalParte1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        tituloPrincipalParte1.setForeground(new java.awt.Color(17, 35, 85));
-        tituloPrincipalParte1.setText("Nombre de la empresa");
-        tituloPrincipalParte1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        contenedorTitulo.add(tituloPrincipalParte1);
+        tituloNombreEmpresa.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        tituloNombreEmpresa.setForeground(new java.awt.Color(17, 35, 85));
+        tituloNombreEmpresa.setText("Nombre de la empresa / ");
+        tituloNombreEmpresa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        contenedorTituloPrincipal.add(tituloNombreEmpresa);
 
-        add(contenedorTitulo, java.awt.BorderLayout.CENTER);
+        add(contenedorTituloPrincipal, java.awt.BorderLayout.CENTER);
 
         contenedorRolYBtnMenu.setName(""); // NOI18N
         contenedorRolYBtnMenu.setOpaque(false);
@@ -118,14 +119,21 @@ public class HeaderPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnMenuActionPerformed
 
+    public void asignarNombreEmpresa(String nombreEmpresa){
+        tituloNombreEmpresa.setText(nombreEmpresa + " / ");
+    }
+    
+    public void asignarRolUsuario(String rolUsuario){
+        lblRolUsuario.setText(rolUsuario);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
     private javax.swing.JPanel contenedorRolUsuario;
     private javax.swing.JPanel contenedorRolYBtnMenu;
-    private javax.swing.JPanel contenedorTitulo;
+    private javax.swing.JPanel contenedorTituloPrincipal;
     private javax.swing.JLabel lblRolUsuario;
     private javax.swing.JLabel tituloLogo;
-    private javax.swing.JLabel tituloPrincipalParte1;
+    private javax.swing.JLabel tituloNombreEmpresa;
     // End of variables declaration//GEN-END:variables
 }
