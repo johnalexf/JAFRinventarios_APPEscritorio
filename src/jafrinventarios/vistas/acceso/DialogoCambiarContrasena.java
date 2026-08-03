@@ -21,12 +21,16 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     /**
      * Creates new form DialogoCambiarContrasena
      */
-    public DialogoCambiarContrasena(JFrame parent, String titulo) {
+    private DialogoCambiarContrasena(JFrame parent, String titulo, String tarjeta, boolean contrasenaAntigua) {
         super(parent);
         initComponents();
         
         layaoutTarjetas = (CardLayout) contenedorTarjetas.getLayout();
         tituloDialogo.setText(titulo);
+        
+        configurarDinamismoAContrasenas(contrasenaAntigua);
+        mostrarTarjeta(tarjeta);
+        hacerVisibleDialogo();
     }
     
     private void configurarDinamismoAContrasenas(boolean contrasenaAntigua){
@@ -624,23 +628,28 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     
     
     public static void recuperarContrasena(JFrame padreFrame){
+        
         DialogoCambiarContrasena dialogoRecuperarContrasena = 
-                new DialogoCambiarContrasena( padreFrame, "Recuperar contraseña");
-        
-        dialogoRecuperarContrasena.mostrarTarjeta("cardCorreo");
-        
-        dialogoRecuperarContrasena.hacerVisibleDialogo();
+                new DialogoCambiarContrasena( 
+                        padreFrame, 
+                        "Recuperar contraseña",
+                        "cardCorreo",
+                        false
+                );
+       
     }
     
     
     
     public static void cambiarContrasena(JFrame padreFrame){
         DialogoCambiarContrasena dialogoCambiarContrasena = 
-                new DialogoCambiarContrasena( padreFrame, "Cambiar contraseña");
-        
-        dialogoCambiarContrasena.mostrarTarjeta("cardContrasenaAntigua");
-        
-        dialogoCambiarContrasena.hacerVisibleDialogo();
+                new DialogoCambiarContrasena( 
+                        padreFrame, 
+                        "Cambiar contraseña",
+                        "cardContrasenaAntigua",
+                        true
+                );
+  
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
