@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jafrinventarios.vistas.utilidades;
+package jafrinventarios.vistas.utilidades.dialogos;
 
+import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
 import java.awt.Window;
 import javax.swing.JFrame;
 
