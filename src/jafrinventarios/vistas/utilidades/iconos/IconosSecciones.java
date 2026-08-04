@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jafrinventarios.vistas.principal;
+package jafrinventarios.vistas.utilidades.iconos;
 
 import javax.swing.ImageIcon;
 

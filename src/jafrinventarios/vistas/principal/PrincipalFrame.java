@@ -5,6 +5,8 @@
  */
 package jafrinventarios.vistas.principal;
 
+import jafrinventarios.vistas.utilidades.iconos.IconosSecciones;
+
 /**
  *
  * @author JOHN FORERO
