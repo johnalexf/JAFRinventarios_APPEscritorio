@@ -9,6 +9,7 @@ import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
+import java.util.HashMap;
 
 /**
  *
@@ -117,6 +118,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         inputCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCorreo.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputCorreo.setMinimumSize(new java.awt.Dimension(0, 45));
+        inputCorreo.setName("correo"); // NOI18N
         inputCorreo.setPreferredSize(new java.awt.Dimension(0, 41));
         contenedorInputYErrorCorreo.add(inputCorreo, java.awt.BorderLayout.NORTH);
 
@@ -179,6 +181,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         inputContrasena.setToolTipText("");
         inputContrasena.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputContrasena.setMinimumSize(new java.awt.Dimension(0, 34));
+        inputContrasena.setName("contrasena"); // NOI18N
         inputContrasena.setPreferredSize(new java.awt.Dimension(0, 41));
         contenedorInputContrasena.add(inputContrasena);
 
@@ -244,10 +247,11 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     public boolean ejecutarValidacionCampos() {
         return camposFormularioIngreso.validar();
     }
-
-    // Exponer los datos limpios
-    //TO-DO: Se planea utilizar el mismo validadorFormulario para entregar 
-    //los datos en un solo metodo
+    
+    // Exponer los datos del formulario en un hash map
+    public HashMap<String, String> recolectarDatosFormulario(){
+        return camposFormularioIngreso.recolectarDatos();
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

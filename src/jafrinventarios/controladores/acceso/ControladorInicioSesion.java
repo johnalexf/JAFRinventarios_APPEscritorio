@@ -4,6 +4,7 @@ package jafrinventarios.controladores.acceso;
 import jafrinventarios.vistas.acceso.InicioSesionPanel;
 import jafrinventarios.vistas.acceso.DialogoCambiarContrasena;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -33,7 +34,11 @@ public class ControladorInicioSesion {
         }
 
         // Si la validación de campos pasa, pedimos los datos limpios a la vista
-        // TO-DO: Funcion de conexion pendiente
+        HashMap<String, String> datosFormulario = vistaInicio.recolectarDatosFormulario();
+        
+        datosFormulario.forEach(    (clave, valor) ->
+            System.out.println(clave + " -> " + valor)
+        );
 
         // Llamar a la capa de Modelo para consultar la BD
         System.out.println("Simulando consulta a BD : ");
