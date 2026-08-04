@@ -5,6 +5,7 @@
  */
 package jafrinventarios.vistas.utilidades.dialogos;
 
+import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import java.awt.Window;
 
@@ -30,6 +31,8 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
         super(parent);
 
         initComponents();
+        
+        btnCerrar.setIcon(IconosBotones.CERRAR.getIcono());
 
         configurarContenidoDialogo(titulo, mensaje, tipoIcono);
         

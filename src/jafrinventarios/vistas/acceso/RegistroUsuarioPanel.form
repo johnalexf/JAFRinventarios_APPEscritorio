@@ -1523,7 +1523,7 @@
                                           <Color blue="55" green="23" red="11" type="rgb"/>
                                         </Property>
                                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                          <Image iconType="3" name="/jafrinventarios/recursos/iconos/botones/icono_fluent--chat-help-24-filled.png"/>
+                                          <Image iconType="3" name="/jafrinventarios/recursos/iconos/botones/fluent--chat-help-24-filled.png"/>
                                         </Property>
                                         <Property name="toolTipText" type="java.lang.String" value=""/>
                                         <Property name="alignmentX" type="float" value="1.0"/>

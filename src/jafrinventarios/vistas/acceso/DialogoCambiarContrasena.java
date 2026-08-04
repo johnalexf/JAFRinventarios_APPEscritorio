@@ -10,6 +10,7 @@ import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
+import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 
@@ -30,6 +31,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     private DialogoCambiarContrasena(JFrame parent, String titulo, String tarjeta, boolean contrasenaAntigua) {
         super(parent);
         initComponents();
+        btnCerrar.setIcon(IconosBotones.CERRAR.getIcono());
         
         layaoutTarjetas = (CardLayout) contenedorTarjetas.getLayout();
         tituloDialogo.setText(titulo);
@@ -331,7 +333,6 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         lblContrasenaAntigua.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         lblContrasenaAntigua.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 20, 1));
         contenedorEscribaContrasenaAntigua.add(lblContrasenaAntigua);
-        lblContrasenaAntigua.getAccessibleContext().setAccessibleName("Escriba su contraseña actual");
 
         contenedorInputYErrorContrasenaAntigua.setOpaque(false);
         contenedorInputYErrorContrasenaAntigua.setPreferredSize(new java.awt.Dimension(0, 52));

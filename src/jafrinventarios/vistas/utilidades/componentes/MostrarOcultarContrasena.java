@@ -5,6 +5,7 @@
  */
 package jafrinventarios.vistas.utilidades.componentes;
 
+import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
@@ -14,21 +15,10 @@ import javax.swing.JPasswordField;
  * @author JOHN FORERO
  */
 public final class MostrarOcultarContrasena {
-    
-    private final static String RUTA_ICONOS = "/jafrinventarios/recursos/iconos/botones/";
-    
-    private static final ImageIcon ICONO_MOSTRAR =
-        new ImageIcon(
-                MostrarOcultarContrasena.class.getResource(
-                        RUTA_ICONOS + "mdi-light--eye.png")
-        );
 
-    private static final ImageIcon ICONO_OCULTAR =
-        new ImageIcon(
-                MostrarOcultarContrasena.class.getResource(
-                        RUTA_ICONOS + "mdi-light--eye-off.png")
-        );
-
+    private static final ImageIcon ICONO_MOSTRAR = IconosBotones.OJO_ABIERTO.getIcono();
+    private static final ImageIcon ICONO_OCULTAR = IconosBotones.OJO_CERRADO.getIcono();
+    
     //Se pone en privado el constructor para evitar que se creen objetos con esta clase
     //No se borra el constructor por que java por defecto lo creara publico
     private MostrarOcultarContrasena() {

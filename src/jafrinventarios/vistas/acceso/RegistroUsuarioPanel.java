@@ -9,6 +9,7 @@ import jafrinventarios.controladores.validaciones.TipoDatoFormulario;
 import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
+import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import javax.swing.JFrame;
 
@@ -33,6 +34,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         inyectarCamposAValidador();
         
         configurarDinamismoAContrasenas();
+        
+        btnAyudaCodigo.setIcon(IconosBotones.AYUDA.getIcono());
          
         //Mostramos el formulario desde el inicio, ya que el lblTextAreaDescripcionContrasena
         //por defecto mueve el cursor de escritura hasta su ubicacion, haciendo que el formulario
@@ -842,7 +845,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         btnAyudaCodigo.setBackground(new java.awt.Color(255, 255, 255));
         btnAyudaCodigo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnAyudaCodigo.setForeground(new java.awt.Color(17, 35, 85));
-        btnAyudaCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/icono_fluent--chat-help-24-filled.png"))); // NOI18N
+        btnAyudaCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/fluent--chat-help-24-filled.png"))); // NOI18N
         btnAyudaCodigo.setToolTipText("");
         btnAyudaCodigo.setAlignmentX(1.0F);
         btnAyudaCodigo.setBorderPainted(false);
