@@ -34,36 +34,32 @@ public class Menu extends javax.swing.JPanel {
         contenedorHeader = new javax.swing.JPanel();
         tituloMenu = new javax.swing.JLabel();
         tituloRol = new javax.swing.JLabel();
+        contenedorCuerpo = new javax.swing.JPanel();
+        marginAutoLeft = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         contenedorContenido = new javax.swing.JPanel();
         menuSeccionInicio = new javax.swing.JPanel();
-        lblIconoInicio = new javax.swing.JLabel();
-        lblSeccionInicio = new javax.swing.JLabel();
+        btnLinkSeccionInicio = new javax.swing.JButton();
         menuSeccionUsuarios = new javax.swing.JPanel();
-        lblIconoUsuarios = new javax.swing.JLabel();
-        lblSeccionUsuarios = new javax.swing.JLabel();
+        btnLinkSeccionUsuarios = new javax.swing.JButton();
         menuSeccionProductos = new javax.swing.JPanel();
-        lblIconoProductos = new javax.swing.JLabel();
-        lblSeccionProductos = new javax.swing.JLabel();
+        btnLinkSeccionProductos = new javax.swing.JButton();
         menuSeccionProveedores = new javax.swing.JPanel();
-        lblIconoProveedores = new javax.swing.JLabel();
-        lblSeccionProveedores = new javax.swing.JLabel();
+        btnLinkSeccionProveedores = new javax.swing.JButton();
         menuSeccionClientes = new javax.swing.JPanel();
-        lblIconoClientes = new javax.swing.JLabel();
-        lblSeccionClientes = new javax.swing.JLabel();
+        btnLinkSeccionClientes = new javax.swing.JButton();
         menuSeccionCompras = new javax.swing.JPanel();
-        lblIconoCompras = new javax.swing.JLabel();
-        lblSeccionCompras = new javax.swing.JLabel();
+        btnLinkSeccionCompras = new javax.swing.JButton();
         menuSeccionVentas = new javax.swing.JPanel();
-        lblIconoVentas = new javax.swing.JLabel();
-        lblSeccionVentas = new javax.swing.JLabel();
+        btnLinkSeccionVentas = new javax.swing.JButton();
         menuSeccionInventario = new javax.swing.JPanel();
-        lblIconoInventario = new javax.swing.JLabel();
-        lblSeccionInventario = new javax.swing.JLabel();
+        btnLinkSeccionInventario = new javax.swing.JButton();
         menuSeccionReporte = new javax.swing.JPanel();
-        lblIconoReporte = new javax.swing.JLabel();
-        lblSeccionReporte = new javax.swing.JLabel();
+        btnLinkSeccionReporte = new javax.swing.JButton();
+        marginAutoRight = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(300, 385));
+        setPreferredSize(new java.awt.Dimension(300, 700));
         setLayout(new java.awt.BorderLayout());
 
         contenedorHeader.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(22, 226, 230)), javax.swing.BorderFactory.createEmptyBorder(16, 16, 16, 16)));
@@ -72,353 +68,206 @@ public class Menu extends javax.swing.JPanel {
         contenedorHeader.setLayout(new java.awt.GridLayout(2, 1, 0, 10));
 
         tituloMenu.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        tituloMenu.setForeground(new java.awt.Color(17, 35, 85));
         tituloMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloMenu.setText("Menu");
         contenedorHeader.add(tituloMenu);
 
         tituloRol.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        tituloRol.setForeground(new java.awt.Color(17, 35, 85));
         tituloRol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloRol.setText("Administrador");
         contenedorHeader.add(tituloRol);
 
         add(contenedorHeader, java.awt.BorderLayout.PAGE_START);
 
+        contenedorCuerpo.setOpaque(false);
+        contenedorCuerpo.setLayout(new javax.swing.BoxLayout(contenedorCuerpo, javax.swing.BoxLayout.X_AXIS));
+        contenedorCuerpo.add(marginAutoLeft);
+
+        contenedorContenido.setMaximumSize(new java.awt.Dimension(200, 2147483647));
+        contenedorContenido.setMinimumSize(new java.awt.Dimension(200, 0));
         contenedorContenido.setOpaque(false);
+        contenedorContenido.setPreferredSize(new java.awt.Dimension(200, 0));
         contenedorContenido.setLayout(new javax.swing.BoxLayout(contenedorContenido, javax.swing.BoxLayout.Y_AXIS));
 
         menuSeccionInicio.setOpaque(false);
         menuSeccionInicio.setLayout(new java.awt.GridBagLayout());
 
-        lblIconoInicio.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblIconoInicio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblIconoInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mdi--home.png"))); // NOI18N
-        lblIconoInicio.setToolTipText("");
-        lblIconoInicio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblIconoInicio.setIconTextGap(0);
-        lblIconoInicio.setPreferredSize(new java.awt.Dimension(0, 0));
+        btnLinkSeccionInicio.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnLinkSeccionInicio.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkSeccionInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mdi--home.png"))); // NOI18N
+        btnLinkSeccionInicio.setText("Inicio");
+        btnLinkSeccionInicio.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        menuSeccionInicio.add(lblIconoInicio, gridBagConstraints);
-
-        lblSeccionInicio.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblSeccionInicio.setText("Inicio");
-        lblSeccionInicio.setToolTipText("");
-        lblSeccionInicio.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
-        menuSeccionInicio.add(lblSeccionInicio, gridBagConstraints);
+        menuSeccionInicio.add(btnLinkSeccionInicio, gridBagConstraints);
 
         contenedorContenido.add(menuSeccionInicio);
 
         menuSeccionUsuarios.setOpaque(false);
         menuSeccionUsuarios.setLayout(new java.awt.GridBagLayout());
 
-        lblIconoUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblIconoUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblIconoUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mdi--users.png"))); // NOI18N
-        lblIconoUsuarios.setToolTipText("");
-        lblIconoUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblIconoUsuarios.setIconTextGap(0);
-        lblIconoUsuarios.setPreferredSize(new java.awt.Dimension(0, 0));
+        btnLinkSeccionUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnLinkSeccionUsuarios.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkSeccionUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mdi--users.png"))); // NOI18N
+        btnLinkSeccionUsuarios.setText("Usuarios");
+        btnLinkSeccionUsuarios.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        menuSeccionUsuarios.add(lblIconoUsuarios, gridBagConstraints);
-
-        lblSeccionUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblSeccionUsuarios.setText("Usuarios");
-        lblSeccionUsuarios.setToolTipText("");
-        lblSeccionUsuarios.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
-        menuSeccionUsuarios.add(lblSeccionUsuarios, gridBagConstraints);
+        menuSeccionUsuarios.add(btnLinkSeccionUsuarios, gridBagConstraints);
 
         contenedorContenido.add(menuSeccionUsuarios);
 
         menuSeccionProductos.setOpaque(false);
         menuSeccionProductos.setLayout(new java.awt.GridBagLayout());
 
-        lblIconoProductos.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblIconoProductos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblIconoProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mdi--bread.png"))); // NOI18N
-        lblIconoProductos.setToolTipText("");
-        lblIconoProductos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblIconoProductos.setIconTextGap(0);
-        lblIconoProductos.setPreferredSize(new java.awt.Dimension(0, 0));
+        btnLinkSeccionProductos.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnLinkSeccionProductos.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkSeccionProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mdi--bread.png"))); // NOI18N
+        btnLinkSeccionProductos.setText("Productos");
+        btnLinkSeccionProductos.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        menuSeccionProductos.add(lblIconoProductos, gridBagConstraints);
-
-        lblSeccionProductos.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblSeccionProductos.setText("Productos");
-        lblSeccionProductos.setToolTipText("");
-        lblSeccionProductos.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
-        menuSeccionProductos.add(lblSeccionProductos, gridBagConstraints);
+        menuSeccionProductos.add(btnLinkSeccionProductos, gridBagConstraints);
 
         contenedorContenido.add(menuSeccionProductos);
 
         menuSeccionProveedores.setOpaque(false);
         menuSeccionProveedores.setLayout(new java.awt.GridBagLayout());
 
-        lblIconoProveedores.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblIconoProveedores.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblIconoProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/clarity--building-line.png"))); // NOI18N
-        lblIconoProveedores.setToolTipText("");
-        lblIconoProveedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblIconoProveedores.setIconTextGap(0);
-        lblIconoProveedores.setPreferredSize(new java.awt.Dimension(0, 0));
+        btnLinkSeccionProveedores.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnLinkSeccionProveedores.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkSeccionProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/clarity--building-line.png"))); // NOI18N
+        btnLinkSeccionProveedores.setText("Proveedores");
+        btnLinkSeccionProveedores.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        menuSeccionProveedores.add(lblIconoProveedores, gridBagConstraints);
-
-        lblSeccionProveedores.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblSeccionProveedores.setText("Proveedores");
-        lblSeccionProveedores.setToolTipText("");
-        lblSeccionProveedores.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
-        menuSeccionProveedores.add(lblSeccionProveedores, gridBagConstraints);
+        menuSeccionProveedores.add(btnLinkSeccionProveedores, gridBagConstraints);
 
         contenedorContenido.add(menuSeccionProveedores);
 
         menuSeccionClientes.setOpaque(false);
         menuSeccionClientes.setLayout(new java.awt.GridBagLayout());
 
-        lblIconoClientes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblIconoClientes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblIconoClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/bxs--store.png"))); // NOI18N
-        lblIconoClientes.setToolTipText("");
-        lblIconoClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblIconoClientes.setIconTextGap(0);
-        lblIconoClientes.setPreferredSize(new java.awt.Dimension(0, 0));
+        btnLinkSeccionClientes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnLinkSeccionClientes.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkSeccionClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/bxs--store.png"))); // NOI18N
+        btnLinkSeccionClientes.setText("Clientes");
+        btnLinkSeccionClientes.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        menuSeccionClientes.add(lblIconoClientes, gridBagConstraints);
-
-        lblSeccionClientes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblSeccionClientes.setText("Clientes");
-        lblSeccionClientes.setToolTipText("");
-        lblSeccionClientes.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
-        menuSeccionClientes.add(lblSeccionClientes, gridBagConstraints);
+        menuSeccionClientes.add(btnLinkSeccionClientes, gridBagConstraints);
 
         contenedorContenido.add(menuSeccionClientes);
 
         menuSeccionCompras.setOpaque(false);
         menuSeccionCompras.setLayout(new java.awt.GridBagLayout());
 
-        lblIconoCompras.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblIconoCompras.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblIconoCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/fa7-solid--bag-shopping.png"))); // NOI18N
-        lblIconoCompras.setToolTipText("");
-        lblIconoCompras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblIconoCompras.setIconTextGap(0);
-        lblIconoCompras.setPreferredSize(new java.awt.Dimension(0, 0));
+        btnLinkSeccionCompras.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnLinkSeccionCompras.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkSeccionCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/fa7-solid--bag-shopping.png"))); // NOI18N
+        btnLinkSeccionCompras.setText("Compras");
+        btnLinkSeccionCompras.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        menuSeccionCompras.add(lblIconoCompras, gridBagConstraints);
-
-        lblSeccionCompras.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblSeccionCompras.setText("Compras");
-        lblSeccionCompras.setToolTipText("");
-        lblSeccionCompras.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
-        menuSeccionCompras.add(lblSeccionCompras, gridBagConstraints);
+        menuSeccionCompras.add(btnLinkSeccionCompras, gridBagConstraints);
 
         contenedorContenido.add(menuSeccionCompras);
 
         menuSeccionVentas.setOpaque(false);
         menuSeccionVentas.setLayout(new java.awt.GridBagLayout());
 
-        lblIconoVentas.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblIconoVentas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblIconoVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/bi--cash-coin.png"))); // NOI18N
-        lblIconoVentas.setToolTipText("");
-        lblIconoVentas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblIconoVentas.setIconTextGap(0);
-        lblIconoVentas.setPreferredSize(new java.awt.Dimension(0, 0));
+        btnLinkSeccionVentas.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnLinkSeccionVentas.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkSeccionVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/bi--cash-coin.png"))); // NOI18N
+        btnLinkSeccionVentas.setText("Ventas");
+        btnLinkSeccionVentas.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        menuSeccionVentas.add(lblIconoVentas, gridBagConstraints);
-
-        lblSeccionVentas.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblSeccionVentas.setText("Ventas");
-        lblSeccionVentas.setToolTipText("");
-        lblSeccionVentas.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
-        menuSeccionVentas.add(lblSeccionVentas, gridBagConstraints);
+        menuSeccionVentas.add(btnLinkSeccionVentas, gridBagConstraints);
 
         contenedorContenido.add(menuSeccionVentas);
 
         menuSeccionInventario.setOpaque(false);
         menuSeccionInventario.setLayout(new java.awt.GridBagLayout());
 
-        lblIconoInventario.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblIconoInventario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblIconoInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mingcute--cube-fill.png"))); // NOI18N
-        lblIconoInventario.setToolTipText("");
-        lblIconoInventario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblIconoInventario.setIconTextGap(0);
-        lblIconoInventario.setPreferredSize(new java.awt.Dimension(0, 0));
+        btnLinkSeccionInventario.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnLinkSeccionInventario.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkSeccionInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mingcute--cube-fill.png"))); // NOI18N
+        btnLinkSeccionInventario.setText("Inventario");
+        btnLinkSeccionInventario.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        menuSeccionInventario.add(lblIconoInventario, gridBagConstraints);
-
-        lblSeccionInventario.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblSeccionInventario.setText("Inventario");
-        lblSeccionInventario.setToolTipText("");
-        lblSeccionInventario.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
-        menuSeccionInventario.add(lblSeccionInventario, gridBagConstraints);
+        menuSeccionInventario.add(btnLinkSeccionInventario, gridBagConstraints);
 
         contenedorContenido.add(menuSeccionInventario);
 
         menuSeccionReporte.setOpaque(false);
         menuSeccionReporte.setLayout(new java.awt.GridBagLayout());
 
-        lblIconoReporte.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblIconoReporte.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblIconoReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mdi--file-chart.png"))); // NOI18N
-        lblIconoReporte.setToolTipText("");
-        lblIconoReporte.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblIconoReporte.setIconTextGap(0);
-        lblIconoReporte.setPreferredSize(new java.awt.Dimension(0, 0));
+        btnLinkSeccionReporte.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnLinkSeccionReporte.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkSeccionReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/secciones/mdi--file-chart.png"))); // NOI18N
+        btnLinkSeccionReporte.setText("Reporte");
+        btnLinkSeccionReporte.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        menuSeccionReporte.add(lblIconoReporte, gridBagConstraints);
-
-        lblSeccionReporte.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblSeccionReporte.setText("Reporte");
-        lblSeccionReporte.setToolTipText("");
-        lblSeccionReporte.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
-        menuSeccionReporte.add(lblSeccionReporte, gridBagConstraints);
+        menuSeccionReporte.add(btnLinkSeccionReporte, gridBagConstraints);
 
         contenedorContenido.add(menuSeccionReporte);
 
-        add(contenedorContenido, java.awt.BorderLayout.CENTER);
+        contenedorCuerpo.add(contenedorContenido);
+        contenedorCuerpo.add(marginAutoRight);
+
+        add(contenedorCuerpo, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void aplicarIconosDesdeEnum(){
-        lblIconoInicio.setIcon( IconosSecciones.INICIO.getIcono() );
-        lblIconoUsuarios.setIcon( IconosSecciones.USUARIOS.getIcono() );
-        lblIconoProductos.setIcon( IconosSecciones.PRODUCTOS.getIcono() );
-        lblIconoProveedores.setIcon( IconosSecciones.PROVEEDORES.getIcono() );
-        lblIconoClientes.setIcon( IconosSecciones.CLIENTES.getIcono() );
-        lblIconoCompras.setIcon( IconosSecciones.COMPRAS.getIcono() );
-        lblIconoVentas.setIcon( IconosSecciones.VENTAS.getIcono() );
-        lblIconoInventario.setIcon( IconosSecciones.INVENTARIO.getIcono() );
-        lblIconoReporte.setIcon( IconosSecciones.REPORTE.getIcono() );
+        btnLinkSeccionInicio.setIcon( IconosSecciones.INICIO.getIcono() );
+        btnLinkSeccionUsuarios.setIcon( IconosSecciones.USUARIOS.getIcono() );
+        btnLinkSeccionProductos.setIcon( IconosSecciones.PRODUCTOS.getIcono() );
+        btnLinkSeccionProveedores.setIcon( IconosSecciones.PROVEEDORES.getIcono() );
+        btnLinkSeccionClientes.setIcon( IconosSecciones.CLIENTES.getIcono() );
+        btnLinkSeccionCompras.setIcon( IconosSecciones.COMPRAS.getIcono() );
+        btnLinkSeccionVentas.setIcon( IconosSecciones.VENTAS.getIcono() );
+        btnLinkSeccionInventario.setIcon( IconosSecciones.INVENTARIO.getIcono() );
+        btnLinkSeccionReporte.setIcon( IconosSecciones.REPORTE.getIcono() );
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLinkSeccionClientes;
+    private javax.swing.JButton btnLinkSeccionCompras;
+    private javax.swing.JButton btnLinkSeccionInicio;
+    private javax.swing.JButton btnLinkSeccionInventario;
+    private javax.swing.JButton btnLinkSeccionProductos;
+    private javax.swing.JButton btnLinkSeccionProveedores;
+    private javax.swing.JButton btnLinkSeccionReporte;
+    private javax.swing.JButton btnLinkSeccionUsuarios;
+    private javax.swing.JButton btnLinkSeccionVentas;
     private javax.swing.JPanel contenedorContenido;
+    private javax.swing.JPanel contenedorCuerpo;
     private javax.swing.JPanel contenedorHeader;
-    private javax.swing.JLabel lblIconoClientes;
-    private javax.swing.JLabel lblIconoCompras;
-    private javax.swing.JLabel lblIconoInicio;
-    private javax.swing.JLabel lblIconoInventario;
-    private javax.swing.JLabel lblIconoProductos;
-    private javax.swing.JLabel lblIconoProveedores;
-    private javax.swing.JLabel lblIconoReporte;
-    private javax.swing.JLabel lblIconoUsuarios;
-    private javax.swing.JLabel lblIconoVentas;
-    private javax.swing.JLabel lblSeccionClientes;
-    private javax.swing.JLabel lblSeccionCompras;
-    private javax.swing.JLabel lblSeccionInicio;
-    private javax.swing.JLabel lblSeccionInventario;
-    private javax.swing.JLabel lblSeccionProductos;
-    private javax.swing.JLabel lblSeccionProveedores;
-    private javax.swing.JLabel lblSeccionReporte;
-    private javax.swing.JLabel lblSeccionUsuarios;
-    private javax.swing.JLabel lblSeccionVentas;
+    private javax.swing.Box.Filler marginAutoLeft;
+    private javax.swing.Box.Filler marginAutoRight;
     private javax.swing.JPanel menuSeccionClientes;
     private javax.swing.JPanel menuSeccionCompras;
     private javax.swing.JPanel menuSeccionInicio;
