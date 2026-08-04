@@ -5,6 +5,7 @@
  */
 package jafrinventarios.vistas.principal;
 
+import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.iconos.IconosSecciones;
 
 /**
@@ -19,6 +20,7 @@ public class Menu extends javax.swing.JPanel {
     public Menu() {
         initComponents();
         aplicarIconosDesdeEnum();
+        aplicarEfectoLinkABotones();
     }
 
     /**
@@ -251,6 +253,18 @@ public class Menu extends javax.swing.JPanel {
         btnLinkSeccionVentas.setIcon( IconosSecciones.VENTAS.getIcono() );
         btnLinkSeccionInventario.setIcon( IconosSecciones.INVENTARIO.getIcono() );
         btnLinkSeccionReporte.setIcon( IconosSecciones.REPORTE.getIcono() );
+    }
+    
+    private void aplicarEfectoLinkABotones(){
+        DinamismoLink.aplicarEfecto(btnLinkSeccionInicio);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionUsuarios);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionProductos);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionProveedores);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionClientes);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionCompras);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionVentas);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionInventario);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionReporte);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
