@@ -9,6 +9,7 @@ import jafrinventarios.controladores.validaciones.TipoDatoFormulario;
 import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
+import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import javax.swing.JFrame;
 
 /**
@@ -1180,7 +1181,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
                 (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
                 "Información código de acceso",
                 mensaje,
-                DialogoMensajePersonalizado.TipoIcono.INFORMACION,
+                IconosDialogosMensajePersonalizado.INFORMACION,
                 false
                 );
         

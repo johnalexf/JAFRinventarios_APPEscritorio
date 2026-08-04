@@ -5,9 +5,8 @@
  */
 package jafrinventarios.vistas.utilidades.dialogos;
 
-import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
+import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import java.awt.Window;
-import javax.swing.JFrame;
 
 /**
  *
@@ -17,20 +16,17 @@ import javax.swing.JFrame;
  */
 public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
 
-        //Variable enum para poder mostrar en codigo las opciones validas de TipoIcono
-        public enum TipoIcono{
-        ERROR,
-        ADVERTENCIA,
-        INFORMACION,
-        EXITO,
-        CARGANDO
-        }
-        
+        //La variable Tipo Icono se convirtio en una clase independiente llamada IconosDialogosMnesajePersonalizado
         private boolean respuesta = false;
     /**
      * Creates new form DialogoMensajePersonalizado
      */
-    private DialogoMensajePersonalizado(Window parent, boolean modal, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
+    private DialogoMensajePersonalizado(
+                                    Window parent, 
+                                    String titulo, 
+                                    String mensaje, 
+                                    IconosDialogosMensajePersonalizado tipoIcono, 
+                                    boolean mostrarBotones) {
         super(parent);
 
         initComponents();
@@ -187,10 +183,20 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
     }//GEN-LAST:event_cerrarDialogo
 
     
-    // Método estático que podrás llamar desde cualquier parte del proyecto
-    public static boolean mostrarDialogo(Window ventanaPadre, String titulo, String mensaje, TipoIcono tipoIcono, boolean mostrarBotones) {
+    // Método estático que se podra llamar desde cualquier parte del proyecto
+    public static boolean mostrarDialogo(
+                                    Window ventanaPadre, 
+                                    String titulo, 
+                                    String mensaje, 
+                                    IconosDialogosMensajePersonalizado tipoIcono, 
+                                    boolean mostrarBotones) {
         
-        DialogoMensajePersonalizado dialogo = new DialogoMensajePersonalizado(ventanaPadre, true, titulo, mensaje, tipoIcono, mostrarBotones);
+        DialogoMensajePersonalizado dialogo =
+                new DialogoMensajePersonalizado(ventanaPadre, 
+                                                titulo, 
+                                                mensaje, 
+                                                tipoIcono, 
+                                                mostrarBotones);
         
         dialogo.hacerVisibleDialogo();
         // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
@@ -204,17 +210,18 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
                     ventanaPadre,
                     "Error en los campos", 
                     "Uno o mas campos tienen errores, \n por favor verifique e intente nuevamente despues de corregirlos", 
-                    DialogoMensajePersonalizado.TipoIcono.ERROR, 
+                    IconosDialogosMensajePersonalizado.ERROR, 
                     false
             );
     
     }
     
-    private void configurarContenidoDialogo( String titulo, String mensaje, TipoIcono tipoIcono){
+    private void configurarContenidoDialogo( 
+                                String titulo, 
+                                String mensaje, 
+                                IconosDialogosMensajePersonalizado tipoIcono){
         //Asignar el incono segun el tipo recibido
-        iconoDialogo.setIcon(
-                obtenerImagenIcono(tipoIcono)
-        );  
+        iconoDialogo.setIcon( tipoIcono.getIcono()  );  
         
         // Asignar los textos a los JLabels del diseño
         tituloDialogo.setText(titulo);
@@ -243,39 +250,6 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
                 + "</p>"
                 + "</html>";
     }
-    
-    
-    private javax.swing.ImageIcon obtenerImagenIcono(TipoIcono icono){
-        
-        String rutaCarpetaIconos = "/jafrinventarios/recursos/iconos/dialogos/";
-        String nombreArchivoIcono = "icono_fluent--chat-help-24-filled.png";
-        
-        switch(icono){
-            case ERROR:
-                nombreArchivoIcono = "vaadin--ban.png";
-                break;
-            case ADVERTENCIA:
-                nombreArchivoIcono = "noto-v1--warning.png";
-                break;
-            case INFORMACION:
-                nombreArchivoIcono = "mdi--information.png";
-                break;
-            case EXITO:
-                nombreArchivoIcono = "lets-icons--check-fill.png";
-                break;
-            case CARGANDO:
-                nombreArchivoIcono = "fluent--spinner-ios-16-filled.png";
-                break;
-            default:
-                break;
-        }
-                
-        return new javax.swing.ImageIcon(
-                    getClass().getResource( rutaCarpetaIconos + nombreArchivoIcono )
-                );
-        
-    }
-    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
