@@ -7,6 +7,7 @@ package jafrinventarios.vistas.utilidades.validaciones;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.text.JTextComponent;
@@ -57,6 +58,20 @@ public class ValidadorFormulario {
         for(CampoValidable campo : listaCamposFormulario){
             campo.limpiarError();
         }
+    }
+    
+    public HashMap<String, String> recolectarDatos(){
+        
+        /* NOTA: Para que este metodo los resultados sean los esperados, es necesario
+                 configurar el atributo name de cada uno de los componentes, con un nombre
+                 unico y representativo en la base de datos o el modelo.
+        */
+        HashMap<String, String> recolectorDatos = new HashMap<>();
+        listaCamposFormulario.forEach(campo -> {
+            recolectorDatos.put(campo.getNameComponente(), campo.getValorComponente());
+        });
+        
+        return recolectorDatos;
     }
     
 

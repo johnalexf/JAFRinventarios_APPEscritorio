@@ -84,6 +84,13 @@ public class CampoConfirmarContrasena extends CampoValidable {
         limpiarError();
         return true;
     }
+    
+    
+    @Override
+    protected String getValorComponente(){
+        return String.valueOf(inputConfirmarContrasena.getPassword());
+    }
+
 
 
     

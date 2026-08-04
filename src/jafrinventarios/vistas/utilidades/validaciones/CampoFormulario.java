@@ -99,6 +99,12 @@ public class CampoFormulario extends CampoValidable{
         limpiarError();
         return true;
     }
+    
+    
+    @Override
+    protected String getValorComponente(){
+        return obtenerTextoInput();
+    }
 
 
 }
