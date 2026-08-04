@@ -9,7 +9,7 @@ import jafrinventarios.controladores.validaciones.TipoDatoFormulario;
 import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
-import jafrinventarios.vistas.utilidades.MostrarOcultarContrasena;
+import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 

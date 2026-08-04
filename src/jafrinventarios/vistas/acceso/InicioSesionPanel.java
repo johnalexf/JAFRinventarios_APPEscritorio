@@ -8,8 +8,8 @@ package jafrinventarios.vistas.acceso;
 import jafrinventarios.controladores.validaciones.TipoDatoFormulario;
 import jafrinventarios.controladores.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
-import jafrinventarios.vistas.utilidades.DinamismoLink;
-import jafrinventarios.vistas.utilidades.MostrarOcultarContrasena;
+import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
+import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import javax.swing.JFrame;
 
 /**

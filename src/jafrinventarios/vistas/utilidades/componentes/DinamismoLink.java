@@ -1,4 +1,4 @@
-package jafrinventarios.vistas.utilidades;
+package jafrinventarios.vistas.utilidades.componentes;
 
 import java.awt.Color;
 import java.awt.Cursor;
