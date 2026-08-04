@@ -7,10 +7,8 @@ package jafrinventarios.vistas.acceso;
 
 import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
-import javax.swing.JFrame;
 
 /**
  *
@@ -18,7 +16,7 @@ import javax.swing.JFrame;
  */
 public class InicioSesionPanel extends javax.swing.JPanel {
 
-    private ValidadorFormulario camposFormularioIngreso ;
+    private final ValidadorFormulario camposFormularioIngreso ;
     /**
      * Creates new form InicioSesionPanel
      */
@@ -205,11 +203,6 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         btnLinkRecuperarContraseña.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnLinkRecuperarContraseña.setForeground(new java.awt.Color(30, 166, 177));
         btnLinkRecuperarContraseña.setText("Recuperar Contraseña");
-        btnLinkRecuperarContraseña.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLinkRecuperarContraseñaActionPerformed(evt);
-            }
-        });
         contenedorRecuperarContrasena.add(btnLinkRecuperarContraseña);
 
         add(contenedorRecuperarContrasena);
@@ -228,32 +221,34 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         btnIngresar.setMaximumSize(new java.awt.Dimension(200, 40));
         btnIngresar.setMinimumSize(new java.awt.Dimension(200, 40));
         btnIngresar.setPreferredSize(new java.awt.Dimension(200, 40));
-        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresarActionPerformed(evt);
-            }
-        });
         contenedorBotonEnviarFormulario.add(btnIngresar);
 
         add(contenedorBotonEnviarFormulario);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+    
+    // =======================================================
+    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    // =======================================================
 
-        if( !camposFormularioIngreso.validar() ){
-           DialogoMensajePersonalizado.mostrarDialogoErrorDatos(
-                (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this)
-           );
-        }
-    }//GEN-LAST:event_btnIngresarActionPerformed
+    //Exponer los botones
+    public javax.swing.JButton getBtnIngresar() {
+        return btnIngresar;
+    }
 
-    private void btnLinkRecuperarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLinkRecuperarContraseñaActionPerformed
-        // Buscamos cuál es el JFrame padre (AccesoFrame) que contiene a este panel
-        javax.swing.JFrame ventanaPadre = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
-     
-        DialogoCambiarContrasena.recuperarContrasena(ventanaPadre);
-    }//GEN-LAST:event_btnLinkRecuperarContraseñaActionPerformed
+    public javax.swing.JButton getBtnLinkRecuperarContraseña() {
+        return btnLinkRecuperarContraseña;
+    }
 
+    // Exponer la validación visual
+    public boolean ejecutarValidacionCampos() {
+        return camposFormularioIngreso.validar();
+    }
+
+    // Exponer los datos limpios
+    //TO-DO: Se planea utilizar el mismo validadorFormulario para entregar 
+    //los datos en un solo metodo
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;

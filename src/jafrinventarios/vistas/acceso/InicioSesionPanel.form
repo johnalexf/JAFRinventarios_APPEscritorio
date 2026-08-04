@@ -383,9 +383,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Recuperar Contrase&#xf1;a"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLinkRecuperarContrase&#xf1;aActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -433,9 +430,6 @@
               <Dimension value="[200, 40]"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIngresarActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
