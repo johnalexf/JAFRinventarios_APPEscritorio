@@ -5,8 +5,8 @@
  */
 package jafrinventarios.vistas.acceso;
 
-import jafrinventarios.controladores.validaciones.TipoDatoFormulario;
-import jafrinventarios.controladores.validaciones.ValidadorFormulario;
+import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
+import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;

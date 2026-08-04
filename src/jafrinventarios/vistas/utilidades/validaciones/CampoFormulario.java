@@ -4,7 +4,7 @@
     una validacion, ademas con la asignacion del TipoDatoFormulario y si esObligatorio
     se hacen las respectivas verificaciones si cumple con el tipo de dato esperado
  */
-package jafrinventarios.controladores.validaciones;
+package jafrinventarios.vistas.utilidades.validaciones;
 
 import javax.swing.text.JTextComponent;
 import javax.swing.JLabel;

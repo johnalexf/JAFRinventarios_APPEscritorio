@@ -4,7 +4,7 @@ para aplicarle los estilos y mostrar el mensaje pertinente cuando
 tenga un error, como tal esta destinada para ser heredada y poder
 personalizar la respectiva validacion dependiendo del tipo de campo
  */
-package jafrinventarios.controladores.validaciones;
+package jafrinventarios.vistas.utilidades.validaciones;
 
 import java.awt.Color;
 import javax.swing.JComponent;
