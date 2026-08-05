@@ -42,12 +42,15 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         
         btnAyudaCodigo.setIcon(IconosBotones.AYUDA.getIcono());
          
+        mostrarFormularioDesdeInicio();
+        
+    }
+    
+    private void mostrarFormularioDesdeInicio(){
         //Mostramos el formulario desde el inicio, ya que el lblTextAreaDescripcionContrasena
         //por defecto mueve el cursor de escritura hasta su ubicacion, haciendo que el formulario
         //haga scroll hasta su posicion.
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            panelPrincipalScrolleable.getVerticalScrollBar().setValue(0);
-        });
+        panelPrincipalScrolleable.getVerticalScrollBar().setValue(0);
         
     }
     
@@ -1149,6 +1152,11 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     
     public void mostrarErrorRespuestaBD(HashMap<String, String> erroresCamposBD ){
         camposFormularioRegistro.mostrarErrorRespuestaBD(erroresCamposBD);
+    }
+    
+    public void ejecutarLimpiezaCampos(){
+        camposFormularioRegistro.limpiarCampos();
+        mostrarFormularioDesdeInicio();
     }
     
 

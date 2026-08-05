@@ -5,7 +5,9 @@
  */
 package jafrinventarios.vistas.utilidades.validaciones;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -148,11 +150,27 @@ public class ValidadorFormulario {
         }
     }
     
-    /*
-    Metodo para limpiar el contenido dentro de cada uno de los campos
+     /*
+        Metodo para limpiar el contenido dentro de cada uno de los campos.
+
+        CRÍTICO: No se puede recorrer 'listaCamposFormulario' directamente con NINGÚN bucle 
+        (ni .forEach(), ni for-each clásico, ni iteradores), ya que 'campo.limpiarCampo()' 
+        dispara los listeners de Swing configurados en cada campo. 
+        Esos listeners desencadenan validaciones concurrentes 
+        que intentan leer o modificar el mapa original al mismo tiempo, rompiendo el hilo visual 
+        con un 'ConcurrentModificationException'.
+
+        SOLUCIÓN DEFINITIVA: Se crea una copia instantánea de los campos en un ArrayList temporal. 
+        El bucle recorre esta lista independiente aislada en memoria. Así, los listeners de Swing 
+        pueden activarse e interactuar con el mapa original todo lo que quieran, ya que la lista 
+        que se está iterando jamás sufre alteraciones.
     */
     public void limpiarCampos(){
-        listaCamposFormulario.values().forEach( campo -> {
+        // Creamos la lista copia para aislar el bucle en memoria
+        List<CampoValidable> camposCopia = new ArrayList<>(listaCamposFormulario.values());
+        
+        // Iteramos de forma segura sobre la copia
+        camposCopia.forEach(campo -> {
             campo.limpiarCampo();
         });
     }

@@ -21,11 +21,13 @@ public class ControladorRegistroUsuario {
     
     private RegistroUsuarioPanel vistaRegistro;
 
+    
     public ControladorRegistroUsuario(RegistroUsuarioPanel vistaRegistro) {
         this.vistaRegistro = vistaRegistro;
         cargarRoles();
         inicializarEventoBoton();
     }
+    
     
     private void cargarRoles() {
         System.out.println("Simulando consulta de roles a la BD...");
@@ -39,12 +41,14 @@ public class ControladorRegistroUsuario {
         this.vistaRegistro.cargarRolesDisponibles(rolesBD);
     }
     
+    
     private void inicializarEventoBoton(){
         this.vistaRegistro.getBtnRegistrar().addActionListener(
                 e -> procesarRegistro() 
         );
     
     }
+    
     
     private void procesarRegistro(){
         
@@ -71,14 +75,11 @@ public class ControladorRegistroUsuario {
         // Tomar decisión basada en la respuesta del Modelo
         if ( credencialesValidas ) {
             System.out.println("¡Registro exitoso!");
-            DialogoMensajePersonalizado.mostrarDialogo(
-                    ventanaPadre, 
-                    "Registro exitoso", 
-                    "El usuario " + datosFormulario.get("alias")
-                    + "\n ha sido registrado correctamente"
-                    + "\n ya puedes iniciar sesion." , 
-                    IconosDialogosMensajePersonalizado.EXITO, 
-                    false);
+            
+            vistaRegistro.ejecutarLimpiezaCampos();
+            mostrarMensajeRegistroExitoso(ventanaPadre, datosFormulario.get("alias"));
+            
+            
             //
             
         } else {
@@ -93,5 +94,17 @@ public class ControladorRegistroUsuario {
                     ))
             );
         }
+    }
+    
+    
+    private void mostrarMensajeRegistroExitoso(JFrame ventanaPadre, String alias){
+        DialogoMensajePersonalizado.mostrarDialogo(
+                    ventanaPadre, 
+                    "Registro exitoso", 
+                    "El usuario " + alias
+                    + "\n ha sido registrado correctamente"
+                    + "\n ya puedes iniciar sesion." , 
+                    IconosDialogosMensajePersonalizado.EXITO, 
+                    false);
     }
 }
