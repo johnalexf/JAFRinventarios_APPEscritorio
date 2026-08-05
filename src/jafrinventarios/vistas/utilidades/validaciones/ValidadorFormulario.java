@@ -115,5 +115,18 @@ public class ValidadorFormulario {
         return recolectorDatos;
     }
     
+    
+    public void mostrarErrorRespuestaBD( HashMap<String, String> erroresCamposBD ){
+       
+        if(!erroresCamposBD.isEmpty()){
+            
+           erroresCamposBD.entrySet().forEach( campoErrorBD -> {
+               CampoValidable campoAMostrarError = listaCamposFormulario.get(campoErrorBD.getKey());
+               campoAMostrarError.mostrarError(campoErrorBD.getValue());
+           });
+        
+        }
+    }
+    
 
 }
