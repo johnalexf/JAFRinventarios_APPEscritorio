@@ -68,6 +68,35 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         formularioContrasenaNueva.agregarCampoConfirmarContrasena(
                 inputConfirmarContrasenaNueva, inputContrasenaNueva, lblErrorInputConfirmarContrasenaNueva);
     }
+    
+    
+    /* 
+        Metodos publicos para controlar la creacion del dialogo segun 
+        la necesidad, si es para recuperar o cambiar la contraseña.
+    */
+    public static void recuperarContrasena(JFrame padreFrame){
+        
+        DialogoCambiarContrasena dialogoRecuperarContrasena = 
+                new DialogoCambiarContrasena( 
+                        padreFrame, 
+                        "Recuperar contraseña",
+                        "cardCorreo",
+                        false
+                );
+       
+    }
+    
+
+    public static void cambiarContrasena(JFrame padreFrame){
+        DialogoCambiarContrasena dialogoCambiarContrasena = 
+                new DialogoCambiarContrasena( 
+                        padreFrame, 
+                        "Cambiar contraseña",
+                        "cardContrasenaAntigua",
+                        true
+                );
+  
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -672,31 +701,6 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     }
     
     
-    
-    public static void recuperarContrasena(JFrame padreFrame){
-        
-        DialogoCambiarContrasena dialogoRecuperarContrasena = 
-                new DialogoCambiarContrasena( 
-                        padreFrame, 
-                        "Recuperar contraseña",
-                        "cardCorreo",
-                        false
-                );
-       
-    }
-    
-    
-    
-    public static void cambiarContrasena(JFrame padreFrame){
-        DialogoCambiarContrasena dialogoCambiarContrasena = 
-                new DialogoCambiarContrasena( 
-                        padreFrame, 
-                        "Cambiar contraseña",
-                        "cardContrasenaAntigua",
-                        true
-                );
-  
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiarContrasena;

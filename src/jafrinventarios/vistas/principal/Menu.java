@@ -22,6 +22,30 @@ public class Menu extends javax.swing.JPanel {
         aplicarIconosDesdeEnum();
         aplicarEfectoLinkABotones();
     }
+    
+    private void aplicarIconosDesdeEnum(){
+        btnLinkSeccionInicio.setIcon( IconosSecciones.INICIO.getIcono() );
+        btnLinkSeccionUsuarios.setIcon( IconosSecciones.USUARIOS.getIcono() );
+        btnLinkSeccionProductos.setIcon( IconosSecciones.PRODUCTOS.getIcono() );
+        btnLinkSeccionProveedores.setIcon( IconosSecciones.PROVEEDORES.getIcono() );
+        btnLinkSeccionClientes.setIcon( IconosSecciones.CLIENTES.getIcono() );
+        btnLinkSeccionCompras.setIcon( IconosSecciones.COMPRAS.getIcono() );
+        btnLinkSeccionVentas.setIcon( IconosSecciones.VENTAS.getIcono() );
+        btnLinkSeccionInventario.setIcon( IconosSecciones.INVENTARIO.getIcono() );
+        btnLinkSeccionReporte.setIcon( IconosSecciones.REPORTE.getIcono() );
+    }
+    
+    private void aplicarEfectoLinkABotones(){
+        DinamismoLink.aplicarEfecto(btnLinkSeccionInicio);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionUsuarios);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionProductos);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionProveedores);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionClientes);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionCompras);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionVentas);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionInventario);
+        DinamismoLink.aplicarEfecto(btnLinkSeccionReporte);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -243,29 +267,8 @@ public class Menu extends javax.swing.JPanel {
         add(contenedorCuerpo, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void aplicarIconosDesdeEnum(){
-        btnLinkSeccionInicio.setIcon( IconosSecciones.INICIO.getIcono() );
-        btnLinkSeccionUsuarios.setIcon( IconosSecciones.USUARIOS.getIcono() );
-        btnLinkSeccionProductos.setIcon( IconosSecciones.PRODUCTOS.getIcono() );
-        btnLinkSeccionProveedores.setIcon( IconosSecciones.PROVEEDORES.getIcono() );
-        btnLinkSeccionClientes.setIcon( IconosSecciones.CLIENTES.getIcono() );
-        btnLinkSeccionCompras.setIcon( IconosSecciones.COMPRAS.getIcono() );
-        btnLinkSeccionVentas.setIcon( IconosSecciones.VENTAS.getIcono() );
-        btnLinkSeccionInventario.setIcon( IconosSecciones.INVENTARIO.getIcono() );
-        btnLinkSeccionReporte.setIcon( IconosSecciones.REPORTE.getIcono() );
-    }
+
     
-    private void aplicarEfectoLinkABotones(){
-        DinamismoLink.aplicarEfecto(btnLinkSeccionInicio);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionUsuarios);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionProductos);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionProveedores);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionClientes);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionCompras);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionVentas);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionInventario);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionReporte);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLinkSeccionClientes;

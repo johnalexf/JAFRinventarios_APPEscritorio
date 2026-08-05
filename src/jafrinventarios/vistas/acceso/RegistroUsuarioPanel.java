@@ -1030,6 +1030,84 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         );
     }//GEN-LAST:event_btnAyudaCodigoActionPerformed
 
+    
+    private void activarFormularioAdministrador(){
+        asignarEdicionCamposFormulario(true);
+        mostrarContenedorDatosEmpresa(true);
+    }
+    
+    private void activarFormularioVendedor(){   
+        asignarEdicionCamposFormulario(true);
+        mostrarContenedorDatosEmpresa(false);
+    }
+    
+    private void desactivarFormulario(){
+        asignarEdicionCamposFormulario(false);
+        mostrarContenedorDatosEmpresa(false);
+    }
+    
+    private void asignarEdicionCamposFormulario(boolean editable){
+        
+        inputPrimerNombre.setEnabled(editable);
+        inputSegundoNombre.setEnabled(editable);
+        inputPrimerApellido.setEnabled(editable);
+        inputSegundoApellido.setEnabled(editable);
+        
+        inputTelefono.setEnabled(editable);
+        inputCorreo.setEnabled(editable);
+        
+        inputAlias.setEnabled(editable);
+        inputContrasena.setEnabled(editable);
+        btnMostrarOcultarContrasena.setEnabled(editable);
+        inputConfirmarContrasena.setEnabled(editable);
+        btnMostrarOcultarConfirmarContrasena.setEnabled(editable);
+        inputCodigo.setEnabled(editable);
+        btnAyudaCodigo.setEnabled(editable);
+        btnRegistrar.setEnabled(editable);
+        
+    }
+    
+    private void mostrarContenedorDatosEmpresa(boolean mostrar){
+        contenedorDatosEmpresa.setVisible(mostrar);
+    }
+    
+    
+    private void mostrarMensajeAyudaCodigo (int idRol){
+    
+        String mensaje = "";
+
+        if(idRol == indiceRolAdministrador){
+            mensaje = "El código de acceso se obtiene con el creador del programa.";
+        }else if(idRol == indiceRolVendedor){
+            mensaje = "El código de acceso se obtiene con el administrador de la empresa.";
+        }else{
+            System.err.println("id de Rol desconocido");
+            return;
+        }
+        
+     // NOTA: Se decide crear una clase propia que simule un JoptionPane, ya que 
+     // por defecto esta clase no permite personalizarla y daña completamente
+     // el estilo que se quiere mantener en toda la aplicacion. 
+     /*
+        JOptionPane.showMessageDialog(
+                this, 
+                mensaje, 
+                "Información código de acceso",
+                JOptionPane.INFORMATION_MESSAGE);
+     */
+    
+             
+        DialogoMensajePersonalizado.mostrarDialogo(
+                (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
+                "Información código de acceso",
+                mensaje,
+                IconosDialogosMensajePersonalizado.INFORMACION,
+                false
+                );
+        
+    } 
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAyudaCodigo;
@@ -1113,81 +1191,5 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private javax.swing.JLabel subtituloNombreCompleto;
     private javax.swing.JLabel tituloFormulario;
     // End of variables declaration//GEN-END:variables
-
-    private void activarFormularioAdministrador(){
-        asignarEdicionCamposFormulario(true);
-        mostrarContenedorDatosEmpresa(true);
-    }
-    
-    private void activarFormularioVendedor(){   
-        asignarEdicionCamposFormulario(true);
-        mostrarContenedorDatosEmpresa(false);
-    }
-    
-    private void desactivarFormulario(){
-        asignarEdicionCamposFormulario(false);
-        mostrarContenedorDatosEmpresa(false);
-    }
-    
-    private void asignarEdicionCamposFormulario(boolean editable){
-        
-        inputPrimerNombre.setEnabled(editable);
-        inputSegundoNombre.setEnabled(editable);
-        inputPrimerApellido.setEnabled(editable);
-        inputSegundoApellido.setEnabled(editable);
-        
-        inputTelefono.setEnabled(editable);
-        inputCorreo.setEnabled(editable);
-        
-        inputAlias.setEnabled(editable);
-        inputContrasena.setEnabled(editable);
-        btnMostrarOcultarContrasena.setEnabled(editable);
-        inputConfirmarContrasena.setEnabled(editable);
-        btnMostrarOcultarConfirmarContrasena.setEnabled(editable);
-        inputCodigo.setEnabled(editable);
-        btnAyudaCodigo.setEnabled(editable);
-        btnRegistrar.setEnabled(editable);
-        
-    }
-    
-    private void mostrarContenedorDatosEmpresa(boolean mostrar){
-        contenedorDatosEmpresa.setVisible(mostrar);
-    }
-    
-    
-    private void mostrarMensajeAyudaCodigo (int idRol){
-    
-        String mensaje = "";
-
-        if(idRol == indiceRolAdministrador){
-            mensaje = "El código de acceso se obtiene con el creador del programa.";
-        }else if(idRol == indiceRolVendedor){
-            mensaje = "El código de acceso se obtiene con el administrador de la empresa.";
-        }else{
-            System.err.println("id de Rol desconocido");
-            return;
-        }
-        
-     // NOTA: Se decide crear una clase propia que simule un JoptionPane, ya que 
-     // por defecto esta clase no permite personalizarla y daña completamente
-     // el estilo que se quiere mantener en toda la aplicacion. 
-     /*
-        JOptionPane.showMessageDialog(
-                this, 
-                mensaje, 
-                "Información código de acceso",
-                JOptionPane.INFORMATION_MESSAGE);
-     */
-    
-             
-        DialogoMensajePersonalizado.mostrarDialogo(
-                (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
-                "Información código de acceso",
-                mensaje,
-                IconosDialogosMensajePersonalizado.INFORMACION,
-                false
-                );
-        
-    }
 
 }
