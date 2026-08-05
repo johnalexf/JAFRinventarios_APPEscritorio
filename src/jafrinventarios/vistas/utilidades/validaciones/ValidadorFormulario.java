@@ -6,6 +6,7 @@
 package jafrinventarios.vistas.utilidades.validaciones;
 
 import java.util.HashMap;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -52,6 +53,19 @@ public class ValidadorFormulario {
                 new CampoConfirmarContrasena(inputConfirmarContrasena,inputContrasena,lblError)
         );
         
+    }
+    
+    public void agregarCampoComboBox(
+                                JComboBox comboBox,
+                                HashMap<String, Integer> listaOpcionesConId, 
+                                JLabel lblError,
+                                boolean esObligatorio ){
+        validarNombreEnComponente(comboBox);
+        
+        listaCamposFormulario.put(
+                comboBox.getName(), 
+                new CampoComboBox(comboBox, listaOpcionesConId, lblError, esObligatorio)
+        );
     }
     
     public void eliminarCualquierCampo(JComponent campo){
