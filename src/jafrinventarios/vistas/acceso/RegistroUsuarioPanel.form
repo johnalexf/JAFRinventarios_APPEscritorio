@@ -2187,9 +2187,6 @@
                       <Dimension value="[200, 40]"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>

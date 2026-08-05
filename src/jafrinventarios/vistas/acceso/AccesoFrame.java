@@ -31,8 +31,9 @@ public class AccesoFrame extends javax.swing.JFrame {
         // ==========================================================
         // CONEXIÓN DE CONTROLADORES
         // ==========================================================
-        // Le pasamos al controlador el panel que NetBeans acaba de crear arriba en initComponents()
+        // Le pasamos a los controladores su panel respectivo
         new jafrinventarios.controladores.acceso.ControladorInicioSesion(this.inicioSesionPanel);
+        new jafrinventarios.controladores.acceso.ControladorRegistroUsuario(this.registroUsuarioPanel);
     }
 
     /**

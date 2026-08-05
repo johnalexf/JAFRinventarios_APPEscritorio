@@ -11,6 +11,7 @@ import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
+import java.util.HashMap;
 import javax.swing.JFrame;
 
 /**
@@ -991,11 +992,6 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         btnRegistrar.setMaximumSize(new java.awt.Dimension(200, 40));
         btnRegistrar.setMinimumSize(new java.awt.Dimension(200, 40));
         btnRegistrar.setPreferredSize(new java.awt.Dimension(200, 40));
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
         contenedorBotonEnviarFormulario.add(btnRegistrar);
 
         contenedorFormulario.add(contenedorBotonEnviarFormulario, java.awt.BorderLayout.PAGE_END);
@@ -1004,15 +1000,6 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
 
         add(panelPrincipalScrolleable);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        if( !camposFormularioRegistro.validar() ){
-            
-           DialogoMensajePersonalizado.mostrarDialogoErrorDatos(
-                (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this)
-           );
-        }
-    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void comboBoxRolUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRolUsuarioActionPerformed
         // TODO add your handling code here:
@@ -1125,6 +1112,29 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         
     } 
     
+    
+    // =======================================================
+    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    // =======================================================
+    
+     //Exponer los botones
+    public javax.swing.JButton getBtnRegistrar() {
+        return btnRegistrar;
+    }
+
+    // Exponer la validación visual
+    public boolean ejecutarValidacionCampos() {
+        return camposFormularioRegistro.validar();
+    }
+    
+    // Exponer los datos del formulario en un hash map
+    public HashMap<String, String> recolectarDatosFormulario(){
+        return camposFormularioRegistro.recolectarDatos();
+    }
+    
+    public void mostrarErrorRespuestaBD(HashMap<String, String> erroresCamposBD ){
+        camposFormularioRegistro.mostrarErrorRespuestaBD(erroresCamposBD);
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
