@@ -20,9 +20,13 @@ import javax.swing.JFrame;
  */
 public class RegistroUsuarioPanel extends javax.swing.JPanel {
     
-    //TO-DO: Estos indices despues se tienen que acceder a la base de datos para obtenerlos
-    private int indiceRolAdministrador = 1;
-    private int indiceRolVendedor = 2;
+    // Este diccionario guardará la equivalencia nombreRol -> idRol, ej: "Administrador" -> 1
+    private HashMap<String, Integer> mapaRoles = new HashMap<>();
+    
+    /* Se crea de manera global para reducir codigo y que desde el checkbox 
+        se asigne el mensaje pertinente segun el rol */
+    private String mensajeAyudaCodigo;
+    
     private final ValidadorFormulario camposFormularioRegistro = new ValidadorFormulario();
 
     /**
@@ -95,7 +99,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         MostrarOcultarContrasena.agregarFuncionalidad(inputConfirmarContrasena, btnMostrarOcultarConfirmarContrasena);
     
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1002,27 +1006,37 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboBoxRolUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRolUsuarioActionPerformed
-        // TODO add your handling code here:
-        int idRolSeleccionado = comboBoxRolUsuario.getSelectedIndex();
         
-        // Simulación temporal basada en el índice visual
-        if(idRolSeleccionado == 0){
+        String rolSeleccionado = (String) comboBoxRolUsuario.getSelectedItem();
+        
+        if(rolSeleccionado == null || rolSeleccionado.equals("Seleccionar Tipo Usuario")){
             desactivarFormulario();
-        }else if (idRolSeleccionado == indiceRolAdministrador) {
-            activarFormularioAdministrador();
-        }else if (idRolSeleccionado == indiceRolVendedor){
-            activarFormularioVendedor();
+        }else{
+            /*
+               Los roles previamente se conoce que se van a nombrar como administrador
+                y vendedor debido a que esto depende de como se personaliza el 
+                formulario, es imperativo tener congruencia con la base de datos
+            */
+            switch(rolSeleccionado.toLowerCase()){
+                case "administrador":
+                    activarFormularioAdministrador();
+                    mensajeAyudaCodigo = "El código de acceso se obtiene con el creador del programa.";
+                    break;
+                case "vendedor":
+                    activarFormularioVendedor();
+                    mensajeAyudaCodigo = "El código de acceso se obtiene con el administrador de la empresa.";
+                    break;
+                default:
+                    System.out.println("Rol de usuario desconocido");
+                    break;
+            }           
         }
         
         camposFormularioRegistro.limpiarErrores();
-
     }//GEN-LAST:event_comboBoxRolUsuarioActionPerformed
 
     private void btnAyudaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaCodigoActionPerformed
-        // TODO add your handling code here:
-        mostrarMensajeAyudaCodigo(
-                comboBoxRolUsuario.getSelectedIndex()
-        );
+        mostrarMensajeAyudaCodigo();
     }//GEN-LAST:event_btnAyudaCodigoActionPerformed
 
     
@@ -1077,35 +1091,12 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     }
     
     
-    private void mostrarMensajeAyudaCodigo (int idRol){
-    
-        String mensaje = "";
-
-        if(idRol == indiceRolAdministrador){
-            mensaje = "El código de acceso se obtiene con el creador del programa.";
-        }else if(idRol == indiceRolVendedor){
-            mensaje = "El código de acceso se obtiene con el administrador de la empresa.";
-        }else{
-            System.err.println("id de Rol desconocido");
-            return;
-        }
-        
-     // NOTA: Se decide crear una clase propia que simule un JoptionPane, ya que 
-     // por defecto esta clase no permite personalizarla y daña completamente
-     // el estilo que se quiere mantener en toda la aplicacion. 
-     /*
-        JOptionPane.showMessageDialog(
-                this, 
-                mensaje, 
-                "Información código de acceso",
-                JOptionPane.INFORMATION_MESSAGE);
-     */
-    
-             
+    private void mostrarMensajeAyudaCodigo (){
+           
         DialogoMensajePersonalizado.mostrarDialogo(
                 (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
                 "Información código de acceso",
-                mensaje,
+                mensajeAyudaCodigo,
                 IconosDialogosMensajePersonalizado.INFORMACION,
                 false
                 );
@@ -1116,6 +1107,24 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     // =======================================================
     // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
     // =======================================================
+    
+    // metodo para que el constructor asigne los roles que estan en la base de datos
+    // Se espera que la clave sea el nombre y el valor sea el id, este se utilizara
+    // estrategicamente en un nuevo campovalidable de tipo chechbox para devolver el id
+    // cuando el controlador solicite recopilar la informacion del formulario
+    public void cargarRolesDisponibles(HashMap<String, Integer> rolesDeBD) {
+        
+        this.mapaRoles = rolesDeBD; // Guardar el mapa en la memoria del panel
+        
+        //Remover los items para asignar los de la base de datos
+        comboBoxRolUsuario.removeAllItems();
+        comboBoxRolUsuario.addItem("Seleccionar Tipo Usuario");
+        
+        // Llenamos el ComboBox solo con los nombres (las claves del mapa)
+        for (String nombreRol : mapaRoles.keySet()) {
+            comboBoxRolUsuario.addItem(nombreRol);
+        }
+    }
     
      //Exponer los botones
     public javax.swing.JButton getBtnRegistrar() {

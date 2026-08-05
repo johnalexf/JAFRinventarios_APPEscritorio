@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+     NOTA: Se decide crear una clase propia que simule un JoptionPane, ya que 
+     por defecto esta clase no permite personalizarla y daña completamente
+     el estilo que se quiere mantener en toda la aplicacion. 
  */
 package jafrinventarios.vistas.utilidades.dialogos;
 

@@ -23,7 +23,20 @@ public class ControladorRegistroUsuario {
 
     public ControladorRegistroUsuario(RegistroUsuarioPanel vistaRegistro) {
         this.vistaRegistro = vistaRegistro;
+        cargarRoles();
         inicializarEventoBoton();
+    }
+    
+    private void cargarRoles() {
+        System.out.println("Simulando consulta de roles a la BD...");
+        
+        // Clave: Nombre a mostrar | Valor: ID de la base de datos
+        HashMap<String, Integer> rolesBD = new HashMap<>();
+        rolesBD.put("Administrador", 1);
+        rolesBD.put("Vendedor", 2);
+        
+        // Le ordenamos a la vista que dibuje estos datos
+        this.vistaRegistro.cargarRolesDisponibles(rolesBD);
     }
     
     private void inicializarEventoBoton(){
