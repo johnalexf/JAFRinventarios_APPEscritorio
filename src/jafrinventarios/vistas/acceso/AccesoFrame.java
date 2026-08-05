@@ -265,6 +265,23 @@ public class AccesoFrame extends javax.swing.JFrame {
         intercambiarVistasFormularios(true);
     }//GEN-LAST:event_invitacionRegistrateBtnActionPerformed
 
+    private void intercambiarVistasFormularios( boolean mostrarFormularioRegistro ){
+        
+        /* Como tal cada panel dinamico internamente distribute su contenido con la ayuda de CardLayout
+           Pero para poder hacer el intercambio de que ventana mostrar es necesario crear una variable
+           que ofrezca la funcion .show() para poder seleccionar que card interna mostrar
+        */
+        java.awt.CardLayout layoutInicio = (java.awt.CardLayout) panelDinamicoInicioSesion.getLayout();
+        java.awt.CardLayout layoutRegistro = (java.awt.CardLayout) panelDinamicoRegistro.getLayout();
+        
+        if(mostrarFormularioRegistro){
+            layoutInicio.show(panelDinamicoInicioSesion, "vistaInvitacionInicioSesion");
+            layoutRegistro.show(panelDinamicoRegistro, "vistaFormularioRegistro");
+        }else{
+            layoutInicio.show(panelDinamicoInicioSesion, "vistaFormularioInicioSesion");
+            layoutRegistro.show(panelDinamicoRegistro, "vistaInvitacionRegistro");
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -293,21 +310,4 @@ public class AccesoFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-    private void intercambiarVistasFormularios( boolean mostrarFormularioRegistro ){
-        
-        /* Como tal cada panel dinamico internamente distribute su contenido con la ayuda de CardLayout
-           Pero para poder hacer el intercambio de que ventana mostrar es necesario crear una variable
-           que ofrezca la funcion .show() para poder seleccionar que card interna mostrar
-        */
-        java.awt.CardLayout layoutInicio = (java.awt.CardLayout) panelDinamicoInicioSesion.getLayout();
-        java.awt.CardLayout layoutRegistro = (java.awt.CardLayout) panelDinamicoRegistro.getLayout();
-        
-        if(mostrarFormularioRegistro){
-            layoutInicio.show(panelDinamicoInicioSesion, "vistaInvitacionInicioSesion");
-            layoutRegistro.show(panelDinamicoRegistro, "vistaFormularioRegistro");
-        }else{
-            layoutInicio.show(panelDinamicoInicioSesion, "vistaFormularioInicioSesion");
-            layoutRegistro.show(panelDinamicoRegistro, "vistaInvitacionRegistro");
-        }
-    }
 }
