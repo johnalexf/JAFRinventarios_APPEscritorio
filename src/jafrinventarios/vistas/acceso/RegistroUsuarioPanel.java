@@ -83,11 +83,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
                 inputCodigo, lblErrorInputCodigo, 
                 TipoDatoFormulario.CODIGO, true);
         
-        //Campo datos de la empresa
-        camposFormularioRegistro.agregarCampo(
-                inputNombreComercial, lblErrorInputNombreComercial, 
-                TipoDatoFormulario.NOMBRE, true);
-
+        //Campo datos de la empresa se inyecta dependiendo de la seleccion del tipo de usuario
     
     }
     
@@ -1081,6 +1077,16 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     
     private void mostrarContenedorDatosEmpresa(boolean mostrar){
         contenedorDatosEmpresa.setVisible(mostrar);
+        
+        //Inyectar o Eliminar Campo datos de la empresa a camposFormularioRegistro
+        if(mostrar){
+            camposFormularioRegistro.agregarCampo(
+                inputNombreComercial, lblErrorInputNombreComercial, 
+                TipoDatoFormulario.NOMBRE, true);
+        }else{
+            camposFormularioRegistro.eliminarCualquierCampo(inputNombreComercial);
+        }
+
     }
     
     
