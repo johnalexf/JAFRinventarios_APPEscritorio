@@ -6,10 +6,8 @@
 package jafrinventarios.vistas.utilidades.validaciones;
 
 import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.text.JTextComponent;
 
@@ -53,6 +51,14 @@ public class ValidadorFormulario {
                 inputConfirmarContrasena.getName(),
                 new CampoConfirmarContrasena(inputConfirmarContrasena,inputContrasena,lblError)
         );
+        
+    }
+    
+    public void eliminarCualquierCampo(JComponent campo){
+        
+        validarNombreEnComponente(campo);
+        
+        listaCamposFormulario.remove(campo.getName());
         
     }
     
