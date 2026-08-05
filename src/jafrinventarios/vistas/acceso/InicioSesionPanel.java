@@ -253,6 +253,10 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         return camposFormularioIngreso.recolectarDatos();
     }
     
+    public void mostrarErrorRespuestaBD(HashMap<String, String> erroresCamposBD ){
+        camposFormularioIngreso.mostrarErrorRespuestaBD(erroresCamposBD);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;

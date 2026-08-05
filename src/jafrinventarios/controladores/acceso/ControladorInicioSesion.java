@@ -6,6 +6,7 @@ import jafrinventarios.vistas.acceso.InicioSesionPanel;
 import jafrinventarios.vistas.acceso.DialogoCambiarContrasena;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -43,7 +44,7 @@ public class ControladorInicioSesion {
 
         // Llamar a la capa de Modelo para consultar la BD
         System.out.println("Simulando consulta a BD : ");
-        boolean credencialesValidas = true; // Simulación de éxito
+        boolean credencialesValidas = true; // Simulación de respuesta
 
         // Tomar decisión basada en la respuesta del Modelo
         if ( credencialesValidas ) {
@@ -54,6 +55,14 @@ public class ControladorInicioSesion {
         } else {
             // Mostrar error de credenciales inválidas
             System.out.println("Correo o contraseña incorrectos.");
+            
+            //codigo simulacion de respuesta de la base de datos
+            vistaInicio.mostrarErrorRespuestaBD(
+                   new HashMap<>(Map.of(
+                        "correo", "Este correo no esta registrado",
+                        "contrasena", "Contraseña erronea"
+                    ))
+            );
         }
     }
 
