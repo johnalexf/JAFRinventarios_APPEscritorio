@@ -232,6 +232,20 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
     }
     
     private String empaquetarMensaje(String mensaje){
+        
+        /*
+         Para que al incrustar el mensaje al jLabel, este no se rompa por 
+            el html que se va a generar, se tienen encuenta cuatro condiciones
+            una de ellas es para poder hacer un salto de linea, las demas
+            son caracteres especiales en html.      
+        */
+        mensaje = mensaje
+            .replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace("\n", "<br>");
+        
+        
         int ancho;
 
         if (mensaje.length() < 120) {
