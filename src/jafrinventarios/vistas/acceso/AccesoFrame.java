@@ -27,6 +27,12 @@ public class AccesoFrame extends javax.swing.JFrame {
         
         // Forzar que la ventana se abra maximizada ocupando toda la pantalla
         this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        
+        // ==========================================================
+        // CONEXIÓN DE CONTROLADORES
+        // ==========================================================
+        // Le pasamos al controlador el panel que NetBeans acaba de crear arriba en initComponents()
+        new jafrinventarios.controladores.acceso.ControladorInicioSesion(this.inicioSesionPanel);
     }
 
     /**

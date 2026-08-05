@@ -1,6 +1,7 @@
 
 package jafrinventarios.controladores.acceso;
 
+import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.vistas.acceso.InicioSesionPanel;
 import jafrinventarios.vistas.acceso.DialogoCambiarContrasena;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
@@ -48,8 +49,7 @@ public class ControladorInicioSesion {
         if ( credencialesValidas ) {
             System.out.println("¡Ingreso exitoso!");
             
-            // TO-DO: Aquí llamaríamos al ControladorNavegacion para cambiar de pantalla
-            // ControladorNavegacion.irAPantallaPrincipal();
+            ControladorNavegacionGlobal.getInstancia().cambiarAPrincipal();
             
         } else {
             // Mostrar error de credenciales inválidas
