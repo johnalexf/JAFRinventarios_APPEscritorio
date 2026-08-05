@@ -75,10 +75,6 @@ public abstract class CampoValidable {
     protected abstract boolean validar();
     
     
-    protected String getNameComponente(){
-        return componente.getName();
-    }
-    
     protected abstract String getValorComponente(); 
 
 }

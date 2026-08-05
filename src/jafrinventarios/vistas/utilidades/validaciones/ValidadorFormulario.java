@@ -6,6 +6,7 @@
 package jafrinventarios.vistas.utilidades.validaciones;
 
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -104,8 +105,11 @@ public class ValidadorFormulario {
                  unico y representativo en la base de datos o el modelo.
         */
         HashMap<String, String> recolectorDatos = new HashMap<>();
-        listaCamposFormulario.values().forEach(campo -> {
-            recolectorDatos.put(campo.getNameComponente(), campo.getValorComponente());
+        listaCamposFormulario.entrySet().forEach(campoFormulario -> {
+            recolectorDatos.put(
+                    campoFormulario.getKey(), 
+                    campoFormulario.getValue().getValorComponente()
+            );
         });
         
         return recolectorDatos;
