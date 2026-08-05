@@ -1124,6 +1124,12 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         for (String nombreRol : mapaRoles.keySet()) {
             comboBoxRolUsuario.addItem(nombreRol);
         }
+        
+        camposFormularioRegistro.agregarCampoComboBox(
+                comboBoxRolUsuario, 
+                mapaRoles, 
+                null, 
+                true);
     }
     
      //Exponer los botones
