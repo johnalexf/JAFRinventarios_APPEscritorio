@@ -25,11 +25,20 @@ public class ValidadorFormulario {
     */
     private final HashMap<String, CampoValidable> listaCamposFormulario;
 
+    //Constructor
     public ValidadorFormulario() {
         listaCamposFormulario = new HashMap<>();
     }
     
-    public void agregarCampo( JTextComponent input, JLabel lblError, TipoDatoFormulario tipoDato, boolean esObligatorio ){
+    /*
+    Metodo para agregar campos que permitan obtener el texto con getText
+    dentro de su propia caja
+    */ 
+    public void agregarCampo( 
+            JTextComponent input, 
+            JLabel lblError, 
+            TipoDatoFormulario tipoDato, 
+            boolean esObligatorio ){
         
         // Si falta el nombre, la aplicación se detiene aquí mismo con un error en consola
         validarNombreEnComponente(input);
@@ -41,6 +50,10 @@ public class ValidadorFormulario {
         
     }
     
+    /*
+    Metodo dedicada solamente para el campo confirmar contraseña
+    por lo tanto necesita de un campo contraseña original para poder compararlos.
+    */
     public void agregarCampoConfirmarContrasena( 
                                     JPasswordField inputConfirmarContrasena, 
                                     JPasswordField inputContrasena, 
@@ -55,6 +68,11 @@ public class ValidadorFormulario {
         
     }
     
+    /*
+    Metodo para agregar ComboBox, se requiere de un diccionario 
+    clave: nombreItem, valor: idItem, para asi en la recoleccion de datos,
+    enviar el id correspondiente a la base de datos.
+    */
     public void agregarCampoComboBox(
                                 JComboBox comboBox,
                                 HashMap<String, Integer> listaOpcionesConId, 
@@ -68,6 +86,7 @@ public class ValidadorFormulario {
         );
     }
     
+    //Metodo para eliminar cualquier campo guardado por medio de el atributo name
     public void eliminarCualquierCampo(JComponent campo){
         
         validarNombreEnComponente(campo);
@@ -76,6 +95,12 @@ public class ValidadorFormulario {
         
     }
     
+    /*
+    Funcion para validar un componente tiene asignado el atributo name con un 
+    valor diferente de espacios o nulo, en dado caso que no este asignado se
+    para la ejecucion del programa y se avisa del respectivo error de forma 
+    personalizada
+    */
     private void validarNombreEnComponente(JComponent componente){
         // Obtenemos el nombre asignado en las propiedades del diseñador visual
         String nombre = componente.getName();
@@ -93,6 +118,7 @@ public class ValidadorFormulario {
         }
     }
     
+    // Metodo para validar todos los campos de la listaCamposFormulario
     public boolean validar(){
         
         boolean respuesta = true;
@@ -112,12 +138,20 @@ public class ValidadorFormulario {
         return respuesta;
     }
     
+    /*
+    Metodo para limpiar todos los errores que se hayan mostrado en cada uno
+    de los lblError correspondiente de cada campo
+    */
     public void limpiarErrores(){
         for(CampoValidable campo : listaCamposFormulario.values()){
             campo.limpiarError();
         }
     }
     
+    /*
+    Metodo para recolectar en un diccionario clave: nameItem , valor: valorItem
+    que sera destinado a enviar al controlador para entregarlo a la base de datos
+    */
     public HashMap<String, String> recolectarDatos(){
         
         /* NOTA: Para que este metodo los resultados sean los esperados, es necesario
@@ -136,6 +170,11 @@ public class ValidadorFormulario {
     }
     
     
+    /*
+    Metodo para personalizar la respuesta que entrega la consulta a la base de datos
+    en dado caso que un campo tenga un error se mostrara el mensaje correspondiente en
+    su lblError
+    */
     public void mostrarErrorRespuestaBD( HashMap<String, String> erroresCamposBD ){
        
         if(!erroresCamposBD.isEmpty()){

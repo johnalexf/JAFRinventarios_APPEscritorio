@@ -17,7 +17,7 @@ public class CampoComboBox extends CampoValidable{
     
     private final JComboBox comboBox;
     /* 
-    Este mapa debe venir de la base de datos, con la lista de valores posibles
+    Este mapa debe venir de la base de datos, con el diccionario de valores posibles
      que puede seleccionar el usuario de la siguiente manera:
      clave: nombreItem, valor: idItem 
     */
