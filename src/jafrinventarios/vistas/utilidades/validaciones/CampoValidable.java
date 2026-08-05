@@ -69,6 +69,9 @@ public abstract class CampoValidable {
     }
     
     
+    protected abstract void limpiarCampo();
+    
+    
     protected abstract void asignarValidacionEnTiempoReal();
     
     

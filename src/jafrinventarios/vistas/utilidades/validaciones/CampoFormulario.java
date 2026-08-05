@@ -63,6 +63,12 @@ public class CampoFormulario extends CampoValidable{
         });
     }
     
+    
+    @Override
+    protected void limpiarCampo(){
+        input.setText("");
+    }
+    
    
     private String obtenerTextoInput(){
         //Eliminamos espacios antes y despues del texto que esta dentro del input

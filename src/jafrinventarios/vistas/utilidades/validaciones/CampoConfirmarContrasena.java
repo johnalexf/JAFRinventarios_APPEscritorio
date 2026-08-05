@@ -59,6 +59,10 @@ public class CampoConfirmarContrasena extends CampoValidable {
         });
     }
     
+    @Override
+    protected void limpiarCampo(){
+        inputConfirmarContrasena.setText("");
+    }
     
     
     @Override

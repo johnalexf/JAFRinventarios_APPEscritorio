@@ -149,6 +149,15 @@ public class ValidadorFormulario {
     }
     
     /*
+    Metodo para limpiar el contenido dentro de cada uno de los campos
+    */
+    public void limpiarCampos(){
+        listaCamposFormulario.values().forEach( campo -> {
+            campo.limpiarCampo();
+        });
+    }
+    
+    /*
     Metodo para recolectar en un diccionario clave: nameItem , valor: valorItem
     que sera destinado a enviar al controlador para entregarlo a la base de datos
     */

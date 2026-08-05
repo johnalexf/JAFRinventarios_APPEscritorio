@@ -43,6 +43,13 @@ public class CampoComboBox extends CampoValidable{
         comboBox.addActionListener(e -> validar());
     
     }
+    
+    
+    @Override
+    protected void limpiarCampo(){
+        comboBox.setSelectedIndex(0);
+    }
+    
 
     @Override
     protected boolean validar() {
