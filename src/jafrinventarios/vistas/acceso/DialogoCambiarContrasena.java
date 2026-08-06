@@ -8,10 +8,11 @@ package jafrinventarios.vistas.acceso;
 import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import java.awt.CardLayout;
+import java.util.HashMap;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -273,11 +274,6 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         btnEnviarCodigo.setMaximumSize(new java.awt.Dimension(200, 40));
         btnEnviarCodigo.setMinimumSize(new java.awt.Dimension(200, 40));
         btnEnviarCodigo.setPreferredSize(new java.awt.Dimension(200, 40));
-        btnEnviarCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviarCodigoActionPerformed(evt);
-            }
-        });
         contenedorBtnEnviarCodigo.add(btnEnviarCodigo);
 
         contenedorCorreo.add(contenedorBtnEnviarCodigo, java.awt.BorderLayout.SOUTH);
@@ -338,11 +334,6 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         btnConfirmarCodigo.setMaximumSize(new java.awt.Dimension(200, 40));
         btnConfirmarCodigo.setMinimumSize(new java.awt.Dimension(200, 40));
         btnConfirmarCodigo.setPreferredSize(new java.awt.Dimension(200, 40));
-        btnConfirmarCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarCodigoActionPerformed(evt);
-            }
-        });
         contenedorBtnConfirmarCodigo.add(btnConfirmarCodigo);
 
         contenedorConfirmarCodigo.add(contenedorBtnConfirmarCodigo, java.awt.BorderLayout.SOUTH);
@@ -440,11 +431,6 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         btnConfirmarContrasenaAntigua.setMaximumSize(new java.awt.Dimension(200, 40));
         btnConfirmarContrasenaAntigua.setMinimumSize(new java.awt.Dimension(200, 40));
         btnConfirmarContrasenaAntigua.setPreferredSize(new java.awt.Dimension(200, 40));
-        btnConfirmarContrasenaAntigua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarContrasenaAntiguaActionPerformed(evt);
-            }
-        });
         contenedorBtnConfirmarContrasenaAntigua.add(btnConfirmarContrasenaAntigua);
 
         contenedorContrasenaAntigua.add(contenedorBtnConfirmarContrasenaAntigua, java.awt.BorderLayout.SOUTH);
@@ -617,11 +603,6 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         btnCambiarContrasena.setMaximumSize(new java.awt.Dimension(220, 40));
         btnCambiarContrasena.setMinimumSize(new java.awt.Dimension(220, 40));
         btnCambiarContrasena.setPreferredSize(new java.awt.Dimension(220, 40));
-        btnCambiarContrasena.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCambiarContrasenaActionPerformed(evt);
-            }
-        });
         contenedorBtnCambiarContrasena.add(btnCambiarContrasena);
 
         contenedorContrasenaNueva.add(contenedorBtnCambiarContrasena, java.awt.BorderLayout.SOUTH);
@@ -639,50 +620,117 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCerrarcerrarDialogo
-
-    private void btnEnviarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarCodigoActionPerformed
+   
+    
+    // =======================================================
+    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    // =======================================================
+    
+    //Exponer botones
+    public JButton getBtnEnviarCodigo(){
+        return btnEnviarCodigo;
+    }
+    
+    public JButton getBtnConfirmarCodigo(){
+        return btnConfirmarCodigo;
+    }
         
-        if(formularioCorreo.validar()){
-            // Este boton antes de continuar valida si el correo existe en la base de datos
-            mostrarTarjeta("cardConfirmarCodigo");
-        }else{
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(this);
-        }
-        
-    }//GEN-LAST:event_btnEnviarCodigoActionPerformed
-
-    private void btnCambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarContrasenaActionPerformed
-        // TODO add your handling code here:
-        if(formularioContrasenaNueva.validar()){
-            this.dispose();
-        }else{
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(this);
-        }
-        
-    }//GEN-LAST:event_btnCambiarContrasenaActionPerformed
-
-    private void btnConfirmarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCodigoActionPerformed
-        // TODO add your handling code here:
-        if(formularioCodigo.validar()){
-            mostrarTarjeta("cardContrasenaNueva");
-        }else{
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(this);
-        }
-        
-    }//GEN-LAST:event_btnConfirmarCodigoActionPerformed
-
-    private void btnConfirmarContrasenaAntiguaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarContrasenaAntiguaActionPerformed
-        // TODO add your handling code here:
-        if(formularioContrasenaAntigua.validar()){
-            mostrarTarjeta("cardContrasenaNueva");
-        }else{
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(this);
-        }
-        
-    }//GEN-LAST:event_btnConfirmarContrasenaAntiguaActionPerformed
+    public JButton getBtnConfirmarContrasenaAntigua(){
+        return btnConfirmarContrasenaAntigua;
+    }
+    
+    public JButton getBtnCambiarContrasena(){
+        return btnCambiarContrasena;
+    }
 
     
-    private void mostrarTarjeta(String nombreTarjeta){
+    // =======================================================
+    // MÉTODOS PARA EL FORMULARIO O CAMPO DEL CORREO
+    // =======================================================
+    
+    // Exponer la validación visual
+    public boolean ejecutarValidacionCampoCorreo() {
+        return formularioCorreo.validar();
+    }
+    
+    // Exponer los datos del formulario en un hash map
+    public HashMap<String, String> recolectarDatosFormularioCorreo(){
+        return formularioCorreo.recolectarDatos();
+    }
+    
+    // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError
+    public void mostrarErrorRespuestaBDCorreo(HashMap<String, String> erroresCamposBD ){
+        formularioCorreo.mostrarErrorRespuestaBD(erroresCamposBD);
+    }
+    
+    
+    
+    // =======================================================
+    // MÉTODOS PARA EL FORMULARIO O CAMPO DE CONFIRMAR CODIGO
+    // =======================================================
+    
+    // Exponer la validación visual
+    public boolean ejecutarValidacionCampoConfirmarCodigo() {
+        return formularioCodigo.validar();
+    }
+    
+    // Exponer los datos del formulario en un hash map
+    public HashMap<String, String> recolectarDatosFormularioConfirmarCodigo(){
+        return formularioCodigo.recolectarDatos();
+    }
+    
+    // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError
+    public void mostrarErrorRespuestaBDConfirmarCodigo(HashMap<String, String> erroresCamposBD ){
+        formularioCodigo.mostrarErrorRespuestaBD(erroresCamposBD);
+    }
+    
+    
+    // =======================================================
+    // MÉTODOS PARA EL FORMULARIO O CAMPO DE CONTRASENA ANTIGUA
+    // =======================================================
+    
+    // Exponer la validación visual
+    public boolean ejecutarValidacionCampoContrasenaAntigua() {
+        return formularioContrasenaAntigua.validar();
+    }
+    
+    // Exponer los datos del formulario en un hash map
+    public HashMap<String, String> recolectarDatosFormularioContrasenaAntigua(){
+        return formularioContrasenaAntigua.recolectarDatos();
+    }
+    
+    // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError
+    public void mostrarErrorRespuestaBDContrasenaAntigua(HashMap<String, String> erroresCamposBD ){
+        formularioContrasenaAntigua.mostrarErrorRespuestaBD(erroresCamposBD);
+    }
+    
+    
+    
+    // =======================================================
+    // MÉTODOS PARA EL FORMULARIO DE CONTRASENA NUEVA
+    // =======================================================
+    
+    // Exponer la validación visual
+    public boolean ejecutarValidacionCampoContrasenaNueva() {
+        return formularioContrasenaNueva.validar();
+    }
+    
+    // Exponer los datos del formulario en un hash map
+    public HashMap<String, String> recolectarDatosFormularioContrasenaNueva(){
+        return formularioContrasenaNueva.recolectarDatos();
+    }
+    
+    // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError
+    public void mostrarErrorRespuestaBDContrasenaNueva(HashMap<String, String> erroresCamposBD ){
+        formularioContrasenaNueva.mostrarErrorRespuestaBD(erroresCamposBD);
+    }
+    
+    
+    // =======================================================
+    // MÉTODOS PARA CAMBIAR TARJETAS DE FORMULARIO
+    // =======================================================
+    
+    public void mostrarTarjeta(String nombreTarjeta){
         // Mostramos la tarjeta correspondiente usando el CardLayout original
         layaoutTarjetas.show(contenedorTarjetas, nombreTarjeta);
         
@@ -704,7 +752,6 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         this.revalidate();
         this.repaint();
     }
-    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
