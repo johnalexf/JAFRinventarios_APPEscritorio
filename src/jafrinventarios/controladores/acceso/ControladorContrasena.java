@@ -7,8 +7,11 @@ package jafrinventarios.controladores.acceso;
 
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.TarjetasRecuperacion;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import javax.swing.JFrame;
 
 /**
@@ -110,10 +113,66 @@ public class ControladorContrasena {
     
     
     private void realizarPaso( TarjetasRecuperacion tarjeta ){
-    
+
+        if(!ventanaContrasena.ejecutarValidacionCampos(tarjeta)){
+            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(ventanaContrasena);
+            return;
+        }
+        
+        HashMap<String, String> formulario = ventanaContrasena.recolectarDatosFormulario(tarjeta);
+        
+        switch (tarjeta) {
+            case CORREO:
+                procesarCorreoEnBD(formulario.get("correo"));
+                break;
+            case CODIGO:
+                //procesarCodigoEnBD(formulario.get("codigo"));
+                break;
+            case CONTRASENA_ANTIGUA:
+                //procesarContrasenaAntiguaEnBD(formulario.get("contrasena"));
+                break;
+            case CONTRASENA_NUEVA:
+                //procesarCambioContrasenaEnBD(formulario);
+                break;
+        }
     
     }
+    
+    
+    private void procesarCorreoEnBD(String correo){
+        //TODO Pendiente el metodo para consultar a la base de datos el correo
+        System.out.println("Consultando BD para el correo: " + correo);
 
+        // Simulación de la respuesta de la consulta
+        boolean correoExiste = false; 
+        
+        if (correoExiste) {
+            // TODO: Enviar código al correo
+            avanzarSiguienteTarjeta(TarjetasRecuperacion.CORREO);
+        } else {
+            // Armamos el diccionario de errores como respondería el backend
+            HashMap<String, String> erroresBackend = new HashMap<>();
+            erroresBackend.put("correo", "Este correo no se encuentra registrado.");
+            
+            // Le pasamos el error al ValidadorFormulario para que pinte el JLabel 
+            ventanaContrasena.mostrarErrorRespuestaBD(TarjetasRecuperacion.CORREO, erroresBackend);
+            
+            // Mostramos un modal general para que el usuario sepa que algo falló
+            //DialogoMensajePersonalizado.mostrarDialogoErroresBackend(ventanaContrasena); 
+        }
+        
+    }
+    
+    
+    private void avanzarSiguienteTarjeta(TarjetasRecuperacion tarjetaActual) {
+        int indiceActual = secuenciaNavegacion.indexOf(tarjetaActual);
+        
+        // Verificamos que no estemos en la última tarjeta
+        if (indiceActual < secuenciaNavegacion.size() - 1) {
+            TarjetasRecuperacion siguienteTarjeta = secuenciaNavegacion.get(indiceActual + 1);
+            ventanaContrasena.mostrarTarjeta(siguienteTarjeta);
+        }
+    }
 
     
 }
