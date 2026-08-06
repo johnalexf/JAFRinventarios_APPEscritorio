@@ -50,8 +50,10 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         //Mostramos el formulario desde el inicio, ya que el lblTextAreaDescripcionContrasena
         //por defecto mueve el cursor de escritura hasta su ubicacion, haciendo que el formulario
         //haga scroll hasta su posicion.
-        panelPrincipalScrolleable.getVerticalScrollBar().setValue(0);
-        
+        java.awt.EventQueue.invokeLater(() -> {
+            panelPrincipalScrolleable.getVerticalScrollBar().setValue(0);
+        });
+         
     }
     
     private void inyectarCamposAValidador(){
