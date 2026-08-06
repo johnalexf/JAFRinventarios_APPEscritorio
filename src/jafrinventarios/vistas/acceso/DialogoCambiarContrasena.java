@@ -242,6 +242,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         inputCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCorreo.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputCorreo.setMinimumSize(new java.awt.Dimension(0, 45));
+        inputCorreo.setName("correo"); // NOI18N
         inputCorreo.setPreferredSize(new java.awt.Dimension(0, 41));
         contenedorInputYErrorCorreo.add(inputCorreo, java.awt.BorderLayout.NORTH);
 
@@ -306,6 +307,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         inputConfirmarCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputConfirmarCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputConfirmarCodigo.setMinimumSize(new java.awt.Dimension(0, 45));
+        inputConfirmarCodigo.setName("codigo"); // NOI18N
         inputConfirmarCodigo.setPreferredSize(new java.awt.Dimension(0, 41));
         contenedorInputYErrorConfirmarCodigo.add(inputConfirmarCodigo, java.awt.BorderLayout.NORTH);
 
@@ -405,6 +407,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         inputContrasenaAntigua.setToolTipText("");
         inputContrasenaAntigua.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputContrasenaAntigua.setMinimumSize(new java.awt.Dimension(0, 34));
+        inputContrasenaAntigua.setName("contrasena"); // NOI18N
         inputContrasenaAntigua.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputContrasenaAntigua.add(inputContrasenaAntigua);
 
@@ -504,6 +507,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         inputContrasenaNueva.setToolTipText("");
         inputContrasenaNueva.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputContrasenaNueva.setMinimumSize(new java.awt.Dimension(0, 34));
+        inputContrasenaNueva.setName("contrasenaNueva"); // NOI18N
         inputContrasenaNueva.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputContrasenaNueva.add(inputContrasenaNueva);
 
@@ -580,6 +584,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         inputConfirmarContrasenaNueva.setToolTipText("");
         inputConfirmarContrasenaNueva.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputConfirmarContrasenaNueva.setMinimumSize(new java.awt.Dimension(0, 34));
+        inputConfirmarContrasenaNueva.setName("confirmarContrasenaNueva"); // NOI18N
         inputConfirmarContrasenaNueva.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputConfirmarContrasenaNueva.add(inputConfirmarContrasenaNueva);
 
