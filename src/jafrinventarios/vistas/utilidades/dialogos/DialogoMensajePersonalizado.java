@@ -215,8 +215,8 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
     
         mostrar(
                     ventanaPadre,
-                    "Error en los campos", 
-                    "Uno o mas campos tienen errores, \n por favor verifique e intente nuevamente despues de corregirlos", 
+                    titulo, 
+                    mensaje,
                     IconosDialogosMensajePersonalizado.ERROR, 
                     false
             );
