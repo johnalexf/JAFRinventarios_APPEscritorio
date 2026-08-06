@@ -3,7 +3,7 @@ package jafrinventarios.controladores.acceso;
 
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.vistas.acceso.InicioSesionPanel;
-import jafrinventarios.vistas.acceso.DialogoCambiarContrasena;
+import jafrinventarios.vistas.acceso.recuperacion.DialogoCambiarContrasena;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import java.util.HashMap;
 import java.util.Map;

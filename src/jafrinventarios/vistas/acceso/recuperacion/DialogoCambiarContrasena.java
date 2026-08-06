@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jafrinventarios.vistas.acceso;
+package jafrinventarios.vistas.acceso.recuperacion;
 
 import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
@@ -29,7 +29,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     /**
      * Creates new form DialogoCambiarContrasena
      */
-    private DialogoCambiarContrasena(JFrame parent, String titulo, String tarjeta, boolean contrasenaAntigua) {
+    private DialogoCambiarContrasena(JFrame parent, String titulo, TarjetasRecuperacion tarjeta, boolean contrasenaAntigua) {
         super(parent);
         initComponents();
         btnCerrar.setIcon(IconosBotones.CERRAR.getIcono());
@@ -37,10 +37,18 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         layaoutTarjetas = (CardLayout) contenedorTarjetas.getLayout();
         tituloDialogo.setText(titulo);
         
+        declararIdentificadorsATarjetas();
         configurarDinamismoAContrasenas(contrasenaAntigua);
         inyectarCamposAValidadores(contrasenaAntigua);
         mostrarTarjeta(tarjeta);
         hacerVisibleDialogo();
+    }
+    
+    private void declararIdentificadorsATarjetas(){
+        contenedorTarjetas.add(contenedorCorreo, TarjetasRecuperacion.CORREO.getIdentificador());
+        contenedorTarjetas.add(contenedorConfirmarCodigo, TarjetasRecuperacion.CODIGO.getIdentificador());
+        contenedorTarjetas.add(contenedorContrasenaAntigua, TarjetasRecuperacion.CONTRASENA_ANTIGUA.getIdentificador());
+        contenedorTarjetas.add(contenedorContrasenaNueva, TarjetasRecuperacion.CONTRASENA_NUEVA.getIdentificador());
     }
     
     private void configurarDinamismoAContrasenas(boolean contrasenaAntigua){
@@ -81,7 +89,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
                 new DialogoCambiarContrasena( 
                         padreFrame, 
                         "Recuperar contraseña",
-                        "cardCorreo",
+                        TarjetasRecuperacion.CORREO,
                         false
                 );
        
@@ -93,7 +101,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
                 new DialogoCambiarContrasena( 
                         padreFrame, 
                         "Cambiar contraseña",
-                        "cardContrasenaAntigua",
+                        TarjetasRecuperacion.CONTRASENA_ANTIGUA,
                         true
                 );
   
@@ -166,7 +174,6 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         setMinimumSize(new java.awt.Dimension(500, 350));
         setName("dialogCambiarContrasena"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(500, 350));
 
         contenedorFondoBlanco.setMinimumSize(new java.awt.Dimension(500, 380));
         contenedorFondoBlanco.setPreferredSize(new java.awt.Dimension(500, 380));
@@ -730,13 +737,13 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     // MÉTODOS PARA CAMBIAR TARJETAS DE FORMULARIO
     // =======================================================
     
-    public void mostrarTarjeta(String nombreTarjeta){
+    public void mostrarTarjeta(TarjetasRecuperacion tarjeta){
         // Mostramos la tarjeta correspondiente usando el CardLayout original
-        layaoutTarjetas.show(contenedorTarjetas, nombreTarjeta);
+        layaoutTarjetas.show(contenedorTarjetas, tarjeta.getIdentificador());
         
         // Evaluamos si la tarjeta actual es la de la contraseña nueva
         // Para poder redimensionar el Dialog ya que esta card ocupa mas espacio
-        if (nombreTarjeta.equals("cardContrasenaNueva")) {
+        if (  tarjeta == TarjetasRecuperacion.CONTRASENA_NUEVA  ) {
             // Aumentamos el tamaño del JDialog (500 de ancho por 640 de alto)
             this.setSize(500, 640); 
         } else {
