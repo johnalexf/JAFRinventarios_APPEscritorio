@@ -8,6 +8,8 @@ package jafrinventarios.vistas.utilidades.dialogos;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import java.awt.Window;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -187,7 +189,7 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
 
     
     // Método estático que se podra llamar desde cualquier parte del proyecto
-    public static boolean mostrarDialogo(
+    public static boolean mostrar(
                                     Window ventanaPadre, 
                                     String titulo, 
                                     String mensaje, 
@@ -207,15 +209,52 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
         return dialogo.respuesta;
     }
     
-    public static void mostrarDialogoErrorDatos(Window ventanaPadre){
+    public static void mostrarError(Window ventanaPadre, 
+                                    String titulo, 
+                                    String mensaje){
     
-        mostrarDialogo(
+        mostrar(
                     ventanaPadre,
                     "Error en los campos", 
                     "Uno o mas campos tienen errores, \n por favor verifique e intente nuevamente despues de corregirlos", 
                     IconosDialogosMensajePersonalizado.ERROR, 
                     false
             );
+    
+    }
+    
+    
+    public static void mostrarErrorFormatoCampos(Window ventanaPadre){
+    
+        mostrarError(
+                ventanaPadre,
+                "Información incompleta o inválida", 
+                "Algunos datos ingresados no cumplen con el formato requerido o se encuentran vacíos.\n\nPor favor, revise los campos resaltados en el formulario y corrija la información antes de continuar."
+        );
+    
+    }
+    
+    public static void mostrarErrorRespuestaBD(Window ventanaPadre, HashMap<String, String> erroresFormulario){
+        
+        StringBuilder armadoErrores = new StringBuilder();
+        
+        for (Map.Entry<String, String> campo : erroresFormulario.entrySet()) {
+           // Extraer la clave y capitalizar la primera letra (ej: "correo" -> "Correo")
+            String nombreCampo = campo.getKey().substring(0, 1).toUpperCase() + campo.getKey().substring(1);
+            
+            armadoErrores.append("\n• ") // Agregamos un salto de línea y una viñeta visual
+                         .append(nombreCampo)
+                         .append(": ")
+                         .append(campo.getValue());
+        }
+        
+        mostrarError(
+                ventanaPadre,
+                "Error de validación", 
+                "El sistema ha detectado problemas con la información ingresada:\n"
+                + armadoErrores.toString()
+                + "\n\nPor favor, revise los campos marcados en el formulario e intente nuevamente."
+        );
     
     }
     

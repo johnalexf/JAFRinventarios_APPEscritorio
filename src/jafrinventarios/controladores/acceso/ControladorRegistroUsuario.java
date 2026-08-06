@@ -57,7 +57,7 @@ public class ControladorRegistroUsuario {
         // Delegar a la vista que valide que no haya campos vacíos o con errores
         if ( !vistaRegistro.ejecutarValidacionCampos() ) {
             
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(ventanaPadre);
+            DialogoMensajePersonalizado.mostrarErrorFormatoCampos(ventanaPadre);
             return; // Cortamos la ejecución aquí si hay errores visuales
         }
         
@@ -98,7 +98,7 @@ public class ControladorRegistroUsuario {
     
     
     private void mostrarMensajeRegistroExitoso(JFrame ventanaPadre, String alias){
-        DialogoMensajePersonalizado.mostrarDialogo(
+        DialogoMensajePersonalizado.mostrar(
                     ventanaPadre, 
                     "Registro exitoso", 
                     "El usuario " + alias

@@ -115,7 +115,7 @@ public class ControladorContrasena {
     private void realizarPaso( TarjetasRecuperacion tarjeta ){
 
         if(!ventanaContrasena.ejecutarValidacionCampos(tarjeta)){
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(ventanaContrasena);
+            DialogoMensajePersonalizado.mostrarErrorFormatoCampos(ventanaContrasena);
             return;
         }
         
@@ -152,13 +152,13 @@ public class ControladorContrasena {
         } else {
             // Armamos el diccionario de errores como respondería el backend
             HashMap<String, String> erroresBackend = new HashMap<>();
-            erroresBackend.put("correo", "Este correo no se encuentra registrado.");
+            erroresBackend.put("correo", "No se encuentra registrado.");
             
             // Le pasamos el error al ValidadorFormulario para que pinte el JLabel 
             ventanaContrasena.mostrarErrorRespuestaBD(TarjetasRecuperacion.CORREO, erroresBackend);
             
             // Mostramos un modal general para que el usuario sepa que algo falló
-            //DialogoMensajePersonalizado.mostrarDialogoErroresBackend(ventanaContrasena); 
+            DialogoMensajePersonalizado.mostrarErrorRespuestaBD(ventanaContrasena, erroresBackend); 
         }
         
     }

@@ -1098,7 +1098,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     
     private void mostrarMensajeAyudaCodigo (){
            
-        DialogoMensajePersonalizado.mostrarDialogo(
+        DialogoMensajePersonalizado.mostrar(
                 (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
                 "Información código de acceso",
                 mensajeAyudaCodigo,

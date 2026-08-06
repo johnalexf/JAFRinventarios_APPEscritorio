@@ -31,7 +31,7 @@ public class ControladorInicioSesion {
         // Delegar a la vista que valide que no haya campos vacíos o con errores
         if ( !vistaInicio.ejecutarValidacionCampos() ) {
             JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vistaInicio);
-            DialogoMensajePersonalizado.mostrarDialogoErrorDatos(ventanaPadre);
+            DialogoMensajePersonalizado.mostrarErrorFormatoCampos(ventanaPadre);
             return; // Cortamos la ejecución aquí si hay errores visuales
         }
 
