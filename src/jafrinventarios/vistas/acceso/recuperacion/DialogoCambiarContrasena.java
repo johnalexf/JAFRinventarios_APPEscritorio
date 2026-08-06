@@ -26,6 +26,8 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     private final ValidadorFormulario formularioCodigo = new ValidadorFormulario();
     private final ValidadorFormulario formularioContrasenaAntigua = new ValidadorFormulario();
     private final ValidadorFormulario formularioContrasenaNueva = new ValidadorFormulario();
+    
+    private final FormulariosTarjetas formularios = new FormulariosTarjetas();
     /**
      * Creates new form DialogoCambiarContrasena
      */
@@ -40,6 +42,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         declararIdentificadorsATarjetas();
         configurarDinamismoAContrasenas(contrasenaAntigua);
         inyectarCamposAValidadores(contrasenaAntigua);
+        recolectarFormularios(contrasenaAntigua);
         mostrarTarjeta(tarjeta);
         hacerVisibleDialogo();
     }
@@ -76,6 +79,19 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
                 inputContrasenaNueva, lblErrorInputContrasenaNueva, TipoDatoFormulario.CONTRASENA, true);
         formularioContrasenaNueva.agregarCampoConfirmarContrasena(
                 inputConfirmarContrasenaNueva, inputContrasenaNueva, lblErrorInputConfirmarContrasenaNueva);
+    }
+    
+    
+    private void recolectarFormularios( boolean contrasenaAntigua ){
+        if( contrasenaAntigua ){
+            formularios.agregarFormulario(TarjetasRecuperacion.CONTRASENA_ANTIGUA, formularioContrasenaAntigua);
+        }else{
+            formularios.agregarFormulario(TarjetasRecuperacion.CORREO, formularioCorreo);
+            formularios.agregarFormulario(TarjetasRecuperacion.CODIGO, formularioCodigo);
+        }
+        
+        formularios.agregarFormulario(TarjetasRecuperacion.CONTRASENA_NUEVA, formularioContrasenaNueva);
+    
     }
     
     
@@ -650,88 +666,23 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         return btnCambiarContrasena;
     }
 
-    
-    // =======================================================
-    // MÉTODOS PARA EL FORMULARIO O CAMPO DEL CORREO
-    // =======================================================
-    
     // Exponer la validación visual
-    public boolean ejecutarValidacionCampoCorreo() {
-        return formularioCorreo.validar();
+    public boolean ejecutarValidacionCampos( TarjetasRecuperacion claveTarjeta ) {
+        return formularios.validar( claveTarjeta );
     }
     
     // Exponer los datos del formulario en un hash map
-    public HashMap<String, String> recolectarDatosFormularioCorreo(){
-        return formularioCorreo.recolectarDatos();
+    public HashMap<String, String> recolectarDatosFormulario( TarjetasRecuperacion claveTarjeta ){
+        return formularios.recolectarDatos( claveTarjeta );
     }
     
     // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError
-    public void mostrarErrorRespuestaBDCorreo(HashMap<String, String> erroresCamposBD ){
-        formularioCorreo.mostrarErrorRespuestaBD(erroresCamposBD);
+    public void mostrarErrorRespuestaBD(
+                            TarjetasRecuperacion claveTarjeta,
+                            HashMap<String, String> erroresCamposBD ){
+        formularios.mostrarErrorRespuestaBD( claveTarjeta, erroresCamposBD);
     }
-    
-    
-    
-    // =======================================================
-    // MÉTODOS PARA EL FORMULARIO O CAMPO DE CONFIRMAR CODIGO
-    // =======================================================
-    
-    // Exponer la validación visual
-    public boolean ejecutarValidacionCampoConfirmarCodigo() {
-        return formularioCodigo.validar();
-    }
-    
-    // Exponer los datos del formulario en un hash map
-    public HashMap<String, String> recolectarDatosFormularioConfirmarCodigo(){
-        return formularioCodigo.recolectarDatos();
-    }
-    
-    // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError
-    public void mostrarErrorRespuestaBDConfirmarCodigo(HashMap<String, String> erroresCamposBD ){
-        formularioCodigo.mostrarErrorRespuestaBD(erroresCamposBD);
-    }
-    
-    
-    // =======================================================
-    // MÉTODOS PARA EL FORMULARIO O CAMPO DE CONTRASENA ANTIGUA
-    // =======================================================
-    
-    // Exponer la validación visual
-    public boolean ejecutarValidacionCampoContrasenaAntigua() {
-        return formularioContrasenaAntigua.validar();
-    }
-    
-    // Exponer los datos del formulario en un hash map
-    public HashMap<String, String> recolectarDatosFormularioContrasenaAntigua(){
-        return formularioContrasenaAntigua.recolectarDatos();
-    }
-    
-    // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError
-    public void mostrarErrorRespuestaBDContrasenaAntigua(HashMap<String, String> erroresCamposBD ){
-        formularioContrasenaAntigua.mostrarErrorRespuestaBD(erroresCamposBD);
-    }
-    
-    
-    
-    // =======================================================
-    // MÉTODOS PARA EL FORMULARIO DE CONTRASENA NUEVA
-    // =======================================================
-    
-    // Exponer la validación visual
-    public boolean ejecutarValidacionCampoContrasenaNueva() {
-        return formularioContrasenaNueva.validar();
-    }
-    
-    // Exponer los datos del formulario en un hash map
-    public HashMap<String, String> recolectarDatosFormularioContrasenaNueva(){
-        return formularioContrasenaNueva.recolectarDatos();
-    }
-    
-    // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError
-    public void mostrarErrorRespuestaBDContrasenaNueva(HashMap<String, String> erroresCamposBD ){
-        formularioContrasenaNueva.mostrarErrorRespuestaBD(erroresCamposBD);
-    }
-    
+
     
     // =======================================================
     // MÉTODOS PARA CAMBIAR TARJETAS DE FORMULARIO
