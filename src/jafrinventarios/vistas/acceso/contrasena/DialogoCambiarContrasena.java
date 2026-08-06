@@ -1,9 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    Este dialogo solo se instancia por medio de sus propios metodos staticos
+    desde el controladorContrasena debido a que el mismo tiene propias 
+    configuraciones que asi mismo dependen de crear el dialgoo acorde a ello.
  */
-package jafrinventarios.vistas.acceso.recuperacion;
+package jafrinventarios.vistas.acceso.contrasena;
 
 import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
@@ -44,7 +44,11 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         inyectarCamposAValidadores(contrasenaAntigua);
         recolectarFormularios(contrasenaAntigua);
         mostrarTarjeta(tarjeta);
-        hacerVisibleDialogo();
+        /*
+        Dejamos que el controlador lo haga visible cuando ya se haya inyectado
+        la vista de dialogo dentro de él.
+        */
+        //hacerVisibleDialogo();
     }
     
     private void declararIdentificadorsATarjetas(){
@@ -99,10 +103,9 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         Metodos publicos para controlar la creacion del dialogo segun 
         la necesidad, si es para recuperar o cambiar la contraseña.
     */
-    public static void recuperarContrasena(JFrame padreFrame){
-        
-        DialogoCambiarContrasena dialogoRecuperarContrasena = 
-                new DialogoCambiarContrasena( 
+    public static DialogoCambiarContrasena recuperarContrasena(JFrame padreFrame){
+                
+       return new DialogoCambiarContrasena( 
                         padreFrame, 
                         "Recuperar contraseña",
                         TarjetasRecuperacion.CORREO,
@@ -112,15 +115,15 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     }
     
 
-    public static void cambiarContrasena(JFrame padreFrame){
-        DialogoCambiarContrasena dialogoCambiarContrasena = 
-                new DialogoCambiarContrasena( 
+    public static DialogoCambiarContrasena cambiarContrasena(JFrame padreFrame){
+
+        return  new DialogoCambiarContrasena( 
                         padreFrame, 
                         "Cambiar contraseña",
                         TarjetasRecuperacion.CONTRASENA_ANTIGUA,
                         true
                 );
-  
+        
     }
 
     /**
@@ -640,7 +643,6 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarcerrarDialogo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarcerrarDialogo
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCerrarcerrarDialogo
    
@@ -648,6 +650,12 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     // =======================================================
     // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
     // =======================================================
+    
+    //Exponer evento de hacerVisibleDialogo que viene desde el padre DialgoBaseConSombra
+    public void mostrarDialogo(){
+        hacerVisibleDialogo();
+    }
+    
     
     //Exponer botones
     public JButton getBtnEnviarCodigo(){

@@ -3,7 +3,7 @@ package jafrinventarios.controladores.acceso;
 
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.vistas.acceso.InicioSesionPanel;
-import jafrinventarios.vistas.acceso.recuperacion.DialogoCambiarContrasena;
+import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +68,14 @@ public class ControladorInicioSesion {
 
     private void procesarRecuperarContrasena() {
         JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vistaInicio);
-        DialogoCambiarContrasena.recuperarContrasena(ventanaPadre);
+        
+       /*
+        El controlador de inicio de sesión no sabe NADA de cómo se ensambla adentro
+            Este metodo estatico permite delegar al controlador que arme la vista
+            segun corresponda y asi evitar que el desarrollador tenga que instanciar
+            un dialogoCambiarContrasena incorrecto
+        */
+        ControladorContrasena.iniciarRecuperacion(ventanaPadre);
+        
     }
 }

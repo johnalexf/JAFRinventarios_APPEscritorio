@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jafrinventarios.vistas.acceso.recuperacion;
+package jafrinventarios.vistas.acceso.contrasena;
 
 import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
 import java.util.HashMap;
