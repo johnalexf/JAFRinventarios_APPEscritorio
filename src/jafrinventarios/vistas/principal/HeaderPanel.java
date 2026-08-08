@@ -97,7 +97,7 @@ public class HeaderPanel extends javax.swing.JPanel {
 
         contenedorRolUsuario.setBackground(new java.awt.Color(205, 205, 205));
         contenedorRolUsuario.setPreferredSize(new java.awt.Dimension(130, 40));
-        contenedorRolUsuario.setLayout(new java.awt.GridLayout());
+        contenedorRolUsuario.setLayout(new java.awt.GridLayout(1, 0));
 
         lblRolUsuario.setBackground(new java.awt.Color(205, 205, 205));
         lblRolUsuario.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -125,29 +125,32 @@ public class HeaderPanel extends javax.swing.JPanel {
         btnMenu.setMaximumSize(new java.awt.Dimension(120, 0));
         btnMenu.setMinimumSize(new java.awt.Dimension(120, 0));
         btnMenu.setPreferredSize(new java.awt.Dimension(120, 42));
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
         contenedorRolYBtnMenu.add(btnMenu);
 
         add(contenedorRolYBtnMenu, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
-        
-    }//GEN-LAST:event_btnMenuActionPerformed
-
+    
+    // =======================================================
+    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    // =======================================================
+    
+    //Exponer el boton de menu
+    public javax.swing.JButton getBtnMenu(){
+        return btnMenu;
+    }
+    
+    //Asignar el nombre de la empresa y el rol despues de consultar la base de datos
     public void asignarNombreEmpresa(String nombreEmpresa){
         tituloNombreEmpresa.setText(nombreEmpresa + " / ");
     }
-    
+        
     public void asignarRolUsuario(String rolUsuario){
         lblRolUsuario.setText(rolUsuario);
     }
     
-    public void asignarSeccion( IconosSecciones seccionAsignada){
+    //Metodo para personalizar el titulo y el icono segun la seccion seleccionada
+    public void asignarSeccion( IconosSecciones seccionAsignada ){
         tituloIconoSeccion.setIcon(seccionAsignada.getIcono());
         tituloNombreSeccion.setText(seccionAsignada.getNombreSeccion());
     }

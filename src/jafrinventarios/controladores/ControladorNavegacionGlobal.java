@@ -6,6 +6,7 @@
  */
 package jafrinventarios.controladores;
 
+import jafrinventarios.controladores.principal.ControladorNavegacionModulos;
 import jafrinventarios.vistas.acceso.AccesoFrame;
 import jafrinventarios.vistas.principal.PrincipalFrame;
 import javax.swing.JFrame;
@@ -61,7 +62,7 @@ public class ControladorNavegacionGlobal {
         
         // Creamos la vista principal
         PrincipalFrame vistaPrincipal = new PrincipalFrame();
-        
+        new ControladorNavegacionModulos(vistaPrincipal);
         // Actualizamos cuál es la ventana activa y la mostramos
         asignarYMostrarVentanaActual(vistaPrincipal);
     }
