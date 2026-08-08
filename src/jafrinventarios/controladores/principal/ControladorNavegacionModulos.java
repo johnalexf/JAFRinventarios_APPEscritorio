@@ -5,6 +5,7 @@
  */
 package jafrinventarios.controladores.principal;
 
+import jafrinventarios.vistas.principal.DialogoMenu;
 import jafrinventarios.vistas.principal.HeaderPanel;
 import jafrinventarios.vistas.principal.Menu;
 import jafrinventarios.vistas.principal.PrincipalFrame;
@@ -19,6 +20,7 @@ public class ControladorNavegacionModulos {
     private PrincipalFrame ventanaPrincipal;
     private HeaderPanel headerPanel;
     private Menu menuPanel;
+    private DialogoMenu dialogoMenu;
 
     
     public ControladorNavegacionModulos(PrincipalFrame ventanaPrincipal) {
@@ -26,6 +28,11 @@ public class ControladorNavegacionModulos {
         this.headerPanel = ventanaPrincipal.getHeaderPanel();
         
         this.menuPanel = new Menu();
+        
+        this.dialogoMenu = new DialogoMenu(
+                                    ventanaPrincipal, 
+                                    ventanaPrincipal.getContenedorPrincipal(), 
+                                    menuPanel);
         
         inicializarEventos();
     }
@@ -36,13 +43,7 @@ public class ControladorNavegacionModulos {
     }
 
     
-    private void mostrarDialogoMenu() {
-        // 1. Creamos un JDialog atado a la ventana principal 
-        DialogoBaseConSombra dialogoMenu = new DialogoBaseConSombra(ventanaPrincipal);
-        
-        // 3. Agregamos el panel al diálogo 
-        dialogoMenu.getContentPane().add(menuPanel);
-        
+    private void mostrarDialogoMenu() {       
         dialogoMenu.hacerVisibleDialogo();
     }
     

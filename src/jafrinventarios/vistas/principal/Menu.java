@@ -107,10 +107,14 @@ public class Menu extends javax.swing.JPanel {
 
         add(contenedorHeader, java.awt.BorderLayout.PAGE_START);
 
+        contenedorCuerpo.setAlignmentX(0.0F);
         contenedorCuerpo.setOpaque(false);
         contenedorCuerpo.setLayout(new javax.swing.BoxLayout(contenedorCuerpo, javax.swing.BoxLayout.X_AXIS));
         contenedorCuerpo.add(marginAutoLeft);
 
+        contenedorContenido.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        contenedorContenido.setAlignmentX(0.0F);
+        contenedorContenido.setAlignmentY(0.0F);
         contenedorContenido.setMaximumSize(new java.awt.Dimension(200, 2147483647));
         contenedorContenido.setMinimumSize(new java.awt.Dimension(200, 0));
         contenedorContenido.setOpaque(false);

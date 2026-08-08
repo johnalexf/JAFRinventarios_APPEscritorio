@@ -7,6 +7,7 @@ package jafrinventarios.vistas.principal;
 
 import jafrinventarios.controladores.principal.ControladorNavegacionModulos;
 import jafrinventarios.vistas.utilidades.iconos.IconosSecciones;
+import javax.swing.JPanel;
 
 /**
  *
@@ -115,6 +116,10 @@ public class PrincipalFrame extends javax.swing.JFrame {
     
     public HeaderPanel getHeaderPanel(){
         return headerPanel;
+    }
+    
+    public JPanel getContenedorPrincipal(){
+        return contenedorPrincipal;
     }
     
 

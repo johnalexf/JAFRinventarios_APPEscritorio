@@ -51,10 +51,16 @@ public class DialogoBaseConSombra extends JDialog {
         mostrarGlassPanePadreDialogo();
         // Recalcular tamaño del dialog segun el tamaño que necesite cada componente interno
         pack();
-        // Centrar el dialogo con respecto a su padre
-        setLocationRelativeTo(ventanaPadre);
+        
+        definirUbicacionDialogo();
+        
         // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
         setVisible(true);
+    }
+    
+    protected void definirUbicacionDialogo(){
+        // Centrar el dialogo con respecto a su padre
+        setLocationRelativeTo(ventanaPadre);
     }
     
     // Al sobrescribir dispose, garantizamos que la sombra se limpie sola al cerrar
