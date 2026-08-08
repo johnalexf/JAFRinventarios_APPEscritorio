@@ -7,6 +7,7 @@ package jafrinventarios.vistas.principal;
 
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.iconos.IconosSecciones;
+import javax.swing.JButton;
 
 /**
  *
@@ -271,7 +272,47 @@ public class Menu extends javax.swing.JPanel {
         add(contenedorCuerpo, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    // =======================================================
+    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    // =======================================================
 
+    //Exponer los botones link 
+    public JButton getBtnLinkSeccionInicio(){
+        return btnLinkSeccionInicio;
+    }
+    
+    public JButton getBtnLinkSeccionUsuarios(){
+        return btnLinkSeccionUsuarios;
+    }
+    
+    public JButton getBtnLinkSeccionProductos(){
+        return btnLinkSeccionProductos;
+    }
+    
+    public JButton getBtnLinkSeccionProveedores(){
+        return btnLinkSeccionProveedores;
+    }
+    
+    public JButton getBtnLinkSeccionClientes(){
+        return btnLinkSeccionClientes;
+    }
+    
+    public JButton getBtnLinkSeccionCompras(){
+        return btnLinkSeccionCompras;
+    }
+    
+    public JButton getBtnLinkSeccionVentas(){
+        return btnLinkSeccionVentas;
+    }
+    
+    public JButton getBtnLinkSeccionInventario(){
+        return btnLinkSeccionInventario;
+    }
+    
+    public JButton getBtnLinkSeccionReporte(){
+        return btnLinkSeccionReporte;
+    }
+            
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

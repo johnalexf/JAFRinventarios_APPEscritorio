@@ -145,12 +145,12 @@ public class HeaderPanel extends javax.swing.JPanel {
         tituloNombreEmpresa.setText(nombreEmpresa + " / ");
     }
         
-    public void asignarRolUsuario(String rolUsuario){
+    public void asignarNombreRolUsuario(String rolUsuario){
         lblRolUsuario.setText(rolUsuario);
     }
     
     //Metodo para personalizar el titulo y el icono segun la seccion seleccionada
-    public void asignarSeccion( IconosSecciones seccionAsignada ){
+    public void asignarNombreSeccion( IconosSecciones seccionAsignada ){
         tituloIconoSeccion.setIcon(seccionAsignada.getIcono());
         tituloNombreSeccion.setText(seccionAsignada.getNombreSeccion());
     }
