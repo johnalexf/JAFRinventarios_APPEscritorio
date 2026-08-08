@@ -107,9 +107,12 @@ public class DialogoMenu extends DialogoBaseConSombra {
     @Override
     public void definirUbicacionDialogo() {
         
-        // Se posiciona a la derecha 
-        int x = panelUbicacion.getX() + panelUbicacion.getWidth() - this.getWidth() - 0; 
-        int y = panelUbicacion.getY() + 30;
+        // 1. Obtenemos las coordenadas ABSOLUTAS del panel respecto al monitor
+        java.awt.Point ubicacionAbsoluta = panelUbicacion.getLocationOnScreen();
+        
+        // 2. Calculamos X e Y usando las coordenadas reales de la pantalla
+        int x = ubicacionAbsoluta.x + panelUbicacion.getWidth() - this.getWidth() - 5; 
+        int y = ubicacionAbsoluta.y + 5;
         setLocation(x, y);
         
     }
