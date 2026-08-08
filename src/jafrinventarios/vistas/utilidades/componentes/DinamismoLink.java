@@ -26,16 +26,14 @@ public class DinamismoLink {
         // Calculamos automáticamente el color oscuro usando la función nativa de Java
         Color colorHover = colorNormal.darker();
         
-        // 1. Limpiar el botón de estilos por defecto de Swing
+        // Limpiar el botón de estilos por defecto de Swing
         boton.setContentAreaFilled(false);
-        boton.setBorderPainted(false);
         boton.setFocusPainted(false);
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
-        // 2. Establecer el estado visual inicial (borde invisible para no alterar el tamaño)
-        boton.setBorder(BorderFactory.createEmptyBorder(0, 0, 1, 0)); 
-
-        // 3. Inyectar el dinamismo con los eventos del ratón
+        aplicarEstadoNormal(boton, colorNormal);
+        
+        // Inyectar el dinamismo con los eventos del ratón
         boton.addMouseListener(new MouseAdapter() {
             
             @Override
@@ -49,10 +47,29 @@ public class DinamismoLink {
             @Override
             public void mouseExited(MouseEvent e) {
                 // El ratón sale: restaurar color normal y quitar el subrayado
-                boton.setForeground(colorNormal);
-                boton.setBorderPainted(false);
-                boton.setBorder(BorderFactory.createEmptyBorder(0, 0, 1, 0));
+                aplicarEstadoNormal(boton, colorNormal);
+            }
+            
+            //Limpia el hover al instante del clic físico (Evita el congelamiento en modales)
+            @Override
+            public void mousePressed(MouseEvent e){
+                aplicarEstadoNormal(boton, colorNormal);
+            }
+            
+        });
+        
+        //Si el botón deja de mostrarse (se oculta su ventana), limpia el hover
+        boton.addHierarchyListener(e -> {
+            if (!boton.isShowing()) {
+                aplicarEstadoNormal(boton, colorNormal);
             }
         });
+    }
+    
+    private static void aplicarEstadoNormal(JButton boton, Color colorNormal){
+        boton.setForeground(colorNormal);
+        boton.setBorderPainted(false);
+        // Establecer el estado visual inicial (borde invisible para no alterar el tamaño)
+        boton.setBorder(BorderFactory.createEmptyBorder(0, 0, 1, 0));
     }
 }
