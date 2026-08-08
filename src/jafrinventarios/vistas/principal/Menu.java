@@ -312,6 +312,11 @@ public class Menu extends javax.swing.JPanel {
     public JButton getBtnLinkSeccionReporte(){
         return btnLinkSeccionReporte;
     }
+    
+    //Metodo para asignar el nombre del rol del usuario
+    public void setTituloRol(String nombreRol){
+        tituloRol.setText(nombreRol);
+    }
             
     
 

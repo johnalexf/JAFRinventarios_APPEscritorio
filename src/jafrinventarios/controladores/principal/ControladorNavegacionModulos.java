@@ -33,10 +33,32 @@ public class ControladorNavegacionModulos {
                                     ventanaPrincipal, 
                                     ventanaPrincipal.getContenedorPrincipal(), 
                                     menuPanel);
-        
+        asignarNombreEmpresa();
+        asignarNombreRolUsuario();
         cambiarSeccion(IconosSecciones.INICIO);
         
         inicializarEventos();
+    }
+    
+    
+    private void asignarNombreEmpresa(){
+        
+        //TODO Consultar a la base de datos
+        //Simulacion consulta
+        String nombreEmpresa = "Nombre de la empresa";
+        
+        headerPanel.asignarNombreEmpresa(nombreEmpresa);
+    }
+    
+    
+    private void asignarNombreRolUsuario(){
+        
+        //TODO Consultar a la base de datos
+        //Simulacion consulta
+        String nombreRol = "Administrador";
+        
+        headerPanel.asignarNombreRolUsuario(nombreRol);
+        menuPanel.setTituloRol(nombreRol);
     }
     
     
@@ -58,6 +80,7 @@ public class ControladorNavegacionModulos {
     private void mostrarDialogoMenu() {       
         dialogoMenu.hacerVisibleDialogo();
     }
+    
     
     private void cambiarSeccion(IconosSecciones seccionAsignada){
         

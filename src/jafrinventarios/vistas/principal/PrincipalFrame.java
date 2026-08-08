@@ -27,10 +27,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
         // Forzar que la ventana se abra maximizada ocupando toda la pantalla
         this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         
-            
-        //TO-DO Aqui se hara la consulta a la base de datos, para obtener los valores pertinentes
-        headerPanel.asignarNombreEmpresa("Nombre de la empresa 1");
-        headerPanel.asignarNombreRolUsuario("Administrador1");
         
     }
 
