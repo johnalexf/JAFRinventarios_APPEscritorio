@@ -10,8 +10,6 @@ import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
-import jafrinventarios.vistas.utilidades.iconos.IconosSecciones;
-import java.awt.AWTError;
 import java.awt.Color;
 import javax.swing.JFrame;
 

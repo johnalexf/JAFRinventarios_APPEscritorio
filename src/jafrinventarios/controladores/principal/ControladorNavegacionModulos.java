@@ -5,6 +5,7 @@
  */
 package jafrinventarios.controladores.principal;
 
+import jafrinventarios.controladores.perfil.ControladorPerfil;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import jafrinventarios.vistas.principal.DialogoMenu;
 import jafrinventarios.vistas.principal.HeaderPanel;
@@ -124,6 +125,7 @@ public class ControladorNavegacionModulos {
         switch(seccionAsignada){
             case INICIO:
                 moduloActual =  new PerfilPanel(menuFijoPerfil, esAdministrador);
+                new ControladorPerfil( (PerfilPanel) moduloActual);
                 break;
                 
         }

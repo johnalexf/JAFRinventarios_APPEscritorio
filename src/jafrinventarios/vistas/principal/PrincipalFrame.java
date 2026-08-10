@@ -5,8 +5,6 @@
  */
 package jafrinventarios.vistas.principal;
 
-import jafrinventarios.controladores.principal.ControladorNavegacionModulos;
-import jafrinventarios.vistas.utilidades.iconos.IconosSecciones;
 import javax.swing.JPanel;
 
 /**
