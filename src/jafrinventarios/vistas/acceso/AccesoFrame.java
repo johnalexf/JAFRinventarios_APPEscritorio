@@ -46,6 +46,7 @@ public class AccesoFrame extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        contenedorFondoBlanco = new javax.swing.JPanel();
         marginLeftAuto = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         contenedorPrincipal = new javax.swing.JPanel();
         contenedorHeader = new javax.swing.JPanel();
@@ -77,9 +78,12 @@ public class AccesoFrame extends javax.swing.JFrame {
         setName("VentanaAcceso"); // NOI18N
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
 
+        contenedorFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorFondoBlanco.setLayout(new javax.swing.BoxLayout(contenedorFondoBlanco, javax.swing.BoxLayout.LINE_AXIS));
+
         marginLeftAuto.setBackground(new java.awt.Color(255, 255, 255));
         marginLeftAuto.setOpaque(true);
-        getContentPane().add(marginLeftAuto);
+        contenedorFondoBlanco.add(marginLeftAuto);
 
         contenedorPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         contenedorPrincipal.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 50, 0, 50));
@@ -254,11 +258,13 @@ public class AccesoFrame extends javax.swing.JFrame {
 
         contenedorPrincipal.add(contenedorCuerpo, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(contenedorPrincipal);
+        contenedorFondoBlanco.add(contenedorPrincipal);
 
         marginRightAuto.setBackground(new java.awt.Color(255, 255, 255));
         marginRightAuto.setOpaque(true);
-        getContentPane().add(marginRightAuto);
+        contenedorFondoBlanco.add(marginRightAuto);
+
+        getContentPane().add(contenedorFondoBlanco);
 
         pack();
         setLocationRelativeTo(null);
@@ -293,6 +299,7 @@ public class AccesoFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contenedorCuerpo;
+    private javax.swing.JPanel contenedorFondoBlanco;
     private javax.swing.JPanel contenedorHeader;
     private javax.swing.JPanel contenedorInicioSesion;
     private javax.swing.JPanel contenedorInicioSesionPanel;
