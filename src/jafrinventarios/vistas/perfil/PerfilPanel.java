@@ -49,6 +49,8 @@ public class PerfilPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        marginAutoLeft = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        contenedorPrincipal = new javax.swing.JPanel();
         contenedorIzquierda = new javax.swing.JPanel();
         contenedorPerfil = new javax.swing.JPanel();
         contenedorTitulo = new javax.swing.JPanel();
@@ -80,16 +82,26 @@ public class PerfilPanel extends javax.swing.JPanel {
         btnLinkEditarUsuario = new javax.swing.JButton();
         contenedorDerecha = new javax.swing.JPanel();
         contenedorMenu = new javax.swing.JPanel();
+        marginAutoRight = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
         setBackground(new java.awt.Color(205, 205, 205));
-        setPreferredSize(new java.awt.Dimension(1075, 608));
-        setLayout(new java.awt.GridBagLayout());
+        setMaximumSize(new java.awt.Dimension(2147483647, 650));
+        setMinimumSize(new java.awt.Dimension(800, 650));
+        setPreferredSize(new java.awt.Dimension(800, 650));
+        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        add(marginAutoLeft);
+
+        contenedorPrincipal.setMaximumSize(new java.awt.Dimension(800, 650));
+        contenedorPrincipal.setMinimumSize(new java.awt.Dimension(800, 650));
+        contenedorPrincipal.setOpaque(false);
+        contenedorPrincipal.setPreferredSize(new java.awt.Dimension(800, 650));
+        contenedorPrincipal.setLayout(new java.awt.GridBagLayout());
 
         contenedorIzquierda.setOpaque(false);
         contenedorIzquierda.setLayout(new java.awt.GridBagLayout());
 
         contenedorPerfil.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorPerfil.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 24)));
+        contenedorPerfil.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 24)));
         contenedorPerfil.setMinimumSize(new java.awt.Dimension(350, 500));
         contenedorPerfil.setPreferredSize(new java.awt.Dimension(350, 500));
         contenedorPerfil.setLayout(new java.awt.BorderLayout());
@@ -384,6 +396,7 @@ public class PerfilPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         contenedorIzquierda.add(contenedorPerfil, gridBagConstraints);
@@ -392,19 +405,20 @@ public class PerfilPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        add(contenedorIzquierda, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 50);
+        contenedorPrincipal.add(contenedorIzquierda, gridBagConstraints);
 
         contenedorDerecha.setOpaque(false);
         contenedorDerecha.setLayout(new java.awt.GridBagLayout());
 
         contenedorMenu.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorMenu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        contenedorMenu.setMinimumSize(new java.awt.Dimension(350, 500));
-        contenedorMenu.setPreferredSize(new java.awt.Dimension(350, 500));
+        contenedorMenu.setMinimumSize(new java.awt.Dimension(330, 650));
+        contenedorMenu.setPreferredSize(new java.awt.Dimension(330, 650));
         contenedorMenu.setLayout(new javax.swing.BoxLayout(contenedorMenu, javax.swing.BoxLayout.LINE_AXIS));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         contenedorDerecha.add(contenedorMenu, gridBagConstraints);
@@ -413,7 +427,10 @@ public class PerfilPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        add(contenedorDerecha, gridBagConstraints);
+        contenedorPrincipal.add(contenedorDerecha, gridBagConstraints);
+
+        add(contenedorPrincipal);
+        add(marginAutoRight);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAyudaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaCodigoActionPerformed
@@ -444,6 +461,7 @@ public class PerfilPanel extends javax.swing.JPanel {
     private javax.swing.JPanel contenedorIzquierda;
     private javax.swing.JPanel contenedorMenu;
     private javax.swing.JPanel contenedorPerfil;
+    private javax.swing.JPanel contenedorPrincipal;
     private javax.swing.JPanel contenedorTitulo;
     private javax.swing.JPanel cotnenedorBtnEditarUsuario;
     private javax.swing.JTextField inputCodigo;
@@ -457,6 +475,8 @@ public class PerfilPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblEtiquetaEmpresa;
     private javax.swing.JLabel lblEtiquetaNombre;
     private javax.swing.JLabel lblEtiquetaTelefono;
+    private javax.swing.Box.Filler marginAutoLeft;
+    private javax.swing.Box.Filler marginAutoRight;
     private javax.swing.JLabel subtituloCodigoAcceso;
     private javax.swing.JLabel tituloPerfil;
     // End of variables declaration//GEN-END:variables
