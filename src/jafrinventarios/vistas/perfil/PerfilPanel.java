@@ -6,6 +6,10 @@
 package jafrinventarios.vistas.perfil;
 
 import jafrinventarios.vistas.principal.Menu;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
+import java.awt.Color;
+import javax.swing.JFrame;
 
 /**
  *
@@ -19,8 +23,20 @@ public class PerfilPanel extends javax.swing.JPanel {
     public PerfilPanel(Menu menuNavegacion) {
         initComponents();
         
+        configurarEstilosInputCodigo();
+        
         //Agregar menu de navegacion al contenedor Menu
         contenedorMenu.add(menuNavegacion);
+    }
+    
+    private void configurarEstilosInputCodigo(){
+        /*
+        Se configuran estos estilos para mantenerlo como desactivado pero con
+        los colores por defecto, asi deja seleccionar el texto sin editarlo.
+        */
+        inputCodigo.setBackground(Color.WHITE);
+        inputCodigo.setForeground(Color.BLACK);
+        inputCodigo.setDisabledTextColor(Color.BLACK);
     }
 
     /**
@@ -96,7 +112,7 @@ public class PerfilPanel extends javax.swing.JPanel {
 
         contenedorContenido.setOpaque(false);
         contenedorContenido.setPreferredSize(new java.awt.Dimension(0, 0));
-        contenedorContenido.setLayout(new java.awt.BorderLayout(0, 30));
+        contenedorContenido.setLayout(new java.awt.BorderLayout(0, 20));
 
         contenedorDatosPerfil.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 10, 10));
         contenedorDatosPerfil.setOpaque(false);
@@ -240,7 +256,7 @@ public class PerfilPanel extends javax.swing.JPanel {
         contenedorContenido.add(contenedorDatosPerfil, java.awt.BorderLayout.CENTER);
 
         contenedorCodigoAcceso.setOpaque(false);
-        contenedorCodigoAcceso.setLayout(new java.awt.BorderLayout());
+        contenedorCodigoAcceso.setLayout(new java.awt.BorderLayout(0, 5));
 
         subtituloCodigoAcceso.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         subtituloCodigoAcceso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -256,11 +272,11 @@ public class PerfilPanel extends javax.swing.JPanel {
         contenedorInputCodigoYAyuda.setLayout(flowLayout1);
 
         contenedorInputCodigo.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorInputCodigo.setMaximumSize(new java.awt.Dimension(250, 34));
-        contenedorInputCodigo.setMinimumSize(new java.awt.Dimension(250, 38));
+        contenedorInputCodigo.setMaximumSize(new java.awt.Dimension(200, 34));
+        contenedorInputCodigo.setMinimumSize(new java.awt.Dimension(200, 38));
         contenedorInputCodigo.setName(""); // NOI18N
         contenedorInputCodigo.setOpaque(false);
-        contenedorInputCodigo.setPreferredSize(new java.awt.Dimension(250, 38));
+        contenedorInputCodigo.setPreferredSize(new java.awt.Dimension(200, 38));
         contenedorInputCodigo.setLayout(new javax.swing.OverlayLayout(contenedorInputCodigo));
 
         contenedorBtnCopíarCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 4));
@@ -287,8 +303,12 @@ public class PerfilPanel extends javax.swing.JPanel {
 
         contenedorInputCodigo.add(contenedorBtnCopíarCodigo);
 
-        inputCodigo.setEditable(false);
         inputCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputCodigo.setText("HjL43@12Ld");
+        inputCodigo.setToolTipText("");
+        inputCodigo.setCaretPosition(2);
+        inputCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        inputCodigo.setEnabled(false);
         inputCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputCodigo.setMinimumSize(new java.awt.Dimension(0, 34));
         inputCodigo.setName("codigo"); // NOI18N
@@ -312,6 +332,11 @@ public class PerfilPanel extends javax.swing.JPanel {
         btnAyudaCodigo.setMaximumSize(new java.awt.Dimension(30, 26));
         btnAyudaCodigo.setMinimumSize(new java.awt.Dimension(30, 26));
         btnAyudaCodigo.setPreferredSize(new java.awt.Dimension(30, 26));
+        btnAyudaCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAyudaCodigoActionPerformed(evt);
+            }
+        });
         contenedorInputCodigoYAyuda.add(btnAyudaCodigo);
 
         contenedorCodigoAcceso.add(contenedorInputCodigoYAyuda, java.awt.BorderLayout.CENTER);
@@ -390,6 +415,16 @@ public class PerfilPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         add(contenedorDerecha, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAyudaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaCodigoActionPerformed
+        DialogoMensajePersonalizado.mostrar(
+                (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
+                "Información código de acceso",
+                "Este código usted como administrador se lo puede compartir a sus vendedores para que se puedan registrar personalmente en el aplicativo ",
+                IconosDialogosMensajePersonalizado.INFORMACION,
+                false
+                );
+    }//GEN-LAST:event_btnAyudaCodigoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
