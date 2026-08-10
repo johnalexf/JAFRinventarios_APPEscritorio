@@ -39,6 +39,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        contenedorFondo = new javax.swing.JPanel();
         marginLeftAuto = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         contenedorPrincipal = new javax.swing.JPanel();
         contenedorHeader = new javax.swing.JPanel();
@@ -53,12 +54,18 @@ public class PrincipalFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1024, 768));
         setName("VentanaPrincipal"); // NOI18N
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(marginLeftAuto);
+
+        contenedorFondo.setBackground(new java.awt.Color(205, 205, 205));
+        contenedorFondo.setLayout(new javax.swing.BoxLayout(contenedorFondo, javax.swing.BoxLayout.LINE_AXIS));
+
+        marginLeftAuto.setOpaque(true);
+        contenedorFondo.add(marginLeftAuto);
 
         contenedorPrincipal.setBackground(new java.awt.Color(205, 205, 205));
+        contenedorPrincipal.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
         contenedorPrincipal.setMaximumSize(new java.awt.Dimension(1320, 32767));
-        contenedorPrincipal.setMinimumSize(new java.awt.Dimension(1024, 768));
-        contenedorPrincipal.setPreferredSize(new java.awt.Dimension(1320, 768));
+        contenedorPrincipal.setMinimumSize(new java.awt.Dimension(1024, 0));
+        contenedorPrincipal.setPreferredSize(new java.awt.Dimension(1320, 0));
         contenedorPrincipal.setLayout(new java.awt.BorderLayout());
 
         contenedorHeader.setMaximumSize(new java.awt.Dimension(32767, 70));
@@ -69,15 +76,17 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         contenedorPrincipal.add(contenedorHeader, java.awt.BorderLayout.PAGE_START);
 
+        contenedorCentro.setBackground(new java.awt.Color(205, 205, 205));
+
         javax.swing.GroupLayout contenedorCentroLayout = new javax.swing.GroupLayout(contenedorCentro);
         contenedorCentro.setLayout(contenedorCentroLayout);
         contenedorCentroLayout.setHorizontalGroup(
             contenedorCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1075, Short.MAX_VALUE)
+            .addGap(0, 1067, Short.MAX_VALUE)
         );
         contenedorCentroLayout.setVerticalGroup(
             contenedorCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
 
         contenedorPrincipal.add(contenedorCentro, java.awt.BorderLayout.CENTER);
@@ -86,7 +95,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         contenedorFooter.setLayout(contenedorFooterLayout);
         contenedorFooterLayout.setHorizontalGroup(
             contenedorFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1075, Short.MAX_VALUE)
+            .addGap(0, 1067, Short.MAX_VALUE)
         );
         contenedorFooterLayout.setVerticalGroup(
             contenedorFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,8 +104,12 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         contenedorPrincipal.add(contenedorFooter, java.awt.BorderLayout.PAGE_END);
 
-        getContentPane().add(contenedorPrincipal);
-        getContentPane().add(marginRightAuto);
+        contenedorFondo.add(contenedorPrincipal);
+
+        marginRightAuto.setBackground(new java.awt.Color(205, 205, 205));
+        contenedorFondo.add(marginRightAuto);
+
+        getContentPane().add(contenedorFondo);
 
         pack();
         setLocationRelativeTo(null);
@@ -117,6 +130,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contenedorCentro;
+    private javax.swing.JPanel contenedorFondo;
     private javax.swing.JPanel contenedorFooter;
     private javax.swing.JPanel contenedorHeader;
     private javax.swing.JPanel contenedorPrincipal;
