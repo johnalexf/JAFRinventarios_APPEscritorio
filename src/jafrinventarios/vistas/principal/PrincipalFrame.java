@@ -46,6 +46,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         headerPanel = new jafrinventarios.vistas.principal.HeaderPanel();
         contenedorCentro = new javax.swing.JPanel();
         contenedorFooter = new javax.swing.JPanel();
+        lblFooter = new javax.swing.JLabel();
         marginRightAuto = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,16 +81,17 @@ public class PrincipalFrame extends javax.swing.JFrame {
         contenedorCentro.setLayout(new javax.swing.BoxLayout(contenedorCentro, javax.swing.BoxLayout.LINE_AXIS));
         contenedorPrincipal.add(contenedorCentro, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout contenedorFooterLayout = new javax.swing.GroupLayout(contenedorFooter);
-        contenedorFooter.setLayout(contenedorFooterLayout);
-        contenedorFooterLayout.setHorizontalGroup(
-            contenedorFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1067, Short.MAX_VALUE)
-        );
-        contenedorFooterLayout.setVerticalGroup(
-            contenedorFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        contenedorFooter.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorFooter.setMaximumSize(new java.awt.Dimension(32767, 40));
+        contenedorFooter.setMinimumSize(new java.awt.Dimension(259, 40));
+        contenedorFooter.setPreferredSize(new java.awt.Dimension(1067, 40));
+        contenedorFooter.setLayout(new java.awt.GridLayout(1, 1));
+
+        lblFooter.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        lblFooter.setForeground(new java.awt.Color(33, 37, 41));
+        lblFooter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFooter.setText("© 2026 JAFR - Administra tu inventario. ");
+        contenedorFooter.add(lblFooter);
 
         contenedorPrincipal.add(contenedorFooter, java.awt.BorderLayout.PAGE_END);
 
@@ -131,6 +133,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JPanel contenedorHeader;
     private javax.swing.JPanel contenedorPrincipal;
     private jafrinventarios.vistas.principal.HeaderPanel headerPanel;
+    private javax.swing.JLabel lblFooter;
     private javax.swing.Box.Filler marginLeftAuto;
     private javax.swing.Box.Filler marginRightAuto;
     // End of variables declaration//GEN-END:variables
