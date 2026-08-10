@@ -5,6 +5,8 @@
  */
 package jafrinventarios.vistas.perfil;
 
+import jafrinventarios.vistas.principal.Menu;
+
 /**
  *
  * @author JOHN FORERO
@@ -14,8 +16,11 @@ public class PerfilPanel extends javax.swing.JPanel {
     /**
      * Creates new form moduloInicio
      */
-    public PerfilPanel() {
+    public PerfilPanel(Menu menuNavegacion) {
         initComponents();
+        
+        //Agregar menu de navegacion al contenedor Menu
+        contenedorMenu.add(menuNavegacion);
     }
 
     /**

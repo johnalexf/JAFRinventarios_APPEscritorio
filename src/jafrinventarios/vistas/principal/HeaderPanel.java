@@ -130,6 +130,16 @@ public class HeaderPanel extends javax.swing.JPanel {
         add(contenedorRolYBtnMenu, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Metodo para personalizar el titulo y el icono segun la seccion seleccionada
+    private void asignarNombreSeccion( IconosSecciones seccionAsignada ){
+        tituloIconoSeccion.setIcon(seccionAsignada.getIcono());
+        tituloNombreSeccion.setText(seccionAsignada.getNombreSeccion());
+    }
+    
+    private void mostrarBtnMenu(boolean mostrar){
+        btnMenu.setVisible(mostrar);
+    }
+    
     
     // =======================================================
     // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
@@ -149,11 +159,14 @@ public class HeaderPanel extends javax.swing.JPanel {
         lblRolUsuario.setText(rolUsuario);
     }
     
-    //Metodo para personalizar el titulo y el icono segun la seccion seleccionada
-    public void asignarNombreSeccion( IconosSecciones seccionAsignada ){
-        tituloIconoSeccion.setIcon(seccionAsignada.getIcono());
-        tituloNombreSeccion.setText(seccionAsignada.getNombreSeccion());
+   
+    
+    public void asignarSeccion(IconosSecciones seccionAsignada){
+        mostrarBtnMenu(  !(seccionAsignada == IconosSecciones.INICIO) );
+        asignarNombreSeccion(seccionAsignada);
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;

@@ -77,18 +77,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         contenedorPrincipal.add(contenedorHeader, java.awt.BorderLayout.PAGE_START);
 
         contenedorCentro.setBackground(new java.awt.Color(205, 205, 205));
-
-        javax.swing.GroupLayout contenedorCentroLayout = new javax.swing.GroupLayout(contenedorCentro);
-        contenedorCentro.setLayout(contenedorCentroLayout);
-        contenedorCentroLayout.setHorizontalGroup(
-            contenedorCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1067, Short.MAX_VALUE)
-        );
-        contenedorCentroLayout.setVerticalGroup(
-            contenedorCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
-
+        contenedorCentro.setLayout(new javax.swing.BoxLayout(contenedorCentro, javax.swing.BoxLayout.LINE_AXIS));
         contenedorPrincipal.add(contenedorCentro, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout contenedorFooterLayout = new javax.swing.GroupLayout(contenedorFooter);
@@ -125,6 +114,13 @@ public class PrincipalFrame extends javax.swing.JFrame {
     
     public JPanel getContenedorPrincipal(){
         return contenedorPrincipal;
+    }
+    
+    public void agregarPanelModulo(JPanel moduloPanel){
+        contenedorCentro.removeAll();
+        contenedorCentro.add(moduloPanel);
+        contenedorPrincipal.revalidate();
+        contenedorPrincipal.repaint();
     }
     
 
