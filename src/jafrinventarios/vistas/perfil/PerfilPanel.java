@@ -31,8 +31,32 @@ public class PerfilPanel extends javax.swing.JPanel {
         contenedorIzquierda = new javax.swing.JPanel();
         contenedorPerfil = new javax.swing.JPanel();
         contenedorTitulo = new javax.swing.JPanel();
+        tituloPerfil = new javax.swing.JLabel();
         contenedorContenido = new javax.swing.JPanel();
+        contenedorDatosPerfil = new javax.swing.JPanel();
+        lblEtiquetaEmpresa = new javax.swing.JLabel();
+        lblDatoNombreEmpresa = new javax.swing.JLabel();
+        lblEtiquetaNombre = new javax.swing.JLabel();
+        lblDatoNombreUsuario = new javax.swing.JLabel();
+        lblEtiquetaAlias = new javax.swing.JLabel();
+        lblDatoAlias = new javax.swing.JLabel();
+        lblEtiquetaTelefono = new javax.swing.JLabel();
+        lblDatoTelefono = new javax.swing.JLabel();
+        lblEtiquetaCorreo = new javax.swing.JLabel();
+        lblDatoCorreo = new javax.swing.JLabel();
+        contenedorCodigoAcceso = new javax.swing.JPanel();
+        subtituloCodigoAcceso = new javax.swing.JLabel();
+        contenedorInputCodigoYAyuda = new javax.swing.JPanel();
+        contenedorInputCodigo = new javax.swing.JPanel();
+        contenedorBtnCopíarCodigo = new javax.swing.JPanel();
+        btnCopiarCodigo = new javax.swing.JButton();
+        inputCodigo = new javax.swing.JTextField();
+        btnAyudaCodigo = new javax.swing.JButton();
         contenedorFooter = new javax.swing.JPanel();
+        contenedorBtnCerrarSesion = new javax.swing.JPanel();
+        btnLinkCerrarSesion = new javax.swing.JButton();
+        cotnenedorBtnEditarUsuario = new javax.swing.JPanel();
+        btnLinkEditarUsuario = new javax.swing.JButton();
         contenedorDerecha = new javax.swing.JPanel();
         contenedorMenu = new javax.swing.JPanel();
 
@@ -44,53 +68,286 @@ public class PerfilPanel extends javax.swing.JPanel {
         contenedorIzquierda.setLayout(new java.awt.GridBagLayout());
 
         contenedorPerfil.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorPerfil.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        contenedorPerfil.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 24)));
         contenedorPerfil.setMinimumSize(new java.awt.Dimension(350, 500));
         contenedorPerfil.setPreferredSize(new java.awt.Dimension(350, 500));
         contenedorPerfil.setLayout(new java.awt.BorderLayout());
 
+        contenedorTitulo.setMinimumSize(new java.awt.Dimension(0, 60));
+        contenedorTitulo.setName(""); // NOI18N
         contenedorTitulo.setOpaque(false);
+        contenedorTitulo.setPreferredSize(new java.awt.Dimension(0, 60));
+        contenedorTitulo.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout contenedorTituloLayout = new javax.swing.GroupLayout(contenedorTitulo);
-        contenedorTitulo.setLayout(contenedorTituloLayout);
-        contenedorTituloLayout.setHorizontalGroup(
-            contenedorTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 348, Short.MAX_VALUE)
-        );
-        contenedorTituloLayout.setVerticalGroup(
-            contenedorTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        tituloPerfil.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        tituloPerfil.setForeground(new java.awt.Color(17, 35, 85));
+        tituloPerfil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloPerfil.setText("Perfil");
+        tituloPerfil.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        tituloPerfil.setVerifyInputWhenFocusTarget(false);
+        contenedorTitulo.add(tituloPerfil, java.awt.BorderLayout.PAGE_END);
 
         contenedorPerfil.add(contenedorTitulo, java.awt.BorderLayout.PAGE_START);
 
         contenedorContenido.setOpaque(false);
+        contenedorContenido.setPreferredSize(new java.awt.Dimension(0, 0));
+        contenedorContenido.setLayout(new java.awt.BorderLayout(0, 30));
 
-        javax.swing.GroupLayout contenedorContenidoLayout = new javax.swing.GroupLayout(contenedorContenido);
-        contenedorContenido.setLayout(contenedorContenidoLayout);
-        contenedorContenidoLayout.setHorizontalGroup(
-            contenedorContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 348, Short.MAX_VALUE)
-        );
-        contenedorContenidoLayout.setVerticalGroup(
-            contenedorContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        contenedorDatosPerfil.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 10, 10));
+        contenedorDatosPerfil.setOpaque(false);
+        contenedorDatosPerfil.setLayout(new java.awt.GridBagLayout());
+
+        lblEtiquetaEmpresa.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblEtiquetaEmpresa.setText("Empresa :");
+        lblEtiquetaEmpresa.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblEtiquetaEmpresa.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblEtiquetaEmpresa.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        contenedorDatosPerfil.add(lblEtiquetaEmpresa, gridBagConstraints);
+
+        lblDatoNombreEmpresa.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblDatoNombreEmpresa.setText("Nombre de la empresa");
+        lblDatoNombreEmpresa.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblDatoNombreEmpresa.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoNombreEmpresa.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorDatosPerfil.add(lblDatoNombreEmpresa, gridBagConstraints);
+
+        lblEtiquetaNombre.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblEtiquetaNombre.setText("Nombre :");
+        lblEtiquetaNombre.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblEtiquetaNombre.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblEtiquetaNombre.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        contenedorDatosPerfil.add(lblEtiquetaNombre, gridBagConstraints);
+
+        lblDatoNombreUsuario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblDatoNombreUsuario.setText("John Forero");
+        lblDatoNombreUsuario.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblDatoNombreUsuario.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoNombreUsuario.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorDatosPerfil.add(lblDatoNombreUsuario, gridBagConstraints);
+
+        lblEtiquetaAlias.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblEtiquetaAlias.setText("Alias :");
+        lblEtiquetaAlias.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblEtiquetaAlias.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblEtiquetaAlias.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        contenedorDatosPerfil.add(lblEtiquetaAlias, gridBagConstraints);
+
+        lblDatoAlias.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblDatoAlias.setText("johnalexfr");
+        lblDatoAlias.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblDatoAlias.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoAlias.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorDatosPerfil.add(lblDatoAlias, gridBagConstraints);
+
+        lblEtiquetaTelefono.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblEtiquetaTelefono.setText("Teléfono");
+        lblEtiquetaTelefono.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblEtiquetaTelefono.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblEtiquetaTelefono.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        contenedorDatosPerfil.add(lblEtiquetaTelefono, gridBagConstraints);
+
+        lblDatoTelefono.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblDatoTelefono.setText("3202173409");
+        lblDatoTelefono.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblDatoTelefono.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoTelefono.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorDatosPerfil.add(lblDatoTelefono, gridBagConstraints);
+
+        lblEtiquetaCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblEtiquetaCorreo.setText("Correo:");
+        lblEtiquetaCorreo.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblEtiquetaCorreo.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblEtiquetaCorreo.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        contenedorDatosPerfil.add(lblEtiquetaCorreo, gridBagConstraints);
+
+        lblDatoCorreo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblDatoCorreo.setText("johnalexfr@gmail.com");
+        lblDatoCorreo.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblDatoCorreo.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoCorreo.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorDatosPerfil.add(lblDatoCorreo, gridBagConstraints);
+
+        contenedorContenido.add(contenedorDatosPerfil, java.awt.BorderLayout.CENTER);
+
+        contenedorCodigoAcceso.setOpaque(false);
+        contenedorCodigoAcceso.setLayout(new java.awt.BorderLayout());
+
+        subtituloCodigoAcceso.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        subtituloCodigoAcceso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        subtituloCodigoAcceso.setText("Código de acceso :");
+        subtituloCodigoAcceso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        contenedorCodigoAcceso.add(subtituloCodigoAcceso, java.awt.BorderLayout.PAGE_START);
+
+        contenedorInputCodigoYAyuda.setMinimumSize(new java.awt.Dimension(30, 60));
+        contenedorInputCodigoYAyuda.setOpaque(false);
+        contenedorInputCodigoYAyuda.setPreferredSize(new java.awt.Dimension(348, 60));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10);
+        flowLayout1.setAlignOnBaseline(true);
+        contenedorInputCodigoYAyuda.setLayout(flowLayout1);
+
+        contenedorInputCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorInputCodigo.setMaximumSize(new java.awt.Dimension(250, 34));
+        contenedorInputCodigo.setMinimumSize(new java.awt.Dimension(250, 38));
+        contenedorInputCodigo.setName(""); // NOI18N
+        contenedorInputCodigo.setOpaque(false);
+        contenedorInputCodigo.setPreferredSize(new java.awt.Dimension(250, 38));
+        contenedorInputCodigo.setLayout(new javax.swing.OverlayLayout(contenedorInputCodigo));
+
+        contenedorBtnCopíarCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 4));
+        contenedorBtnCopíarCodigo.setOpaque(false);
+        contenedorBtnCopíarCodigo.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorBtnCopíarCodigo.setLayout(new javax.swing.BoxLayout(contenedorBtnCopíarCodigo, javax.swing.BoxLayout.Y_AXIS));
+
+        btnCopiarCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        btnCopiarCodigo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnCopiarCodigo.setForeground(new java.awt.Color(17, 35, 85));
+        btnCopiarCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/pixel--copy-solid.png"))); // NOI18N
+        btnCopiarCodigo.setToolTipText("");
+        btnCopiarCodigo.setAlignmentX(1.0F);
+        btnCopiarCodigo.setBorderPainted(false);
+        btnCopiarCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCopiarCodigo.setFocusCycleRoot(true);
+        btnCopiarCodigo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCopiarCodigo.setIconTextGap(0);
+        btnCopiarCodigo.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnCopiarCodigo.setMaximumSize(new java.awt.Dimension(30, 26));
+        btnCopiarCodigo.setMinimumSize(new java.awt.Dimension(30, 26));
+        btnCopiarCodigo.setPreferredSize(new java.awt.Dimension(30, 26));
+        contenedorBtnCopíarCodigo.add(btnCopiarCodigo);
+
+        contenedorInputCodigo.add(contenedorBtnCopíarCodigo);
+
+        inputCodigo.setEditable(false);
+        inputCodigo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputCodigo.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputCodigo.setMinimumSize(new java.awt.Dimension(0, 34));
+        inputCodigo.setName("codigo"); // NOI18N
+        inputCodigo.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorInputCodigo.add(inputCodigo);
+
+        contenedorInputCodigoYAyuda.add(contenedorInputCodigo);
+
+        btnAyudaCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        btnAyudaCodigo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnAyudaCodigo.setForeground(new java.awt.Color(17, 35, 85));
+        btnAyudaCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/fluent--chat-help-24-filled.png"))); // NOI18N
+        btnAyudaCodigo.setToolTipText("");
+        btnAyudaCodigo.setAlignmentX(0.5F);
+        btnAyudaCodigo.setBorderPainted(false);
+        btnAyudaCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAyudaCodigo.setFocusCycleRoot(true);
+        btnAyudaCodigo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAyudaCodigo.setIconTextGap(0);
+        btnAyudaCodigo.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnAyudaCodigo.setMaximumSize(new java.awt.Dimension(30, 26));
+        btnAyudaCodigo.setMinimumSize(new java.awt.Dimension(30, 26));
+        btnAyudaCodigo.setPreferredSize(new java.awt.Dimension(30, 26));
+        contenedorInputCodigoYAyuda.add(btnAyudaCodigo);
+
+        contenedorCodigoAcceso.add(contenedorInputCodigoYAyuda, java.awt.BorderLayout.CENTER);
+
+        contenedorContenido.add(contenedorCodigoAcceso, java.awt.BorderLayout.PAGE_END);
 
         contenedorPerfil.add(contenedorContenido, java.awt.BorderLayout.CENTER);
 
+        contenedorFooter.setMinimumSize(new java.awt.Dimension(0, 80));
         contenedorFooter.setOpaque(false);
+        contenedorFooter.setPreferredSize(new java.awt.Dimension(0, 100));
+        contenedorFooter.setLayout(new javax.swing.BoxLayout(contenedorFooter, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout contenedorFooterLayout = new javax.swing.GroupLayout(contenedorFooter);
-        contenedorFooter.setLayout(contenedorFooterLayout);
-        contenedorFooterLayout.setHorizontalGroup(
-            contenedorFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 348, Short.MAX_VALUE)
-        );
-        contenedorFooterLayout.setVerticalGroup(
-            contenedorFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
-        );
+        contenedorBtnCerrarSesion.setOpaque(false);
+        contenedorBtnCerrarSesion.setLayout(new java.awt.GridBagLayout());
+
+        btnLinkCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnLinkCerrarSesion.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkCerrarSesion.setText("Cerrar Sesión");
+        btnLinkCerrarSesion.setIconTextGap(10);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorBtnCerrarSesion.add(btnLinkCerrarSesion, gridBagConstraints);
+
+        contenedorFooter.add(contenedorBtnCerrarSesion);
+
+        cotnenedorBtnEditarUsuario.setOpaque(false);
+        cotnenedorBtnEditarUsuario.setLayout(new java.awt.GridBagLayout());
+
+        btnLinkEditarUsuario.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnLinkEditarUsuario.setForeground(new java.awt.Color(17, 35, 85));
+        btnLinkEditarUsuario.setText("Editar Usuario");
+        btnLinkEditarUsuario.setAlignmentX(0.5F);
+        btnLinkEditarUsuario.setIconTextGap(10);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        cotnenedorBtnEditarUsuario.add(btnLinkEditarUsuario, gridBagConstraints);
+
+        contenedorFooter.add(cotnenedorBtnEditarUsuario);
 
         contenedorPerfil.add(contenedorFooter, java.awt.BorderLayout.PAGE_END);
 
@@ -131,12 +388,36 @@ public class PerfilPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAyudaCodigo;
+    private javax.swing.JButton btnCopiarCodigo;
+    private javax.swing.JButton btnLinkCerrarSesion;
+    private javax.swing.JButton btnLinkEditarUsuario;
+    private javax.swing.JPanel contenedorBtnCerrarSesion;
+    private javax.swing.JPanel contenedorBtnCopíarCodigo;
+    private javax.swing.JPanel contenedorCodigoAcceso;
     private javax.swing.JPanel contenedorContenido;
+    private javax.swing.JPanel contenedorDatosPerfil;
     private javax.swing.JPanel contenedorDerecha;
     private javax.swing.JPanel contenedorFooter;
+    private javax.swing.JPanel contenedorInputCodigo;
+    private javax.swing.JPanel contenedorInputCodigoYAyuda;
     private javax.swing.JPanel contenedorIzquierda;
     private javax.swing.JPanel contenedorMenu;
     private javax.swing.JPanel contenedorPerfil;
     private javax.swing.JPanel contenedorTitulo;
+    private javax.swing.JPanel cotnenedorBtnEditarUsuario;
+    private javax.swing.JTextField inputCodigo;
+    private javax.swing.JLabel lblDatoAlias;
+    private javax.swing.JLabel lblDatoCorreo;
+    private javax.swing.JLabel lblDatoNombreEmpresa;
+    private javax.swing.JLabel lblDatoNombreUsuario;
+    private javax.swing.JLabel lblDatoTelefono;
+    private javax.swing.JLabel lblEtiquetaAlias;
+    private javax.swing.JLabel lblEtiquetaCorreo;
+    private javax.swing.JLabel lblEtiquetaEmpresa;
+    private javax.swing.JLabel lblEtiquetaNombre;
+    private javax.swing.JLabel lblEtiquetaTelefono;
+    private javax.swing.JLabel subtituloCodigoAcceso;
+    private javax.swing.JLabel tituloPerfil;
     // End of variables declaration//GEN-END:variables
 }

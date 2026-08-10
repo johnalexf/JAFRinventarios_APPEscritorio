@@ -91,16 +91,16 @@ public class Menu extends javax.swing.JPanel {
 
         contenedorHeader.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(22, 226, 230)), javax.swing.BorderFactory.createEmptyBorder(16, 16, 16, 16)));
         contenedorHeader.setOpaque(false);
-        contenedorHeader.setPreferredSize(new java.awt.Dimension(0, 80));
+        contenedorHeader.setPreferredSize(new java.awt.Dimension(0, 90));
         contenedorHeader.setLayout(new java.awt.GridLayout(2, 1, 0, 10));
 
-        tituloMenu.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        tituloMenu.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         tituloMenu.setForeground(new java.awt.Color(17, 35, 85));
         tituloMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloMenu.setText("Menu");
         contenedorHeader.add(tituloMenu);
 
-        tituloRol.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        tituloRol.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         tituloRol.setForeground(new java.awt.Color(17, 35, 85));
         tituloRol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloRol.setText("Administrador");
