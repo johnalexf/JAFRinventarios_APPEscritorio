@@ -11,6 +11,8 @@ import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import javax.swing.JFrame;
 
 /**
@@ -337,6 +339,11 @@ public class PerfilPanel extends javax.swing.JPanel {
         btnCopiarCodigo.setMaximumSize(new java.awt.Dimension(30, 26));
         btnCopiarCodigo.setMinimumSize(new java.awt.Dimension(30, 26));
         btnCopiarCodigo.setPreferredSize(new java.awt.Dimension(30, 26));
+        btnCopiarCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCopiarCodigoActionPerformed(evt);
+            }
+        });
         contenedorBtnCopíarCodigo.add(btnCopiarCodigo);
 
         contenedorInputCodigo.add(contenedorBtnCopíarCodigo);
@@ -469,6 +476,25 @@ public class PerfilPanel extends javax.swing.JPanel {
                 );
     }//GEN-LAST:event_btnAyudaCodigoActionPerformed
 
+    private void btnCopiarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopiarCodigoActionPerformed
+        StringSelection codigo = new StringSelection( inputCodigo.getText() );
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(codigo, null);
+    }//GEN-LAST:event_btnCopiarCodigoActionPerformed
+
+    
+    // =======================================================
+    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    // =======================================================
+    
+    
+    public javax.swing.JButton getBtnCerrarSesion(){
+        return btnLinkCerrarSesion;
+    }
+    
+    public javax.swing.JButton getBtnEditarUsuario(){
+        return btnLinkEditarUsuario;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAyudaCodigo;
