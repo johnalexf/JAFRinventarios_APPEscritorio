@@ -18,34 +18,51 @@ public class Menu extends javax.swing.JPanel {
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu(boolean esAdministrador) {
         initComponents();
-        aplicarIconosDesdeEnum();
-        aplicarEfectoLinkABotones();
+        if(!esAdministrador){
+            personalizarRolNoAdministrador();          
+        }
+
+        aplicarIconosDesdeEnum(esAdministrador);
+        aplicarEfectoLinkABotones(esAdministrador);
     }
     
-    private void aplicarIconosDesdeEnum(){
+    private void personalizarRolNoAdministrador(){
+        menuSeccionUsuarios.setVisible(false);
+        menuSeccionProveedores.setVisible(false);
+        menuSeccionCompras.setVisible(false);
+        menuSeccionReporte.setVisible(false);
+    }
+    
+    private void aplicarIconosDesdeEnum(boolean esAdministrador){
         btnLinkSeccionInicio.setIcon( IconosSecciones.INICIO.getIcono() );
-        btnLinkSeccionUsuarios.setIcon( IconosSecciones.USUARIOS.getIcono() );
         btnLinkSeccionProductos.setIcon( IconosSecciones.PRODUCTOS.getIcono() );
-        btnLinkSeccionProveedores.setIcon( IconosSecciones.PROVEEDORES.getIcono() );
         btnLinkSeccionClientes.setIcon( IconosSecciones.CLIENTES.getIcono() );
-        btnLinkSeccionCompras.setIcon( IconosSecciones.COMPRAS.getIcono() );
         btnLinkSeccionVentas.setIcon( IconosSecciones.VENTAS.getIcono() );
         btnLinkSeccionInventario.setIcon( IconosSecciones.INVENTARIO.getIcono() );
-        btnLinkSeccionReporte.setIcon( IconosSecciones.REPORTE.getIcono() );
+        
+        if(esAdministrador){
+            btnLinkSeccionUsuarios.setIcon( IconosSecciones.USUARIOS.getIcono() );
+            btnLinkSeccionProveedores.setIcon( IconosSecciones.PROVEEDORES.getIcono() );
+            btnLinkSeccionCompras.setIcon( IconosSecciones.COMPRAS.getIcono() );
+            btnLinkSeccionReporte.setIcon( IconosSecciones.REPORTE.getIcono() );
+        }
     }
     
-    private void aplicarEfectoLinkABotones(){
+    private void aplicarEfectoLinkABotones(boolean esAdministrador){
         DinamismoLink.aplicarEfecto(btnLinkSeccionInicio);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionUsuarios);
         DinamismoLink.aplicarEfecto(btnLinkSeccionProductos);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionProveedores);
         DinamismoLink.aplicarEfecto(btnLinkSeccionClientes);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionCompras);
         DinamismoLink.aplicarEfecto(btnLinkSeccionVentas);
         DinamismoLink.aplicarEfecto(btnLinkSeccionInventario);
-        DinamismoLink.aplicarEfecto(btnLinkSeccionReporte);
+        
+        if(esAdministrador){
+            DinamismoLink.aplicarEfecto(btnLinkSeccionUsuarios);
+            DinamismoLink.aplicarEfecto(btnLinkSeccionProveedores);  
+            DinamismoLink.aplicarEfecto(btnLinkSeccionCompras);
+            DinamismoLink.aplicarEfecto(btnLinkSeccionReporte);
+        }
     }
 
     /**
@@ -85,8 +102,9 @@ public class Menu extends javax.swing.JPanel {
         marginAutoRight = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(300, 385));
-        setPreferredSize(new java.awt.Dimension(300, 700));
+        setMaximumSize(new java.awt.Dimension(2147483647, 750));
+        setMinimumSize(new java.awt.Dimension(300, 600));
+        setPreferredSize(new java.awt.Dimension(300, 750));
         setLayout(new java.awt.BorderLayout());
 
         contenedorHeader.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(22, 226, 230)), javax.swing.BorderFactory.createEmptyBorder(16, 16, 16, 16)));
@@ -113,7 +131,7 @@ public class Menu extends javax.swing.JPanel {
         contenedorCuerpo.setLayout(new javax.swing.BoxLayout(contenedorCuerpo, javax.swing.BoxLayout.X_AXIS));
         contenedorCuerpo.add(marginAutoLeft);
 
-        contenedorContenido.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        contenedorContenido.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 10, 0));
         contenedorContenido.setAlignmentX(0.0F);
         contenedorContenido.setAlignmentY(0.0F);
         contenedorContenido.setMaximumSize(new java.awt.Dimension(200, 2147483647));

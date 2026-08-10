@@ -6,8 +6,12 @@
 package jafrinventarios.vistas.perfil;
 
 import jafrinventarios.vistas.principal.Menu;
+import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.iconos.IconosSecciones;
+import java.awt.AWTError;
 import java.awt.Color;
 import javax.swing.JFrame;
 
@@ -20,10 +24,16 @@ public class PerfilPanel extends javax.swing.JPanel {
     /**
      * Creates new form moduloInicio
      */
-    public PerfilPanel(Menu menuNavegacion) {
+    public PerfilPanel(Menu menuNavegacion, boolean esAdministrador) {
         initComponents();
         
         configurarEstilosInputCodigo();
+        aplicarIconosDesdeEnum();
+        aplicarEfectoLinkABotones();
+        
+        if(!esAdministrador){
+            personalizarRolNoAdministrador();
+        }
         
         //Agregar menu de navegacion al contenedor Menu
         contenedorMenu.add(menuNavegacion);
@@ -37,6 +47,23 @@ public class PerfilPanel extends javax.swing.JPanel {
         inputCodigo.setBackground(Color.WHITE);
         inputCodigo.setForeground(Color.BLACK);
         inputCodigo.setDisabledTextColor(Color.BLACK);
+    }
+    
+    private void aplicarIconosDesdeEnum(){
+        btnCopiarCodigo.setIcon( IconosBotones.COPIAR.getIcono() );
+        btnAyudaCodigo.setIcon( IconosBotones.AYUDA.getIcono() );
+    }
+    
+    private void aplicarEfectoLinkABotones(){
+        DinamismoLink.aplicarEfecto(btnLinkCerrarSesion);
+        DinamismoLink.aplicarEfecto(btnLinkEditarUsuario);
+    }
+    
+    private void personalizarRolNoAdministrador(){
+        //ocultamos el codigo que solo es para un adminsitrador 
+        contenedorCodigoAcceso.setVisible(false);
+        contenedorPerfil.setPreferredSize(new java.awt.Dimension(800, 400));
+        contenedorMenu.setPreferredSize(new java.awt.Dimension(330, 600));
     }
 
     /**
@@ -102,7 +129,8 @@ public class PerfilPanel extends javax.swing.JPanel {
 
         contenedorPerfil.setBackground(new java.awt.Color(255, 255, 255));
         contenedorPerfil.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 24)));
-        contenedorPerfil.setMinimumSize(new java.awt.Dimension(350, 500));
+        contenedorPerfil.setMinimumSize(new java.awt.Dimension(350, 400));
+        contenedorPerfil.setName(""); // NOI18N
         contenedorPerfil.setPreferredSize(new java.awt.Dimension(350, 500));
         contenedorPerfil.setLayout(new java.awt.BorderLayout());
 

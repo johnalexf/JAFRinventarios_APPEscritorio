@@ -23,6 +23,7 @@ public class ControladorNavegacionModulos {
     private HeaderPanel headerPanel;
     private DialogoMenu dialogoMenu;
     private JPanel moduloActual;
+    private boolean esAdministrador;
 
     
     private Menu menuFlotante;
@@ -36,8 +37,10 @@ public class ControladorNavegacionModulos {
         this.ventanaPrincipal = ventanaPrincipal;
         this.headerPanel = ventanaPrincipal.getHeaderPanel();
         
-        this.menuFlotante = new Menu();
-        this.menuFijoPerfil = new Menu();
+        consultarSiEsAdministrador();
+        
+        this.menuFlotante = new Menu(esAdministrador);
+        this.menuFijoPerfil = new Menu(esAdministrador);
         
         this.dialogoMenu = new DialogoMenu(
                                     ventanaPrincipal, 
@@ -50,6 +53,13 @@ public class ControladorNavegacionModulos {
         inicializarEventos();
     }
     
+    private void consultarSiEsAdministrador(){
+        /*
+        TODO consulta a la base de datos o al singleton que almacene la sesion
+        del usuario si es administrador
+        */
+        this.esAdministrador = true;
+    }
     
     private void asignarNombreEmpresa(){
         
@@ -84,14 +94,17 @@ public class ControladorNavegacionModulos {
     
     private void configurarEventosBotonesMenu(Menu menuPanel){
         menuPanel.getBtnLinkSeccionInicio().addActionListener( e -> cambiarSeccion(IconosSecciones.INICIO));
-        menuPanel.getBtnLinkSeccionUsuarios().addActionListener( e -> cambiarSeccion(IconosSecciones.USUARIOS));
         menuPanel.getBtnLinkSeccionProductos().addActionListener( e -> cambiarSeccion(IconosSecciones.PRODUCTOS));
-        menuPanel.getBtnLinkSeccionProveedores().addActionListener( e -> cambiarSeccion(IconosSecciones.PROVEEDORES));
         menuPanel.getBtnLinkSeccionClientes().addActionListener( e -> cambiarSeccion(IconosSecciones.CLIENTES));
-        menuPanel.getBtnLinkSeccionCompras().addActionListener( e -> cambiarSeccion(IconosSecciones.COMPRAS));
         menuPanel.getBtnLinkSeccionVentas().addActionListener( e -> cambiarSeccion(IconosSecciones.VENTAS));
         menuPanel.getBtnLinkSeccionInventario().addActionListener( e -> cambiarSeccion(IconosSecciones.INVENTARIO));
-        menuPanel.getBtnLinkSeccionReporte().addActionListener( e -> cambiarSeccion(IconosSecciones.REPORTE));
+        
+        if(esAdministrador){
+            menuPanel.getBtnLinkSeccionUsuarios().addActionListener( e -> cambiarSeccion(IconosSecciones.USUARIOS));           
+            menuPanel.getBtnLinkSeccionProveedores().addActionListener( e -> cambiarSeccion(IconosSecciones.PROVEEDORES));
+            menuPanel.getBtnLinkSeccionCompras().addActionListener( e -> cambiarSeccion(IconosSecciones.COMPRAS));
+            menuPanel.getBtnLinkSeccionReporte().addActionListener( e -> cambiarSeccion(IconosSecciones.REPORTE));
+        }
     
     }
 
@@ -110,7 +123,7 @@ public class ControladorNavegacionModulos {
         //TODO: Pendiente switch para crear el controlador de cada jpanel de la seccion seleccionada
         switch(seccionAsignada){
             case INICIO:
-                moduloActual =  new PerfilPanel(menuFijoPerfil);
+                moduloActual =  new PerfilPanel(menuFijoPerfil, esAdministrador);
                 break;
                 
         }
