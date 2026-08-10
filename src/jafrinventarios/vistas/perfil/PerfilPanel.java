@@ -398,7 +398,7 @@ public class PerfilPanel extends javax.swing.JPanel {
         contenedorBtnCerrarSesion.setOpaque(false);
         contenedorBtnCerrarSesion.setLayout(new java.awt.GridBagLayout());
 
-        btnLinkCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnLinkCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         btnLinkCerrarSesion.setForeground(new java.awt.Color(17, 35, 85));
         btnLinkCerrarSesion.setText("Cerrar Sesión");
         btnLinkCerrarSesion.setIconTextGap(10);
@@ -412,7 +412,7 @@ public class PerfilPanel extends javax.swing.JPanel {
         cotnenedorBtnEditarUsuario.setOpaque(false);
         cotnenedorBtnEditarUsuario.setLayout(new java.awt.GridBagLayout());
 
-        btnLinkEditarUsuario.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnLinkEditarUsuario.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         btnLinkEditarUsuario.setForeground(new java.awt.Color(17, 35, 85));
         btnLinkEditarUsuario.setText("Editar Usuario");
         btnLinkEditarUsuario.setAlignmentX(0.5F);

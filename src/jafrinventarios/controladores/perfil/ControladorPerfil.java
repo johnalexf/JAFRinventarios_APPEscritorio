@@ -5,6 +5,7 @@
  */
 package jafrinventarios.controladores.perfil;
 
+import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 
 /**
@@ -17,8 +18,21 @@ public class ControladorPerfil {
 
     public ControladorPerfil(PerfilPanel moduloPerfil) {
         this.moduloPerfil = moduloPerfil;
+        
+        configurarEventosBotones();
     }
     
+    private void configurarEventosBotones(){
+        moduloPerfil.getBtnCerrarSesion().addActionListener(e -> procesarCierreSesion());
+        moduloPerfil.getBtnEditarUsuario().addActionListener(e -> procesarEdicionUsuario());
+    }
     
+    private void procesarCierreSesion(){
+        ControladorNavegacionGlobal.getInstancia().iniciarPantallaAcceso();
+    }
+    
+    private void procesarEdicionUsuario(){
+    
+    }
     
 }
