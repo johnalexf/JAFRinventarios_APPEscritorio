@@ -77,7 +77,6 @@ public class Menu extends javax.swing.JPanel {
 
         contenedorHeader = new javax.swing.JPanel();
         tituloMenu = new javax.swing.JLabel();
-        tituloRol = new javax.swing.JLabel();
         contenedorCuerpo = new javax.swing.JPanel();
         marginAutoLeft = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         contenedorContenido = new javax.swing.JPanel();
@@ -109,20 +108,14 @@ public class Menu extends javax.swing.JPanel {
 
         contenedorHeader.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(22, 226, 230)), javax.swing.BorderFactory.createEmptyBorder(16, 16, 16, 16)));
         contenedorHeader.setOpaque(false);
-        contenedorHeader.setPreferredSize(new java.awt.Dimension(0, 90));
-        contenedorHeader.setLayout(new java.awt.GridLayout(2, 1, 0, 10));
+        contenedorHeader.setPreferredSize(new java.awt.Dimension(0, 70));
+        contenedorHeader.setLayout(new java.awt.GridLayout(1, 1));
 
         tituloMenu.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         tituloMenu.setForeground(new java.awt.Color(17, 35, 85));
         tituloMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloMenu.setText("Menu");
         contenedorHeader.add(tituloMenu);
-
-        tituloRol.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        tituloRol.setForeground(new java.awt.Color(17, 35, 85));
-        tituloRol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloRol.setText("Administrador");
-        contenedorHeader.add(tituloRol);
 
         add(contenedorHeader, java.awt.BorderLayout.PAGE_START);
 
@@ -331,10 +324,6 @@ public class Menu extends javax.swing.JPanel {
         return btnLinkSeccionReporte;
     }
     
-    //Metodo para asignar el nombre del rol del usuario
-    public void setTituloRol(String nombreRol){
-        tituloRol.setText(nombreRol);
-    }
             
     
 
@@ -363,6 +352,5 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JPanel menuSeccionUsuarios;
     private javax.swing.JPanel menuSeccionVentas;
     private javax.swing.JLabel tituloMenu;
-    private javax.swing.JLabel tituloRol;
     // End of variables declaration//GEN-END:variables
 }

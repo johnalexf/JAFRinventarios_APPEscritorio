@@ -79,8 +79,6 @@ public class ControladorNavegacionModulos {
         String nombreRol = "Administrador";
         
         headerPanel.asignarNombreRolUsuario(nombreRol);
-        menuFlotante.setTituloRol(nombreRol);
-        menuFijoPerfil.setTituloRol(nombreRol);
     }
     
     
