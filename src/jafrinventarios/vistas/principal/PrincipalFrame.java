@@ -65,9 +65,9 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         contenedorPrincipal.setBackground(new java.awt.Color(205, 205, 205));
         contenedorPrincipal.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
-        contenedorPrincipal.setMaximumSize(new java.awt.Dimension(1320, 32767));
+        contenedorPrincipal.setMaximumSize(new java.awt.Dimension(1920, 32767));
         contenedorPrincipal.setMinimumSize(new java.awt.Dimension(1024, 0));
-        contenedorPrincipal.setPreferredSize(new java.awt.Dimension(1320, 0));
+        contenedorPrincipal.setPreferredSize(new java.awt.Dimension(1920, 0));
         contenedorPrincipal.setLayout(new java.awt.BorderLayout());
 
         contenedorHeader.setMaximumSize(new java.awt.Dimension(32767, 70));
@@ -81,7 +81,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         contenedorScrolleableCentro.setOpaque(false);
 
         contenedorCentro.setBackground(new java.awt.Color(205, 205, 205));
-        contenedorCentro.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        contenedorCentro.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 10, 20, 10));
         contenedorCentro.setLayout(new javax.swing.BoxLayout(contenedorCentro, javax.swing.BoxLayout.LINE_AXIS));
         contenedorScrolleableCentro.setViewportView(contenedorCentro);
 
