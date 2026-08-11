@@ -7,8 +7,10 @@ package jafrinventarios.vistas.usuarios;
 
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
-import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
+import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
+import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
 import java.awt.Window;
+import java.util.HashMap;
 
 /**
  *
@@ -25,6 +27,8 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         CREAR_NUEVO_USUARIO
     }
     
+    private ValidadorFormulario formularioValidador;
+    
     /*
       Constructor privado para forzar el uso de los métodos estáticos
     */
@@ -34,6 +38,8 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         
         super(parent);
         initComponents();
+        
+        formularioValidador = new ValidadorFormulario();
         
         switch(modo){
             case EDITAR_PERFIL_PROPIO:
@@ -45,8 +51,9 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
             case CREAR_NUEVO_USUARIO:
                 personalizacionCrearNuevoUsuario();
             break;
-        
         }
+        
+        agregarCamposAValidador(esAdministrador);
         
     }
     
@@ -99,6 +106,65 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         contenedorIdUsuario.setVisible(false);
         btnLinkEditarEstadoUsuario.setVisible(false);
     }
+    
+    
+    private void agregarCamposAValidador(boolean esAdministrador){
+        
+        if(esAdministrador){
+            agregarCampoAlias();
+            /*
+                El combo box se agrega desde el controlador por medio de 
+                inicializarComboBoxRoles Cuando sea para gestionar usuarios
+            */
+            agregarCamposNombreCompleto();
+        }
+        agregarCamposDatosContacto();
+        
+    }
+    
+    
+    private void agregarCamposNombreCompleto(){
+        formularioValidador.agregarCampo( inputPrimerNombre, 
+                                          lblErrorInputPrimerNombre, 
+                                          TipoDatoFormulario.NOMBRE, 
+                                          true);
+        
+        formularioValidador.agregarCampo( inputSegundoNombre, 
+                                          lblErrorInputSegundoNombre, 
+                                          TipoDatoFormulario.NOMBRE, 
+                                          true);
+        
+        formularioValidador.agregarCampo( inputPrimerApellido, 
+                                          lblErrorInputPrimerApellido, 
+                                          TipoDatoFormulario.NOMBRE, 
+                                          true);
+        
+        formularioValidador.agregarCampo( inputSegundoApellido, 
+                                          lblErrorInputSegundoApellido, 
+                                          TipoDatoFormulario.NOMBRE, 
+                                          true);
+    }
+    
+    private void agregarCamposDatosContacto(){
+        formularioValidador.agregarCampo( inputTelefono, 
+                                          lblErrorInputTelefono, 
+                                          TipoDatoFormulario.TELEFONO, 
+                                          true);
+        
+        formularioValidador.agregarCampo( inputCorreo, 
+                                          lblErrorInputCorreo, 
+                                          TipoDatoFormulario.CORREO, 
+                                          true);
+        
+    }
+    
+    private void agregarCampoAlias(){
+        formularioValidador.agregarCampo( inputAlias, 
+                                          lblErrorInputAlias, 
+                                          TipoDatoFormulario.ALIAS, 
+                                          true);
+    }
+    
         
     // ===============================================================
     // MÉTODOS ESTATICOS PARA CONTROLAR LA FORMA DE ARMAR EL DIALOGO
@@ -114,9 +180,22 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     }
     
     public static DialogoFormularioUsuario crearDialogoNuevoUsuario(Window parent){
-    return new DialogoFormularioUsuario(parent, ModoDialogo.CREAR_NUEVO_USUARIO, true); 
-}
+        return new DialogoFormularioUsuario(parent, ModoDialogo.CREAR_NUEVO_USUARIO, true); 
+    }
+    
+    
+    public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {
+        
+        formularioValidador.agregarCampoComboBox(
+                comboBoxRolUsuario,
+                "Tipo de Usuario",
+                rolesDeBD, 
+                null, 
+                true);
+        
+    }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
