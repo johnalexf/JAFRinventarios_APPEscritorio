@@ -2,6 +2,7 @@
 package jafrinventarios.controladores.acceso;
 
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
+import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.vistas.acceso.InicioSesionPanel;
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
@@ -49,6 +50,12 @@ public class ControladorInicioSesion {
         // Tomar decisión basada en la respuesta del Modelo
         if ( credencialesValidas ) {
             System.out.println("¡Ingreso exitoso!");
+            
+            /*
+            Simulacion de resupuesta de datos del usuario dentro del mismo metodo
+            iniciar sesion
+            */
+            ModeloSesionUsuario.getInstancia().iniciarSesion(0, "Administrador", true);
             
             ControladorNavegacionGlobal.getInstancia().cambiarAPrincipal();
             

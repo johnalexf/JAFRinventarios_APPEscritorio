@@ -6,6 +6,7 @@
 package jafrinventarios.controladores.perfil;
 
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
+import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import java.util.HashMap;
 
@@ -60,6 +61,7 @@ public class ControladorPerfil {
     
     
     private void procesarCierreSesion(){
+        ModeloSesionUsuario.getInstancia().cerrarSesion();
         ControladorNavegacionGlobal.getInstancia().iniciarPantallaAcceso();
     }
     
