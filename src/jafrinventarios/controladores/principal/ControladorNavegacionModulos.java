@@ -20,19 +20,19 @@ import javax.swing.JPanel;
  */
 public class ControladorNavegacionModulos {
     
-    private PrincipalFrame ventanaPrincipal;
-    private HeaderPanel headerPanel;
-    private DialogoMenu dialogoMenu;
+    private final PrincipalFrame ventanaPrincipal;
+    private final HeaderPanel headerPanel;
+    private final DialogoMenu dialogoMenu;
     private JPanel moduloActual;
     private boolean esAdministrador;
 
     
-    private Menu menuFlotante;
+    private final Menu menuFlotante;
     /*
     Creamos un menu fijo para el modulo de perfil ya que el mismo menu no puede
     existir en jdialog y en perfilPanel a la vez
     */
-    private Menu menuFijoPerfil;
+    private final Menu menuFijoPerfil;
     
     public ControladorNavegacionModulos(PrincipalFrame ventanaPrincipal) {
         this.ventanaPrincipal = ventanaPrincipal;
@@ -123,7 +123,7 @@ public class ControladorNavegacionModulos {
         switch(seccionAsignada){
             case INICIO:
                 moduloActual =  new PerfilPanel(menuFijoPerfil, esAdministrador);
-                new ControladorPerfil( (PerfilPanel) moduloActual);
+                new ControladorPerfil( (PerfilPanel) moduloActual , esAdministrador);
                 break;
                 
         }

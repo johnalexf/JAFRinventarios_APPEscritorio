@@ -89,7 +89,7 @@ public class RellenadorComponentes {
         y como valor el texto o el valor pertinente que se desee asignar
         al componente como clave
     */
-    public void escribirEnFormulario( HashMap<String, String> datosBD){
+    public void escribir( HashMap<String, String> datosBD){
         
         datosBD.forEach((clave,valor)-> {
               

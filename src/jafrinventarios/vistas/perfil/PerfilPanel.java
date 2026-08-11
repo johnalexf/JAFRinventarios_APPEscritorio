@@ -23,24 +23,28 @@ import javax.swing.JFrame;
  */
 public class PerfilPanel extends javax.swing.JPanel {
     
-    private RellenadorComponentes diccionarioComponentes;
+    private final RellenadorComponentes diccionarioComponentes;
 
     /**
      * Creates new form moduloInicio
+     * @param menuNavegacion
+     * @param esAdministrador
      */
-    public PerfilPanel(Menu menuNavegacion, boolean esAdministrador) {
+    public PerfilPanel( Menu menuNavegacion, 
+                        boolean esAdministrador) {
         
         initComponents();
         
         diccionarioComponentes = new RellenadorComponentes();
         agregarComponentesADiccionario(esAdministrador);
         
-        configurarEstilosInputCodigo();
         aplicarIconosDesdeEnum();
         aplicarEfectoLinkABotones();
         
         if(!esAdministrador){
             personalizarRolNoAdministrador();
+        }else{
+            configurarEstilosInputCodigo();
         }
         
         //Agregar menu de navegacion al contenedor Menu
@@ -519,6 +523,14 @@ public class PerfilPanel extends javax.swing.JPanel {
     
     public javax.swing.JButton getBtnEditarUsuario(){
         return btnLinkEditarUsuario;
+    }
+    
+    /*
+    datosBD diccionario 
+    clave (name del componente), valor (texto a escribir en el componente)
+    */
+    public void escribirDatos(HashMap<String, String> datosBD){
+         diccionarioComponentes.escribir(datosBD);
     }
     
 
