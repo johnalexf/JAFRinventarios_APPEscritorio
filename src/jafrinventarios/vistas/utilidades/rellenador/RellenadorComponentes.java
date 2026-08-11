@@ -7,6 +7,7 @@ package jafrinventarios.vistas.utilidades.rellenador;
 
 import java.util.HashMap;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.text.JTextComponent;
 
 /**
@@ -51,8 +52,8 @@ public class RellenadorComponentes {
     }
     
     
-    //Metodo para agregar un componente que sea de tipo texto(ej: label,textField,...)
-    public void agregarCampoTexto(JTextComponent componenteTexto){
+    //Metodo para agregar un componente que sea de tipo texto( ej: textField )
+    public void agregarComponenteTexto(JTextComponent componenteTexto){
         
          /* 
             Si falta el nombre, 
@@ -64,6 +65,16 @@ public class RellenadorComponentes {
          validarNombreEnComponente(componenteTexto);
          
          diccionarioComponetes.put(componenteTexto.getName(), new ComponenteTexto(componenteTexto));
+    }
+    
+    
+     //Metodo para agregar un componente que sea de tipo label
+    public void agregarComponenteLabel(JLabel componenteLabel){
+
+         validarNombreEnComponente(componenteLabel);
+         
+         diccionarioComponetes.put(componenteLabel.getName(), new ComponenteLabel(componenteLabel));
+         
     }
     
     

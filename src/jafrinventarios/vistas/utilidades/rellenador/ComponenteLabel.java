@@ -5,27 +5,26 @@
  */
 package jafrinventarios.vistas.utilidades.rellenador;
 
-import javax.swing.text.JTextComponent;
+import javax.swing.JLabel;
 
 /**
  *
  * @author JOHN FORERO
  */
-public class ComponenteTexto extends ComponenteRellenable{
+public class ComponenteLabel extends ComponenteRellenable{
 
-    private final JTextComponent componenteTexto;
+    private final JLabel componenteLabel;
     
     
-    public ComponenteTexto(JTextComponent componenteTexto){
-        super(componenteTexto);
-        this.componenteTexto = componenteTexto;
+    public ComponenteLabel(JLabel campoLabel){
+        super(campoLabel);
+        this.componenteLabel = campoLabel;
     }
     
     
     @Override
     protected void escribirEnCampo(String dato) {
-        componenteTexto.setText(dato);
+        componenteLabel.setText(dato);
     }
-    
     
 }

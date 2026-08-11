@@ -10,9 +10,11 @@ import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.rellenador.RellenadorComponentes;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.util.HashMap;
 import javax.swing.JFrame;
 
 /**
@@ -20,12 +22,18 @@ import javax.swing.JFrame;
  * @author JOHN FORERO
  */
 public class PerfilPanel extends javax.swing.JPanel {
+    
+    private RellenadorComponentes diccionarioComponentes;
 
     /**
      * Creates new form moduloInicio
      */
     public PerfilPanel(Menu menuNavegacion, boolean esAdministrador) {
+        
         initComponents();
+        
+        diccionarioComponentes = new RellenadorComponentes();
+        agregarComponentesADiccionario(esAdministrador);
         
         configurarEstilosInputCodigo();
         aplicarIconosDesdeEnum();
@@ -38,6 +46,19 @@ public class PerfilPanel extends javax.swing.JPanel {
         //Agregar menu de navegacion al contenedor Menu
         contenedorMenu.add(menuNavegacion);
     }
+    
+    
+    private void agregarComponentesADiccionario(boolean esAdministrador){
+        diccionarioComponentes.agregarComponenteLabel(lblDatoNombreEmpresa);
+        diccionarioComponentes.agregarComponenteLabel(lblDatoNombreUsuario);
+        diccionarioComponentes.agregarComponenteLabel(lblDatoAlias);
+        diccionarioComponentes.agregarComponenteLabel(lblDatoTelefono);
+        diccionarioComponentes.agregarComponenteLabel(lblDatoCorreo);
+        if(esAdministrador){
+            diccionarioComponentes.agregarComponenteTexto(inputCodigo);
+        }
+    }
+    
     
     private void configurarEstilosInputCodigo(){
         /*
@@ -176,6 +197,7 @@ public class PerfilPanel extends javax.swing.JPanel {
         lblDatoNombreEmpresa.setText("Nombre de la empresa");
         lblDatoNombreEmpresa.setMaximumSize(new java.awt.Dimension(0, 0));
         lblDatoNombreEmpresa.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoNombreEmpresa.setName("nombreEmpresa"); // NOI18N
         lblDatoNombreEmpresa.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -203,6 +225,7 @@ public class PerfilPanel extends javax.swing.JPanel {
         lblDatoNombreUsuario.setText("John Forero");
         lblDatoNombreUsuario.setMaximumSize(new java.awt.Dimension(0, 0));
         lblDatoNombreUsuario.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoNombreUsuario.setName("nombreUsuario"); // NOI18N
         lblDatoNombreUsuario.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -230,6 +253,7 @@ public class PerfilPanel extends javax.swing.JPanel {
         lblDatoAlias.setText("johnalexfr");
         lblDatoAlias.setMaximumSize(new java.awt.Dimension(0, 0));
         lblDatoAlias.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoAlias.setName("alias"); // NOI18N
         lblDatoAlias.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -257,6 +281,7 @@ public class PerfilPanel extends javax.swing.JPanel {
         lblDatoTelefono.setText("3202173409");
         lblDatoTelefono.setMaximumSize(new java.awt.Dimension(0, 0));
         lblDatoTelefono.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoTelefono.setName("telefono"); // NOI18N
         lblDatoTelefono.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -284,6 +309,7 @@ public class PerfilPanel extends javax.swing.JPanel {
         lblDatoCorreo.setText("johnalexfr@gmail.com");
         lblDatoCorreo.setMaximumSize(new java.awt.Dimension(0, 0));
         lblDatoCorreo.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoCorreo.setName("correo"); // NOI18N
         lblDatoCorreo.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
