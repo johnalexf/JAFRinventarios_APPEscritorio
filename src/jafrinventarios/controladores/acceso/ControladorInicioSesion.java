@@ -4,7 +4,6 @@ package jafrinventarios.controladores.acceso;
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.vistas.acceso.InicioSesionPanel;
-import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +54,7 @@ public class ControladorInicioSesion {
             Simulacion de resupuesta de datos del usuario dentro del mismo metodo
             iniciar sesion
             */
-            ModeloSesionUsuario.getInstancia().iniciarSesion(0, "Administrador", true);
+            ModeloSesionUsuario.getInstancia().iniciarSesion(0, "Administrador", true, "Albania");
             
             ControladorNavegacionGlobal.getInstancia().cambiarAPrincipal();
             

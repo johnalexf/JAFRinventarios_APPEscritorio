@@ -18,15 +18,23 @@ public class ModeloSesionUsuario {
     private int idUsuario;
     private String rol;
     private boolean esAdministrador;
+    private String nombreEmpresa;
 
-    // Constructor privado para evitar que hagan "new ModeloSesionUsuario()" en otro lado
-    private ModeloSesionUsuario() {
-        // Inicializamos con valores por defecto seguros
+    private void asignarValoresPorDefecto(){
         this.idUsuario = -1;
         this.esAdministrador = false;
         this.rol = "";
+        this.nombreEmpresa = "";
+    }
+    
+    
+    // Constructor privado para evitar que hagan "new ModeloSesionUsuario()" en otro lado
+    private ModeloSesionUsuario() {
+        // Inicializamos con valores por defecto seguros
+        asignarValoresPorDefecto();
     }
 
+    
     // Método público estático para obtener la única instancia
     public static ModeloSesionUsuario getInstancia() {
         if (instancia == null) {
@@ -40,16 +48,18 @@ public class ModeloSesionUsuario {
     // GETTERS Y SETTERS
     // ==========================================
 
-    public void iniciarSesion(int idUsuario, String rol, boolean esAdministrador) {
+    public void iniciarSesion(  int idUsuario, 
+                                String rol, 
+                                boolean esAdministrador, 
+                                String nombreEmpresa) {
         this.idUsuario = idUsuario;
         this.rol = rol;
         this.esAdministrador = esAdministrador;
+        this.nombreEmpresa = nombreEmpresa;
     }
 
     public void cerrarSesion() {
-        this.idUsuario = -1;
-        this.rol = "";
-        this.esAdministrador = false;
+        asignarValoresPorDefecto();
     }
 
     public int getIdUsuario() {
