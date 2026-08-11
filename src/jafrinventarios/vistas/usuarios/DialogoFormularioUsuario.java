@@ -154,10 +154,9 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         btnLinkEditarEstadoUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(600, 23));
+        setMinimumSize(new java.awt.Dimension(600, 0));
         setName("dialogoUsuario"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(600, 840));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         panelPrincipalScrolleable.setBackground(new java.awt.Color(205, 205, 205));
@@ -726,7 +725,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         btnEnviarFormulario.setBackground(new java.awt.Color(30, 166, 177));
         btnEnviarFormulario.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         btnEnviarFormulario.setForeground(new java.awt.Color(255, 255, 255));
-        btnEnviarFormulario.setText("Editar Usuario");
+        btnEnviarFormulario.setText("Actualizar");
         btnEnviarFormulario.setToolTipText("");
         btnEnviarFormulario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEnviarFormulario.setMargin(new java.awt.Insets(6, 12, 6, 12));
