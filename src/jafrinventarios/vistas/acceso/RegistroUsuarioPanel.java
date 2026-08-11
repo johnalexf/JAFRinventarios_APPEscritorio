@@ -20,9 +20,6 @@ import javax.swing.JFrame;
  */
 public class RegistroUsuarioPanel extends javax.swing.JPanel {
     
-    // Este diccionario guardará la equivalencia nombreRol -> idRol, ej: "Administrador" -> 1
-    private HashMap<String, Integer> mapaRoles = new HashMap<>();
-    
     /* Se crea de manera global para reducir codigo y que desde el checkbox 
         se asigne el mensaje pertinente segun el rol */
     private String mensajeAyudaCodigo;
@@ -236,11 +233,11 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorComboBox.setOpaque(false);
 
         comboBoxRolUsuario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        comboBoxRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tipo Usuario", "Administrador", "Vendedor" }));
+        comboBoxRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tipo de Usuario", "Administrador", "Vendedor" }));
         comboBoxRolUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        comboBoxRolUsuario.setMinimumSize(new java.awt.Dimension(230, 27));
+        comboBoxRolUsuario.setMinimumSize(new java.awt.Dimension(250, 27));
         comboBoxRolUsuario.setName("rol"); // NOI18N
-        comboBoxRolUsuario.setPreferredSize(new java.awt.Dimension(230, 31));
+        comboBoxRolUsuario.setPreferredSize(new java.awt.Dimension(250, 31));
         comboBoxRolUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxRolUsuarioActionPerformed(evt);
@@ -1014,7 +1011,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         
         String rolSeleccionado = (String) comboBoxRolUsuario.getSelectedItem();
         
-        if(rolSeleccionado == null || rolSeleccionado.equals("Seleccionar Tipo Usuario")){
+        if(rolSeleccionado == null || comboBoxRolUsuario.getSelectedIndex() == 0){
             desactivarFormulario();
         }else{
             /*
@@ -1113,28 +1110,20 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
     // =======================================================
     
-    // metodo para que el constructor asigne los roles que estan en la base de datos
+    // metodo para que el constructor envie los roles que estan en la base de datos
     // Se espera que la clave sea el nombre y el valor sea el id, este se utilizara
     // estrategicamente en un nuevo campovalidable de tipo chechbox para devolver el id
     // cuando el controlador solicite recopilar la informacion del formulario
-    public void cargarRolesDisponibles(HashMap<String, Integer> rolesDeBD) {
-        
-        this.mapaRoles = rolesDeBD; // Guardar el mapa en la memoria del panel
-        
-        //Remover los items para asignar los de la base de datos
-        comboBoxRolUsuario.removeAllItems();
-        comboBoxRolUsuario.addItem("Seleccionar Tipo Usuario");
-        
-        // Llenamos el ComboBox solo con los nombres (las claves del mapa)
-        for (String nombreRol : mapaRoles.keySet()) {
-            comboBoxRolUsuario.addItem(nombreRol);
-        }
+    // Se ha creado dentro del constructor del comboBox una funcion para que cargue el hashmap enviado al comboBox
+    public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {
         
         camposFormularioRegistro.agregarCampoComboBox(
-                comboBoxRolUsuario, 
-                mapaRoles, 
+                comboBoxRolUsuario,
+                "Tipo de Usuario",
+                rolesDeBD, 
                 null, 
                 true);
+        
     }
     
      //Exponer los botones

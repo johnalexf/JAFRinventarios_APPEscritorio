@@ -23,9 +23,11 @@ public class CampoComboBox extends CampoValidable{
     */
     private final HashMap<String, Integer> listaOpcionesConId;
     private final boolean esObligatorio;
+    private final String concepto;
 
     public CampoComboBox(
-            JComboBox comboBox, 
+            JComboBox comboBox,
+            String concepto,
             HashMap<String, Integer> listaOpcionesConId, 
             JLabel lblError,
             boolean esObligatorio ) {
@@ -33,10 +35,26 @@ public class CampoComboBox extends CampoValidable{
         this.comboBox = comboBox;
         this.listaOpcionesConId = listaOpcionesConId;
         this.esObligatorio = esObligatorio;
+        this.concepto = concepto;
+        
+        cargarListaDatosDisponibles();
     }
     
     
+    private void cargarListaDatosDisponibles() {
+        
+        //Remover los items para asignar los de la base de datos
+        comboBox.removeAllItems();
+        comboBox.addItem("Seleccionar " + concepto);
+        
+        // Llenamos el ComboBox solo con los nombres (las claves del mapa)
+        listaOpcionesConId.keySet().forEach(nombreItem -> {
+            comboBox.addItem(nombreItem);
+        });
+        
+    }
 
+    
     @Override
     protected void asignarValidacionEnTiempoReal() {
         

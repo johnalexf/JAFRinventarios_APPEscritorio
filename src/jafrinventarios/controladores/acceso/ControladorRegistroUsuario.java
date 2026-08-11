@@ -38,7 +38,7 @@ public class ControladorRegistroUsuario {
         rolesBD.put("Vendedor", 2);
         
         // Le ordenamos a la vista que dibuje estos datos
-        this.vistaRegistro.cargarRolesDisponibles(rolesBD);
+        this.vistaRegistro.inicializarComboBoxRoles(rolesBD);
     }
     
     

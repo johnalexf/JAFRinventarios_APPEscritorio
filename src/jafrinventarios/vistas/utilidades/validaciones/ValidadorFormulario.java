@@ -77,6 +77,7 @@ public class ValidadorFormulario {
     */
     public void agregarCampoComboBox(
                                 JComboBox comboBox,
+                                String concepto,
                                 HashMap<String, Integer> listaOpcionesConId, 
                                 JLabel lblError,
                                 boolean esObligatorio ){
@@ -84,7 +85,7 @@ public class ValidadorFormulario {
         
         listaCamposFormulario.put(
                 comboBox.getName(), 
-                new CampoComboBox(comboBox, listaOpcionesConId, lblError, esObligatorio)
+                new CampoComboBox(comboBox, concepto, listaOpcionesConId, lblError, esObligatorio)
         );
     }
     
