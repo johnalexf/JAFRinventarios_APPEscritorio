@@ -17,18 +17,11 @@ import java.util.HashMap;
 public class ControladorPerfil {
     
     private PerfilPanel moduloPerfil;
-    /*
-    TODO: temporalmente se manejara con un variable local de la clase, pero
-    se pretende crear una instancia singleton, que almacene el id del usuario
-    y una variable booleana para saber si es o no administrador, ya que se necesita
-    para todos los diferentes modulos
-    */
     private boolean esAdministrador;
-    
 
-    public ControladorPerfil(PerfilPanel moduloPerfil, boolean esAdminstrador) {
+    public ControladorPerfil(PerfilPanel moduloPerfil) {
         this.moduloPerfil = moduloPerfil;
-        this.esAdministrador = esAdminstrador;
+        this.esAdministrador = ModeloSesionUsuario.getInstancia().esAdministrador();
         
         cargarDatosPerfil();
         

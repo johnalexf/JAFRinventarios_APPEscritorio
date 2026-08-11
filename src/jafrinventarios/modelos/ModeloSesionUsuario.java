@@ -73,4 +73,8 @@ public class ModeloSesionUsuario {
     public boolean esAdministrador() {
         return esAdministrador;
     }
+    
+    public String getNombreEmpresa(){
+        return nombreEmpresa;
+    }
 }

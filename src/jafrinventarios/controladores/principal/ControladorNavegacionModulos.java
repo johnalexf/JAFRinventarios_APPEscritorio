@@ -6,6 +6,7 @@
 package jafrinventarios.controladores.principal;
 
 import jafrinventarios.controladores.perfil.ControladorPerfil;
+import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import jafrinventarios.vistas.principal.DialogoMenu;
 import jafrinventarios.vistas.principal.HeaderPanel;
@@ -55,30 +56,21 @@ public class ControladorNavegacionModulos {
     }
     
     private void consultarSiEsAdministrador(){
-        /*
-        TODO consulta a la base de datos o al singleton que almacene la sesion
-        del usuario si es administrador
-        */
-        this.esAdministrador = true;
+        this.esAdministrador = ModeloSesionUsuario.getInstancia().esAdministrador();
     }
     
+    
     private void asignarNombreEmpresa(){
-        
-        //TODO Consultar a la base de datos
-        //Simulacion consulta
-        String nombreEmpresa = "Nombre de la empresa";
-        
-        headerPanel.asignarNombreEmpresa(nombreEmpresa);
+        headerPanel.asignarNombreEmpresa(
+                ModeloSesionUsuario.getInstancia().getNombreEmpresa()
+        );
     }
     
     
     private void asignarNombreRolUsuario(){
-        
-        //TODO Consultar a la base de datos
-        //Simulacion consulta
-        String nombreRol = "Administrador";
-        
-        headerPanel.asignarNombreRolUsuario(nombreRol);
+        headerPanel.asignarNombreRolUsuario(
+                ModeloSesionUsuario.getInstancia().getRolUsuario()
+        );
     }
     
     
@@ -90,6 +82,7 @@ public class ControladorNavegacionModulos {
         configurarEventosBotonesMenu(menuFijoPerfil);
         
     }
+    
     
     private void configurarEventosBotonesMenu(Menu menuPanel){
         menuPanel.getBtnLinkSeccionInicio().addActionListener( e -> cambiarSeccion(IconosSecciones.INICIO));
@@ -123,7 +116,7 @@ public class ControladorNavegacionModulos {
         switch(seccionAsignada){
             case INICIO:
                 moduloActual =  new PerfilPanel(menuFijoPerfil, esAdministrador);
-                new ControladorPerfil( (PerfilPanel) moduloActual , esAdministrador);
+                new ControladorPerfil( (PerfilPanel) moduloActual );
                 break;
                 
         }
