@@ -66,7 +66,14 @@ public class ControladorPerfil {
         JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(moduloPerfil);
         
         //TODO crear el controlador, por el momento se mantienen estas lineas de codigo para hacer pruebas
-        DialogoFormularioUsuario ModalEditarUsuario =  DialogoFormularioUsuario.crearDialogoEditarPerfil(ventanaPadre, esAdministrador);
+        DialogoFormularioUsuario ModalEditarUsuario;
+        ModalEditarUsuario = DialogoFormularioUsuario.crearDialogoEditarPerfil(ventanaPadre, esAdministrador);
+        ModalEditarUsuario.hacerVisibleDialogo();
+        ModalEditarUsuario = DialogoFormularioUsuario.crearDialogoEditarPerfil(ventanaPadre, false);
+        ModalEditarUsuario.hacerVisibleDialogo();
+         ModalEditarUsuario =  DialogoFormularioUsuario.crearDialogoEditarUsuario(ventanaPadre);
+        ModalEditarUsuario.hacerVisibleDialogo();
+         ModalEditarUsuario =  DialogoFormularioUsuario.crearDialogoNuevoUsuario(ventanaPadre);
         ModalEditarUsuario.hacerVisibleDialogo();
     }
     

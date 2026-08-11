@@ -7,6 +7,7 @@ package jafrinventarios.vistas.usuarios;
 
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
+import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import java.awt.Window;
 
 /**
@@ -16,48 +17,40 @@ import java.awt.Window;
 public class DialogoFormularioUsuario extends DialogoBaseConSombra{
 
     /*
+      Objeto enum auxiliar para mejorar la legibilidad del codigo
+    */
+    private static enum ModoDialogo {
+        EDITAR_PERFIL_PROPIO,
+        EDITAR_OTRO_USUARIO,
+        CREAR_NUEVO_USUARIO
+    }
+    
+    /*
       Constructor privado para forzar el uso de los métodos estáticos
     */
     private DialogoFormularioUsuario(   Window parent, 
-                                        boolean esEditarPerfil, 
+                                        ModoDialogo modo, 
                                         boolean esAdministrador ) {
         
         super(parent);
         initComponents();
         
-        personalizacionBasica(esEditarPerfil);
+        switch(modo){
+            case EDITAR_PERFIL_PROPIO:
+                personalizacionEditarPerfil(esAdministrador);
+                break;
+            case EDITAR_OTRO_USUARIO:
+                personalizacionEditarOtroUsuario();
+            break;
+            case CREAR_NUEVO_USUARIO:
+                personalizacionCrearNuevoUsuario();
+            break;
         
-        if(esEditarPerfil){
-            personalizacionEditarPerfil(esAdministrador);
         }
+        
     }
     
-    /*
-        Personalizacion basica que se realiza dependiendo si es para editar
-        el perfil del usuario que inicio sesion o si es para el modulo de 
-        administracion de usuarios donde se puede crear o editar cualquiera
-    */
-    private void personalizacionBasica(boolean esEditarPerfil){
-        if(esEditarPerfil){
-           
-            contenedorIdUsuario.setVisible(false);
-            labelRol.setVisible(false);
-            contenedorInputYErrorRol.setVisible(false);
-            
-            btnLinkEditarEstadoUsuario.setVisible(false);
-            
-            DinamismoLink.aplicarEfecto(btnLinkEditarContrasena);
-            
-        }else{
-            
-            ocultarContenedoresUsuarioNoAdministrador();
-            
-            DinamismoLink.aplicarEfecto(btnLinkEditarEstadoUsuario);
-            
-        }
-    }
-    
-    
+     
     private void ocultarContenedoresUsuarioNoAdministrador(){
         contenedorNombreCompleto.setVisible(false);
         contenedorNotaUsuarioNoAdminstrador.setVisible(false);
@@ -65,18 +58,64 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     
     
     private void personalizacionEditarPerfil(boolean esAdministrador){
+        
+        // El id no necesita verlo el usuario que inicio sesion
+        contenedorIdUsuario.setVisible(false);
+        // Ni el usuario administrador ni el vendedor pueden modificar su rol en su perfil
+        labelRol.setVisible(false);
+        contenedorInputYErrorRol.setVisible(false);
+
+        //Tampoco pueden modificar su estado, es decir deshabilitarse o eliminarse
+        btnLinkEditarEstadoUsuario.setVisible(false);
+
+        DinamismoLink.aplicarEfecto(btnLinkEditarContrasena);
+        
         if(esAdministrador){
             ocultarContenedoresUsuarioNoAdministrador();
         }else{
+            //Si no es administrador no tiene permiso para modificar su alias y nombre
             inputAlias.setEnabled(false);
             contenedorEntradasNombreCompleto.setVisible(false);      
         }
+        
+    }
+    
+    
+    private void personalizacionBasicaAdministracionUsuarios(){
+        ocultarContenedoresUsuarioNoAdministrador();    
+        btnLinkEditarContrasena.setVisible(false);     
+    }
+    
+    private void personalizacionEditarOtroUsuario(){
+        personalizacionBasicaAdministracionUsuarios();
+        DinamismoLink.aplicarEfecto(btnLinkEditarEstadoUsuario);
+    }
+    
+    private void personalizacionCrearNuevoUsuario(){
+        tituloFormulario.setText("Crear Nuevo Usuario");
+        btnEnviarFormulario.setText("Crear");
+    
+        personalizacionBasicaAdministracionUsuarios();
+        contenedorIdUsuario.setVisible(false);
+        btnLinkEditarEstadoUsuario.setVisible(false);
     }
         
+    // ===============================================================
+    // MÉTODOS ESTATICOS PARA CONTROLAR LA FORMA DE ARMAR EL DIALOGO
+    // ===============================================================
+    
 
     public static DialogoFormularioUsuario crearDialogoEditarPerfil(Window parent, boolean esAdministrador){
-        return new DialogoFormularioUsuario(parent, true, esAdministrador);
+        return new DialogoFormularioUsuario(parent, ModoDialogo.EDITAR_PERFIL_PROPIO, esAdministrador);
     }
+    
+    public static DialogoFormularioUsuario crearDialogoEditarUsuario(Window parent){
+        return new DialogoFormularioUsuario(parent, ModoDialogo.EDITAR_OTRO_USUARIO, true);
+    }
+    
+    public static DialogoFormularioUsuario crearDialogoNuevoUsuario(Window parent){
+    return new DialogoFormularioUsuario(parent, ModoDialogo.CREAR_NUEVO_USUARIO, true); 
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -553,7 +592,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
 
         labelNombreCompleto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         labelNombreCompleto.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        labelNombreCompleto.setText("Nombre Completo :");
+        labelNombreCompleto.setText("Nombre  :");
         labelNombreCompleto.setMaximumSize(new java.awt.Dimension(0, 0));
         labelNombreCompleto.setMinimumSize(new java.awt.Dimension(0, 0));
         labelNombreCompleto.setPreferredSize(new java.awt.Dimension(0, 0));
