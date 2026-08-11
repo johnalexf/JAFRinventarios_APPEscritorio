@@ -15,20 +15,67 @@ import java.awt.Window;
  */
 public class DialogoFormularioUsuario extends DialogoBaseConSombra{
 
-    /**
-     * Creates new form EditarUsuario
-     */
-    public DialogoFormularioUsuario(Window parent) {
+    /*
+      Constructor privado para forzar el uso de los métodos estáticos
+    */
+    private DialogoFormularioUsuario(   Window parent, 
+                                        boolean esEditarPerfil, 
+                                        boolean esAdministrador ) {
+        
         super(parent);
         initComponents();
         
-        aplicarEfectoLinkABotones();
+        personalizacionBasica(esEditarPerfil);
+        
+        if(esEditarPerfil){
+            personalizacionEditarPerfil(esAdministrador);
+        }
+    }
+    
+    /*
+        Personalizacion basica que se realiza dependiendo si es para editar
+        el perfil del usuario que inicio sesion o si es para el modulo de 
+        administracion de usuarios donde se puede crear o editar cualquiera
+    */
+    private void personalizacionBasica(boolean esEditarPerfil){
+        if(esEditarPerfil){
+           
+            contenedorIdUsuario.setVisible(false);
+            labelRol.setVisible(false);
+            contenedorInputYErrorRol.setVisible(false);
+            
+            btnLinkEditarEstadoUsuario.setVisible(false);
+            
+            DinamismoLink.aplicarEfecto(btnLinkEditarContrasena);
+            
+        }else{
+            
+            ocultarContenedoresUsuarioNoAdministrador();
+            
+            DinamismoLink.aplicarEfecto(btnLinkEditarEstadoUsuario);
+            
+        }
     }
     
     
-    private void aplicarEfectoLinkABotones(){
-        DinamismoLink.aplicarEfecto(btnLinkEditarContrasena);
-        DinamismoLink.aplicarEfecto(btnLinkEditarEstadoUsuario);
+    private void ocultarContenedoresUsuarioNoAdministrador(){
+        contenedorNombreCompleto.setVisible(false);
+        contenedorNotaUsuarioNoAdminstrador.setVisible(false);
+    }
+    
+    
+    private void personalizacionEditarPerfil(boolean esAdministrador){
+        if(esAdministrador){
+            ocultarContenedoresUsuarioNoAdministrador();
+        }else{
+            inputAlias.setEnabled(false);
+            contenedorEntradasNombreCompleto.setVisible(false);      
+        }
+    }
+        
+
+    public static DialogoFormularioUsuario crearDialogoEditarPerfil(Window parent, boolean esAdministrador){
+        return new DialogoFormularioUsuario(parent, true, esAdministrador);
     }
 
     /**
@@ -64,7 +111,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         contenedorInputYErrorRol = new javax.swing.JPanel();
         comboBoxRolUsuario = new javax.swing.JComboBox<>();
         lblErrorComboBoxRolUsuario = new javax.swing.JLabel();
-        contenedorNombreCompleto = new javax.swing.JPanel();
+        contenedorEntradaNombreCompleto = new javax.swing.JPanel();
         contenedorTituloNombreCompleto = new javax.swing.JPanel();
         subtituloNombreCompleto = new javax.swing.JLabel();
         contenedorEntradasNombreCompleto = new javax.swing.JPanel();
@@ -84,6 +131,9 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         contenedorInputYErrorSegundoApellido = new javax.swing.JPanel();
         inputSegundoApellido = new javax.swing.JTextField();
         lblErrorInputSegundoApellido = new javax.swing.JLabel();
+        contenedorNombreCompleto = new javax.swing.JPanel();
+        labelNombreCompleto = new javax.swing.JLabel();
+        inpuNombreCompleto = new javax.swing.JTextField();
         contenedorDatosContacto = new javax.swing.JPanel();
         contenedorTituloDatosContacto = new javax.swing.JPanel();
         subtituloDatosContacto = new javax.swing.JLabel();
@@ -96,6 +146,8 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         contenedorInputYErrorCorreo = new javax.swing.JPanel();
         inputCorreo = new javax.swing.JTextField();
         lblErrorInputCorreo = new javax.swing.JLabel();
+        contenedorNotaUsuarioNoAdminstrador = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         contenedorBotones = new javax.swing.JPanel();
         btnEnviarFormulario = new javax.swing.JButton();
         btnLinkEditarContrasena = new javax.swing.JButton();
@@ -105,6 +157,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         setMinimumSize(new java.awt.Dimension(600, 23));
         setName("dialogoUsuario"); // NOI18N
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(600, 840));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         panelPrincipalScrolleable.setBackground(new java.awt.Color(205, 205, 205));
@@ -299,8 +352,8 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         gridBagConstraints.weightx = 1.0;
         contenedorCuerpoFormulario.add(contenedorCuenta, gridBagConstraints);
 
-        contenedorNombreCompleto.setOpaque(false);
-        contenedorNombreCompleto.setLayout(new javax.swing.BoxLayout(contenedorNombreCompleto, javax.swing.BoxLayout.Y_AXIS));
+        contenedorEntradaNombreCompleto.setOpaque(false);
+        contenedorEntradaNombreCompleto.setLayout(new javax.swing.BoxLayout(contenedorEntradaNombreCompleto, javax.swing.BoxLayout.Y_AXIS));
 
         contenedorTituloNombreCompleto.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(5, 10, -5, 0)));
         contenedorTituloNombreCompleto.setOpaque(false);
@@ -312,7 +365,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         subtituloNombreCompleto.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         contenedorTituloNombreCompleto.add(subtituloNombreCompleto);
 
-        contenedorNombreCompleto.add(contenedorTituloNombreCompleto);
+        contenedorEntradaNombreCompleto.add(contenedorTituloNombreCompleto);
 
         contenedorEntradasNombreCompleto.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 0, 20));
         contenedorEntradasNombreCompleto.setOpaque(false);
@@ -492,13 +545,49 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         contenedorEntradasNombreCompleto.add(contenedorInputYErrorSegundoApellido, gridBagConstraints);
 
-        contenedorNombreCompleto.add(contenedorEntradasNombreCompleto);
+        contenedorEntradaNombreCompleto.add(contenedorEntradasNombreCompleto);
+
+        contenedorNombreCompleto.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 6, 20));
+        contenedorNombreCompleto.setOpaque(false);
+        contenedorNombreCompleto.setPreferredSize(new java.awt.Dimension(0, 60));
+        contenedorNombreCompleto.setLayout(new java.awt.GridBagLayout());
+
+        labelNombreCompleto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        labelNombreCompleto.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelNombreCompleto.setText("Nombre Completo :");
+        labelNombreCompleto.setMaximumSize(new java.awt.Dimension(0, 0));
+        labelNombreCompleto.setMinimumSize(new java.awt.Dimension(0, 0));
+        labelNombreCompleto.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        contenedorNombreCompleto.add(labelNombreCompleto, gridBagConstraints);
+
+        inpuNombreCompleto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inpuNombreCompleto.setText("John Forero");
+        inpuNombreCompleto.setEnabled(false);
+        inpuNombreCompleto.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inpuNombreCompleto.setName("primerNombre"); // NOI18N
+        inpuNombreCompleto.setPreferredSize(new java.awt.Dimension(0, 34));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorNombreCompleto.add(inpuNombreCompleto, gridBagConstraints);
+
+        contenedorEntradaNombreCompleto.add(contenedorNombreCompleto);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        contenedorCuerpoFormulario.add(contenedorNombreCompleto, gridBagConstraints);
+        contenedorCuerpoFormulario.add(contenedorEntradaNombreCompleto, gridBagConstraints);
 
         contenedorDatosContacto.setOpaque(false);
         contenedorDatosContacto.setLayout(new javax.swing.BoxLayout(contenedorDatosContacto, javax.swing.BoxLayout.Y_AXIS));
@@ -613,6 +702,20 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         gridBagConstraints.weightx = 1.0;
         contenedorCuerpoFormulario.add(contenedorDatosContacto, gridBagConstraints);
 
+        contenedorNotaUsuarioNoAdminstrador.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 20, 10, 20));
+        contenedorNotaUsuarioNoAdminstrador.setOpaque(false);
+        contenedorNotaUsuarioNoAdminstrador.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel1.setText("<html>\n<p style=\"width: 320px; \">\n<b>Nota:</b> Como usuario vendedor no tiene autorizado cambiar su nombre o alias,\n si es necesario realizar un ajuste, por favor comuniquese con el administrador.\n</p>\n</html>");
+        contenedorNotaUsuarioNoAdminstrador.add(jLabel1);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        contenedorCuerpoFormulario.add(contenedorNotaUsuarioNoAdminstrador, gridBagConstraints);
+
         contenedorFormulario.add(contenedorCuerpoFormulario, java.awt.BorderLayout.CENTER);
 
         contenedorBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 10, 40));
@@ -692,6 +795,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     private javax.swing.JPanel contenedorCuenta;
     private javax.swing.JPanel contenedorCuerpoFormulario;
     private javax.swing.JPanel contenedorDatosContacto;
+    private javax.swing.JPanel contenedorEntradaNombreCompleto;
     private javax.swing.JPanel contenedorEntradasCuenta;
     private javax.swing.JPanel contenedorEntradasDatosContacto;
     private javax.swing.JPanel contenedorEntradasNombreCompleto;
@@ -706,10 +810,12 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     private javax.swing.JPanel contenedorInputYErrorSegundoNombre;
     private javax.swing.JPanel contenedorInputYErrorTelefono;
     private javax.swing.JPanel contenedorNombreCompleto;
+    private javax.swing.JPanel contenedorNotaUsuarioNoAdminstrador;
     private javax.swing.JPanel contenedorTituloCuenta;
     private javax.swing.JPanel contenedorTituloDatosContacto;
     private javax.swing.JPanel contenedorTituloFormulario;
     private javax.swing.JPanel contenedorTituloNombreCompleto;
+    private javax.swing.JTextField inpuNombreCompleto;
     private javax.swing.JTextField inputAlias;
     private javax.swing.JTextField inputCorreo;
     private javax.swing.JTextField inputPrimerApellido;
@@ -717,9 +823,11 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     private javax.swing.JTextField inputSegundoApellido;
     private javax.swing.JTextField inputSegundoNombre;
     private javax.swing.JTextField inputTelefono;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelAlias;
     private javax.swing.JLabel labelCorreo;
     private javax.swing.JLabel labelID;
+    private javax.swing.JLabel labelNombreCompleto;
     private javax.swing.JLabel labelPrimerApellido;
     private javax.swing.JLabel labelPrimerNombre;
     private javax.swing.JLabel labelRol;
