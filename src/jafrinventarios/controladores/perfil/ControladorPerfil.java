@@ -7,8 +7,11 @@ package jafrinventarios.controladores.perfil;
 
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.modelos.ModeloSesionUsuario;
+import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import java.util.HashMap;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -60,7 +63,10 @@ public class ControladorPerfil {
     
     
     private void procesarEdicionUsuario(){
-    
+        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(moduloPerfil);
+        
+        DialogoFormularioUsuario ModalEditarUsuario =  new DialogoFormularioUsuario(ventanaPadre);
+        ModalEditarUsuario.hacerVisibleDialogo();
     }
     
 }
