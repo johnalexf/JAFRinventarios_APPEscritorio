@@ -101,9 +101,9 @@ public class Menu extends javax.swing.JPanel {
         marginAutoRight = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(2147483647, 750));
+        setMaximumSize(new java.awt.Dimension(2147483647, 650));
         setMinimumSize(new java.awt.Dimension(300, 600));
-        setPreferredSize(new java.awt.Dimension(300, 750));
+        setPreferredSize(new java.awt.Dimension(300, 650));
         setLayout(new java.awt.BorderLayout());
 
         contenedorHeader.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(22, 226, 230)), javax.swing.BorderFactory.createEmptyBorder(16, 16, 16, 16)));
