@@ -4,7 +4,7 @@ para aplicarle los estilos y mostrar el mensaje pertinente cuando
 tenga un error, como tal esta destinada para ser heredada y poder
 personalizar la respectiva validacion dependiendo del tipo de campo
  */
-package jafrinventarios.vistas.utilidades.validaciones;
+package jafrinventarios.vistas.utilidades.formularios;
 
 import java.awt.Color;
 import javax.swing.JComponent;
@@ -14,7 +14,7 @@ import javax.swing.JLabel;
  *
  * @author JOHN FORERO
  */
-public abstract class CampoValidable {
+public abstract class CampoGestionable {
     
     private final JComponent componente;
     private final JLabel lblError;
@@ -22,7 +22,7 @@ public abstract class CampoValidable {
                             " borderColor:#777777; focusedBorderColor:#112355 ";
 
     
-    public CampoValidable(JComponent componente, JLabel lblError) {
+    public CampoGestionable(JComponent componente, JLabel lblError) {
         
         this.componente = componente;
         this.lblError = lblError;

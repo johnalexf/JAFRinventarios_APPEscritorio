@@ -5,8 +5,8 @@
  */
 package jafrinventarios.vistas.acceso;
 
-import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
-import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
+import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
+import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
@@ -24,7 +24,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         se asigne el mensaje pertinente segun el rol */
     private String mensajeAyudaCodigo;
     
-    private final ValidadorFormulario camposFormularioRegistro = new ValidadorFormulario();
+    private final GestorFormulario camposFormularioRegistro = new GestorFormulario();
 
     /**
      * Creates new form RegistroUsuarioPanel

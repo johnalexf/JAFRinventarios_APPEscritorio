@@ -4,7 +4,7 @@
     una validacion, ademas con la asignacion del TipoDatoFormulario y si esObligatorio
     se hacen las respectivas verificaciones si cumple con el tipo de dato esperado
  */
-package jafrinventarios.vistas.utilidades.validaciones;
+package jafrinventarios.vistas.utilidades.formularios;
 
 import javax.swing.text.JTextComponent;
 import javax.swing.JLabel;
@@ -15,14 +15,14 @@ import javax.swing.event.DocumentListener;
  *
  * @author JOHN FORERO
  */
-public class CampoFormulario extends CampoValidable{
+public class CampoTexto extends CampoGestionable{
     
     private final JTextComponent input;
     private final TipoDatoFormulario tipo;
     private final boolean esObligatorio;
 
     
-    public CampoFormulario(JTextComponent input, JLabel lblError, TipoDatoFormulario tipo, boolean esObligatorio) {
+    public CampoTexto(JTextComponent input, JLabel lblError, TipoDatoFormulario tipo, boolean esObligatorio) {
         super(input, lblError);
         
         this.input = input;

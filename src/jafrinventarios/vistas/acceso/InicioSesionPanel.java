@@ -5,8 +5,8 @@
  */
 package jafrinventarios.vistas.acceso;
 
-import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
-import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
+import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
+import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import java.util.HashMap;
@@ -17,12 +17,12 @@ import java.util.HashMap;
  */
 public class InicioSesionPanel extends javax.swing.JPanel {
 
-    private final ValidadorFormulario camposFormularioIngreso ;
+    private final GestorFormulario camposFormularioIngreso ;
     /**
      * Creates new form InicioSesionPanel
      */
     public InicioSesionPanel() {
-        this.camposFormularioIngreso = new ValidadorFormulario();
+        this.camposFormularioIngreso = new GestorFormulario();
         initComponents();
         
         DinamismoLink.aplicarEfecto(btnLinkRecuperarContraseña);

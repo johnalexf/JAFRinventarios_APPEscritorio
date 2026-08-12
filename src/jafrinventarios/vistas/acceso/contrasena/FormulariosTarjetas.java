@@ -5,7 +5,7 @@
  */
 package jafrinventarios.vistas.acceso.contrasena;
 
-import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
+import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import java.util.HashMap;
 
 /**
@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public class FormulariosTarjetas {
     
-    private final HashMap< TarjetasRecuperacion , ValidadorFormulario> diccionarioFormulariosTarjetas;
+    private final HashMap< TarjetasRecuperacion , GestorFormulario> diccionarioFormulariosTarjetas;
 
     //Constructor
     public FormulariosTarjetas() {
@@ -22,30 +22,30 @@ public class FormulariosTarjetas {
     }
     
     //Agregar formulario con clave la tarjeta donde se encuentra
-    public void agregarFormulario(TarjetasRecuperacion tarjeta, ValidadorFormulario formulario){
+    public void agregarFormulario(TarjetasRecuperacion tarjeta, GestorFormulario formulario){
         diccionarioFormulariosTarjetas.put(tarjeta, formulario);
     }
     
     //Obetener el formulario que esta dentro de la tarjeta
-    private ValidadorFormulario getFormulario( TarjetasRecuperacion claveTarjeta ){
+    private GestorFormulario getFormulario( TarjetasRecuperacion claveTarjeta ){
         return diccionarioFormulariosTarjetas.get(claveTarjeta);
     }
     
     
     public boolean validar( TarjetasRecuperacion claveTarjeta ){
-        ValidadorFormulario formulario = getFormulario(claveTarjeta);
+        GestorFormulario formulario = getFormulario(claveTarjeta);
         return formulario.validar();
     }
     
     
     public HashMap<String, String> recolectarDatos( TarjetasRecuperacion claveTarjeta ){
-        ValidadorFormulario formulario = getFormulario(claveTarjeta);
+        GestorFormulario formulario = getFormulario(claveTarjeta);
         return formulario.recolectarDatos();
     }
     
     
     public void mostrarErrorRespuestaBD(TarjetasRecuperacion claveTarjeta, HashMap<String, String> erroresCamposBD ){
-        ValidadorFormulario formulario = getFormulario(claveTarjeta);
+        GestorFormulario formulario = getFormulario(claveTarjeta);
         formulario.mostrarErrorRespuestaBD(erroresCamposBD);
     }
     

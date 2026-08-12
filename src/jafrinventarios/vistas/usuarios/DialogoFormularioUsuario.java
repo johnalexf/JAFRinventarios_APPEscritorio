@@ -7,8 +7,8 @@ package jafrinventarios.vistas.usuarios;
 
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
-import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
-import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
+import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
+import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import java.awt.Window;
 import java.util.HashMap;
 
@@ -27,7 +27,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         CREAR_NUEVO_USUARIO
     }
     
-    private ValidadorFormulario formularioValidador;
+    private GestorFormulario formularioValidador;
     
     /*
       Constructor privado para forzar el uso de los métodos estáticos
@@ -39,7 +39,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         super(parent);
         initComponents();
         
-        formularioValidador = new ValidadorFormulario();
+        formularioValidador = new GestorFormulario();
         
         switch(modo){
             case EDITAR_PERFIL_PROPIO:

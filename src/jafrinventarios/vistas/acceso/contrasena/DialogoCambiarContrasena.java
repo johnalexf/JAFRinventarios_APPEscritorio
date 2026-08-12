@@ -5,8 +5,8 @@
  */
 package jafrinventarios.vistas.acceso.contrasena;
 
-import jafrinventarios.vistas.utilidades.validaciones.TipoDatoFormulario;
-import jafrinventarios.vistas.utilidades.validaciones.ValidadorFormulario;
+import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
+import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
@@ -22,10 +22,10 @@ import javax.swing.JFrame;
 public class DialogoCambiarContrasena extends DialogoBaseConSombra {
 
     private final CardLayout layaoutTarjetas;
-    private final ValidadorFormulario formularioCorreo = new ValidadorFormulario();
-    private final ValidadorFormulario formularioCodigo = new ValidadorFormulario();
-    private final ValidadorFormulario formularioContrasenaAntigua = new ValidadorFormulario();
-    private final ValidadorFormulario formularioContrasenaNueva = new ValidadorFormulario();
+    private final GestorFormulario formularioCorreo = new GestorFormulario();
+    private final GestorFormulario formularioCodigo = new GestorFormulario();
+    private final GestorFormulario formularioContrasenaAntigua = new GestorFormulario();
+    private final GestorFormulario formularioContrasenaNueva = new GestorFormulario();
     
     private final FormulariosTarjetas formularios = new FormulariosTarjetas();
     /**

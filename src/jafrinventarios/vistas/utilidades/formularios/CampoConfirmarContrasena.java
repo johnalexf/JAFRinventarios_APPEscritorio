@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jafrinventarios.vistas.utilidades.validaciones;
+package jafrinventarios.vistas.utilidades.formularios;
 
 import java.util.Arrays;
 import javax.swing.JLabel;
@@ -15,7 +15,7 @@ import javax.swing.event.DocumentListener;
  *
  * @author JOHN FORERO
  */
-public class CampoConfirmarContrasena extends CampoValidable {
+public class CampoConfirmarContrasena extends CampoGestionable {
     
     private final JPasswordField inputConfirmarContrasena;
     private final JPasswordField inputContrasena;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jafrinventarios.vistas.utilidades.validaciones;
+package jafrinventarios.vistas.utilidades.formularios;
 
 import java.util.HashMap;
 import javax.swing.JComboBox;
@@ -13,7 +13,7 @@ import javax.swing.JLabel;
  *
  * @author JOHN FORERO
  */
-public class CampoComboBox extends CampoValidable{
+public class CampoComboBox extends CampoGestionable{
     
     private final JComboBox comboBox;
     /* 

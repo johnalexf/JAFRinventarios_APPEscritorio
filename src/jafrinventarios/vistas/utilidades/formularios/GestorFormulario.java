@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jafrinventarios.vistas.utilidades.validaciones;
+package jafrinventarios.vistas.utilidades.formularios;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,17 +18,17 @@ import javax.swing.text.JTextComponent;
  *
  * @author JOHN FORERO
  */
-public class ValidadorFormulario {
+public class GestorFormulario {
     
     /* Guardamos cada campo del formulario con una clave valor, en donde la clave 
         sera el name de dicho componente, permitiendo asi mostrar errores como 
         respuesta de la consulta a la base de datos.
         Ejemplo Correo no encontrado, contraseña incorrecta, alias repetido, etc.
     */
-    private final HashMap<String, CampoValidable> listaCamposFormulario;
+    private final HashMap<String, CampoGestionable> listaCamposFormulario;
 
     //Constructor
-    public ValidadorFormulario() {
+    public GestorFormulario() {
         listaCamposFormulario = new HashMap<>();
     }
     
@@ -47,7 +47,7 @@ public class ValidadorFormulario {
         
         listaCamposFormulario.put( 
                 input.getName() ,
-                new CampoFormulario( input, lblError, tipoDato, esObligatorio)
+                new CampoTexto( input, lblError, tipoDato, esObligatorio)
         );
         
     }
@@ -129,7 +129,7 @@ public class ValidadorFormulario {
         /*Con el for each hacemos que se validen todos los campos y se muestren
           los errores correspondientes en el lblError de cada input
         */
-        for(CampoValidable campo : listaCamposFormulario.values()){
+        for(CampoGestionable campo : listaCamposFormulario.values()){
             // Cambiamos la respuesta a false si cualquiera de los campos
             // no es un dato valido
             if(!campo.validar()){
@@ -146,7 +146,7 @@ public class ValidadorFormulario {
     de los lblError correspondiente de cada campo
     */
     public void limpiarErrores(){
-        for(CampoValidable campo : listaCamposFormulario.values()){
+        for(CampoGestionable campo : listaCamposFormulario.values()){
             campo.limpiarError();
         }
     }
@@ -168,7 +168,7 @@ public class ValidadorFormulario {
     */
     public void limpiarCampos(){
         // Creamos la lista copia para aislar el bucle en memoria
-        List<CampoValidable> camposCopia = new ArrayList<>(listaCamposFormulario.values());
+        List<CampoGestionable> camposCopia = new ArrayList<>(listaCamposFormulario.values());
         
         // Iteramos de forma segura sobre la copia
         camposCopia.forEach(campo -> {
@@ -208,7 +208,7 @@ public class ValidadorFormulario {
         if(!erroresCamposBD.isEmpty()){
             
            erroresCamposBD.entrySet().forEach( campoErrorBD -> {
-               CampoValidable campoAMostrarError = listaCamposFormulario.get(campoErrorBD.getKey());
+               CampoGestionable campoAMostrarError = listaCamposFormulario.get(campoErrorBD.getKey());
                campoAMostrarError.mostrarError(campoErrorBD.getValue());
            });
         
