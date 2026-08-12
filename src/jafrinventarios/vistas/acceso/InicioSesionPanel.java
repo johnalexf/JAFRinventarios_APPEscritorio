@@ -28,7 +28,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         DinamismoLink.aplicarEfecto(btnLinkRecuperarContraseña);
         MostrarOcultarContrasena.agregarFuncionalidad(inputContrasena, btnMostrarOcultarContrasena);
         
-        // Agregar campos al validador
+        // Agregar campos al gestionador de formulario
         formularioIngreso.agregarCampo(
                                             inputCorreo, 
                                             lblErrorInputCorreo, 

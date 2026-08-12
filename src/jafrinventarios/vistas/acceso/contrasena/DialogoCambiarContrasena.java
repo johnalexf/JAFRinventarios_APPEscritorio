@@ -27,11 +27,17 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     private final GestorFormulario formularioContrasenaAntigua = new GestorFormulario();
     private final GestorFormulario formularioContrasenaNueva = new GestorFormulario();
     
-    private final FormulariosTarjetas formularios = new FormulariosTarjetas();
+   /*Esta clase permite reducir el codigo para validar, recolectar y mostrar errores 
+     de respuesta de la base de datos, en cada uno de los formularios que existen
+     por cada tarjeta.
+    */
+    private final FormulariosEnTarjetas formularios = new FormulariosEnTarjetas();
+    
+    
     /**
      * Creates new form DialogoCambiarContrasena
      */
-    private DialogoCambiarContrasena(JFrame parent, String titulo, TarjetasRecuperacion tarjeta, boolean contrasenaAntigua) {
+    private DialogoCambiarContrasena(JFrame parent, String titulo, NombresTarjetasContrasena tarjetaInicial) {
         super(parent);
         initComponents();
         btnCerrar.setIcon(IconosBotones.CERRAR.getIcono());
@@ -39,11 +45,11 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         layaoutTarjetas = (CardLayout) contenedorTarjetas.getLayout();
         tituloDialogo.setText(titulo);
         
-        declararIdentificadorsATarjetas();
-        configurarDinamismoAContrasenas(contrasenaAntigua);
-        inyectarCamposAValidadores(contrasenaAntigua);
-        recolectarFormularios(contrasenaAntigua);
-        mostrarTarjeta(tarjeta);
+        declararIdentificadoresATarjetas();
+        configurarDinamismoAContrasenas(tarjetaInicial);
+        inyectarCamposAFormularios(tarjetaInicial);
+        recolectarFormularios(tarjetaInicial);
+        mostrarTarjeta(tarjetaInicial);
         /*
         Dejamos que el controlador lo haga visible cuando ya se haya inyectado
         la vista de dialogo dentro de él.
@@ -51,25 +57,27 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         //hacerVisibleDialogo();
     }
     
-    private void declararIdentificadorsATarjetas(){
-        contenedorTarjetas.add(contenedorCorreo, TarjetasRecuperacion.CORREO.getIdentificador());
-        contenedorTarjetas.add(contenedorConfirmarCodigo, TarjetasRecuperacion.CODIGO.getIdentificador());
-        contenedorTarjetas.add(contenedorContrasenaAntigua, TarjetasRecuperacion.CONTRASENA_ANTIGUA.getIdentificador());
-        contenedorTarjetas.add(contenedorContrasenaNueva, TarjetasRecuperacion.CONTRASENA_NUEVA.getIdentificador());
+    private void declararIdentificadoresATarjetas(){
+        contenedorTarjetas.add(contenedorCorreo, NombresTarjetasContrasena.CORREO.getIdentificador());
+        contenedorTarjetas.add(contenedorConfirmarCodigo, NombresTarjetasContrasena.CODIGO.getIdentificador());
+        contenedorTarjetas.add(contenedorContrasenaAntigua, NombresTarjetasContrasena.CONTRASENA_ANTIGUA.getIdentificador());
+        contenedorTarjetas.add(contenedorContrasenaNueva, NombresTarjetasContrasena.CONTRASENA_NUEVA.getIdentificador());
     }
     
-    private void configurarDinamismoAContrasenas(boolean contrasenaAntigua){
+    private void configurarDinamismoAContrasenas(NombresTarjetasContrasena tarjetaInicial){
         
         MostrarOcultarContrasena.agregarFuncionalidad(inputContrasenaNueva, btnMostrarOcultarContrasenaNueva);
         MostrarOcultarContrasena.agregarFuncionalidad(inputConfirmarContrasenaNueva, btnMostrarOcultarConfirmarContrasenaNueva);
-        if(contrasenaAntigua){
+        
+        if( tarjetaInicial == NombresTarjetasContrasena.CONTRASENA_ANTIGUA ){
            MostrarOcultarContrasena.agregarFuncionalidad(inputContrasenaAntigua, btnMostrarOcultarContrasenaAntigua); 
         }
     
     }
     
-    private void inyectarCamposAValidadores(boolean contrasenaAntigua){
-        if(contrasenaAntigua){
+    private void inyectarCamposAFormularios(NombresTarjetasContrasena tarjetaInicial){
+        
+        if( tarjetaInicial == NombresTarjetasContrasena.CONTRASENA_ANTIGUA ){
             formularioContrasenaAntigua.agregarCampo(
                     inputContrasenaAntigua, lblErrorInputContrasenaAntigua, TipoDatoFormulario.REQUERIDO, true);
         }else{
@@ -86,20 +94,23 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     }
     
     
-    private void recolectarFormularios( boolean contrasenaAntigua ){
-        if( contrasenaAntigua ){
-            formularios.agregarFormulario(TarjetasRecuperacion.CONTRASENA_ANTIGUA, formularioContrasenaAntigua);
+    private void recolectarFormularios( NombresTarjetasContrasena tarjetaInicial ){
+        
+        if(  tarjetaInicial == NombresTarjetasContrasena.CONTRASENA_ANTIGUA ){
+            formularios.agregarFormulario(NombresTarjetasContrasena.CONTRASENA_ANTIGUA, formularioContrasenaAntigua);
         }else{
-            formularios.agregarFormulario(TarjetasRecuperacion.CORREO, formularioCorreo);
-            formularios.agregarFormulario(TarjetasRecuperacion.CODIGO, formularioCodigo);
+            formularios.agregarFormulario(NombresTarjetasContrasena.CORREO, formularioCorreo);
+            formularios.agregarFormulario(NombresTarjetasContrasena.CODIGO, formularioCodigo);
         }
         
-        formularios.agregarFormulario(TarjetasRecuperacion.CONTRASENA_NUEVA, formularioContrasenaNueva);
+        formularios.agregarFormulario(NombresTarjetasContrasena.CONTRASENA_NUEVA, formularioContrasenaNueva);
     
     }
     
     
-    /* 
+    /* ==================================================================
+        MÉTODOS ESTATICOS PARA CONTROLAR LA FORMA DE ARMAR EL DIALOGO
+       ==================================================================
         Metodos publicos para controlar la creacion del dialogo segun 
         la necesidad, si es para recuperar o cambiar la contraseña.
     */
@@ -108,8 +119,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
        return new DialogoCambiarContrasena( 
                         padreFrame, 
                         "Recuperar contraseña",
-                        TarjetasRecuperacion.CORREO,
-                        false
+                        NombresTarjetasContrasena.CORREO
                 );
        
     }
@@ -120,8 +130,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         return  new DialogoCambiarContrasena( 
                         padreFrame, 
                         "Cambiar contraseña",
-                        TarjetasRecuperacion.CONTRASENA_ANTIGUA,
-                        true
+                        NombresTarjetasContrasena.CONTRASENA_ANTIGUA
                 );
         
     }
@@ -674,35 +683,35 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         return btnCambiarContrasena;
     }
 
-    // Exponer la validación visual
-    public boolean ejecutarValidacionCampos( TarjetasRecuperacion claveTarjeta ) {
-        return formularios.validar( claveTarjeta );
+    // Exponer la validación de formato de datos
+    public boolean ejecutarValidacionFormulario( NombresTarjetasContrasena tarjeta ) {
+        return formularios.validar( tarjeta );
     }
     
     // Exponer los datos del formulario en un hash map
-    public HashMap<String, String> recolectarDatosFormulario( TarjetasRecuperacion claveTarjeta ){
-        return formularios.recolectarDatos( claveTarjeta );
+    public HashMap<String, String> recolectarDatosFormulario( NombresTarjetasContrasena tarjeta ){
+        return formularios.recolectarDatos( tarjeta );
     }
     
-    // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError
+    // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError de cada campo
     public void mostrarErrorRespuestaBD(
-                            TarjetasRecuperacion claveTarjeta,
+                            NombresTarjetasContrasena tarjeta,
                             HashMap<String, String> erroresCamposBD ){
-        formularios.mostrarErrorRespuestaBD( claveTarjeta, erroresCamposBD);
+        formularios.mostrarErrorRespuestaBD( tarjeta, erroresCamposBD);
     }
 
     
-    // =======================================================
-    // MÉTODOS PARA CAMBIAR TARJETAS DE FORMULARIO
-    // =======================================================
+    // ==============================================================
+    // MÉTODO PARA CAMBIAR VISUALIZACION DE LA TARJETA DE FORMULARIO
+    // ==============================================================
     
-    public void mostrarTarjeta(TarjetasRecuperacion tarjeta){
+    public void mostrarTarjeta(NombresTarjetasContrasena tarjeta){
         // Mostramos la tarjeta correspondiente usando el CardLayout original
         layaoutTarjetas.show(contenedorTarjetas, tarjeta.getIdentificador());
         
         // Evaluamos si la tarjeta actual es la de la contraseña nueva
         // Para poder redimensionar el Dialog ya que esta card ocupa mas espacio
-        if (  tarjeta == TarjetasRecuperacion.CONTRASENA_NUEVA  ) {
+        if (  tarjeta == NombresTarjetasContrasena.CONTRASENA_NUEVA  ) {
             // Aumentamos el tamaño del JDialog (500 de ancho por 640 de alto)
             this.setSize(500, 640); 
         } else {

@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Clase para dar un nombre a las tarjetas que componen los diferentes pasos
+    para recuperar una contraseña o para cambiarla
+ * Se ha creado este enum para globalizar los nombres y evitar tener que depender
+    de escribir el string del nombre de la tarjeta.
  */
 package jafrinventarios.vistas.acceso.contrasena;
 
@@ -9,7 +10,7 @@ package jafrinventarios.vistas.acceso.contrasena;
  *
  * @author JOHN FORERO
  */
-public enum TarjetasRecuperacion {
+public enum NombresTarjetasContrasena {
     CORREO("cardCorreo"),
     CODIGO("cardConfirmarCodigo"),
     CONTRASENA_ANTIGUA("cardContrasenaAntigua"),
@@ -17,7 +18,7 @@ public enum TarjetasRecuperacion {
 
     private String identificador;
 
-    TarjetasRecuperacion(String identificador){
+    NombresTarjetasContrasena(String identificador){
         this.identificador = identificador;
     }
     

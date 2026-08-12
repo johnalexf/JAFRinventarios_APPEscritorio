@@ -32,7 +32,7 @@ public class ControladorInicioSesion {
         if ( !vistaInicio.ejecutarValidacionFormulario() ) {
             JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vistaInicio);
             DialogoMensajePersonalizado.mostrarErrorFormatoCampos(ventanaPadre);
-            return; // Cortamos la ejecución aquí si hay errores visuales
+            return; // Cortamos la ejecución aquí si hay errores de formato de datos
         }
 
         // Si la validación de campos pasa, pedimos los datos limpios a la vista

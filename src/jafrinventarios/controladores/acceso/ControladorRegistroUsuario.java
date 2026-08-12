@@ -32,7 +32,7 @@ public class ControladorRegistroUsuario {
     private void cargarRoles() {
         System.out.println("Simulando consulta de roles a la BD...");
         
-        // Clave: Nombre a mostrar | Valor: ID de la base de datos
+        // Clave: Nombre del rol a mostrar | Valor: ID del rol en la base de datos
         HashMap<String, Integer> rolesBD = new HashMap<>();
         rolesBD.put("Administrador", 1);
         rolesBD.put("Vendedor", 2);
@@ -58,7 +58,7 @@ public class ControladorRegistroUsuario {
         if ( !vistaRegistro.ejecutarValidacionFormulario() ) {
             
             DialogoMensajePersonalizado.mostrarErrorFormatoCampos(ventanaPadre);
-            return; // Cortamos la ejecución aquí si hay errores visuales
+            return; // Cortamos la ejecución aquí si hay erroresde formato de datos
         }
         
         // Si la validación de campos pasa, pedimos los datos limpios a la vista
@@ -84,7 +84,7 @@ public class ControladorRegistroUsuario {
             
         } else {
             // Mostrar error de credenciales inválidas
-            System.out.println("Datos existentes en la base de datos.");
+            System.out.println("EL o los datos ya existenten en la base de datos.");
             
             //codigo simulacion de respuesta de la base de datos
             vistaRegistro.mostrarErrorRespuestaBD(

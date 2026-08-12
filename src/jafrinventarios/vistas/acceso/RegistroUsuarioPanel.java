@@ -1057,24 +1057,24 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         mostrarContenedorDatosEmpresa(false);
     }
     
-    private void asignarEdicionCamposFormulario(boolean editable){
+    private void asignarEdicionCamposFormulario(boolean activar){
         
-        inputPrimerNombre.setEnabled(editable);
-        inputSegundoNombre.setEnabled(editable);
-        inputPrimerApellido.setEnabled(editable);
-        inputSegundoApellido.setEnabled(editable);
+        inputPrimerNombre.setEnabled(activar);
+        inputSegundoNombre.setEnabled(activar);
+        inputPrimerApellido.setEnabled(activar);
+        inputSegundoApellido.setEnabled(activar);
         
-        inputTelefono.setEnabled(editable);
-        inputCorreo.setEnabled(editable);
+        inputTelefono.setEnabled(activar);
+        inputCorreo.setEnabled(activar);
         
-        inputAlias.setEnabled(editable);
-        inputContrasena.setEnabled(editable);
-        btnMostrarOcultarContrasena.setEnabled(editable);
-        inputConfirmarContrasena.setEnabled(editable);
-        btnMostrarOcultarConfirmarContrasena.setEnabled(editable);
-        inputCodigo.setEnabled(editable);
-        btnAyudaCodigo.setEnabled(editable);
-        btnRegistrar.setEnabled(editable);
+        inputAlias.setEnabled(activar);
+        inputContrasena.setEnabled(activar);
+        btnMostrarOcultarContrasena.setEnabled(activar);
+        inputConfirmarContrasena.setEnabled(activar);
+        btnMostrarOcultarConfirmarContrasena.setEnabled(activar);
+        inputCodigo.setEnabled(activar);
+        btnAyudaCodigo.setEnabled(activar);
+        btnRegistrar.setEnabled(activar);
         
     }
     
@@ -1112,9 +1112,10 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     
     // metodo para que el constructor envie los roles que estan en la base de datos
     // Se espera que la clave sea el nombre y el valor sea el id, este se utilizara
-    // estrategicamente en un nuevo campovalidable de tipo chechbox para devolver el id
-    // cuando el controlador solicite recopilar la informacion del formulario
-    // Se ha creado dentro del constructor del comboBox una funcion para que cargue el hashmap enviado al comboBox
+    // estrategicamente en un nuevo CampoGestionable de tipo chechbox para devolver el id
+    // cuando el controlador solicite recopilar la informacion del formulario.
+    
+    // Se ha creado dentro del constructor del CampoComboBox una funcion para que cargue el hashmap enviado al comboBox
     public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {
         
         formularioRegistro.agregarCampoComboBox(

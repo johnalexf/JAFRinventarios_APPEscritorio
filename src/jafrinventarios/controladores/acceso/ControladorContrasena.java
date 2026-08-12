@@ -6,9 +6,8 @@
 package jafrinventarios.controladores.acceso;
 
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
-import jafrinventarios.vistas.acceso.contrasena.TarjetasRecuperacion;
+import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
-import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,16 +20,12 @@ import javax.swing.JFrame;
 public class ControladorContrasena {
     
     private final DialogoCambiarContrasena ventanaContrasena;
-    private final ArrayList<TarjetasRecuperacion> secuenciaNavegacion;
-    private String correoUsuario;
-
+    
    // CONSTRUCTOR PRIVADO: Nadie desde afuera puede usar 'new ControladorContrasena'
-    private ControladorContrasena(DialogoCambiarContrasena ventana, boolean esRecuperacion, String correoUsuario) {
+    private ControladorContrasena(DialogoCambiarContrasena ventana, NombresTarjetasContrasena tarjetaInicial) {
         this.ventanaContrasena = ventana;
-        this.secuenciaNavegacion = definirSecuencia(esRecuperacion);
-        this.correoUsuario = correoUsuario; 
         
-        inicializarEventosBotones(esRecuperacion);
+        inicializarEventosBotones(tarjetaInicial);
     }
     
     // =========================================================================
@@ -38,101 +33,89 @@ public class ControladorContrasena {
     // =========================================================================
 
     public static void iniciarRecuperacion(JFrame ventanaPadre) {
+        
+        NombresTarjetasContrasena tarjetaInicial = NombresTarjetasContrasena.CORREO;
+        
         // El propio controlador crea la vista que corresponde a la recuperación
         DialogoCambiarContrasena vista = DialogoCambiarContrasena.recuperarContrasena(ventanaPadre);
         
-        // Se auto-instancia usando el constructor privado (esRecuperacion = true, correo = null)
-        ControladorContrasena controlador = new ControladorContrasena(vista, true, null);
+        // Se auto-instancia usando el constructor privado 
+        ControladorContrasena controlador = new ControladorContrasena(vista, tarjetaInicial);
         
         // Muestra la ventana
         // Ejecutamos el controlador para que muestre el dialogo, es necesario hacerlo asi
         // por que un jdialog bloquea todas las demas ejecuciones, primero que el controlador
         // asigne los eventos de escucha de los botones y ahi si mostrar el dialogo
-        controlador.iniciar();
+        controlador.iniciar(tarjetaInicial);
     }
     
-    public static void iniciarCambio(JFrame ventanaPadre, String correoUsuario) {
-        if(correoUsuario == null || correoUsuario.trim().isEmpty()){
-            throw new IllegalArgumentException("\nSe requiere especificar el correo para cambiar la contraseña.\n");
-        }
+    public static void iniciarCambio(JFrame ventanaPadre) {
+        //Cuando es para cambiar la contraseña se tomara el id almacenado en ModeloSesionUsuario
+        
+        NombresTarjetasContrasena tarjetaInicial = NombresTarjetasContrasena.CONTRASENA_ANTIGUA;
         
         // El propio controlador crea la vista que corresponde al cambio
         DialogoCambiarContrasena vista = DialogoCambiarContrasena.cambiarContrasena(ventanaPadre);
         
-        // Se auto-instancia (esRecuperacion = false)
-        ControladorContrasena controlador = new ControladorContrasena(vista, false, correoUsuario);
+        // Se auto-instancia 
+        ControladorContrasena controlador = new ControladorContrasena(vista, tarjetaInicial );
         
-        controlador.iniciar();
+        controlador.iniciar(tarjetaInicial);
     }
 
     // =========================================================================
     
     
     // Un método explícito para arrancar el flujo
-    public void iniciar() {
-        ventanaContrasena.mostrarTarjeta(secuenciaNavegacion.get(0));
+    public void iniciar(NombresTarjetasContrasena tarjetaInicial) {
+        ventanaContrasena.mostrarTarjeta(tarjetaInicial);
         ventanaContrasena.mostrarDialogo(); // Se hace visible HASTA AHORA
     }
     
     
-    // Regla de negocio: ¿Cuál es la secuencia?
-    private ArrayList<TarjetasRecuperacion> definirSecuencia(boolean esRecuperacion) {
-        if (esRecuperacion) {
-            return new ArrayList<>(Arrays.asList(
-                TarjetasRecuperacion.CORREO, 
-                TarjetasRecuperacion.CODIGO, 
-                TarjetasRecuperacion.CONTRASENA_NUEVA
-            ));
-        } else {
-            return new ArrayList<>(Arrays.asList(
-                TarjetasRecuperacion.CONTRASENA_ANTIGUA, 
-                TarjetasRecuperacion.CONTRASENA_NUEVA
-            ));
-        }
-    }
-    
-    private void inicializarEventosBotones(boolean esRecuperacion) {
-        if (esRecuperacion) {
-            ventanaContrasena.getBtnEnviarCodigo().addActionListener( e -> {
-                                realizarPaso(TarjetasRecuperacion.CORREO);}
+    private void inicializarEventosBotones(NombresTarjetasContrasena tarjetaInicial) {
+        
+        if (  tarjetaInicial == NombresTarjetasContrasena.CORREO  ) {
+            ventanaContrasena.getBtnEnviarCodigo().addActionListener(e -> {
+                                procesarPaso(NombresTarjetasContrasena.CORREO);}
             );
-            ventanaContrasena.getBtnConfirmarCodigo().addActionListener( e -> {
-                                realizarPaso(TarjetasRecuperacion.CODIGO);}
+            ventanaContrasena.getBtnConfirmarCodigo().addActionListener(e -> {
+                                procesarPaso(NombresTarjetasContrasena.CODIGO);}
             );
         } else {
-            ventanaContrasena.getBtnConfirmarContrasenaAntigua().addActionListener( e -> {
-                                realizarPaso(TarjetasRecuperacion.CONTRASENA_ANTIGUA);}
+            ventanaContrasena.getBtnConfirmarContrasenaAntigua().addActionListener(e -> {
+                                procesarPaso(NombresTarjetasContrasena.CONTRASENA_ANTIGUA);}
             );
         }
         
-        ventanaContrasena.getBtnCambiarContrasena().addActionListener( e -> {
-                                realizarPaso(TarjetasRecuperacion.CONTRASENA_NUEVA);}
+        ventanaContrasena.getBtnCambiarContrasena().addActionListener(e -> {
+                                procesarPaso(NombresTarjetasContrasena.CONTRASENA_NUEVA);}
         );
 
     }
     
     
-    private void realizarPaso( TarjetasRecuperacion tarjeta ){
+    private void procesarPaso( NombresTarjetasContrasena tarjeta ){
 
-        if(!ventanaContrasena.ejecutarValidacionCampos(tarjeta)){
+        if(!ventanaContrasena.ejecutarValidacionFormulario(tarjeta)){
             DialogoMensajePersonalizado.mostrarErrorFormatoCampos(ventanaContrasena);
             return;
         }
         
-        HashMap<String, String> formulario = ventanaContrasena.recolectarDatosFormulario(tarjeta);
+        HashMap<String, String> datosFormulario = ventanaContrasena.recolectarDatosFormulario(tarjeta);
         
         switch (tarjeta) {
             case CORREO:
-                procesarCorreoEnBD(formulario.get("correo"));
+                procesarCorreoEnBD(datosFormulario.get("correo"));
                 break;
             case CODIGO:
-                procesarCodigo(formulario.get("codigo"));
+                procesarCodigo(datosFormulario.get("codigo"));
                 break;
             case CONTRASENA_ANTIGUA:
-                procesarContrasenaAntiguaEnBD(formulario.get("contrasena"));
+                procesarContrasenaAntiguaEnBD(datosFormulario.get("contrasena"));
                 break;
             case CONTRASENA_NUEVA:
-                procesarCambioContrasenaEnBD(formulario);
+                procesarCambioContrasenaEnBD(datosFormulario);
                 break;
         }
     
@@ -148,13 +131,13 @@ public class ControladorContrasena {
         
         if (correoExiste) {
             // TODO: Enviar código al correo
-            avanzarSiguienteTarjeta(TarjetasRecuperacion.CORREO);
+            avanzarSiguienteTarjeta(NombresTarjetasContrasena.CODIGO);
         } else {
             // Armamos el diccionario de errores como respondería el backend
             HashMap<String, String> erroresBackend = new HashMap<>();
             erroresBackend.put("correo", "No se encuentra registrado.");
             
-            mostrarErrorRespuestaBD(TarjetasRecuperacion.CORREO, erroresBackend);
+            mostrarErrorRespuestaBD(NombresTarjetasContrasena.CORREO, erroresBackend);
         }
         
     }
@@ -169,13 +152,13 @@ public class ControladorContrasena {
         boolean codigoCoincide = true; 
         
         if (codigoCoincide) {
-            avanzarSiguienteTarjeta(TarjetasRecuperacion.CODIGO);
+            avanzarSiguienteTarjeta(NombresTarjetasContrasena.CONTRASENA_NUEVA);
         } else {
             // Armamos el diccionario de errores como respondería el backend
             HashMap<String, String> erroresBackend = new HashMap<>();
             erroresBackend.put("codigo", "El codigo no coincide.");
             
-            mostrarErrorRespuestaBD(TarjetasRecuperacion.CODIGO, erroresBackend);
+            mostrarErrorRespuestaBD(NombresTarjetasContrasena.CODIGO, erroresBackend);
         }
         
     }
@@ -190,13 +173,13 @@ public class ControladorContrasena {
         boolean contrasenaValida = true; 
         
         if (contrasenaValida) {
-            avanzarSiguienteTarjeta(TarjetasRecuperacion.CONTRASENA_ANTIGUA);
+            avanzarSiguienteTarjeta(NombresTarjetasContrasena.CONTRASENA_NUEVA);
         } else {
             // Armamos el diccionario de errores como respondería el backend
             HashMap<String, String> erroresBackend = new HashMap<>();
             erroresBackend.put("contrasena", "La contraseña no coincide");
             
-            mostrarErrorRespuestaBD(TarjetasRecuperacion.CONTRASENA_ANTIGUA, erroresBackend);
+            mostrarErrorRespuestaBD(NombresTarjetasContrasena.CONTRASENA_ANTIGUA, erroresBackend);
         }
         
     }
@@ -218,25 +201,19 @@ public class ControladorContrasena {
             HashMap<String, String> erroresBackend = new HashMap<>();
             erroresBackend.put("contrasenaNueva", "Invalida");
             
-            mostrarErrorRespuestaBD(TarjetasRecuperacion.CONTRASENA_NUEVA, erroresBackend);
+            mostrarErrorRespuestaBD(NombresTarjetasContrasena.CONTRASENA_NUEVA, erroresBackend);
         }
         
     }
     
     
-    private void avanzarSiguienteTarjeta(TarjetasRecuperacion tarjetaActual) {
-        int indiceActual = secuenciaNavegacion.indexOf(tarjetaActual);
-        
-        // Verificamos que no estemos en la última tarjeta
-        if (indiceActual < secuenciaNavegacion.size() - 1) {
-            TarjetasRecuperacion siguienteTarjeta = secuenciaNavegacion.get(indiceActual + 1);
-            ventanaContrasena.mostrarTarjeta(siguienteTarjeta);
-        }
+    private void avanzarSiguienteTarjeta(NombresTarjetasContrasena siguienteTarjeta) {
+        ventanaContrasena.mostrarTarjeta(siguienteTarjeta);
     }
     
     
     
-    private void mostrarErrorRespuestaBD(TarjetasRecuperacion tarjeta, HashMap<String, String> erroresBackend ){
+    private void mostrarErrorRespuestaBD(NombresTarjetasContrasena tarjeta, HashMap<String, String> erroresBackend ){
         // Le pasamos el error al ValidadorFormulario para que pinte el o los JLabel
         ventanaContrasena.mostrarErrorRespuestaBD(tarjeta, erroresBackend);
 
