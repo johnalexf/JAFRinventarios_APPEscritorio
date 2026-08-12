@@ -78,16 +78,16 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     private void inyectarCamposAFormularios(NombresTarjetasContrasena tarjetaInicial){
         
         if( tarjetaInicial == NombresTarjetasContrasena.CONTRASENA_ANTIGUA ){
-            formularioContrasenaAntigua.agregarCampo(
+            formularioContrasenaAntigua.agregarCampoTexto(
                     inputContrasenaAntigua, lblErrorInputContrasenaAntigua, TipoDatoFormulario.REQUERIDO, true);
         }else{
-            formularioCorreo.agregarCampo(
+            formularioCorreo.agregarCampoTexto(
                     inputCorreo, lblErrorInputCorreo, TipoDatoFormulario.CORREO, true);
-            formularioCodigo.agregarCampo(
+            formularioCodigo.agregarCampoTexto(
                     inputConfirmarCodigo, lblErrorInputConfirmarCodigo, TipoDatoFormulario.CODIGO, true);
         }
         
-        formularioContrasenaNueva.agregarCampo(
+        formularioContrasenaNueva.agregarCampoTexto(
                 inputContrasenaNueva, lblErrorInputContrasenaNueva, TipoDatoFormulario.CONTRASENA, true);
         formularioContrasenaNueva.agregarCampoConfirmarContrasena(
                 inputConfirmarContrasenaNueva, inputContrasenaNueva, lblErrorInputConfirmarContrasenaNueva);

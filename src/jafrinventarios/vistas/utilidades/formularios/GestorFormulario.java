@@ -36,7 +36,7 @@ public class GestorFormulario {
     Metodo para agregar campos que permitan obtener el texto con getText
     dentro de su propia caja
     */ 
-    public void agregarCampo( 
+    public void agregarCampoTexto( 
             JTextComponent input, 
             JLabel lblError, 
             TipoDatoFormulario tipoDato, 

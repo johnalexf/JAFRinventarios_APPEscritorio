@@ -56,37 +56,37 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private void inyectarCamposAFormulario(){
         
         // Campos Nombre completo
-        formularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampoTexto(
                 inputPrimerNombre, lblErrorInputPrimerNombre, 
                 TipoDatoFormulario.NOMBRE, true);
-        formularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampoTexto(
                 inputSegundoNombre, lblErrorInputSegundoNombre, 
                 TipoDatoFormulario.NOMBRE, false);
-        formularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampoTexto(
                 inputPrimerApellido, lblErrorInputPrimerApellido, 
                 TipoDatoFormulario.NOMBRE, true);
-        formularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampoTexto(
                 inputSegundoApellido, lblErrorInputSegundoApellido, 
                 TipoDatoFormulario.NOMBRE, false);
         
         //Campos Datos de contacto
-        formularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampoTexto(
                 inputTelefono, lblErrorInputTelefono, 
                 TipoDatoFormulario.TELEFONO, true);
-        formularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampoTexto(
                 inputCorreo, lblErrorInputCorreo, 
                 TipoDatoFormulario.CORREO, true);
         
         //Campos credenciales de acceso
-        formularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampoTexto(
                 inputAlias, lblErrorInputAlias, 
                 TipoDatoFormulario.ALIAS, true);
-        formularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampoTexto(
                 inputContrasena, lblErrorInputContrasena, 
                 TipoDatoFormulario.CONTRASENA, true);
         formularioRegistro.agregarCampoConfirmarContrasena(
                 inputConfirmarContrasena, inputContrasena, lblErrorInputConfirmarContrasena);
-        formularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampoTexto(
                 inputCodigo, lblErrorInputCodigo, 
                 TipoDatoFormulario.CODIGO, true);
         
@@ -1083,7 +1083,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         
         //Inyectar o Eliminar Campo datos de la empresa a camposFormularioRegistro
         if(mostrar){
-            formularioRegistro.agregarCampo(
+            formularioRegistro.agregarCampoTexto(
                 inputNombreComercial, lblErrorInputNombreComercial, 
                 TipoDatoFormulario.NOMBRE, true);
         }else{

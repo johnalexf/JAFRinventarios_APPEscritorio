@@ -127,27 +127,27 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     private void agregarCamposNombreCompleto(boolean esAdministrador){
         
         if(esAdministrador){
-            formularioDatosUsuario.agregarCampo( inputPrimerNombre, 
+            formularioDatosUsuario.agregarCampoTexto( inputPrimerNombre, 
                                               lblErrorInputPrimerNombre, 
                                               TipoDatoFormulario.NOMBRE, 
                                               true);
 
-            formularioDatosUsuario.agregarCampo( inputSegundoNombre, 
+            formularioDatosUsuario.agregarCampoTexto( inputSegundoNombre, 
                                               lblErrorInputSegundoNombre, 
                                               TipoDatoFormulario.NOMBRE, 
                                               false);
 
-            formularioDatosUsuario.agregarCampo( inputPrimerApellido, 
+            formularioDatosUsuario.agregarCampoTexto( inputPrimerApellido, 
                                               lblErrorInputPrimerApellido, 
                                               TipoDatoFormulario.NOMBRE, 
                                               true);
 
-            formularioDatosUsuario.agregarCampo( inputSegundoApellido, 
+            formularioDatosUsuario.agregarCampoTexto( inputSegundoApellido, 
                                               lblErrorInputSegundoApellido, 
                                               TipoDatoFormulario.NOMBRE, 
                                               false);
         }else{
-            formularioDatosUsuario.agregarCampo(   inputNombreCompleto, 
+            formularioDatosUsuario.agregarCampoTexto(   inputNombreCompleto, 
                                             null, 
                                             TipoDatoFormulario.NOMBRE, 
                                             false
@@ -157,12 +157,12 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
 
     
     private void agregarCamposDatosContacto(){
-        formularioDatosUsuario.agregarCampo( inputTelefono, 
+        formularioDatosUsuario.agregarCampoTexto( inputTelefono, 
                                           lblErrorInputTelefono, 
                                           TipoDatoFormulario.TELEFONO, 
                                           true);
         
-        formularioDatosUsuario.agregarCampo( inputCorreo, 
+        formularioDatosUsuario.agregarCampoTexto( inputCorreo, 
                                           lblErrorInputCorreo, 
                                           TipoDatoFormulario.CORREO, 
                                           true);
@@ -170,7 +170,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     }
     
     private void agregarCampoAlias(){
-        formularioDatosUsuario.agregarCampo( inputAlias, 
+        formularioDatosUsuario.agregarCampoTexto( inputAlias, 
                                           lblErrorInputAlias, 
                                           TipoDatoFormulario.ALIAS, 
                                           true);

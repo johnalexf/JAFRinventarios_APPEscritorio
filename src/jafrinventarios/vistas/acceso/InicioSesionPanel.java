@@ -29,12 +29,12 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         MostrarOcultarContrasena.agregarFuncionalidad(inputContrasena, btnMostrarOcultarContrasena);
         
         // Agregar campos al gestionador de formulario
-        formularioIngreso.agregarCampo(
+        formularioIngreso.agregarCampoTexto(
                                             inputCorreo, 
                                             lblErrorInputCorreo, 
                                             TipoDatoFormulario.CORREO, 
                                             true);
-        formularioIngreso.agregarCampo(
+        formularioIngreso.agregarCampoTexto(
                                             inputContrasena, 
                                             lblErrorInputContrasena, 
                                             TipoDatoFormulario.REQUERIDO, 
