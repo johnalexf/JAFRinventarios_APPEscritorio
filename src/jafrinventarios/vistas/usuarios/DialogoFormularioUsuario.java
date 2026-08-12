@@ -885,6 +885,11 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
     // =======================================================
 
+    public void setId( String id ){
+        lblDatoID.setText(id);
+    }
+    
+    
     //Exponer inicializar el combo box esperando la lista de roles a asignar
     public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {
         

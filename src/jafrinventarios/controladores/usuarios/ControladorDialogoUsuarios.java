@@ -27,33 +27,30 @@ public class ControladorDialogoUsuarios {
     
     private String mensajeExitoso;
 
-    
+     // CONSTRUCTOR PRIVADO: Nadie desde afuera puede usar
     private ControladorDialogoUsuarios(
             DialogoFormularioUsuario dialogoUsuario, 
             DialogoFormularioUsuario.TipoDialogo tipoDialogo,
-            boolean esAdminsitrador
-        ) 
-    {
+            boolean esAdminsitrador,
+            int idUsuario ){
         
         this.dialogoUsuario = dialogoUsuario;
+        //Para pruebas se dejara esAdministrador como parametro del contralador
+        //this.esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
         this.esAdministrador = esAdminsitrador;
         this.tipoDialogo = tipoDialogo;
+        this.idUsuario = idUsuario;
         
-        //TODO hacer la logica respectiva para separar si es el id del usuario registrado o de otro usuario a modificar en gestion de usuarios
-        this.idUsuario = ModeloSesionUsuario.getInstancia().getIdUsuario();
-        
-        
-         if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO){
+        if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO){
              inicializarComboBoxRoles();
-         }
+        }
         
         
         if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO){
             cargarDatos(tipoDialogo);
             mensajeExitoso = "El usuario se ha actualizado correctamente";
         }else{
-            mensajeExitoso = "Usuario creado correctamente \n La contraseña se le envia al usuario por correo";
-            
+            mensajeExitoso = "Usuario creado correctamente \n La contraseña se le envia al usuario por correo"; 
         }
         
         inicializarEventosBotones();
@@ -62,26 +59,77 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    public static void crear(JFrame ventanaPadre, DialogoFormularioUsuario.TipoDialogo tipoDialogo, boolean esAdministrador){
+    // =========================================================================
+    // METODOS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
+    // =========================================================================
+    
+    public static void editarPerfil(JFrame ventanaPadre, boolean esAdministrador){
         
-        //Para pruebas se dejara esAdministrador como parametro de la funcion crear
+        //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
         //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
     
         DialogoFormularioUsuario dialogoUsuario = 
                 new DialogoFormularioUsuario( ventanaPadre,
-                                              tipoDialogo,
+                                              DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO,
                                               esAdministrador
                 );
         
-        new ControladorDialogoUsuarios(dialogoUsuario, tipoDialogo, esAdministrador);
+        new ControladorDialogoUsuarios( dialogoUsuario, 
+                                        DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO, 
+                                        esAdministrador,
+                                        ModeloSesionUsuario.getInstancia().getIdUsuario()
+        );
         
     }
+    
+    
+    public static void editarOtroUsuario(JFrame ventanaPadre, int idUsuario){
+        
+        //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
+        //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
+    
+        DialogoFormularioUsuario dialogoUsuario = 
+                new DialogoFormularioUsuario( ventanaPadre,
+                                              DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO,
+                                              true
+                );
+        
+        new ControladorDialogoUsuarios( dialogoUsuario, 
+                                        DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO, 
+                                        true,
+                                        idUsuario
+        );
+        
+    }
+    
+    
+    public static void crearUsuario(JFrame ventanaPadre){
+        
+        //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
+        //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
+    
+        DialogoFormularioUsuario dialogoUsuario = 
+                new DialogoFormularioUsuario( ventanaPadre,
+                                              DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO,
+                                              true
+                );
+        
+        new ControladorDialogoUsuarios( dialogoUsuario, 
+                                        DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO, 
+                                        true,
+                                        -1
+        );
+        
+    }
+        
+    //======================================================================== 
+        
     
     
     private void cargarDatos(DialogoFormularioUsuario.TipoDialogo tipoDialogo){
         
         if(tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO){
-            //TODO asignar el id al formulario
+            dialogoUsuario.setId( Integer.toString(idUsuario) );
         }
         
         //Simluacion consulta a la base de datos para saber la informacion del usuario
@@ -94,7 +142,7 @@ public class ControladorDialogoUsuarios {
         datosBD.put("telefono", "3202173409");
         datosBD.put("correo", "john@gmail.com");
         /*
-        TODO Se pretende crear una funcion en el modelo que devuelva toda la informacion
+        TODO Se pretende editarUsuario una funcion en el modelo que devuelva toda la informacion
              sin la contreña, y complementando el campo nombreCompleto, inicialmente
              aun que se podria evaluar para que solo entregue la informacion necesaria
              en el momento a llegar a implementar se tomara dicha decision.
@@ -148,7 +196,7 @@ public class ControladorDialogoUsuarios {
                 //TODO: Consultar para editar perfil propio
                 break;
             case CREAR_NUEVO_USUARIO:
-                //TODO: Consultar para crear nuevo usuario
+                //TODO: Consultar para editarUsuario nuevo usuario
                 // La contraseña se envia por correo al nuevo usuario
                 break;
         }

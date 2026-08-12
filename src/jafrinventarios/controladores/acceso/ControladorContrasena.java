@@ -8,8 +8,6 @@ package jafrinventarios.controladores.acceso;
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import javax.swing.JFrame;
 

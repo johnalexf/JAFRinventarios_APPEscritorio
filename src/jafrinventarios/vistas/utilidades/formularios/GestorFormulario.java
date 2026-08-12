@@ -112,7 +112,7 @@ public class GestorFormulario {
             // Esto detiene la ejecución del programa inmediatamente (Fail-Fast)
             // y te muestra en la consola exactamente qué componente falló.
             throw new IllegalArgumentException(
-                "\n\n Error en agregar campo a validadorFormulario: "
+                "\n\n Error en agregar campo a GestorFormulario: "
                 + "\n El componente de tipo " 
                 + componente.getClass().getSimpleName() 
                 + " no tiene un 'name' configurado. "

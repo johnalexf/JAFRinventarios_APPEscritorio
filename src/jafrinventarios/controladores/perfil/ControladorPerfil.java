@@ -66,11 +66,11 @@ public class ControladorPerfil {
     private void procesarEdicionUsuario(){
         JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(moduloPerfil);
         
-        //TODO crear el controlador, por el momento se mantienen estas lineas de codigo para hacer pruebas
-        ControladorDialogoUsuarios.crear(ventanaPadre, DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO, true);
-        ControladorDialogoUsuarios.crear(ventanaPadre, DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO, false);
-        ControladorDialogoUsuarios.crear(ventanaPadre, DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO, true);
-        ControladorDialogoUsuarios.crear(ventanaPadre, DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO, true);
+        //TODO editarUsuario el controlador, por el momento se mantienen estas lineas de codigo para hacer pruebas
+        ControladorDialogoUsuarios.editarPerfil(ventanaPadre, true);
+        ControladorDialogoUsuarios.editarPerfil(ventanaPadre, false);
+        ControladorDialogoUsuarios.editarOtroUsuario(ventanaPadre, 20);
+        ControladorDialogoUsuarios.crearUsuario(ventanaPadre);
 
     }
     
