@@ -892,7 +892,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
                 comboBoxRolUsuario,
                 "Tipo de Usuario",
                 rolesDeBD, 
-                null, 
+                lblErrorComboBoxRolUsuario, 
                 true);
         
     }

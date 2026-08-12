@@ -227,8 +227,12 @@ public class GestorFormulario {
         if(!datosBD.isEmpty()){
             
            datosBD.entrySet().forEach( dato -> {
-               CampoGestionable campo = listaCamposFormulario.get(dato.getKey());
-               campo.setValorComponente(dato.getValue());
+                if(listaCamposFormulario.containsKey(dato.getKey())){
+                    CampoGestionable campo = listaCamposFormulario.get(dato.getKey());
+                    campo.setValorComponente(dato.getValue());
+                }else{
+                    System.out.println("El campo con atributo name \"" + dato.getKey() + "\" No esta en el formulario");
+                }
            });
         
         }

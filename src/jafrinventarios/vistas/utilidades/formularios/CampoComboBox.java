@@ -103,7 +103,11 @@ public class CampoComboBox extends CampoGestionable{
             comboBox.setSelectedIndex(0);
         } else {
             // Swing busca el texto exacto dentro del ComboBox y lo selecciona
-            comboBox.setSelectedItem(valor);
+            if(listaOpcionesConId.containsKey(valor)){
+                comboBox.setSelectedItem(valor);
+            }else{
+                System.out.println("El valor \"" + valor + "\" No esta en el comboBox " + concepto );
+            }
         }
     }
     

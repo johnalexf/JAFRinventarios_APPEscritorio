@@ -258,6 +258,22 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
     
     }
     
+    
+    public static void mostrarExito(Window ventanaPadre, 
+                                    String titulo, 
+                                    String mensaje){
+    
+        mostrar(
+                    ventanaPadre,
+                    titulo, 
+                    mensaje,
+                    IconosDialogosMensajePersonalizado.EXITO, 
+                    false
+            );
+    
+    }
+    
+    
     private void configurarContenidoDialogo( 
                                 String titulo, 
                                 String mensaje, 
