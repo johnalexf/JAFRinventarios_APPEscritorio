@@ -6,6 +6,7 @@
 package jafrinventarios.controladores.perfil;
 
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
+import jafrinventarios.controladores.usuarios.ControladorDialogoUsuarios;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
 import jafrinventarios.vistas.perfil.PerfilPanel;
@@ -66,15 +67,11 @@ public class ControladorPerfil {
         JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(moduloPerfil);
         
         //TODO crear el controlador, por el momento se mantienen estas lineas de codigo para hacer pruebas
-        DialogoFormularioUsuario ModalEditarUsuario;
-        ModalEditarUsuario = DialogoFormularioUsuario.crearDialogoEditarPerfil(ventanaPadre, esAdministrador);
-        ModalEditarUsuario.hacerVisibleDialogo();
-        ModalEditarUsuario = DialogoFormularioUsuario.crearDialogoEditarPerfil(ventanaPadre, false);
-        ModalEditarUsuario.hacerVisibleDialogo();
-         ModalEditarUsuario =  DialogoFormularioUsuario.crearDialogoEditarUsuario(ventanaPadre);
-        ModalEditarUsuario.hacerVisibleDialogo();
-         ModalEditarUsuario =  DialogoFormularioUsuario.crearDialogoNuevoUsuario(ventanaPadre);
-        ModalEditarUsuario.hacerVisibleDialogo();
+        ControladorDialogoUsuarios.crear(ventanaPadre, DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO, true);
+        ControladorDialogoUsuarios.crear(ventanaPadre, DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO, false);
+        ControladorDialogoUsuarios.crear(ventanaPadre, DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO, true);
+        ControladorDialogoUsuarios.crear(ventanaPadre, DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO, true);
+
     }
     
 }

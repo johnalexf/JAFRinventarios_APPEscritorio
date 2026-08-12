@@ -22,7 +22,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     /*
       Objeto enum auxiliar para mejorar la legibilidad del codigo
     */
-    private static enum ModoDialogo {
+    public static enum TipoDialogo {
         EDITAR_PERFIL_PROPIO,
         EDITAR_OTRO_USUARIO,
         CREAR_NUEVO_USUARIO
@@ -33,8 +33,8 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     /*
       Constructor privado para forzar el uso de los métodos estáticos
     */
-    private DialogoFormularioUsuario(   Window parent, 
-                                        ModoDialogo modo, 
+    public DialogoFormularioUsuario(   Window parent, 
+                                        TipoDialogo modo, 
                                         boolean esAdministrador ) {
         
         super(parent);
@@ -175,26 +175,6 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
                                           TipoDatoFormulario.ALIAS, 
                                           true);
     }
-    
-        
-    // ===============================================================
-    // MÉTODOS ESTATICOS PARA CONTROLAR LA FORMA DE ARMAR EL DIALOGO
-    // ===============================================================
-    
-
-    public static DialogoFormularioUsuario crearDialogoEditarPerfil(Window parent, boolean esAdministrador){
-        return new DialogoFormularioUsuario(parent, ModoDialogo.EDITAR_PERFIL_PROPIO, esAdministrador);
-    }
-    
-    public static DialogoFormularioUsuario crearDialogoEditarUsuario(Window parent){
-        return new DialogoFormularioUsuario(parent, ModoDialogo.EDITAR_OTRO_USUARIO, true);
-    }
-    
-    public static DialogoFormularioUsuario crearDialogoNuevoUsuario(Window parent){
-        return new DialogoFormularioUsuario(parent, ModoDialogo.CREAR_NUEVO_USUARIO, true); 
-    }
-    
-
 
     
     /**
