@@ -27,7 +27,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         CREAR_NUEVO_USUARIO
     }
     
-    private GestorFormulario formularioValidador;
+    private GestorFormulario formularioDatosUsuario;
     
     /*
       Constructor privado para forzar el uso de los métodos estáticos
@@ -39,7 +39,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         super(parent);
         initComponents();
         
-        formularioValidador = new GestorFormulario();
+        formularioDatosUsuario = new GestorFormulario();
         
         switch(modo){
             case EDITAR_PERFIL_PROPIO:
@@ -53,7 +53,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
             break;
         }
         
-        agregarCamposAValidador(esAdministrador);
+        agregarCamposAFormulario(esAdministrador);
         
     }
     
@@ -108,50 +108,60 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     }
     
     
-    private void agregarCamposAValidador(boolean esAdministrador){
+    private void agregarCamposAFormulario(boolean esAdministrador){
         
-        if(esAdministrador){
-            agregarCampoAlias();
-            /*
-                El combo box se agrega desde el controlador por medio de 
-                inicializarComboBoxRoles Cuando sea para gestionar usuarios
-            */
-            agregarCamposNombreCompleto();
-        }
+        agregarCampoAlias();
+        /*
+            El combo box rol se agrega desde el controlador por medio de 
+            inicializarComboBoxRoles Cuando sea para gestionar usuarios
+        */
+        
+        agregarCamposNombreCompleto(esAdministrador);
+        
         agregarCamposDatosContacto();
         
     }
     
     
-    private void agregarCamposNombreCompleto(){
-        formularioValidador.agregarCampo( inputPrimerNombre, 
-                                          lblErrorInputPrimerNombre, 
-                                          TipoDatoFormulario.NOMBRE, 
-                                          true);
+    private void agregarCamposNombreCompleto(boolean esAdministrador){
         
-        formularioValidador.agregarCampo( inputSegundoNombre, 
-                                          lblErrorInputSegundoNombre, 
-                                          TipoDatoFormulario.NOMBRE, 
-                                          true);
-        
-        formularioValidador.agregarCampo( inputPrimerApellido, 
-                                          lblErrorInputPrimerApellido, 
-                                          TipoDatoFormulario.NOMBRE, 
-                                          true);
-        
-        formularioValidador.agregarCampo( inputSegundoApellido, 
-                                          lblErrorInputSegundoApellido, 
-                                          TipoDatoFormulario.NOMBRE, 
-                                          true);
+        if(esAdministrador){
+            formularioDatosUsuario.agregarCampo( inputPrimerNombre, 
+                                              lblErrorInputPrimerNombre, 
+                                              TipoDatoFormulario.NOMBRE, 
+                                              true);
+
+            formularioDatosUsuario.agregarCampo( inputSegundoNombre, 
+                                              lblErrorInputSegundoNombre, 
+                                              TipoDatoFormulario.NOMBRE, 
+                                              false);
+
+            formularioDatosUsuario.agregarCampo( inputPrimerApellido, 
+                                              lblErrorInputPrimerApellido, 
+                                              TipoDatoFormulario.NOMBRE, 
+                                              true);
+
+            formularioDatosUsuario.agregarCampo( inputSegundoApellido, 
+                                              lblErrorInputSegundoApellido, 
+                                              TipoDatoFormulario.NOMBRE, 
+                                              false);
+        }else{
+            formularioDatosUsuario.agregarCampo(   inputNombreCompleto, 
+                                            null, 
+                                            TipoDatoFormulario.NOMBRE, 
+                                            false
+            );
+        }
     }
+
     
     private void agregarCamposDatosContacto(){
-        formularioValidador.agregarCampo( inputTelefono, 
+        formularioDatosUsuario.agregarCampo( inputTelefono, 
                                           lblErrorInputTelefono, 
                                           TipoDatoFormulario.TELEFONO, 
                                           true);
         
-        formularioValidador.agregarCampo( inputCorreo, 
+        formularioDatosUsuario.agregarCampo( inputCorreo, 
                                           lblErrorInputCorreo, 
                                           TipoDatoFormulario.CORREO, 
                                           true);
@@ -159,7 +169,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     }
     
     private void agregarCampoAlias(){
-        formularioValidador.agregarCampo( inputAlias, 
+        formularioDatosUsuario.agregarCampo( inputAlias, 
                                           lblErrorInputAlias, 
                                           TipoDatoFormulario.ALIAS, 
                                           true);
@@ -186,7 +196,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     
     public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {
         
-        formularioValidador.agregarCampoComboBox(
+        formularioDatosUsuario.agregarCampoComboBox(
                 comboBoxRolUsuario,
                 "Tipo de Usuario",
                 rolesDeBD, 
@@ -251,7 +261,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         lblErrorInputSegundoApellido = new javax.swing.JLabel();
         contenedorNombreCompleto = new javax.swing.JPanel();
         labelNombreCompleto = new javax.swing.JLabel();
-        inpuNombreCompleto = new javax.swing.JTextField();
+        inputNombreCompleto = new javax.swing.JTextField();
         contenedorDatosContacto = new javax.swing.JPanel();
         contenedorTituloDatosContacto = new javax.swing.JPanel();
         subtituloDatosContacto = new javax.swing.JLabel();
@@ -684,19 +694,19 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorNombreCompleto.add(labelNombreCompleto, gridBagConstraints);
 
-        inpuNombreCompleto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        inpuNombreCompleto.setText("John Forero");
-        inpuNombreCompleto.setEnabled(false);
-        inpuNombreCompleto.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inpuNombreCompleto.setName("primerNombre"); // NOI18N
-        inpuNombreCompleto.setPreferredSize(new java.awt.Dimension(0, 34));
+        inputNombreCompleto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputNombreCompleto.setText("John Forero");
+        inputNombreCompleto.setEnabled(false);
+        inputNombreCompleto.setMargin(new java.awt.Insets(4, 10, 4, 10));
+        inputNombreCompleto.setName("nombreCompleto"); // NOI18N
+        inputNombreCompleto.setPreferredSize(new java.awt.Dimension(0, 34));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 3.0;
         gridBagConstraints.weighty = 1.0;
-        contenedorNombreCompleto.add(inpuNombreCompleto, gridBagConstraints);
+        contenedorNombreCompleto.add(inputNombreCompleto, gridBagConstraints);
 
         contenedorEntradaNombreCompleto.add(contenedorNombreCompleto);
 
@@ -932,9 +942,9 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     private javax.swing.JPanel contenedorTituloDatosContacto;
     private javax.swing.JPanel contenedorTituloFormulario;
     private javax.swing.JPanel contenedorTituloNombreCompleto;
-    private javax.swing.JTextField inpuNombreCompleto;
     private javax.swing.JTextField inputAlias;
     private javax.swing.JTextField inputCorreo;
+    private javax.swing.JTextField inputNombreCompleto;
     private javax.swing.JTextField inputPrimerApellido;
     private javax.swing.JTextField inputPrimerNombre;
     private javax.swing.JTextField inputSegundoApellido;
