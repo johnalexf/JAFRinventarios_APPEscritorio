@@ -1,5 +1,5 @@
 /*
-    Esta clase permite crear un objeto que contenga el input de un formulario con
+    Esta clase permite crear un objeto que contenga el inputTexto de un formulario con
     el label que mostrara el error pertinente si llega a ser necesario despues de 
     una validacion, ademas con la asignacion del TipoDatoFormulario y si esObligatorio
     se hacen las respectivas verificaciones si cumple con el tipo de dato esperado
@@ -17,15 +17,15 @@ import javax.swing.event.DocumentListener;
  */
 public class CampoTexto extends CampoGestionable{
     
-    private final JTextComponent input;
+    private final JTextComponent inputTexto;
     private final TipoDatoFormulario tipo;
     private final boolean esObligatorio;
 
     
-    public CampoTexto(JTextComponent input, JLabel lblError, TipoDatoFormulario tipo, boolean esObligatorio) {
-        super(input, lblError);
+    public CampoTexto(JTextComponent inputTexto, JLabel lblError, TipoDatoFormulario tipo, boolean esObligatorio) {
+        super(inputTexto, lblError);
         
-        this.input = input;
+        this.inputTexto = inputTexto;
         this.tipo = tipo;
         this.esObligatorio = esObligatorio;
         
@@ -36,10 +36,10 @@ public class CampoTexto extends CampoGestionable{
     @Override
     protected void asignarValidacionEnTiempoReal(){
     
-        // Escuchamos cualquier cambio que ocurra en el contenido del input.
+        // Escuchamos cualquier cambio que ocurra en el contenido del inputTexto.
         // A diferencia de KeyListener, DocumentListener detecta escritura,
         // borrado, pegado, cortar, deshacer, etc.
-        input.getDocument().addDocumentListener(new DocumentListener() {
+        inputTexto.getDocument().addDocumentListener(new DocumentListener() {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -66,13 +66,13 @@ public class CampoTexto extends CampoGestionable{
     
     @Override
     protected void limpiarCampo(){
-        input.setText("");
+        inputTexto.setText("");
     }
     
    
     private String obtenerTextoInput(){
-        //Eliminamos espacios antes y despues del texto que esta dentro del input
-        return input.getText().trim();
+        //Eliminamos espacios antes y despues del texto que esta dentro del inputTexto
+        return inputTexto.getText().trim();
     }
 
     @Override
@@ -110,6 +110,11 @@ public class CampoTexto extends CampoGestionable{
     @Override
     protected String getValorComponente(){
         return obtenerTextoInput();
+    }
+
+    @Override
+    protected void setValorComponente(String valor) {
+        inputTexto.setText(valor);
     }
 
 

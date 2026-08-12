@@ -215,5 +215,24 @@ public class GestorFormulario {
         }
     }
     
+    /*
+        Metodo para asignar en cada uno de los campos del formulario
+        un valor que viene de un diccionario clave: nameItem , valor: valorItem
+        que viene desde la consulta a la base de datos.
+        Por lo general se pretende usar para modales que permitan editar 
+        informacion de un registro de una determinada tabla.
+    */
+    public void asignarDatos( HashMap<String, String> datosBD ){
+        
+        if(!datosBD.isEmpty()){
+            
+           datosBD.entrySet().forEach( dato -> {
+               CampoGestionable campo = listaCamposFormulario.get(dato.getKey());
+               campo.setValorComponente(dato.getValue());
+           });
+        
+        }
+    }
+    
 
 }

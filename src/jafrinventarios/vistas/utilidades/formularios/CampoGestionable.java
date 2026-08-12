@@ -52,7 +52,7 @@ public abstract class CampoGestionable {
     }
     
     
-        protected void mostrarError(String mensaje) {
+    protected void mostrarError(String mensaje) {
         if (lblError != null) {
             lblError.setText(mensaje);
         }
@@ -79,6 +79,9 @@ public abstract class CampoGestionable {
     
     
     protected abstract String getValorComponente(); 
+    
+    
+    protected abstract void setValorComponente(String valor);
 
 }
 

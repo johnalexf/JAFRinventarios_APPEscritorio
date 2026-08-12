@@ -95,6 +95,11 @@ public class CampoConfirmarContrasena extends CampoGestionable {
         return String.valueOf(inputConfirmarContrasena.getPassword());
     }
 
+    @Override
+    protected void setValorComponente(String valor) {
+        throw new UnsupportedOperationException("El campo confirmar contraseña no soporta asignar un valor."); 
+    }
+
 
 
     

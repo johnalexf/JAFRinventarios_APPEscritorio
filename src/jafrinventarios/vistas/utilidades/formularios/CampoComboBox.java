@@ -95,5 +95,16 @@ public class CampoComboBox extends CampoGestionable{
         return String.valueOf(listaOpcionesConId.get(valorTextual));
         
     }
+
+    @Override
+    protected void setValorComponente(String valor) {
+        // Si el valor es nulo o vacío, seleccionamos la opción por defecto ("Seleccionar...")
+        if (valor == null || valor.trim().isEmpty()) {
+            comboBox.setSelectedIndex(0);
+        } else {
+            // Swing busca el texto exacto dentro del ComboBox y lo selecciona
+            comboBox.setSelectedItem(valor);
+        }
+    }
     
 }
