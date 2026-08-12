@@ -28,12 +28,6 @@ public class AccesoFrame extends javax.swing.JFrame {
         // Forzar que la ventana se abra maximizada ocupando toda la pantalla
         this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         
-        // ==========================================================
-        // CONEXIÓN DE CONTROLADORES
-        // ==========================================================
-        // Le pasamos a los controladores su panel respectivo
-        new jafrinventarios.controladores.acceso.ControladorInicioSesion(this.inicioSesionPanel);
-        new jafrinventarios.controladores.acceso.ControladorRegistroUsuario(this.registroUsuarioPanel);
     }
 
     /**
@@ -278,6 +272,7 @@ public class AccesoFrame extends javax.swing.JFrame {
         intercambiarVistasFormularios(true);
     }//GEN-LAST:event_invitacionRegistrateBtnActionPerformed
 
+    
     private void intercambiarVistasFormularios( boolean mostrarFormularioRegistro ){
         
         /* Como tal cada panel dinamico internamente distribute su contenido con la ayuda de CardLayout
@@ -296,6 +291,19 @@ public class AccesoFrame extends javax.swing.JFrame {
         }
     }
 
+    // =======================================================
+    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    // =======================================================
+    
+    
+    public InicioSesionPanel getInicioSesionPanel(){
+        return inicioSesionPanel;
+    }
+    
+    public RegistroUsuarioPanel getRegistroUsuarioPanel(){
+        return registroUsuarioPanel;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contenedorCuerpo;

@@ -6,6 +6,8 @@
  */
 package jafrinventarios.controladores;
 
+import jafrinventarios.controladores.acceso.ControladorInicioSesion;
+import jafrinventarios.controladores.acceso.ControladorRegistroUsuario;
 import jafrinventarios.controladores.principal.ControladorNavegacionModulos;
 import jafrinventarios.vistas.acceso.AccesoFrame;
 import jafrinventarios.vistas.principal.PrincipalFrame;
@@ -50,8 +52,12 @@ public class ControladorNavegacionGlobal {
         // Creamos la vista
         AccesoFrame vistaAcceso = new AccesoFrame();
         
-        // TO-DO: Aquí instanciamos a futuro el ControladorInicioSesion y ControladorRegistro
-        // entregándoles sus respectivos paneles de esta vistaAcceso.
+        new ControladorInicioSesion(
+                vistaAcceso.getInicioSesionPanel()
+        );
+        new ControladorRegistroUsuario(
+                vistaAcceso.getRegistroUsuarioPanel()
+        );
         
         // Actualizamos cuál es la ventana activa y la mostramos
         asignarYMostrarVentanaActual(vistaAcceso);
