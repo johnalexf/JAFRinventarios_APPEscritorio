@@ -11,6 +11,7 @@ import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import java.awt.Window;
 import java.util.HashMap;
+import javax.swing.JButton;
 
 /**
  *
@@ -193,17 +194,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         return new DialogoFormularioUsuario(parent, ModoDialogo.CREAR_NUEVO_USUARIO, true); 
     }
     
-    
-    public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {
-        
-        formularioDatosUsuario.agregarCampoComboBox(
-                comboBoxRolUsuario,
-                "Tipo de Usuario",
-                rolesDeBD, 
-                null, 
-                true);
-        
-    }
+
 
     
     /**
@@ -909,7 +900,53 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         this.dispose();
     }//GEN-LAST:event_cerrarDialogo
 
+    
+    // =======================================================
+    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    // =======================================================
 
+    //Exponer inicializar el combo box esperando la lista de roles a asignar
+    public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {
+        
+        formularioDatosUsuario.agregarCampoComboBox(
+                comboBoxRolUsuario,
+                "Tipo de Usuario",
+                rolesDeBD, 
+                null, 
+                true);
+        
+    }
+    
+    //Exponer botones
+    public JButton getBtnEnviarFormulario(){
+        return btnEnviarFormulario;
+    }
+    
+    public JButton getBtnLinkEditarContrasena(){
+        return btnLinkEditarContrasena;
+    }
+    
+    public JButton getBtnLinkEditarEstadoUsuario(){
+        return btnLinkEditarEstadoUsuario;
+    }
+    
+    
+    //Exponer metodos para gestionar el formulario
+    public boolean validarFormulario(){
+        return formularioDatosUsuario.validar();
+    }
+    
+    public HashMap<String, String> recolectarDatosFormulario(){
+        return formularioDatosUsuario.recolectarDatos();
+    }
+    
+    public void mostrarErrorRespuestaBDEnFormulario( HashMap<String, String> erroresCamposBD ){
+        formularioDatosUsuario.mostrarErrorRespuestaBD(erroresCamposBD);
+    }
+    
+    public void asignarDatosEnFormulario( HashMap<String, String> datosBD ){
+        formularioDatosUsuario.asignarDatos(datosBD);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
