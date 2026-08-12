@@ -38,6 +38,8 @@ public class CampoComboBox extends CampoGestionable{
         this.concepto = concepto;
         
         cargarListaDatosDisponibles();
+        
+        asignarValidacionEnTiempoReal();
     }
     
     
