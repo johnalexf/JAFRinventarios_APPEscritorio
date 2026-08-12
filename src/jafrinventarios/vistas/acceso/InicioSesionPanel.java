@@ -17,24 +17,24 @@ import java.util.HashMap;
  */
 public class InicioSesionPanel extends javax.swing.JPanel {
 
-    private final GestorFormulario camposFormularioIngreso ;
+    private final GestorFormulario formularioIngreso ;
     /**
      * Creates new form InicioSesionPanel
      */
     public InicioSesionPanel() {
-        this.camposFormularioIngreso = new GestorFormulario();
+        this.formularioIngreso = new GestorFormulario();
         initComponents();
         
         DinamismoLink.aplicarEfecto(btnLinkRecuperarContraseña);
         MostrarOcultarContrasena.agregarFuncionalidad(inputContrasena, btnMostrarOcultarContrasena);
         
         // Agregar campos al validador
-        camposFormularioIngreso.agregarCampo(
+        formularioIngreso.agregarCampo(
                                             inputCorreo, 
                                             lblErrorInputCorreo, 
                                             TipoDatoFormulario.CORREO, 
                                             true);
-        camposFormularioIngreso.agregarCampo(
+        formularioIngreso.agregarCampo(
                                             inputContrasena, 
                                             lblErrorInputContrasena, 
                                             TipoDatoFormulario.REQUERIDO, 
@@ -244,17 +244,17 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     }
 
     // Exponer la validación visual
-    public boolean ejecutarValidacionCampos() {
-        return camposFormularioIngreso.validar();
+    public boolean ejecutarValidacionFormulario() {
+        return formularioIngreso.validar();
     }
     
     // Exponer los datos del formulario en un hash map
     public HashMap<String, String> recolectarDatosFormulario(){
-        return camposFormularioIngreso.recolectarDatos();
+        return formularioIngreso.recolectarDatos();
     }
     
     public void mostrarErrorRespuestaBD(HashMap<String, String> erroresCamposBD ){
-        camposFormularioIngreso.mostrarErrorRespuestaBD(erroresCamposBD);
+        formularioIngreso.mostrarErrorRespuestaBD(erroresCamposBD);
     }
     
 

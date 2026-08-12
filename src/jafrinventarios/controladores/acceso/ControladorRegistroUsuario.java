@@ -55,7 +55,7 @@ public class ControladorRegistroUsuario {
         JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vistaRegistro);
         
         // Delegar a la vista que valide que no haya campos vacíos o con errores
-        if ( !vistaRegistro.ejecutarValidacionCampos() ) {
+        if ( !vistaRegistro.ejecutarValidacionFormulario() ) {
             
             DialogoMensajePersonalizado.mostrarErrorFormatoCampos(ventanaPadre);
             return; // Cortamos la ejecución aquí si hay errores visuales
@@ -76,7 +76,7 @@ public class ControladorRegistroUsuario {
         if ( credencialesValidas ) {
             System.out.println("¡Registro exitoso!");
             
-            vistaRegistro.ejecutarLimpiezaCampos();
+            vistaRegistro.ejecutarLimpiezaFormulario();
             mostrarMensajeRegistroExitoso(ventanaPadre, datosFormulario.get("alias"));
             
             

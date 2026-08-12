@@ -24,7 +24,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         se asigne el mensaje pertinente segun el rol */
     private String mensajeAyudaCodigo;
     
-    private final GestorFormulario camposFormularioRegistro = new GestorFormulario();
+    private final GestorFormulario formularioRegistro = new GestorFormulario();
 
     /**
      * Creates new form RegistroUsuarioPanel
@@ -33,7 +33,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         initComponents();
         mostrarContenedorDatosEmpresa(false);
         
-        inyectarCamposAValidador();
+        inyectarCamposAFormulario();
         
         configurarDinamismoAContrasenas();
         
@@ -53,40 +53,40 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
          
     }
     
-    private void inyectarCamposAValidador(){
+    private void inyectarCamposAFormulario(){
         
         // Campos Nombre completo
-        camposFormularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampo(
                 inputPrimerNombre, lblErrorInputPrimerNombre, 
                 TipoDatoFormulario.NOMBRE, true);
-        camposFormularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampo(
                 inputSegundoNombre, lblErrorInputSegundoNombre, 
                 TipoDatoFormulario.NOMBRE, false);
-        camposFormularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampo(
                 inputPrimerApellido, lblErrorInputPrimerApellido, 
                 TipoDatoFormulario.NOMBRE, true);
-        camposFormularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampo(
                 inputSegundoApellido, lblErrorInputSegundoApellido, 
                 TipoDatoFormulario.NOMBRE, false);
         
         //Campos Datos de contacto
-        camposFormularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampo(
                 inputTelefono, lblErrorInputTelefono, 
                 TipoDatoFormulario.TELEFONO, true);
-        camposFormularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampo(
                 inputCorreo, lblErrorInputCorreo, 
                 TipoDatoFormulario.CORREO, true);
         
         //Campos credenciales de acceso
-        camposFormularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampo(
                 inputAlias, lblErrorInputAlias, 
                 TipoDatoFormulario.ALIAS, true);
-        camposFormularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampo(
                 inputContrasena, lblErrorInputContrasena, 
                 TipoDatoFormulario.CONTRASENA, true);
-        camposFormularioRegistro.agregarCampoConfirmarContrasena(
+        formularioRegistro.agregarCampoConfirmarContrasena(
                 inputConfirmarContrasena, inputContrasena, lblErrorInputConfirmarContrasena);
-        camposFormularioRegistro.agregarCampo(
+        formularioRegistro.agregarCampo(
                 inputCodigo, lblErrorInputCodigo, 
                 TipoDatoFormulario.CODIGO, true);
         
@@ -1034,7 +1034,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
             }           
         }
         
-        camposFormularioRegistro.limpiarErrores();
+        formularioRegistro.limpiarErrores();
     }//GEN-LAST:event_comboBoxRolUsuarioActionPerformed
 
     private void btnAyudaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaCodigoActionPerformed
@@ -1083,11 +1083,11 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         
         //Inyectar o Eliminar Campo datos de la empresa a camposFormularioRegistro
         if(mostrar){
-            camposFormularioRegistro.agregarCampo(
+            formularioRegistro.agregarCampo(
                 inputNombreComercial, lblErrorInputNombreComercial, 
                 TipoDatoFormulario.NOMBRE, true);
         }else{
-            camposFormularioRegistro.eliminarCualquierCampo(inputNombreComercial);
+            formularioRegistro.eliminarCualquierCampo(inputNombreComercial);
         }
 
     }
@@ -1117,7 +1117,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     // Se ha creado dentro del constructor del comboBox una funcion para que cargue el hashmap enviado al comboBox
     public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {
         
-        camposFormularioRegistro.agregarCampoComboBox(
+        formularioRegistro.agregarCampoComboBox(
                 comboBoxRolUsuario,
                 "Tipo de Usuario",
                 rolesDeBD, 
@@ -1132,21 +1132,21 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     }
 
     // Exponer la validación visual
-    public boolean ejecutarValidacionCampos() {
-        return camposFormularioRegistro.validar();
+    public boolean ejecutarValidacionFormulario() {
+        return formularioRegistro.validar();
     }
     
     // Exponer los datos del formulario en un hash map
     public HashMap<String, String> recolectarDatosFormulario(){
-        return camposFormularioRegistro.recolectarDatos();
+        return formularioRegistro.recolectarDatos();
     }
     
     public void mostrarErrorRespuestaBD(HashMap<String, String> erroresCamposBD ){
-        camposFormularioRegistro.mostrarErrorRespuestaBD(erroresCamposBD);
+        formularioRegistro.mostrarErrorRespuestaBD(erroresCamposBD);
     }
     
-    public void ejecutarLimpiezaCampos(){
-        camposFormularioRegistro.limpiarCampos();
+    public void ejecutarLimpiezaFormulario(){
+        formularioRegistro.limpiarCampos();
         mostrarFormularioDesdeInicio();
     }
     
