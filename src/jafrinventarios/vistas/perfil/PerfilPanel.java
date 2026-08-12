@@ -23,7 +23,7 @@ import javax.swing.JFrame;
  */
 public class PerfilPanel extends javax.swing.JPanel {
     
-    private final RellenadorComponentes diccionarioComponentes;
+    private final RellenadorComponentes datosPerfilUsuario;
 
     /**
      * Creates new form moduloInicio
@@ -35,8 +35,8 @@ public class PerfilPanel extends javax.swing.JPanel {
         
         initComponents();
         
-        diccionarioComponentes = new RellenadorComponentes();
-        agregarComponentesADiccionario(esAdministrador);
+        datosPerfilUsuario = new RellenadorComponentes();
+        agregarComponentesADatosPerfil(esAdministrador);
         
         aplicarIconosDesdeEnum();
         aplicarEfectoLinkABotones();
@@ -52,14 +52,14 @@ public class PerfilPanel extends javax.swing.JPanel {
     }
     
     
-    private void agregarComponentesADiccionario(boolean esAdministrador){
-        diccionarioComponentes.agregarComponenteLabel(lblDatoNombreEmpresa);
-        diccionarioComponentes.agregarComponenteLabel(lblDatoNombreUsuario);
-        diccionarioComponentes.agregarComponenteLabel(lblDatoAlias);
-        diccionarioComponentes.agregarComponenteLabel(lblDatoTelefono);
-        diccionarioComponentes.agregarComponenteLabel(lblDatoCorreo);
+    private void agregarComponentesADatosPerfil(boolean esAdministrador){
+        datosPerfilUsuario.agregarComponenteLabel(lblDatoNombreEmpresa);
+        datosPerfilUsuario.agregarComponenteLabel(lblDatoNombreUsuario);
+        datosPerfilUsuario.agregarComponenteLabel(lblDatoAlias);
+        datosPerfilUsuario.agregarComponenteLabel(lblDatoTelefono);
+        datosPerfilUsuario.agregarComponenteLabel(lblDatoCorreo);
         if(esAdministrador){
-            diccionarioComponentes.agregarComponenteTexto(inputCodigo);
+            datosPerfilUsuario.agregarComponenteTexto(inputCodigo);
         }
     }
     
@@ -85,7 +85,7 @@ public class PerfilPanel extends javax.swing.JPanel {
     }
     
     private void personalizarRolNoAdministrador(){
-        //ocultamos el codigo que solo es para un adminsitrador 
+        //ocultamos el input codigo que solo es para un adminsitrador 
         contenedorCodigoAcceso.setVisible(false);
         contenedorPerfil.setPreferredSize(new java.awt.Dimension(800, 400));
         contenedorMenu.setPreferredSize(new java.awt.Dimension(330, 600));
@@ -500,7 +500,7 @@ public class PerfilPanel extends javax.swing.JPanel {
         DialogoMensajePersonalizado.mostrar(
                 (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
                 "Información código de acceso",
-                "Este código usted como administrador se lo puede compartir a sus vendedores para que se puedan registrar personalmente en el aplicativo ",
+                "Con este código usted como administrador se lo puede compartir a sus vendedores para que se puedan registrar personalmente en el aplicativo ",
                 IconosDialogosMensajePersonalizado.INFORMACION,
                 false
                 );
@@ -526,11 +526,11 @@ public class PerfilPanel extends javax.swing.JPanel {
     }
     
     /*
-    datosBD diccionario 
+    Se espera recibir en datosBD un diccionario con:
     clave (name del componente), valor (texto a escribir en el componente)
     */
     public void escribirDatos(HashMap<String, String> datosBD){
-         diccionarioComponentes.escribir(datosBD);
+         datosPerfilUsuario.escribir(datosBD);
     }
     
 
