@@ -25,20 +25,23 @@ public class DinamismoLink {
     private DinamismoLink(JButton boton){
         this.boton = boton;
         
-        limpiarEstilosBoton();
+        aplicarEstilosBase();
         
-        inicializarEventosBoton();
+        inicializarEventos();
     }
     
-    private void limpiarEstilosBoton(){
+    
+    private void aplicarEstilosBase(){
         // Limpiar el botón de estilos por defecto de Swing
         boton.setContentAreaFilled(false);
         boton.setFocusPainted(false);
+        // Aplicar cursor
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         aplicarEstadoNormal();
         
     }
+    
     
     private void aplicarEstadoNormal(){
         if(colorNormal != null){
@@ -51,15 +54,38 @@ public class DinamismoLink {
     }
     
     
-    private void inicializarEventosBoton(){
+    private void inicializarEventos(){
         // Inyectar el dinamismo con los eventos del ratón
         boton.addMouseListener(new MouseAdapter() {
             
             @Override
             public void mouseEntered(MouseEvent e) {
                 colorNormal = boton.getForeground();
-                // El ratón entra: oscurecer texto y pintar un borde inferior (subrayado)
-                Color colorHover = colorNormal.darker();
+                // El ratón entra: oscurece o aclara el texto y pintar un borde inferior (subrayado)
+                
+                // Calcular la luminancia (brillo percibido) del color actual
+                // Fórmula estándar: 0.299*R + 0.587*G + 0.114*B
+                double luminancia = (0.299 * colorNormal.getRed() + 
+                                     0.587 * colorNormal.getGreen() + 
+                                     0.114 * colorNormal.getBlue());
+                
+                Color colorHover;
+                // Si el color es oscuro (luminancia menor a 80), lo aclaramos. Si es claro, lo oscurecemos.
+                if (luminancia < 80) {
+                    // No se utiliza colorNormal.brighter() por que la diferencia no se nota.
+                    // Aclarado manual: Forzamos sumar +45 a cada canal de color
+                    // Math.min asegura que el valor nunca se pase del límite máximo de 255
+                    int r = Math.min(255, colorNormal.getRed() + 80);
+                    int g = Math.min(255, colorNormal.getGreen() + 80);
+                    int b = Math.min(255, colorNormal.getBlue() + 80);
+                    colorHover = new Color(r, g, b);
+                } else {
+                    // Para colores medios y claros, el darker() nativo funciona perfecto
+                    colorHover = colorNormal.darker();
+                    
+                }
+              
+                
                 boton.setForeground(colorHover);
                 boton.setBorderPainted(true);
                 boton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, colorHover));
@@ -88,10 +114,17 @@ public class DinamismoLink {
     }
     
 
-    public static void aplicarEfecto(JButton boton) {
-        
-        new DinamismoLink(boton);
-        
+    /*
+    ============================================================================
+        METODO ESTATICO UNICO PARA DECLARAR LA INTENCION DE ESTA CLASE
+    ============================================================================
+    Al usar esta clase la idea es presentar solo este metodo para que se 
+    entienda que no se espera retornar un objeto si no que el mismo le 
+    aplicara un efecto a un boton de tipo link sin necesidad de instanciarlo
+    desde afuera.
+    */
+    public static void aplicarEfecto(JButton boton) {       
+        new DinamismoLink(boton); 
     }
 
 }
