@@ -11,9 +11,9 @@ import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import java.awt.CardLayout;
+import java.awt.Window;
 import java.util.HashMap;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 /**
  *
@@ -27,17 +27,24 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     private final GestorFormulario formularioContrasenaAntigua = new GestorFormulario();
     private final GestorFormulario formularioContrasenaNueva = new GestorFormulario();
     
-   /*Esta clase permite reducir el codigo para validar, recolectar y mostrar errores 
+   /*
+    ===========================================================================
+        VARIABLE FORMULARIOS EN TARJETAS - RECOLECTOR DE FORMULARIOS
+    ===========================================================================
+    FormulariosEnTarjetas
+    Esta clase permite reducir el codigo para validar, recolectar y mostrar errores 
      de respuesta de la base de datos, en cada uno de los formularios que existen
      por cada tarjeta.
-    */
+   */
     private final FormulariosEnTarjetas formularios = new FormulariosEnTarjetas();
     
     
-    /**
-     * Creates new form DialogoCambiarContrasena
-     */
-    private DialogoCambiarContrasena(JFrame parent, String titulo, NombresTarjetasContrasena tarjetaInicial) {
+    /*
+    ========================================================================================
+        CONSTRUCTOR PRIVADO PARA EVITAR QUE SE CREE SIN SU DEBIDA CONFIGURACION
+    =========================================================================================
+    */
+    private DialogoCambiarContrasena(Window parent, String titulo, NombresTarjetasContrasena tarjetaInicial) {
         super(parent);
         initComponents();
         btnCerrar.setIcon(IconosBotones.CERRAR.getIcono());
@@ -57,12 +64,14 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         //hacerVisibleDialogo();
     }
     
+    
     private void declararIdentificadoresATarjetas(){
         contenedorTarjetas.add(contenedorCorreo, NombresTarjetasContrasena.CORREO.getIdentificador());
         contenedorTarjetas.add(contenedorConfirmarCodigo, NombresTarjetasContrasena.CODIGO.getIdentificador());
         contenedorTarjetas.add(contenedorContrasenaAntigua, NombresTarjetasContrasena.CONTRASENA_ANTIGUA.getIdentificador());
         contenedorTarjetas.add(contenedorContrasenaNueva, NombresTarjetasContrasena.CONTRASENA_NUEVA.getIdentificador());
     }
+    
     
     private void configurarDinamismoAContrasenas(NombresTarjetasContrasena tarjetaInicial){
         
@@ -74,6 +83,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         }
     
     }
+    
     
     private void inyectarCamposAFormularios(NombresTarjetasContrasena tarjetaInicial){
         
@@ -114,7 +124,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         Metodos publicos para controlar la creacion del dialogo segun 
         la necesidad, si es para recuperar o cambiar la contraseña.
     */
-    public static DialogoCambiarContrasena recuperarContrasena(JFrame padreFrame){
+    public static DialogoCambiarContrasena recuperarContrasena(Window padreFrame){
                 
        return new DialogoCambiarContrasena( 
                         padreFrame, 
@@ -125,7 +135,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     }
     
 
-    public static DialogoCambiarContrasena cambiarContrasena(JFrame padreFrame){
+    public static DialogoCambiarContrasena cambiarContrasena(Window padreFrame){
 
         return  new DialogoCambiarContrasena( 
                         padreFrame, 
@@ -243,7 +253,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         btnCerrar.setPreferredSize(new java.awt.Dimension(30, 26));
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarcerrarDialogo(evt);
+                btnCerrarDialogo(evt);
             }
         });
         contenedorBtnCerrar.add(btnCerrar);
@@ -651,14 +661,16 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarcerrarDialogo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarcerrarDialogo
+    private void btnCerrarDialogo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarDialogo
         this.dispose();
-    }//GEN-LAST:event_btnCerrarcerrarDialogo
+    }//GEN-LAST:event_btnCerrarDialogo
    
     
-    // =======================================================
-    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
-    // =======================================================
+    /* 
+    ============================================================================
+                    MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    ============================================================================
+    */
     
     //Exponer evento de hacerVisibleDialogo que viene desde el padre DialgoBaseConSombra
     public void mostrarDialogo(){
@@ -701,10 +713,11 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     }
 
     
-    // ==============================================================
-    // MÉTODO PARA CAMBIAR VISUALIZACION DE LA TARJETA DE FORMULARIO
-    // ==============================================================
-    
+    /*
+    ==========================================================================
+          MÉTODO PARA CAMBIAR VISUALIZACION DE LA TARJETA DE FORMULARIO
+    ==========================================================================
+    */
     public void mostrarTarjeta(NombresTarjetasContrasena tarjeta){
         // Mostramos la tarjeta correspondiente usando el CardLayout original
         layaoutTarjetas.show(contenedorTarjetas, tarjeta.getIdentificador());

@@ -8,8 +8,8 @@ package jafrinventarios.controladores.acceso;
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import java.awt.Window;
 import java.util.HashMap;
-import javax.swing.JFrame;
 
 /**
  *
@@ -19,18 +19,24 @@ public class ControladorContrasena {
     
     private final DialogoCambiarContrasena ventanaContrasena;
     
-   // CONSTRUCTOR PRIVADO: Nadie desde afuera puede usar 'new ControladorContrasena'
-    private ControladorContrasena(DialogoCambiarContrasena ventana, NombresTarjetasContrasena tarjetaInicial) {
+    /*
+    ========================================================================================
+        CONSTRUCTOR PRIVADO PARA EVITAR QUE SE CREE SIN SU DEBIDA CONFIGURACION
+    =========================================================================================
+    */
+    private ControladorContrasena(  DialogoCambiarContrasena ventana, NombresTarjetasContrasena tarjetaInicial) {
         this.ventanaContrasena = ventana;
         
         inicializarEventosBotones(tarjetaInicial);
     }
     
-    // =========================================================================
-    // FÁBRICAS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
-    // =========================================================================
+    /*
+    ========================================================================================
+        FÁBRICAS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
+    =========================================================================================
+    */
 
-    public static void iniciarRecuperacion(JFrame ventanaPadre) {
+    public static void iniciarRecuperacion( Window ventanaPadre ) {
         
         NombresTarjetasContrasena tarjetaInicial = NombresTarjetasContrasena.CORREO;
         
@@ -47,7 +53,8 @@ public class ControladorContrasena {
         controlador.iniciar(tarjetaInicial);
     }
     
-    public static void iniciarCambio(JFrame ventanaPadre) {
+    
+    public static void iniciarCambio( Window ventanaPadre ) {
         //Cuando es para cambiar la contraseña se tomara el id almacenado en ModeloSesionUsuario
         
         NombresTarjetasContrasena tarjetaInicial = NombresTarjetasContrasena.CONTRASENA_ANTIGUA;
@@ -61,7 +68,7 @@ public class ControladorContrasena {
         controlador.iniciar(tarjetaInicial);
     }
 
-    // =========================================================================
+// ========================================================================================
     
     
     // Un método explícito para arrancar el flujo
