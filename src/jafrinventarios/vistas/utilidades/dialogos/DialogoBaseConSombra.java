@@ -52,6 +52,25 @@ public class DialogoBaseConSombra extends JDialog {
         // Recalcular tamaño del dialog segun el tamaño que necesite cada componente interno
         pack();
         
+        /* 
+        ========================================================================
+            AJUSTE DINÁMICO DE ALTURA PARA EVITAR DESBORDAMIENTO
+        ========================================================================
+        */
+        // Obtenemos los límites reales de la pantalla (excluyendo la barra de tareas)
+        java.awt.Rectangle limitesPantalla = java.awt.GraphicsEnvironment
+                                                .getLocalGraphicsEnvironment()
+                                                .getMaximumWindowBounds();
+        
+        // Definimos el alto máximo permitido (dejando un margen total de 100px)
+        int altoMaximo = limitesPantalla.height - 100;
+        
+        // Si el alto calculado por pack() supera nuestro límite, lo reajustamos
+        if (this.getHeight() > altoMaximo) {
+            // Mantenemos el ancho original, pero limitamos la altura
+            this.setSize(this.getWidth(), altoMaximo);
+        }
+        
         definirUbicacionDialogo();
         
         // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
