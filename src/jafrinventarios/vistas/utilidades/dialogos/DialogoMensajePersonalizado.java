@@ -2,6 +2,13 @@
      NOTA: Se decide crear una clase propia que simule un JoptionPane, ya que 
      por defecto esta clase no permite personalizarla y daña completamente
      el estilo que se quiere mantener en toda la aplicacion. 
+
+     Ademas para globalizar los iconos a utilizar se crea un enum dentro del paquete
+     jafrinventarios.vistas.utilidades.iconos
+     Llamada IconosDialogosMensajePersonalizado
+     Desde alli se puede acceder a cada uno de los iconos ya convertidos 
+     en el formato necesario para incrustarlo en este JDialog
+
  */
 package jafrinventarios.vistas.utilidades.dialogos;
 
@@ -19,11 +26,18 @@ import java.util.Map;
  */
 public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
 
-        //La variable Tipo Icono se convirtio en una clase independiente llamada IconosDialogosMnesajePersonalizado
-        private boolean respuesta = false;
-    /**
-     * Creates new form DialogoMensajePersonalizado
-     */
+    /*
+    Variable de respuesta utilizada para cuando se utilicen los dos botones
+    continuar o cancelar
+    */
+    private boolean respuesta = false;
+    
+    
+    /*
+    ========================================================================================
+        CONSTRUCTOR PRIVADO PARA EVITAR QUE SE CREE SIN SU DEBIDA CONFIGURACION
+    =========================================================================================
+    */
     private DialogoMensajePersonalizado(
                                     Window parent, 
                                     String titulo, 
@@ -188,7 +202,11 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
     }//GEN-LAST:event_cerrarDialogo
 
     
-    // Método estático que se podra llamar desde cualquier parte del proyecto
+    /*
+    ===========================================================================
+            METODO ESTATICO PARA ARMAR CUALQUIER TIPO DE MENSAJE
+    ===========================================================================
+    */
     public static boolean mostrar(
                                     Window ventanaPadre, 
                                     String titulo, 
@@ -209,6 +227,11 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
         return dialogo.respuesta;
     }
     
+    /*
+    ===========================================================================
+                   METODO ESTATICO PARA MOSTRAR UN ERROR 
+    ===========================================================================
+    */
     public static void mostrarError(Window ventanaPadre, 
                                     String titulo, 
                                     String mensaje){
@@ -224,6 +247,13 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
     }
     
     
+    /*
+    ===========================================================================
+        METODO ESTATICO PARA MOSTRAR ERROR DE FORMATO DE CAMPOS
+    ===========================================================================
+    Metodo estatico para mostrar un error ya preestablecido con su titulo y mensaje
+    para cuando en un formulario sus campos tengan algun error de tipo de formato o estan vacios
+    */
     public static void mostrarErrorFormatoCampos(Window ventanaPadre){
     
         mostrarError(
@@ -234,6 +264,13 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
     
     }
     
+    /*
+    ===========================================================================
+      METODO ESTATICO PARA MOSTRAR EL ERROR DE RESPUESTA DE LA BASE DE DATOS
+    ===========================================================================
+        Metodo estatico para mostrar el error de cada campo de un formulario
+        segun la respuesta de la base de datos
+    */
     public static void mostrarErrorRespuestaBD(Window ventanaPadre, HashMap<String, String> erroresFormulario){
         
         StringBuilder armadoErrores = new StringBuilder();
@@ -259,6 +296,11 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
     }
     
     
+    /*
+    ===========================================================================
+                METODO ESTATICO PARA MOSTRAR UN MENSAJE DE EXITO
+    ===========================================================================
+    */
     public static void mostrarExito(Window ventanaPadre, 
                                     String titulo, 
                                     String mensaje){
@@ -274,6 +316,54 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
     }
     
     
+    
+    /*
+    ===========================================================================
+       METODO ESTATICO PARA MOSTRAR UN MENSAJE DE ADVERTENCIA CON RESPUESTA
+    ===========================================================================
+    */
+    public static boolean mostrarAdvertenciaConRespuesta(
+                                    Window ventanaPadre, 
+                                    String titulo, 
+                                    String mensaje){
+    
+       return mostrar(
+                        ventanaPadre,
+                        titulo, 
+                        mensaje,
+                        IconosDialogosMensajePersonalizado.ADVERTENCIA, 
+                        true
+                );
+    
+    }
+    
+    
+    /*
+    ===========================================================================
+       METODO ESTATICO PARA MOSTRAR UN MENSAJE DE ADVERTENCIA SIN RESPUESTA
+    ===========================================================================
+    */
+    public static void mostrarAdvertenciaSinRespuesta(
+                                    Window ventanaPadre, 
+                                    String titulo, 
+                                    String mensaje){
+    
+       mostrar(
+                ventanaPadre,
+                titulo, 
+                mensaje,
+                IconosDialogosMensajePersonalizado.ADVERTENCIA, 
+                false
+        );
+    
+    }
+    
+    
+    /*
+    ===========================================================================
+        FUNCION PRIVADA PARA CONFIGURAR EL CONTENIDO DEL DIALOGO
+    ===========================================================================
+    */
     private void configurarContenidoDialogo( 
                                 String titulo, 
                                 String mensaje, 
@@ -286,6 +376,18 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
         mensajeDialogo.setText(empaquetarMensaje(mensaje));
     }
     
+    
+    /*
+    ===========================================================================
+        FUNCION PRIVADA PARA RECIBIR EL MENSAJE Y CONVERTIRLO A HTML
+    ===========================================================================
+    Esta permite determinar segun la longitud del mensaje el ancho que ocupara
+    en el jLabel, para asi poder personalizar el tamaño mismo del JDialog
+    Ademas se aprovecha la funcionalidad de los JLabel para inyectar HTML
+    y que el texto automaticamente haga los saltos de lineas necesarios
+    ya que al incrustar el texto directamente en el JLabel, este no tiene la 
+    capacidad de por si solo hacer dichos saltos.
+    */
     private String empaquetarMensaje(String mensaje){
         
         /*
