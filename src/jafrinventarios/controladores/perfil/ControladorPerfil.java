@@ -66,7 +66,7 @@ public class ControladorPerfil {
     private void procesarEdicionUsuario(){
         JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(moduloPerfil);
         
-        //TODO editarUsuario el controlador, por el momento se mantienen estas lineas de codigo para hacer pruebas
+        //TODO por el momento se mantienen estas lineas de codigo para hacer pruebas
         ControladorDialogoUsuarios.editarPerfil(ventanaPadre, true);
         ControladorDialogoUsuarios.editarPerfil(ventanaPadre, false);
         ControladorDialogoUsuarios.editarOtroUsuario(ventanaPadre, 20);

@@ -31,7 +31,11 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     private GestorFormulario formularioDatosUsuario;
     
     /*
-      Constructor privado para forzar el uso de los métodos estáticos
+    ============================================================================
+                            CONSTRUCTOR PUBLICO
+    ============================================================================
+    El controlador ofrece metodos estaticos para poder establecer con el mismo
+    cuales son los paremetros que sean acorde a la intencion del controlador
     */
     public DialogoFormularioUsuario(   Window parent, 
                                         TipoDialogo modo, 
@@ -881,14 +885,33 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     }//GEN-LAST:event_cerrarDialogo
 
     
-    // =======================================================
-    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
-    // =======================================================
+    
+    /*
+    ============================================================================
+                      MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    ============================================================================
+    */
 
+    
     public void setId( String id ){
         lblDatoID.setText(id);
     }
     
+    
+    public void asignarIntencionBtnEditarEstadoUsuario(boolean esHabilitado){
+        
+        if(esHabilitado){
+            //Si esta habilitado el usuario, se muestra el boton para demostrar
+            //la intencion de poder deshabilitarlo
+            btnLinkEditarEstadoUsuario.setForeground(new java.awt.Color(200, 0, 0));
+            btnLinkEditarEstadoUsuario.setText("Deshabilitar Usuario");
+        }else{
+            btnLinkEditarEstadoUsuario.setForeground(new java.awt.Color(17, 35, 85));
+            btnLinkEditarEstadoUsuario.setText("Habilitar Usuario");
+        }
+        btnLinkEditarEstadoUsuario.repaint();
+        
+    }
     
     //Exponer inicializar el combo box esperando la lista de roles a asignar
     public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {

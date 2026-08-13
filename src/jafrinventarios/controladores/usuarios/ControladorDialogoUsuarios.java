@@ -5,6 +5,7 @@
  */
 package jafrinventarios.controladores.usuarios;
 
+import jafrinventarios.controladores.acceso.ControladorContrasena;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
@@ -26,8 +27,16 @@ public class ControladorDialogoUsuarios {
     private int idUsuario;
     
     private String mensajeExitoso;
+    
+    //TODO esta variable es para pruebas, cuando se conecte la base de datos
+    //se hara la consulta y se eliminara esta variable.
+    private boolean esUsuarioHabilitado = true;
 
-     // CONSTRUCTOR PRIVADO: Nadie desde afuera puede usar
+    /*
+    ============================================================================
+      CONSTRUCTOR PRIVADO PARA EVITAR QUE SE CREE SIN SU DEBIDA CONFIGURACION
+    ============================================================================
+    */
     private ControladorDialogoUsuarios(
             DialogoFormularioUsuario dialogoUsuario, 
             DialogoFormularioUsuario.TipoDialogo tipoDialogo,
@@ -59,10 +68,11 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    // =========================================================================
-    // METODOS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
-    // =========================================================================
-    
+    /*
+    ============================================================================
+     METODOS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
+    ============================================================================
+    */
     public static void editarPerfil(JFrame ventanaPadre, boolean esAdministrador){
         
         //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
@@ -122,7 +132,7 @@ public class ControladorDialogoUsuarios {
         
     }
         
-    //======================================================================== 
+//==============================================================================
         
     
     
@@ -130,6 +140,7 @@ public class ControladorDialogoUsuarios {
         
         if(tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO){
             dialogoUsuario.setId( Integer.toString(idUsuario) );
+            dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario(esUsuarioHabilitado);
         }
         
         //Simluacion consulta a la base de datos para saber la informacion del usuario
@@ -142,10 +153,14 @@ public class ControladorDialogoUsuarios {
         datosBD.put("telefono", "3202173409");
         datosBD.put("correo", "john@gmail.com");
         /*
-        TODO Se pretende editarUsuario una funcion en el modelo que devuelva toda la informacion
-             sin la contreña, y complementando el campo nombreCompleto, inicialmente
-             aun que se podria evaluar para que solo entregue la informacion necesaria
-             en el momento a llegar a implementar se tomara dicha decision.
+        TODO Se pretende crear una funcion en el modelo que devuelva toda la informacion
+        de un usuario sin la contreña, y complementando el campo nombreCompleto, 
+        inicialmente esta funcion se utilizara para las tres diferentes posibilidades
+        que son, editar perfil de administrador o de vendedor y editar otro usuario
+        aun que se podria evaluar para que solo entregue la informacion necesaria
+        dependiendo de la circunstancia, en el momento a llegar a implementar dicha
+        funcion, se tomara la dicision si el tiempo amerita a crear una funcion o funciones
+        mas especificas.
         */
 
         dialogoUsuario.asignarDatosEnFormulario(datosBD);
@@ -169,8 +184,15 @@ public class ControladorDialogoUsuarios {
     
      // Activar eventos de escucha de clic en los botones
     private void inicializarEventosBotones() {
-        
         dialogoUsuario.getBtnEnviarFormulario().addActionListener(e -> procesarFormulario());
+        
+        if ( tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO ){
+            dialogoUsuario.getBtnLinkEditarContrasena().addActionListener( e -> mostrarDialogoEditarContrasena() );
+        }
+        
+        if ( tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO ){
+            dialogoUsuario.getBtnLinkEditarEstadoUsuario().addActionListener( e -> conmutarEstadoUsuario() );
+        }
         
     }
     
@@ -235,5 +257,42 @@ public class ControladorDialogoUsuarios {
             System.out.println(clave + " -> " + valor)
         );
     }
+    
+    
+    private void mostrarDialogoEditarContrasena(){
+        ControladorContrasena.iniciarCambio(dialogoUsuario);
+    }
+    
+    
+    private void conmutarEstadoUsuario(){
+    
+        /*
+        TODO Al tener la conexion con la base de datos, se debe crear una 
+        funcion que permita conmutar su estado entre habilitado o inhabilitado
+        De igual manera se realizara por parte de la vista la adecuacion para intercambiar
+        el boton de deshabilitar por habilitar.
+        */
+        
+     if( 
+            !DialogoMensajePersonalizado.mostrarAdvertenciaConRespuesta(
+                dialogoUsuario,
+                "Advertencia", 
+                esUsuarioHabilitado ? 
+                "Esta a punto de deshabilitar al usuario y por tanto este ya no podra iniciar sesion, sin embargo sus transacciones siguen almacenadas":
+                "Esta a punto de habilitar al usuario y por tanto este podra iniciar sesion."
+             )
+      ){
+         return;
+      }
+        
+        //TODO conexion con la base de datos para que conmute al usuario
+        
+        //TODO consulta del nuevo estado del usuario
+        // simulacion de intercambio de estado
+        esUsuarioHabilitado = !esUsuarioHabilitado;
+        dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario(esUsuarioHabilitado);
+        
+    }
+    
     
 }
