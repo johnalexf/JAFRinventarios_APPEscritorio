@@ -6,6 +6,8 @@
 package jafrinventarios.vistas.utilidades.componentes;
 
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
+import javax.swing.JButton;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,6 +22,12 @@ public class PanelBarraAccionesModulo extends javax.swing.JPanel {
         initComponents();
         
         btnBuscar.setIcon(IconosBotones.BUSCAR.getIcono());
+        
+        //Codigo de prueba para el placeholder
+        setPlaceholderInputBusqueda("Nombre, apellido, correo");
+        
+        //codigo de prueba asignar texto al boton
+        setTextBtnAgregarNuevo("Usuario");
     }
 
     /**
@@ -78,7 +86,6 @@ public class PanelBarraAccionesModulo extends javax.swing.JPanel {
         contenedorBuscador.add(contenedorBtnBuscar);
 
         inputBusqueda.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        inputBusqueda.setText("Buscar por ...........");
         inputBusqueda.setToolTipText("");
         inputBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         inputBusqueda.setMargin(new java.awt.Insets(4, 20, 4, 10));
@@ -105,6 +112,34 @@ public class PanelBarraAccionesModulo extends javax.swing.JPanel {
         add(btnAgregarNuevo, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+        
+    /*
+    ============================================================================
+                        MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    ============================================================================
+    */
+    
+    public JButton getBtnAgregarNuevo(){
+        return btnAgregarNuevo;
+    }
+    
+    public void setTextBtnAgregarNuevo( String modulo){
+        btnAgregarNuevo.setText( "Agregar Nuevo " + modulo );
+    }
+    
+    public JButton getBtnBuscar(){
+        return btnBuscar;
+    }
+    
+    public JTextField getInputBusqueda(){
+        return inputBusqueda;
+    }
+    
+    public void setPlaceholderInputBusqueda( String  opcionesBusqueda ){
+        inputBusqueda.putClientProperty("JTextField.placeholderText", "Buscar por " + opcionesBusqueda);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarNuevo;
