@@ -6,6 +6,7 @@
 package jafrinventarios.controladores.principal;
 
 import jafrinventarios.controladores.perfil.ControladorPerfil;
+import jafrinventarios.controladores.usuarios.ControladorUsuarios;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import jafrinventarios.vistas.principal.DialogoMenu;
@@ -121,7 +122,7 @@ public class ControladorNavegacionModulos {
                 break;
             case USUARIOS:
                 moduloActual =  new UsuariosPanel();
-                // TODO: pendiende controladorModulosUsuarios
+                new ControladorUsuarios( (UsuariosPanel)  moduloActual);
                 break;
         }
         

@@ -14,11 +14,11 @@ package jafrinventarios.controladores.utilidades;
  */
 public interface FuncionesBusquedaYAccionLibre {
     
-    // Esta codificado en ControladorBusquedaYRegistro para que 
+    // Esta codificado en ControladorBusquedaYAccionLibre para que 
     // se dispare solo si la búsqueda es válida (no vacía, enter o clic)
     boolean ejecutarBusqueda(String terminoBusqueda);
     
-    // Esta codificado en ControladorBusquedaYRegistro para que
+    // Esta codificado en ControladorBusquedaYAccionLibre para que
     // se dispare cuando hacen clic en "Agregar Nuevo"
     void ejecutarAccionLibre();
 }
