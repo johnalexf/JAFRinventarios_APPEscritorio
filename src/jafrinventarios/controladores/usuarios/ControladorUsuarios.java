@@ -8,6 +8,8 @@ package jafrinventarios.controladores.usuarios;
 import jafrinventarios.controladores.utilidades.ControladorBusquedaYAccionLibre;
 import jafrinventarios.vistas.usuarios.UsuariosPanel;
 import jafrinventarios.controladores.utilidades.FuncionesBusquedaYAccionLibre;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -15,13 +17,13 @@ import jafrinventarios.controladores.utilidades.FuncionesBusquedaYAccionLibre;
  */
 public class ControladorUsuarios {
     
-    private final UsuariosPanel vista;
+    private final UsuariosPanel moduloUsuarios;
 
-    public ControladorUsuarios(UsuariosPanel vista) {
-        this.vista = vista;
+    public ControladorUsuarios(UsuariosPanel moduloUsuarios) {
+        this.moduloUsuarios = moduloUsuarios;
         
         // Instanciamos el sub-controlador pasándole el panel incrustado y definiendo qué hacer
-        new ControladorBusquedaYAccionLibre(   vista.getPanelBusquedaYAccionLibre(), 
+        new ControladorBusquedaYAccionLibre(   moduloUsuarios.getPanelBusquedaYAccionLibre(), 
                                                asignarFuncionesBusquedaYAccionLibre(),
                                                "Alias, Nombre, Correo, Telefono o Rol ",
                                                "Agregar Nuevo Usuario"
@@ -42,10 +44,15 @@ public class ControladorUsuarios {
 
             @Override
             public void ejecutarAccionLibre() {
-                System.out.println("Abriendo modal para crear nuevo usuario...");
-                // Aquí llamas a tu método estático crearUsuario()
+                abrirModalCrearUsuario();
             }
             
         };
+    }
+    
+    
+    private void abrirModalCrearUsuario(){
+        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(moduloUsuarios);
+        ControladorDialogoUsuarios.crearUsuario(ventanaPadre);
     }
 }
