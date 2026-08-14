@@ -17,6 +17,9 @@ ES COMO SE DELEGA LA VERDADERA ACCION DE BUSCAR Y DEL BOTON btnAccionLibre
 package jafrinventarios.controladores.utilidades;
 
 import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -65,7 +68,17 @@ public class ControladorBusquedaYAccionLibre {
         if (!termino.isEmpty()) {
             // Como la busqueda es valida (No es vacio y no son solo espacios)
             // Ejecuta la accion declarada en el controlador principal
-            definidorFunciones.ejecutarBusqueda(termino);
+            if( !definidorFunciones.ejecutarBusqueda(termino) ){
+                
+                JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(panelBusquedaYAccion);
+                DialogoMensajePersonalizado.mostrarError( 
+                        ventanaPadre , 
+                        "Error en la búsqueda", 
+                        "No se encontro ninguna relación con el texto " + termino
+                        + "\n por favor intente con otro texto."
+                );
+                
+            }
         }
     }
 }

@@ -32,9 +32,11 @@ public class ControladorUsuarios {
         return new FuncionesBusquedaYAccionLibre() {
             
             @Override
-            public void ejecutarBusqueda(String terminoBusqueda) {
+            public boolean ejecutarBusqueda(String terminoBusqueda) {
                 System.out.println("Buscando en la BD de Usuarios el término: " + terminoBusqueda);
                 // Aquí va tu lógica para filtrar la tabla de usuarios
+                //Responde si encontro algo o no para que el controlador muestre un mensaje de error en dado caso que sea false
+                return true;
             }
 
             @Override
