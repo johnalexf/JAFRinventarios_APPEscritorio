@@ -101,6 +101,8 @@ public class PerfilPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        panelScrolleable = new javax.swing.JScrollPane();
+        contenedorGlobal = new javax.swing.JPanel();
         marginAutoLeft = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         contenedorPrincipal = new javax.swing.JPanel();
         contenedorIzquierda = new javax.swing.JPanel();
@@ -137,11 +139,13 @@ public class PerfilPanel extends javax.swing.JPanel {
         marginAutoRight = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
         setBackground(new java.awt.Color(205, 205, 205));
-        setMaximumSize(new java.awt.Dimension(2147483647, 650));
-        setMinimumSize(new java.awt.Dimension(800, 650));
-        setPreferredSize(new java.awt.Dimension(800, 650));
-        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
-        add(marginAutoLeft);
+        setLayout(new java.awt.BorderLayout());
+
+        panelScrolleable.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        contenedorGlobal.setBackground(new java.awt.Color(205, 205, 205));
+        contenedorGlobal.setLayout(new javax.swing.BoxLayout(contenedorGlobal, javax.swing.BoxLayout.X_AXIS));
+        contenedorGlobal.add(marginAutoLeft);
 
         contenedorPrincipal.setMaximumSize(new java.awt.Dimension(800, 650));
         contenedorPrincipal.setMinimumSize(new java.awt.Dimension(800, 650));
@@ -492,8 +496,12 @@ public class PerfilPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         contenedorPrincipal.add(contenedorDerecha, gridBagConstraints);
 
-        add(contenedorPrincipal);
-        add(marginAutoRight);
+        contenedorGlobal.add(contenedorPrincipal);
+        contenedorGlobal.add(marginAutoRight);
+
+        panelScrolleable.setViewportView(contenedorGlobal);
+
+        add(panelScrolleable, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAyudaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaCodigoActionPerformed
@@ -546,6 +554,7 @@ public class PerfilPanel extends javax.swing.JPanel {
     private javax.swing.JPanel contenedorDatosPerfil;
     private javax.swing.JPanel contenedorDerecha;
     private javax.swing.JPanel contenedorFooter;
+    private javax.swing.JPanel contenedorGlobal;
     private javax.swing.JPanel contenedorInputCodigo;
     private javax.swing.JPanel contenedorInputCodigoYAyuda;
     private javax.swing.JPanel contenedorIzquierda;
@@ -567,6 +576,7 @@ public class PerfilPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblEtiquetaTelefono;
     private javax.swing.Box.Filler marginAutoLeft;
     private javax.swing.Box.Filler marginAutoRight;
+    private javax.swing.JScrollPane panelScrolleable;
     private javax.swing.JLabel subtituloCodigoAcceso;
     private javax.swing.JLabel tituloPerfil;
     // End of variables declaration//GEN-END:variables
