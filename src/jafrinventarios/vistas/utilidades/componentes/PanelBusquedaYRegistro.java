@@ -13,12 +13,12 @@ import javax.swing.JTextField;
  *
  * @author JOHN FORERO
  */
-public class PanelBarraAccionesModulo extends javax.swing.JPanel {
+public class PanelBusquedaYRegistro extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelBarraAccionesModulo
      */
-    public PanelBarraAccionesModulo() {
+    public PanelBusquedaYRegistro() {
         initComponents();
         
         btnBuscar.setIcon(IconosBotones.BUSCAR.getIcono());
