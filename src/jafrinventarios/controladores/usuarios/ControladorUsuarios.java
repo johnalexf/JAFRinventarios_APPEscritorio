@@ -22,7 +22,9 @@ public class ControladorUsuarios {
         
         // Instanciamos el sub-controlador pasándole el panel incrustado y definiendo qué hacer
         new ControladorBusquedaYAccionLibre(   vista.getPanelBusquedaYAccionLibre(), 
-                                            asignarFuncionesBusquedaYAccionLibre()
+                                               asignarFuncionesBusquedaYAccionLibre(),
+                                               "Alias, Nombre, Correo, Telefono o Rol ",
+                                               "Agregar Nuevo Usuario"
         );
     }
     

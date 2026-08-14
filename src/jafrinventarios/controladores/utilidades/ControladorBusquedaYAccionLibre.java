@@ -27,12 +27,25 @@ public class ControladorBusquedaYAccionLibre {
     private final FuncionesBusquedaYAccionLibre definidorFunciones;
 
     public ControladorBusquedaYAccionLibre( PanelBusquedaYAccionLibre panelBusquedaYAccion, 
-                                         FuncionesBusquedaYAccionLibre definidorFunciones) {
+                                            FuncionesBusquedaYAccionLibre definidorFunciones,
+                                            String opcionesBusqueda,
+                                            String textoBotonAccionLibre
+                                            ) {
         this.panelBusquedaYAccion = panelBusquedaYAccion;
         this.definidorFunciones = definidorFunciones;
+        
+        asignarTexto(opcionesBusqueda, textoBotonAccionLibre);
+        
         inicializarEventos();
     }
+    
+    
+    private void asignarTexto(String opcionesBusqueda, String textoBotonAccionLibre){
+        panelBusquedaYAccion.setPlaceholderInputBusqueda( opcionesBusqueda );
+        panelBusquedaYAccion.setTextBtnAccionLibre( textoBotonAccionLibre );
+    }
 
+    
     private void inicializarEventos() {
         // Escuchar el Enter en el campo de texto
         panelBusquedaYAccion.getInputBusqueda().addActionListener(e -> validarYEjecutarBusqueda());
@@ -44,6 +57,7 @@ public class ControladorBusquedaYAccionLibre {
         panelBusquedaYAccion.getBtnAccionLibre().addActionListener(e -> definidorFunciones.ejecutarAccionLibre());
     }
 
+    
     private void validarYEjecutarBusqueda() {
         String termino = panelBusquedaYAccion.getInputBusqueda().getText().trim();
         
