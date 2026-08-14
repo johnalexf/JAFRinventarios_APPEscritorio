@@ -12,6 +12,7 @@ import jafrinventarios.vistas.principal.DialogoMenu;
 import jafrinventarios.vistas.principal.HeaderPanel;
 import jafrinventarios.vistas.principal.Menu;
 import jafrinventarios.vistas.principal.PrincipalFrame;
+import jafrinventarios.vistas.usuarios.UsuariosPanel;
 import jafrinventarios.vistas.utilidades.iconos.IconosSecciones;
 import javax.swing.JPanel;
 
@@ -118,7 +119,10 @@ public class ControladorNavegacionModulos {
                 moduloActual =  new PerfilPanel(menuFijoPerfil, esAdministrador);
                 new ControladorPerfil( (PerfilPanel) moduloActual );
                 break;
-                
+            case USUARIOS:
+                moduloActual =  new UsuariosPanel();
+                // TODO: pendiende controladorModulosUsuarios
+                break;
         }
         
        ventanaPrincipal.agregarPanelModulo(moduloActual);
