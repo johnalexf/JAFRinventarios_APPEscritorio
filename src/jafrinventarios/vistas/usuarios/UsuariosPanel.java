@@ -29,10 +29,28 @@ public class UsuariosPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         contenedorBusquedaYAccionLibre = new javax.swing.JPanel();
         panelBusquedaYAccionLibre = new jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre();
         contenedorTabla = new javax.swing.JPanel();
+        contenedorHeaderTabla = new javax.swing.JPanel();
+        contenedorTitulosTabla = new javax.swing.JPanel();
+        lblTituloId = new javax.swing.JLabel();
+        lblTituloAlias = new javax.swing.JLabel();
+        lblTituloNombreCompleto = new javax.swing.JLabel();
+        lblTituloCorreo = new javax.swing.JLabel();
+        lblTituloTelefono = new javax.swing.JLabel();
+        lblTituloRol = new javax.swing.JLabel();
+        lblTituloEditar = new javax.swing.JLabel();
+        panelScrolleableContenidoTabla = new javax.swing.JScrollPane();
+        contenedorContenidoTabla = new javax.swing.JPanel();
+        filaTablaUsuarios1 = new jafrinventarios.vistas.usuarios.FilaTablaUsuarios();
+        filaTablaUsuarios2 = new jafrinventarios.vistas.usuarios.FilaTablaUsuarios();
+        filaTablaUsuarios3 = new jafrinventarios.vistas.usuarios.FilaTablaUsuarios();
+        filaTablaUsuarios4 = new jafrinventarios.vistas.usuarios.FilaTablaUsuarios();
+        filaTablaUsuarios5 = new jafrinventarios.vistas.usuarios.FilaTablaUsuarios();
+        filaTablaUsuarios6 = new jafrinventarios.vistas.usuarios.FilaTablaUsuarios();
 
         setOpaque(false);
         setLayout(new java.awt.BorderLayout());
@@ -46,18 +64,127 @@ public class UsuariosPanel extends javax.swing.JPanel {
 
         add(contenedorBusquedaYAccionLibre, java.awt.BorderLayout.PAGE_START);
 
+        contenedorTabla.setBackground(new java.awt.Color(205, 205, 205));
+        contenedorTabla.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         contenedorTabla.setOpaque(false);
+        contenedorTabla.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout contenedorTablaLayout = new javax.swing.GroupLayout(contenedorTabla);
-        contenedorTabla.setLayout(contenedorTablaLayout);
-        contenedorTablaLayout.setHorizontalGroup(
-            contenedorTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1050, Short.MAX_VALUE)
-        );
-        contenedorTablaLayout.setVerticalGroup(
-            contenedorTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 439, Short.MAX_VALUE)
-        );
+        contenedorHeaderTabla.setBackground(new java.awt.Color(205, 205, 205));
+        contenedorHeaderTabla.setMaximumSize(new java.awt.Dimension(32767, 60));
+        contenedorHeaderTabla.setPreferredSize(new java.awt.Dimension(0, 60));
+        contenedorHeaderTabla.setLayout(new java.awt.BorderLayout());
+
+        contenedorTitulosTabla.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorTitulosTabla.setMaximumSize(new java.awt.Dimension(32767, 50));
+        contenedorTitulosTabla.setMinimumSize(new java.awt.Dimension(41, 50));
+        contenedorTitulosTabla.setPreferredSize(new java.awt.Dimension(0, 50));
+        contenedorTitulosTabla.setLayout(new java.awt.GridBagLayout());
+
+        lblTituloId.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloId.setText("Id");
+        lblTituloId.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloId.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloId.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloId, gridBagConstraints);
+
+        lblTituloAlias.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloAlias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloAlias.setText("Alias");
+        lblTituloAlias.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloAlias.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloAlias.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloAlias, gridBagConstraints);
+
+        lblTituloNombreCompleto.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloNombreCompleto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloNombreCompleto.setText("Nombre Completo");
+        lblTituloNombreCompleto.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloNombreCompleto.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloNombreCompleto.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloNombreCompleto, gridBagConstraints);
+
+        lblTituloCorreo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloCorreo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloCorreo.setText("Correo");
+        lblTituloCorreo.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloCorreo.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloCorreo.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloCorreo, gridBagConstraints);
+
+        lblTituloTelefono.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloTelefono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloTelefono.setText("Telefono");
+        lblTituloTelefono.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloTelefono.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloTelefono.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloTelefono, gridBagConstraints);
+
+        lblTituloRol.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloRol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloRol.setText("Rol");
+        lblTituloRol.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloRol.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloRol.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloRol, gridBagConstraints);
+
+        lblTituloEditar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloEditar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloEditar.setText("Editar");
+        lblTituloEditar.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloEditar.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloEditar.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloEditar, gridBagConstraints);
+
+        contenedorHeaderTabla.add(contenedorTitulosTabla, java.awt.BorderLayout.PAGE_START);
+
+        contenedorTabla.add(contenedorHeaderTabla, java.awt.BorderLayout.PAGE_START);
+
+        panelScrolleableContenidoTabla.setBackground(new java.awt.Color(205, 205, 205));
+        panelScrolleableContenidoTabla.setColumnHeaderView(contenedorHeaderTabla);
+        panelScrolleableContenidoTabla.setHorizontalScrollBar(null);
+        panelScrolleableContenidoTabla.setOpaque(false);
+
+        contenedorContenidoTabla.setBackground(new java.awt.Color(205, 205, 205));
+        contenedorContenidoTabla.setLayout(new javax.swing.BoxLayout(contenedorContenidoTabla, javax.swing.BoxLayout.Y_AXIS));
+        contenedorContenidoTabla.add(filaTablaUsuarios1);
+        contenedorContenidoTabla.add(filaTablaUsuarios2);
+        contenedorContenidoTabla.add(filaTablaUsuarios3);
+        contenedorContenidoTabla.add(filaTablaUsuarios4);
+        contenedorContenidoTabla.add(filaTablaUsuarios5);
+        contenedorContenidoTabla.add(filaTablaUsuarios6);
+
+        panelScrolleableContenidoTabla.setViewportView(contenedorContenidoTabla);
+
+        contenedorTabla.add(panelScrolleableContenidoTabla, java.awt.BorderLayout.CENTER);
 
         add(contenedorTabla, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -75,7 +202,24 @@ public class UsuariosPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contenedorBusquedaYAccionLibre;
+    private javax.swing.JPanel contenedorContenidoTabla;
+    private javax.swing.JPanel contenedorHeaderTabla;
     private javax.swing.JPanel contenedorTabla;
+    private javax.swing.JPanel contenedorTitulosTabla;
+    private jafrinventarios.vistas.usuarios.FilaTablaUsuarios filaTablaUsuarios1;
+    private jafrinventarios.vistas.usuarios.FilaTablaUsuarios filaTablaUsuarios2;
+    private jafrinventarios.vistas.usuarios.FilaTablaUsuarios filaTablaUsuarios3;
+    private jafrinventarios.vistas.usuarios.FilaTablaUsuarios filaTablaUsuarios4;
+    private jafrinventarios.vistas.usuarios.FilaTablaUsuarios filaTablaUsuarios5;
+    private jafrinventarios.vistas.usuarios.FilaTablaUsuarios filaTablaUsuarios6;
+    private javax.swing.JLabel lblTituloAlias;
+    private javax.swing.JLabel lblTituloCorreo;
+    private javax.swing.JLabel lblTituloEditar;
+    private javax.swing.JLabel lblTituloId;
+    private javax.swing.JLabel lblTituloNombreCompleto;
+    private javax.swing.JLabel lblTituloRol;
+    private javax.swing.JLabel lblTituloTelefono;
     private jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre panelBusquedaYAccionLibre;
+    private javax.swing.JScrollPane panelScrolleableContenidoTabla;
     // End of variables declaration//GEN-END:variables
 }

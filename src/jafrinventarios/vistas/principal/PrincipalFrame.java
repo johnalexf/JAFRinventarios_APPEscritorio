@@ -42,7 +42,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
         contenedorPrincipal = new javax.swing.JPanel();
         contenedorHeader = new javax.swing.JPanel();
         headerPanel = new jafrinventarios.vistas.principal.HeaderPanel();
-        contenedorScrolleableCentro = new javax.swing.JScrollPane();
         contenedorCentro = new javax.swing.JPanel();
         contenedorFooter = new javax.swing.JPanel();
         lblFooter = new javax.swing.JLabel();
@@ -76,14 +75,10 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         contenedorPrincipal.add(contenedorHeader, java.awt.BorderLayout.PAGE_START);
 
-        contenedorScrolleableCentro.setOpaque(false);
-
         contenedorCentro.setBackground(new java.awt.Color(205, 205, 205));
         contenedorCentro.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 10, 20, 10));
         contenedorCentro.setLayout(new javax.swing.BoxLayout(contenedorCentro, javax.swing.BoxLayout.LINE_AXIS));
-        contenedorScrolleableCentro.setViewportView(contenedorCentro);
-
-        contenedorPrincipal.add(contenedorScrolleableCentro, java.awt.BorderLayout.CENTER);
+        contenedorPrincipal.add(contenedorCentro, java.awt.BorderLayout.CENTER);
 
         contenedorFooter.setBackground(new java.awt.Color(255, 255, 255));
         contenedorFooter.setMaximumSize(new java.awt.Dimension(32767, 40));
@@ -136,7 +131,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JPanel contenedorFooter;
     private javax.swing.JPanel contenedorHeader;
     private javax.swing.JPanel contenedorPrincipal;
-    private javax.swing.JScrollPane contenedorScrolleableCentro;
     private jafrinventarios.vistas.principal.HeaderPanel headerPanel;
     private javax.swing.JLabel lblFooter;
     private javax.swing.Box.Filler marginLeftAuto;
