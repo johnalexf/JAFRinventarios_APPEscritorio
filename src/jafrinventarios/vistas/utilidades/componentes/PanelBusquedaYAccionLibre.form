@@ -199,7 +199,7 @@
         </CodeStatement>
       </LayoutCode>
     </Container>
-    <Component class="javax.swing.JButton" name="btnAgregarNuevo">
+    <Component class="javax.swing.JButton" name="btnAccionLibre">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="55" green="23" red="11" type="rgb"/>

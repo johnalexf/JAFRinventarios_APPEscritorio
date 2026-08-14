@@ -13,12 +13,12 @@ import javax.swing.JTextField;
  *
  * @author JOHN FORERO
  */
-public class PanelBusquedaYRegistro extends javax.swing.JPanel {
+public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelBarraAccionesModulo
      */
-    public PanelBusquedaYRegistro() {
+    public PanelBusquedaYAccionLibre() {
         initComponents();
         
         btnBuscar.setIcon(IconosBotones.BUSCAR.getIcono());
@@ -27,7 +27,7 @@ public class PanelBusquedaYRegistro extends javax.swing.JPanel {
         setPlaceholderInputBusqueda("Nombre, apellido, correo");
         
         //codigo de prueba asignar texto al boton
-        setTextBtnAgregarNuevo("Usuario");
+        setTextBtnAccionLibre("Agregar Nuevo Usuario");
     }
 
     /**
@@ -43,7 +43,7 @@ public class PanelBusquedaYRegistro extends javax.swing.JPanel {
         contenedorBtnBuscar = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         inputBusqueda = new javax.swing.JTextField();
-        btnAgregarNuevo = new javax.swing.JButton();
+        btnAccionLibre = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -96,20 +96,20 @@ public class PanelBusquedaYRegistro extends javax.swing.JPanel {
 
         add(contenedorBuscador, java.awt.BorderLayout.CENTER);
 
-        btnAgregarNuevo.setBackground(new java.awt.Color(17, 35, 85));
-        btnAgregarNuevo.setFont(new java.awt.Font("Arial", 1, 17)); // NOI18N
-        btnAgregarNuevo.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarNuevo.setText("Agregar Nuevo");
-        btnAgregarNuevo.setToolTipText("");
-        btnAgregarNuevo.setAlignmentX(0.5F);
-        btnAgregarNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgregarNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        btnAgregarNuevo.setIconTextGap(6);
-        btnAgregarNuevo.setMargin(new java.awt.Insets(6, 12, 6, 12));
-        btnAgregarNuevo.setMaximumSize(new java.awt.Dimension(270, 42));
-        btnAgregarNuevo.setMinimumSize(new java.awt.Dimension(270, 42));
-        btnAgregarNuevo.setPreferredSize(new java.awt.Dimension(270, 42));
-        add(btnAgregarNuevo, java.awt.BorderLayout.EAST);
+        btnAccionLibre.setBackground(new java.awt.Color(17, 35, 85));
+        btnAccionLibre.setFont(new java.awt.Font("Arial", 1, 17)); // NOI18N
+        btnAccionLibre.setForeground(new java.awt.Color(255, 255, 255));
+        btnAccionLibre.setText("Agregar Nuevo");
+        btnAccionLibre.setToolTipText("");
+        btnAccionLibre.setAlignmentX(0.5F);
+        btnAccionLibre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAccionLibre.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnAccionLibre.setIconTextGap(6);
+        btnAccionLibre.setMargin(new java.awt.Insets(6, 12, 6, 12));
+        btnAccionLibre.setMaximumSize(new java.awt.Dimension(270, 42));
+        btnAccionLibre.setMinimumSize(new java.awt.Dimension(270, 42));
+        btnAccionLibre.setPreferredSize(new java.awt.Dimension(270, 42));
+        add(btnAccionLibre, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
     
@@ -120,12 +120,12 @@ public class PanelBusquedaYRegistro extends javax.swing.JPanel {
     ============================================================================
     */
     
-    public JButton getBtnAgregarNuevo(){
-        return btnAgregarNuevo;
+    public JButton getBtnAccionLibre(){
+        return btnAccionLibre;
     }
     
-    public void setTextBtnAgregarNuevo( String modulo){
-        btnAgregarNuevo.setText( "Agregar Nuevo " + modulo );
+    public void setTextBtnAccionLibre( String textoBoton){
+        btnAccionLibre.setText( textoBoton );
     }
     
     public JButton getBtnBuscar(){
@@ -142,7 +142,7 @@ public class PanelBusquedaYRegistro extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarNuevo;
+    private javax.swing.JButton btnAccionLibre;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JPanel contenedorBtnBuscar;
     private javax.swing.JPanel contenedorBuscador;

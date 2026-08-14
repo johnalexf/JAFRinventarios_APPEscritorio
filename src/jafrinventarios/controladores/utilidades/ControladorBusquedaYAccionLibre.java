@@ -1,0 +1,57 @@
+/*
+ Este ControladorBusquedaYAccionLibre es quien activa los eventos de escucha 
+ del boton accion libre y input buscar coincidencias de PanelBusquedaYAccionLibre
+ sin necesidad de que dentro de este controlador, se declare la logica de
+ busqueda y accion libre, por tanto depende del objeto creado apartir de la interfaz
+ FuncionesBusquedaYAccionLibre
+
+ ESTA FUE DISEÑADA PARA CENTRALIZAR LA ACCION EN COMUN DEL BUSCADOR EN TODOS LOS
+    MODULOS DONDE SE UTILICE, EN DONDE CORRESPONDE A LO SIGUIENTE
+ACTIVAR LA ESCUCHA CUANDO SE PRESIONE ENTER DENTRO DEL BUSCADOR
+ACTIVAR LA ESCUCHA CUANDO SE OPRIMA EN EL BOTON DE BUSCAR
+SER EL FILTRO QUE DETECTE SI LA BUSQUEDA ESTA VACIA O CON ESPACIO
+
+ASI POR MEDIO DE LA CREACION DEL OBJETO DE LA INTERFAZ FuncionesBusquedaYAccionLibre
+ES COMO SE DELEGA LA VERDADERA ACCION DE BUSCAR Y DEL BOTON btnAccionLibre
+ */
+package jafrinventarios.controladores.utilidades;
+
+import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre;
+
+/**
+ *
+ * @author JOHN FORERO
+ */
+public class ControladorBusquedaYAccionLibre {
+    private final PanelBusquedaYAccionLibre panelBusquedaYAccion;
+    private final FuncionesBusquedaYAccionLibre definidorFunciones;
+
+    public ControladorBusquedaYAccionLibre( PanelBusquedaYAccionLibre panelBusquedaYAccion, 
+                                         FuncionesBusquedaYAccionLibre definidorFunciones) {
+        this.panelBusquedaYAccion = panelBusquedaYAccion;
+        this.definidorFunciones = definidorFunciones;
+        inicializarEventos();
+    }
+
+    private void inicializarEventos() {
+        // Escuchar el Enter en el campo de texto
+        panelBusquedaYAccion.getInputBusqueda().addActionListener(e -> validarYEjecutarBusqueda());
+
+        // Escuchar el clic en el botón de la lupa
+        panelBusquedaYAccion.getBtnBuscar().addActionListener(e -> validarYEjecutarBusqueda());
+        
+        // Escuchar el clic en el boton de texto para una accion destinada desde el controlador principal
+        panelBusquedaYAccion.getBtnAccionLibre().addActionListener(e -> definidorFunciones.ejecutarAccionLibre());
+    }
+
+    private void validarYEjecutarBusqueda() {
+        String termino = panelBusquedaYAccion.getInputBusqueda().getText().trim();
+        
+        // Validamos que no esté vacío (el placeholder nativo de FlatLaf no interfiere aquí)
+        if (!termino.isEmpty()) {
+            // Como la busqueda es valida (No es vacio y no son solo espacios)
+            // Ejecuta la accion declarada en el controlador principal
+            definidorFunciones.ejecutarBusqueda(termino);
+        }
+    }
+}

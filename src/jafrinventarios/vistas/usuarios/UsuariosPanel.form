@@ -19,7 +19,7 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="contenedorBusquedaYCreacion">
+    <Container class="javax.swing.JPanel" name="contenedorBusquedaYAccionLibre">
       <Properties>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[32767, 60]"/>
@@ -40,7 +40,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
-        <Component class="jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYRegistro" name="panelBusquedaYCreacion">
+        <Component class="jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre" name="panelBusquedaYAccionLibre">
         </Component>
       </SubComponents>
     </Container>

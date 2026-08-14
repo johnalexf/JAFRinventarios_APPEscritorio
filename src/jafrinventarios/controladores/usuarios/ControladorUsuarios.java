@@ -5,9 +5,9 @@
  */
 package jafrinventarios.controladores.usuarios;
 
-import jafrinventarios.controladores.utilidades.ControladorBusquedaYRegistro;
+import jafrinventarios.controladores.utilidades.ControladorBusquedaYAccionLibre;
 import jafrinventarios.vistas.usuarios.UsuariosPanel;
-import jafrinventarios.controladores.utilidades.AccionesBusquedaYRegistro;
+import jafrinventarios.controladores.utilidades.FuncionesBusquedaYAccionLibre;
 
 /**
  *
@@ -21,13 +21,13 @@ public class ControladorUsuarios {
         this.vista = vista;
         
         // Instanciamos el sub-controlador pasándole el panel incrustado y definiendo qué hacer
-        new ControladorBusquedaYRegistro(   vista.getPanelBusquedaYRegistro(), 
-                                            asignarAccionesBusquedaYRegistro()
+        new ControladorBusquedaYAccionLibre(   vista.getPanelBusquedaYAccionLibre(), 
+                                            asignarFuncionesBusquedaYAccionLibre()
         );
     }
     
-    private AccionesBusquedaYRegistro asignarAccionesBusquedaYRegistro(){
-        return new AccionesBusquedaYRegistro() {
+    private FuncionesBusquedaYAccionLibre asignarFuncionesBusquedaYAccionLibre(){
+        return new FuncionesBusquedaYAccionLibre() {
             
             @Override
             public void ejecutarBusqueda(String terminoBusqueda) {
@@ -36,7 +36,7 @@ public class ControladorUsuarios {
             }
 
             @Override
-            public void agregarNuevoItem() {
+            public void ejecutarAccionLibre() {
                 System.out.println("Abriendo modal para crear nuevo usuario...");
                 // Aquí llamas a tu método estático crearUsuario()
             }

@@ -5,7 +5,7 @@
  */
 package jafrinventarios.vistas.usuarios;
 
-import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYRegistro;
+import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre;
 
 
 /**
@@ -30,21 +30,21 @@ public class UsuariosPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        contenedorBusquedaYCreacion = new javax.swing.JPanel();
-        panelBusquedaYCreacion = new jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYRegistro();
+        contenedorBusquedaYAccionLibre = new javax.swing.JPanel();
+        panelBusquedaYAccionLibre = new jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre();
         contenedorTabla = new javax.swing.JPanel();
 
         setOpaque(false);
         setLayout(new java.awt.BorderLayout());
 
-        contenedorBusquedaYCreacion.setMaximumSize(new java.awt.Dimension(32767, 60));
-        contenedorBusquedaYCreacion.setMinimumSize(new java.awt.Dimension(0, 60));
-        contenedorBusquedaYCreacion.setOpaque(false);
-        contenedorBusquedaYCreacion.setPreferredSize(new java.awt.Dimension(1032, 60));
-        contenedorBusquedaYCreacion.setLayout(new javax.swing.BoxLayout(contenedorBusquedaYCreacion, javax.swing.BoxLayout.LINE_AXIS));
-        contenedorBusquedaYCreacion.add(panelBusquedaYCreacion);
+        contenedorBusquedaYAccionLibre.setMaximumSize(new java.awt.Dimension(32767, 60));
+        contenedorBusquedaYAccionLibre.setMinimumSize(new java.awt.Dimension(0, 60));
+        contenedorBusquedaYAccionLibre.setOpaque(false);
+        contenedorBusquedaYAccionLibre.setPreferredSize(new java.awt.Dimension(1032, 60));
+        contenedorBusquedaYAccionLibre.setLayout(new javax.swing.BoxLayout(contenedorBusquedaYAccionLibre, javax.swing.BoxLayout.LINE_AXIS));
+        contenedorBusquedaYAccionLibre.add(panelBusquedaYAccionLibre);
 
-        add(contenedorBusquedaYCreacion, java.awt.BorderLayout.PAGE_START);
+        add(contenedorBusquedaYAccionLibre, java.awt.BorderLayout.PAGE_START);
 
         contenedorTabla.setOpaque(false);
 
@@ -69,13 +69,13 @@ public class UsuariosPanel extends javax.swing.JPanel {
     ============================================================================
     */
     
-    public PanelBusquedaYRegistro getPanelBusquedaYRegistro(){
-        return panelBusquedaYCreacion;
+    public PanelBusquedaYAccionLibre getPanelBusquedaYAccionLibre(){
+        return panelBusquedaYAccionLibre;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel contenedorBusquedaYCreacion;
+    private javax.swing.JPanel contenedorBusquedaYAccionLibre;
     private javax.swing.JPanel contenedorTabla;
-    private jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYRegistro panelBusquedaYCreacion;
+    private jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre panelBusquedaYAccionLibre;
     // End of variables declaration//GEN-END:variables
 }
