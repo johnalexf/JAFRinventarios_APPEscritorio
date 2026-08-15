@@ -5,6 +5,10 @@
  */
 package jafrinventarios.vistas.usuarios;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  *
  * @author JOHN FORERO
@@ -152,6 +156,65 @@ public class FilaTablaUsuarios extends javax.swing.JPanel {
         add(contenedorFila);
     }// </editor-fold>//GEN-END:initComponents
 
+
+    /*
+    ============================================================================
+                    METODOS PUBLICOS PARA EL CONTROLADOR
+    ============================================================================
+    */
+    
+    
+    //SETTERS
+    
+    public void setDatos(   String id,
+                            String alias,
+                            String nombreCompleto,
+                            String correo,
+                            String telefono,
+                            String rol  ){
+    
+        setTextLblDatoId(id);
+        setTextLblDatoAlias(alias);
+        setTextLblDatoNombreCompleto(nombreCompleto);
+        setTextLblDatoCorreo(correo);
+        setTextLblDatoTelefono(telefono);
+        setTextLblDatoRol(rol);
+        
+    }
+    
+    public void setTextLblDatoId(String dato) {
+        this.lblDatoId.setText(dato);
+    }
+
+    public void setTextLblDatoAlias(String dato) {
+        this.lblDatoAlias.setText(dato);
+    }
+    
+    public void setTextLblDatoNombreCompleto(String dato) {
+        this.lblDatoNombreCompleto.setText(dato);
+    }
+
+    public void setTextLblDatoCorreo(String dato) {
+        this.lblDatoCorreo.setText(dato);
+    }
+
+    public void setTextLblDatoTelefono(String dato) {
+        this.lblDatoTelefono.setText(dato);
+    }
+
+    public void setTextLblDatoRol(String dato) {
+        this.lblDatoRol.setText(dato);
+    }
+
+    
+    //GETTERS
+    
+    public JButton getBtnEditar() {
+        return btnEditar;
+    }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
