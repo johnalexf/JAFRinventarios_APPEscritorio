@@ -20,13 +20,18 @@ import javax.swing.SwingUtilities;
  */
 public class ControladorUsuarios {
     
+    
     private final UsuariosPanel moduloUsuarios;
+    // hash map con las filas que representan los datos de cada usuario
+    // se identifica con el id para poder acceder al boton, y tambien para cuando
+    // se necesite actualizar la informacion de un item editado
     private LinkedHashMap<Integer, FilaTablaUsuarios> filasTablaUsuarios;
 
     public ControladorUsuarios(UsuariosPanel moduloUsuarios) {
         this.moduloUsuarios = moduloUsuarios;
         
-        // Instanciamos el sub-controlador pasándole el panel incrustado y definiendo qué hacer
+        // Instanciamos el sub-controlador de la barra de busquedad y el boton de accion libre
+        // pasándole el panel incrustado y definiendo qué hacer
         new ControladorBusquedaYAccionLibre(   moduloUsuarios.getPanelBusquedaYAccionLibre(), 
                                                asignarFuncionesBusquedaYAccionLibre(),
                                                "Alias, Nombre, Correo, Telefono o Rol ",
@@ -63,9 +68,14 @@ public class ControladorUsuarios {
     }
     
     
+    // Metodo para optener cual es el frame padre de la vista JPanel modulo de usuarios
+    private JFrame getFramePadre(){
+        return (JFrame) SwingUtilities.getWindowAncestor(moduloUsuarios);
+    }
+    
+    
     private void abrirModalCrearUsuario(){
-        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(moduloUsuarios);
-        ControladorDialogoUsuarios.crearUsuario(ventanaPadre);
+        ControladorDialogoUsuarios.crearUsuario( getFramePadre() );
     }
     
     
@@ -73,7 +83,10 @@ public class ControladorUsuarios {
     private void crearFilasTablaUsuarios(){
     
         LinkedHashMap<Integer, ModeloUsuario> listaUsuarios = new LinkedHashMap<>();
-                 
+            
+        /*
+        Simulacion de respuesta del servicio del modelo de usuarios
+        */
          listaUsuarios.put(1, new ModeloUsuario(1, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Administrador", true));
          listaUsuarios.put(2, new ModeloUsuario(2, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
          listaUsuarios.put(3, new ModeloUsuario(3, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
@@ -81,9 +94,11 @@ public class ControladorUsuarios {
          listaUsuarios.put(5, new ModeloUsuario(5, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
          listaUsuarios.put(6, new ModeloUsuario(6, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
          
-         listaUsuarios.forEach((Integer id, ModeloUsuario datosUsuario) ->{
-             FilaTablaUsuarios filaDatosUsuarios = new FilaTablaUsuarios();
-             filaDatosUsuarios.setDatos(
+        
+        listaUsuarios.forEach((Integer id, ModeloUsuario datosUsuario) ->{
+             
+            FilaTablaUsuarios filaDatosUsuario = new FilaTablaUsuarios();
+            filaDatosUsuario.setDatos(
                      String.valueOf(  datosUsuario.getIdUsuario() ), 
                      datosUsuario.getAlias(), 
                      datosUsuario.getNombreCompleto(), 
@@ -91,12 +106,13 @@ public class ControladorUsuarios {
                      datosUsuario.getTelefono(), 
                      datosUsuario.getRol()
              );
-             filasTablaUsuarios.put(    
+             
+            filasTablaUsuarios.put(    
                      id,
-                     filaDatosUsuarios
+                     filaDatosUsuario
              );
-         }
-         );
+        }
+        );
          
     
     }
@@ -116,8 +132,27 @@ public class ControladorUsuarios {
         
     }
     
-    private JFrame getFramePadre(){
-        return (JFrame) SwingUtilities.getWindowAncestor(moduloUsuarios);
+    
+    private void editarUsuario(JFrame ventanaPadre, Integer idUsuario){
+        
+        //TODO pendiente convertir ControladorDialogoUsuarios.editarOtroUsuario en una respuesta boolean si se edito o no
+        /*
+            if( ControladorDialogoUsuarios.editarOtroUsuario(getFramePadre(), idUsuario) ){
+                //TODO hacer la consulta con el servicio o el modelo del usuario editado, 
+                // para asignar los nuevos valores 
+                ModeloUsuario usuarioEditado = 
+                FilaTablaUsuarios filaDatosUsuario = filasTablaUsuarios.get(idUsuario);
+                filaDatosUsuario.setDatos(
+                         String.valueOf(  datosUsuario.getIdUsuario() ), 
+                         datosUsuario.getAlias(), 
+                         datosUsuario.getNombreCompleto(), 
+                         datosUsuario.getCorreo(), 
+                         datosUsuario.getTelefono(), 
+                         datosUsuario.getRol()
+                 );
+            }
+        */
     }
     
+
 }

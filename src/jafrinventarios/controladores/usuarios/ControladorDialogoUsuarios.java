@@ -9,11 +9,9 @@ import jafrinventarios.controladores.acceso.ControladorContrasena;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
-import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *

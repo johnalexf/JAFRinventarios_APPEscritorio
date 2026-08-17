@@ -157,6 +157,32 @@ public class FilaTablaUsuarios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
+    private void setTextLblDatoId(String dato) {
+        this.lblDatoId.setText(dato);
+    }
+
+    private void setTextLblDatoAlias(String dato) {
+        this.lblDatoAlias.setText(dato);
+    }
+    
+    private void setTextLblDatoNombreCompleto(String dato) {
+        this.lblDatoNombreCompleto.setText(dato);
+    }
+
+    private void setTextLblDatoCorreo(String dato) {
+        this.lblDatoCorreo.setText(dato);
+    }
+
+    private void setTextLblDatoTelefono(String dato) {
+        this.lblDatoTelefono.setText(dato);
+    }
+
+    private void setTextLblDatoRol(String dato) {
+        this.lblDatoRol.setText(dato);
+    }
+
+    
+    
     /*
     ============================================================================
                     METODOS PUBLICOS PARA EL CONTROLADOR
@@ -181,31 +207,6 @@ public class FilaTablaUsuarios extends javax.swing.JPanel {
         setTextLblDatoRol(rol);
         
     }
-    
-    public void setTextLblDatoId(String dato) {
-        this.lblDatoId.setText(dato);
-    }
-
-    public void setTextLblDatoAlias(String dato) {
-        this.lblDatoAlias.setText(dato);
-    }
-    
-    public void setTextLblDatoNombreCompleto(String dato) {
-        this.lblDatoNombreCompleto.setText(dato);
-    }
-
-    public void setTextLblDatoCorreo(String dato) {
-        this.lblDatoCorreo.setText(dato);
-    }
-
-    public void setTextLblDatoTelefono(String dato) {
-        this.lblDatoTelefono.setText(dato);
-    }
-
-    public void setTextLblDatoRol(String dato) {
-        this.lblDatoRol.setText(dato);
-    }
-
     
     //GETTERS
     
