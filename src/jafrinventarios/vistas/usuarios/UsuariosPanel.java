@@ -6,6 +6,8 @@
 package jafrinventarios.vistas.usuarios;
 
 import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre;
+import java.util.LinkedHashMap;
+import javax.swing.JPanel;
 
 
 /**
@@ -190,6 +192,9 @@ public class UsuariosPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     
+    
+    
+    
     /*
     ============================================================================
                         MÉTODOS PÚBLICOS PARA EL CONTROLADOR
@@ -199,7 +204,22 @@ public class UsuariosPanel extends javax.swing.JPanel {
     public PanelBusquedaYAccionLibre getPanelBusquedaYAccionLibre(){
         return panelBusquedaYAccionLibre;
     }
+    
+    public void inyectarFilasTablaUsuarios(LinkedHashMap<Integer, FilaTablaUsuarios> filasTablaUsuarios){
+        contenedorContenidoTabla.removeAll();
+        
+        filasTablaUsuarios.values().forEach(fila -> {
+            contenedorContenidoTabla.add(fila);
+        });
+        
+        // Avisar a Swing que recalcule los tamaños y redibuje el panel
+        contenedorContenidoTabla.revalidate();
+        contenedorContenidoTabla.repaint();
+    }
+    
+    
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contenedorBusquedaYAccionLibre;
     private javax.swing.JPanel contenedorContenidoTabla;

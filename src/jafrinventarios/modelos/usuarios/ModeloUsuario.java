@@ -88,6 +88,10 @@ public class ModeloUsuario {
     public String getSegundoApellido() {
         return segundoApellido;
     }
+    
+    public String getNombreCompleto(){
+        return primerNombre + " " + segundoNombre + " " + primerApellido + " " + segundoApellido;
+    }
 
     public String getRol() {
         return rol;
