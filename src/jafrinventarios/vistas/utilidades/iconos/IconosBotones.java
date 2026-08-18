@@ -13,13 +13,14 @@ import javax.swing.ImageIcon;
  */
 public enum IconosBotones {
     MENU("material-symbols--menu.png"),
-    CERRAR("carbon--close-filled.png"),
+    CERRAR_DIALOGO("carbon--close-filled.png"),
     AYUDA("fluent--chat-help-24-filled.png"),
     OJO_CERRADO("mdi-light--eye-off.png"),
     OJO_ABIERTO("mdi-light--eye.png"),
     EDITAR("boxicons--edit-filled.png"),
     COPIAR("pixel--copy-solid.png"),
-    BUSCAR("iconamoon--search-duotone.png");
+    BUSCAR("iconamoon--search-duotone.png"),
+    LIMPIAR_BUSQUEDA("material-symbols--close.png");
     
     private final String nombreArchivo;
     private final String RUTA_ICONOS = "/jafrinventarios/recursos/iconos/botones/";

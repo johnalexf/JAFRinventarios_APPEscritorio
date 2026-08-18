@@ -22,12 +22,10 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
         initComponents();
         
         btnBuscar.setIcon(IconosBotones.BUSCAR.getIcono());
+        btnLimpiar.setIcon(IconosBotones.LIMPIAR_BUSQUEDA.getIcono());
         
-        //Codigo de prueba para el placeholder
-        setPlaceholderInputBusqueda("Nombre, apellido, correo");
-        
-        //codigo de prueba asignar texto al boton
-        setTextBtnAccionLibre("Agregar Nuevo Usuario");
+       // Redondear los bordes del contenedor usando FlatLaf
+        contenedorBuscador.putClientProperty("FlatLaf.style", "arc: 15");
     }
 
     /**
@@ -40,7 +38,9 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
     private void initComponents() {
 
         contenedorBuscador = new javax.swing.JPanel();
-        contenedorBtnBuscar = new javax.swing.JPanel();
+        contenedorBtnLimpiar = new javax.swing.JPanel();
+        btnLimpiar = new javax.swing.JButton();
+        contenedorBtnBuscarEInput = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         inputBusqueda = new javax.swing.JTextField();
         btnAccionLibre = new javax.swing.JButton();
@@ -57,42 +57,68 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
         contenedorBuscador.setMaximumSize(new java.awt.Dimension(200, 34));
         contenedorBuscador.setMinimumSize(new java.awt.Dimension(200, 38));
         contenedorBuscador.setName(""); // NOI18N
-        contenedorBuscador.setOpaque(false);
         contenedorBuscador.setPreferredSize(new java.awt.Dimension(200, 38));
         contenedorBuscador.setLayout(new javax.swing.OverlayLayout(contenedorBuscador));
 
-        contenedorBtnBuscar.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 4));
-        contenedorBtnBuscar.setOpaque(false);
-        contenedorBtnBuscar.setPreferredSize(new java.awt.Dimension(0, 34));
-        contenedorBtnBuscar.setLayout(new javax.swing.BoxLayout(contenedorBtnBuscar, javax.swing.BoxLayout.Y_AXIS));
+        contenedorBtnLimpiar.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 4));
+        contenedorBtnLimpiar.setAlignmentX(1.0F);
+        contenedorBtnLimpiar.setOpaque(false);
+        contenedorBtnLimpiar.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorBtnLimpiar.setLayout(new javax.swing.BoxLayout(contenedorBtnLimpiar, javax.swing.BoxLayout.X_AXIS));
+
+        btnLimpiar.setBackground(new java.awt.Color(255, 255, 255));
+        btnLimpiar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnLimpiar.setForeground(new java.awt.Color(17, 35, 85));
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/material-symbols--close.png"))); // NOI18N
+        btnLimpiar.setToolTipText("");
+        btnLimpiar.setAlignmentX(0.5F);
+        btnLimpiar.setBorderPainted(false);
+        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpiar.setFocusCycleRoot(true);
+        btnLimpiar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLimpiar.setIconTextGap(0);
+        btnLimpiar.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnLimpiar.setMaximumSize(new java.awt.Dimension(36, 36));
+        btnLimpiar.setMinimumSize(new java.awt.Dimension(36, 36));
+        btnLimpiar.setPreferredSize(new java.awt.Dimension(36, 36));
+        contenedorBtnLimpiar.add(btnLimpiar);
+
+        contenedorBuscador.add(contenedorBtnLimpiar);
+
+        contenedorBtnBuscarEInput.setAlignmentX(1.0F);
+        contenedorBtnBuscarEInput.setName(""); // NOI18N
+        contenedorBtnBuscarEInput.setOpaque(false);
+        contenedorBtnBuscarEInput.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorBtnBuscarEInput.setLayout(new javax.swing.BoxLayout(contenedorBtnBuscarEInput, javax.swing.BoxLayout.X_AXIS));
 
         btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(17, 35, 85));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jafrinventarios/recursos/iconos/botones/iconamoon--search-duotone.png"))); // NOI18N
         btnBuscar.setToolTipText("");
-        btnBuscar.setAlignmentX(1.0F);
+        btnBuscar.setAlignmentX(0.5F);
         btnBuscar.setBorderPainted(false);
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.setFocusCycleRoot(true);
         btnBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnBuscar.setIconTextGap(0);
         btnBuscar.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnBuscar.setMaximumSize(new java.awt.Dimension(50, 26));
-        btnBuscar.setMinimumSize(new java.awt.Dimension(50, 26));
-        btnBuscar.setPreferredSize(new java.awt.Dimension(50, 26));
-        contenedorBtnBuscar.add(btnBuscar);
-
-        contenedorBuscador.add(contenedorBtnBuscar);
+        btnBuscar.setMaximumSize(new java.awt.Dimension(45, 38));
+        btnBuscar.setMinimumSize(new java.awt.Dimension(45, 38));
+        btnBuscar.setPreferredSize(new java.awt.Dimension(45, 38));
+        contenedorBtnBuscarEInput.add(btnBuscar);
 
         inputBusqueda.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputBusqueda.setText("Prueba");
         inputBusqueda.setToolTipText("");
         inputBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        inputBusqueda.setMargin(new java.awt.Insets(4, 20, 4, 10));
+        inputBusqueda.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputBusqueda.setMinimumSize(new java.awt.Dimension(0, 34));
         inputBusqueda.setName("busqueda"); // NOI18N
         inputBusqueda.setPreferredSize(new java.awt.Dimension(0, 34));
-        contenedorBuscador.add(inputBusqueda);
+        contenedorBtnBuscarEInput.add(inputBusqueda);
+
+        contenedorBuscador.add(contenedorBtnBuscarEInput);
 
         add(contenedorBuscador, java.awt.BorderLayout.CENTER);
 
@@ -124,7 +150,7 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
         return btnAccionLibre;
     }
     
-    public void setTextBtnAccionLibre( String textoBoton){
+    public void setTextBtnAccionLibre( String textoBoton ){
         btnAccionLibre.setText( textoBoton );
     }
     
@@ -140,11 +166,17 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
         inputBusqueda.putClientProperty("JTextField.placeholderText", "Buscar por " + opcionesBusqueda);
     }
     
+    public JButton getBtnLimpiarBusqueda(){
+        return btnLimpiar;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAccionLibre;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JPanel contenedorBtnBuscar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JPanel contenedorBtnBuscarEInput;
+    private javax.swing.JPanel contenedorBtnLimpiar;
     private javax.swing.JPanel contenedorBuscador;
     private javax.swing.JTextField inputBusqueda;
     // End of variables declaration//GEN-END:variables

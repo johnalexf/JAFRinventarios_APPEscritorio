@@ -48,7 +48,7 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
 
         initComponents();
         
-        btnCerrar.setIcon(IconosBotones.CERRAR.getIcono());
+        btnCerrar.setIcon(IconosBotones.CERRAR_DIALOGO.getIcono());
 
         configurarContenidoDialogo(titulo, mensaje, tipoIcono);
         

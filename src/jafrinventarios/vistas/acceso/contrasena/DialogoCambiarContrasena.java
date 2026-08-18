@@ -47,7 +47,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     private DialogoCambiarContrasena(Window parent, String titulo, NombresTarjetasContrasena tarjetaInicial) {
         super(parent);
         initComponents();
-        btnCerrar.setIcon(IconosBotones.CERRAR.getIcono());
+        btnCerrar.setIcon(IconosBotones.CERRAR_DIALOGO.getIcono());
         
         layaoutTarjetas = (CardLayout) contenedorTarjetas.getLayout();
         tituloDialogo.setText(titulo);

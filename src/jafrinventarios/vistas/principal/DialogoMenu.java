@@ -6,6 +6,7 @@
 package jafrinventarios.vistas.principal;
 
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
+import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import java.awt.Window;
 import javax.swing.JPanel;
 
@@ -30,6 +31,8 @@ public class DialogoMenu extends DialogoBaseConSombra {
         this.menu = menu;
         
         initComponents();
+        
+        btnCerrar.setIcon(IconosBotones.CERRAR_DIALOGO.getIcono());
         
         contenedorContenido.add(menu, java.awt.BorderLayout.CENTER);
         pack();
