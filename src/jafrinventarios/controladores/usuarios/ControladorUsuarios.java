@@ -40,7 +40,7 @@ public class ControladorUsuarios {
         
         
         filasTablaUsuarios = new LinkedHashMap<>();
-        crearFilasTablaUsuarios();
+        inicializarTablaUsuarios();
         inyectarFilasTablaUsuarios();
         inicializarEventosBotones();
         
@@ -75,12 +75,26 @@ public class ControladorUsuarios {
     
     
     private void abrirModalCrearUsuario(){
-        ControladorDialogoUsuarios.crearUsuario( getFramePadre() );
+        int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( getFramePadre() );
+        
+        if(idUsuarioCreado != -1){
+         /*   
+            //TODO: pendiente pedir al modelo o al servicio la informacion del nuevo usuario
+            datosUsuario 
+            
+            FilaTablaUsuarios filaDatosUsuario = 
+                                    crearNuevaFilaTablaUsuarios(datosUsuario);
+             
+            agregarNuevaFilaTablaUsuarios(idUsuarioCreado, filaDatosUsuario);
+            
+            moduloUsuarios.inyectarNuevaFilaATablaUsuarios(filaDatosUsuario);
+         */
+        }
     }
     
     
     
-    private void crearFilasTablaUsuarios(){
+    private void inicializarTablaUsuarios(){
     
         LinkedHashMap<Integer, ModeloUsuario> listaUsuarios = new LinkedHashMap<>();
             
@@ -97,7 +111,17 @@ public class ControladorUsuarios {
         
         listaUsuarios.forEach((Integer id, ModeloUsuario datosUsuario) ->{
              
-            FilaTablaUsuarios filaDatosUsuario = new FilaTablaUsuarios();
+            FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
+             
+            agregarNuevaFilaTablaUsuarios(id, filaDatosUsuario);
+        }
+        );
+         
+    
+    }
+    
+    private FilaTablaUsuarios crearNuevaFilaTablaUsuarios( ModeloUsuario datosUsuario){
+        FilaTablaUsuarios filaDatosUsuario = new FilaTablaUsuarios();
             filaDatosUsuario.setDatos(
                      String.valueOf(  datosUsuario.getIdUsuario() ), 
                      datosUsuario.getAlias(), 
@@ -106,15 +130,15 @@ public class ControladorUsuarios {
                      datosUsuario.getTelefono(), 
                      datosUsuario.getRol()
              );
-             
-            filasTablaUsuarios.put(    
-                     id,
-                     filaDatosUsuario
-             );
-        }
-        );
-         
+        return filaDatosUsuario;
+    }
     
+    
+    private void agregarNuevaFilaTablaUsuarios(int id, FilaTablaUsuarios fila){
+                    filasTablaUsuarios.put(    
+                     id,
+                     fila
+             );
     }
     
     private void inyectarFilasTablaUsuarios(){
@@ -135,23 +159,24 @@ public class ControladorUsuarios {
     
     private void editarUsuario(JFrame ventanaPadre, Integer idUsuario){
         
-        //TODO pendiente convertir ControladorDialogoUsuarios.editarOtroUsuario en una respuesta boolean si se edito o no
-        /*
-            if( ControladorDialogoUsuarios.editarOtroUsuario(getFramePadre(), idUsuario) ){
-                //TODO hacer la consulta con el servicio o el modelo del usuario editado, 
-                // para asignar los nuevos valores 
-                ModeloUsuario usuarioEditado = 
-                FilaTablaUsuarios filaDatosUsuario = filasTablaUsuarios.get(idUsuario);
-                filaDatosUsuario.setDatos(
-                         String.valueOf(  datosUsuario.getIdUsuario() ), 
-                         datosUsuario.getAlias(), 
-                         datosUsuario.getNombreCompleto(), 
-                         datosUsuario.getCorreo(), 
-                         datosUsuario.getTelefono(), 
-                         datosUsuario.getRol()
-                 );
-            }
-        */
+        boolean seEditoUsuario = ControladorDialogoUsuarios.editarOtroUsuario(getFramePadre(), idUsuario);
+        
+        if( seEditoUsuario ){
+            //TODO hacer la consulta con el servicio o el modelo del usuario editado, 
+            // para asignar los nuevos valores 
+         /* ModeloUsuario usuarioEditado = 
+            FilaTablaUsuarios filaDatosUsuario = filasTablaUsuarios.get(idUsuario);
+            filaDatosUsuario.setDatos(
+                     String.valueOf(  datosUsuario.getIdUsuario() ), 
+                     datosUsuario.getAlias(), 
+                     datosUsuario.getNombreCompleto(), 
+                     datosUsuario.getCorreo(), 
+                     datosUsuario.getTelefono(), 
+                     datosUsuario.getRol()
+             );
+          */
+        }
+        
     }
     
 

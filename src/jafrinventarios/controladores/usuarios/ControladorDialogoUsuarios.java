@@ -26,6 +26,8 @@ public class ControladorDialogoUsuarios {
     
     private String mensajeExitoso;
     
+    private boolean operacionExitosa = false;
+    
     //TODO esta variable es para pruebas, cuando se conecte la base de datos
     //se hara la consulta y se eliminara esta variable.
     private boolean esUsuarioHabilitado = true;
@@ -71,7 +73,7 @@ public class ControladorDialogoUsuarios {
      METODOS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
     ============================================================================
     */
-    public static void editarPerfil(JFrame ventanaPadre, boolean esAdministrador){
+    public static boolean editarPerfil(JFrame ventanaPadre, boolean esAdministrador){
         
         //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
         //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
@@ -82,16 +84,20 @@ public class ControladorDialogoUsuarios {
                                               esAdministrador
                 );
         
-        new ControladorDialogoUsuarios( dialogoUsuario, 
-                                        DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO, 
-                                        esAdministrador,
-                                        ModeloSesionUsuario.getInstancia().getIdUsuario()
+        ControladorDialogoUsuarios controlador =
+                new ControladorDialogoUsuarios( 
+                        dialogoUsuario, 
+                        DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO, 
+                        esAdministrador,
+                        ModeloSesionUsuario.getInstancia().getIdUsuario()
         );
+        
+        return controlador.isOperacionExitosa();
         
     }
     
     
-    public static void editarOtroUsuario(JFrame ventanaPadre, int idUsuario){
+    public static boolean editarOtroUsuario(JFrame ventanaPadre, int idUsuario){
         
         //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
         //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
@@ -102,16 +108,19 @@ public class ControladorDialogoUsuarios {
                                               true
                 );
         
-        new ControladorDialogoUsuarios( dialogoUsuario, 
-                                        DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO, 
-                                        true,
-                                        idUsuario
+        ControladorDialogoUsuarios controlador =
+            new ControladorDialogoUsuarios( dialogoUsuario, 
+                                            DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO, 
+                                            true,
+                                            idUsuario
         );
+        
+        return controlador.isOperacionExitosa();
         
     }
     
     
-    public static void crearUsuario(JFrame ventanaPadre){
+    public static int crearUsuario(JFrame ventanaPadre){
         
         //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
         //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
@@ -122,11 +131,14 @@ public class ControladorDialogoUsuarios {
                                               true
                 );
         
-        new ControladorDialogoUsuarios( dialogoUsuario, 
-                                        DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO, 
-                                        true,
-                                        -1
+        ControladorDialogoUsuarios controlador = 
+            new ControladorDialogoUsuarios( dialogoUsuario, 
+                                            DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO, 
+                                            true,
+                                            -1
         );
+        
+        return controlador.getIdUsuario();
         
     }
         
@@ -210,13 +222,13 @@ public class ControladorDialogoUsuarios {
         // TODO: conexion al modelo para que guarde los datos y responda
         switch(tipoDialogo){
             case EDITAR_PERFIL_PROPIO:
-                //TODO: Consultar para editar perfil propio
+                //TODO: Consulta para editar perfil propio
                 break;
             case EDITAR_OTRO_USUARIO:
-                //TODO: Consultar para editar perfil propio
+                //TODO: Consulta para editar otro usuario
                 break;
             case CREAR_NUEVO_USUARIO:
-                //TODO: Consultar para editarUsuario nuevo usuario
+                //TODO: Consulta para crear nuevo usuario
                 // La contraseña se envia por correo al nuevo usuario
                 break;
         }
@@ -230,6 +242,9 @@ public class ControladorDialogoUsuarios {
                     "Operacion Exitosa", 
                     mensajeExitoso
             );
+            operacionExitosa = true;
+            //TODO Cuando se crea un nuevo usuario se debe realizar el codigo
+            // para obtener el id del usuario creado
             dialogoUsuario.dispose();
             
         }else{
@@ -287,10 +302,24 @@ public class ControladorDialogoUsuarios {
         
         //TODO consulta del nuevo estado del usuario
         // simulacion de intercambio de estado
+        operacionExitosa = true;
         esUsuarioHabilitado = !esUsuarioHabilitado;
         dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario(esUsuarioHabilitado);
         
     }
     
+    
+    /* 
+    Funcion para retornar true en dado caso que se haya realizado 
+    cualquier cambio a cualquier usuario
+    */
+    public boolean isOperacionExitosa() {
+        return operacionExitosa;
+    }
+    
+    //Funcion para retornar el id del usuario creado
+    public int getIdUsuario(){
+        return idUsuario;
+    }
     
 }

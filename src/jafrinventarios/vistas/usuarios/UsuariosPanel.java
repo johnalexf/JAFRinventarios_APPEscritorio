@@ -212,6 +212,20 @@ public class UsuariosPanel extends javax.swing.JPanel {
             contenedorContenidoTabla.add(fila);
         });
         
+        redubijarPanel();
+    }
+    
+    
+    public void inyectarNuevaFilaATablaUsuarios( FilaTablaUsuarios fila ){
+
+        contenedorContenidoTabla.add(fila);
+        
+        redubijarPanel();
+
+    }
+    
+    
+    private void redubijarPanel(){
         // Avisar a Swing que recalcule los tamaños y redibuje el panel
         contenedorContenidoTabla.revalidate();
         contenedorContenidoTabla.repaint();
