@@ -220,7 +220,9 @@ public class FilaTablaUsuarios extends javax.swing.JPanel {
         
     }
     
-    public void setIdentificarHabilitado(boolean estaHabilitado){
+    //Metodo para cambiar el color de la fila si es un item deshabilitado
+    // y asi poder identificar cuales son habilitados y deshabilitados facilmente
+    public void setEstadoVisual(boolean estaHabilitado){
         if(estaHabilitado){
             contenedorDatos.setBackground(new java.awt.Color(255, 255, 255));
         }else{
