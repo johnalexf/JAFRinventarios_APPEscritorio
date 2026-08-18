@@ -57,7 +57,6 @@ public class ControladorUsuarios {
                 obtenerListaUsuariosBD("")
         );
         inyectarTablaAVista();
-        inicializarEventosBotones();
         
         
     }
@@ -117,10 +116,7 @@ public class ControladorUsuarios {
     
     
     private void agregarNuevaFilaTablaUsuarios(int id, FilaTablaUsuarios fila){
-                    tablaDatosUsuarios.put(    
-                     id,
-                     fila
-             );
+        tablaDatosUsuarios.put(  id,  fila   );
     }
     
     
@@ -153,6 +149,8 @@ public class ControladorUsuarios {
         listaUsuariosBD.forEach((Integer id, ModeloUsuario datosUsuario) ->{
              
                 FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
+                
+                inicializarEventoBotonEditar(id, filaDatosUsuario);
 
                 agregarNuevaFilaTablaUsuarios(id, filaDatosUsuario);
             }
@@ -161,13 +159,13 @@ public class ControladorUsuarios {
     }
     
     
-    private void limpiarTablaUsuario(){
+    private void limpiarTablaUsuarios(){
         tablaDatosUsuarios.clear();
     }
     
     
     private void reiniciarTabla(){
-        limpiarTablaUsuario();
+        limpiarTablaUsuarios();
         estructurarTablaUsuarios(
                 obtenerListaUsuariosBD("")
         );
@@ -185,7 +183,7 @@ public class ControladorUsuarios {
         if( listaUsuarios.isEmpty() ){
             return false;
         }else{
-            limpiarTablaUsuario();
+            limpiarTablaUsuarios();
             estructurarTablaUsuarios( listaUsuarios );
             inyectarTablaAVista();
             return true;
@@ -200,10 +198,10 @@ public class ControladorUsuarios {
     
     
     private void inyectarNuevaFilaAVista(FilaTablaUsuarios fila){
-        moduloUsuarios.inyectarNuevaFilaATablaUsuarios(fila);
+        moduloUsuarios.inyectarNuevaFilaATablaUsuarios(fila);  
     }
     
-    
+
     /*
     ============================================================================
     ============================================================================
@@ -212,20 +210,15 @@ public class ControladorUsuarios {
     
     
     /*
-    ============================================================================
-           METODO PARA ASIGNAR EL LISTENER A CADA BOTON DE EDITAR USUARIO
-    ============================================================================
+    ======================================================================================
+     METODO PARA ASIGNAR EL LISTENER AL BOTON DE EDITAR USUARIO DE UNA FilaTablaUsuarios
+    ======================================================================================
     */
-    
-    private void inicializarEventosBotones(){
         
-        tablaDatosUsuarios.forEach( ( Integer id, FilaTablaUsuarios fila )->{
-            fila.getBtnEditar().addActionListener(e -> 
-                    editarUsuario(id)
-            );
-        });
-        
+    private void inicializarEventoBotonEditar(Integer id, FilaTablaUsuarios fila){
+        fila.getBtnEditar().addActionListener(e -> editarUsuario(id));
     }
+    
     
     
     /*
@@ -257,6 +250,8 @@ public class ControladorUsuarios {
             FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
              
             agregarNuevaFilaTablaUsuarios(id, filaDatosUsuario);
+            
+            inicializarEventoBotonEditar(id, fila);
             
             inyectarNuevaFilaAVista( filaDatosUsuario );
          */
