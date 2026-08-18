@@ -220,6 +220,14 @@ public class FilaTablaUsuarios extends javax.swing.JPanel {
         
     }
     
+    public void setIdentificarHabilitado(boolean estaHabilitado){
+        if(estaHabilitado){
+            contenedorDatos.setBackground(new java.awt.Color(255, 255, 255));
+        }else{
+            contenedorDatos.setBackground(new java.awt.Color(217, 217, 217));
+        }
+    }
+    
     //GETTERS
     
     public JButton getBtnEditar() {

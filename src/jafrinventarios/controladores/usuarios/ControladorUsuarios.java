@@ -98,11 +98,11 @@ public class ControladorUsuarios {
     
     private FilaTablaUsuarios crearNuevaFilaTablaUsuarios( ModeloUsuario datosUsuario ){
         FilaTablaUsuarios filaDatosUsuario = new FilaTablaUsuarios();
-        return escribirDatosAFila(filaDatosUsuario, datosUsuario);
+        return asignarDatosAFila(filaDatosUsuario, datosUsuario);
     }
     
     
-    private FilaTablaUsuarios escribirDatosAFila( FilaTablaUsuarios fila, ModeloUsuario datosUsuario ){
+    private FilaTablaUsuarios asignarDatosAFila( FilaTablaUsuarios fila, ModeloUsuario datosUsuario ){
         fila.setDatos(
                      String.valueOf(  datosUsuario.getIdUsuario() ), 
                      datosUsuario.getAlias(), 
@@ -111,6 +111,7 @@ public class ControladorUsuarios {
                      datosUsuario.getTelefono(), 
                      datosUsuario.getRol()
         );
+        fila.setIdentificarHabilitado( datosUsuario.getEstaHabilitado() );
         return fila;
     }
     
@@ -139,7 +140,7 @@ public class ControladorUsuarios {
             listaUsuarios.put(3, new ModeloUsuario(3, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
             listaUsuarios.put(4, new ModeloUsuario(4, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
             listaUsuarios.put(5, new ModeloUsuario(5, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
-            listaUsuarios.put(6, new ModeloUsuario(6, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
+            listaUsuarios.put(6, new ModeloUsuario(6, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", false));
         }
         
         return listaUsuarios;

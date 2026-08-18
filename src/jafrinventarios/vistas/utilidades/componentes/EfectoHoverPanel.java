@@ -17,11 +17,10 @@ import javax.swing.JPanel;
 public class EfectoHoverPanel {
     
     private final JPanel panel;
-    private final Color colorNormal;
+    private Color colorNormal;
     
     private EfectoHoverPanel(JPanel panel){
         this.panel = panel;
-        this.colorNormal = panel.getBackground();
         
         inicializarEventos();
     }
@@ -29,14 +28,25 @@ public class EfectoHoverPanel {
     private void inicializarEventos(){
     
         panel.addMouseListener(new MouseAdapter() {
+            
             @Override
             public void mouseEntered(MouseEvent e) {
+                colorNormal = panel.getBackground();
                 panel.setBackground(colorNormal.darker()); // Color al hacer hover
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                panel.setBackground(colorNormal); // Color original
+                /*
+                Ya no se guarda el color desde el constructor para no depender 
+                del color que tenga el panel cuando recien se le aplica el estilo, 
+                pues esto permite que si se cambia el color aun funcione el hover
+                */
+                if(colorNormal != null){
+                    panel.setBackground(colorNormal); // Color original
+                }
+                colorNormal = null;
+
             }
         });
     

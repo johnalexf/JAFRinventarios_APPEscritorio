@@ -163,6 +163,7 @@ public class UsuariosPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         contenedorTitulosTabla.add(lblTituloEditar, gridBagConstraints);
 
         contenedorHeaderTabla.add(contenedorTitulosTabla, java.awt.BorderLayout.PAGE_START);
