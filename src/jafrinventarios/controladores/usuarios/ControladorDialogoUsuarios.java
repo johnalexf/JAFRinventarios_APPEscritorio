@@ -20,18 +20,28 @@ import javax.swing.JFrame;
 public class ControladorDialogoUsuarios {
     
     private DialogoFormularioUsuario dialogoUsuario;
+    
+    //Variable de soporte para personalizar el controlador segun el tipo de dialogo:
+    //EDITAR_PERFIL_PROPIO, EDITAR_OTRO_USUARIO y CREAR_NUEVO_USUARIO
     private DialogoFormularioUsuario.TipoDialogo tipoDialogo;
+    
     private boolean esAdministrador;
+    // Variable con el id del usuario a editar, para el caso de CREAR_NUEVO_USUARIO
+    // Esta variable sera la respuesta del nuevo usuario.
     private int idUsuario;
     
+    //Variable para personalizar el mensaje exitoso si es para crear o editar
     private String mensajeExitoso;
-    
-    private boolean operacionExitosa = false;
     
     //TODO esta variable es para pruebas, cuando se conecte la base de datos
     //se hara la consulta y se eliminara esta variable.
     private boolean esUsuarioHabilitado = true;
+    
+    // Variable usada para responder segun el resultado de la operacion para
+    // las funciones de editar perfil u otro usuario
+    private boolean operacionExitosa = false;
 
+    
     /*
     ============================================================================
       CONSTRUCTOR PRIVADO PARA EVITAR QUE SE CREE SIN SU DEBIDA CONFIGURACION
@@ -54,9 +64,8 @@ public class ControladorDialogoUsuarios {
              inicializarComboBoxRoles();
         }
         
-        
         if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO){
-            cargarDatos(tipoDialogo);
+            cargarDatosAVista(tipoDialogo);
             mensajeExitoso = "El usuario se ha actualizado correctamente";
         }else{
             mensajeExitoso = "Usuario creado correctamente \n La contraseña se le envia al usuario por correo"; 
@@ -144,9 +153,13 @@ public class ControladorDialogoUsuarios {
         
 //==============================================================================
         
+    /*
+    ============================================================================
+                            METODOS INICIALES
+    ============================================================================
+    */
     
-    
-    private void cargarDatos(DialogoFormularioUsuario.TipoDialogo tipoDialogo){
+    private void cargarDatosAVista(DialogoFormularioUsuario.TipoDialogo tipoDialogo){
         
         if(tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO){
             dialogoUsuario.setId( Integer.toString(idUsuario) );
@@ -205,6 +218,13 @@ public class ControladorDialogoUsuarios {
         }
         
     }
+    
+    
+    /*
+    ============================================================================
+                        METODOS OPERACION DE LOS BOTONES
+    ============================================================================
+    */
     
     
     private void procesarFormulario(){
@@ -308,6 +328,13 @@ public class ControladorDialogoUsuarios {
         
     }
     
+    
+    
+    /*
+    ============================================================================
+                        METODOS RESPUESTA DE OPERACION
+    ============================================================================
+    */
     
     /* 
     Funcion para retornar true en dado caso que se haya realizado 

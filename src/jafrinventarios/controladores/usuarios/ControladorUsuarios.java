@@ -22,31 +22,49 @@ public class ControladorUsuarios {
     
     
     private final UsuariosPanel moduloUsuarios;
-    // hash map con las filas que representan los datos de cada usuario
-    // se identifica con el id para poder acceder al boton, y tambien para cuando
-    // se necesite actualizar la informacion de un item editado
+    
+    /* 
+    LinkedHashMap con las filas que representan los datos de cada usuario
+     se identifica con el id para poder acceder al boton, y tambien para cuando
+     se necesite actualizar la informacion de un item editado
+    */
     private LinkedHashMap<Integer, FilaTablaUsuarios> filasTablaUsuarios;
 
+     /*
+    ============================================================================
+                        CONSTRUCTOR PUBLICO
+    ============================================================================
+    */
     public ControladorUsuarios(UsuariosPanel moduloUsuarios) {
+        
         this.moduloUsuarios = moduloUsuarios;
         
-        // Instanciamos el sub-controlador de la barra de busquedad y el boton de accion libre
-        // pasándole el panel incrustado y definiendo qué hacer
-        new ControladorBusquedaYAccionLibre(   moduloUsuarios.getPanelBusquedaYAccionLibre(), 
-                                               asignarFuncionesBusquedaYAccionLibre(),
-                                               "Alias, Nombre, Correo, Telefono o Rol ",
-                                               "Agregar Nuevo Usuario"
+        /* 
+        Instanciamos el sub-controlador de la barra de busquedad y el boton de accion libre
+         pasándole el panel incrustado y definiendole qué hacer cuando el usuario
+         desee buscar o cuando presione el boton de accion libre.
+        */
+        new ControladorBusquedaYAccionLibre(   
+                moduloUsuarios.getPanelBusquedaYAccionLibre(), 
+                asignarFuncionesBusquedaYAccionLibre(),
+                "Alias, Nombre, Correo, Telefono o Rol ",
+                "Agregar Nuevo Usuario"
         );
         
         
         filasTablaUsuarios = new LinkedHashMap<>();
         inicializarTablaUsuarios();
-        inyectarFilasTablaUsuarios();
+        inyectarTablaAVista();
         inicializarEventosBotones();
         
         
     }
     
+    /* 
+    Metodo para crear desde la interfaz FuncionesBusquedaYAccionLibre el objeto
+    que contendra la asignacion que se requiere para realizar una busqueda
+    o para ejecutar la accion libre que en este caso es crear un nuevo usuario.   
+    */
     private FuncionesBusquedaYAccionLibre asignarFuncionesBusquedaYAccionLibre(){
         return new FuncionesBusquedaYAccionLibre() {
             
@@ -61,37 +79,39 @@ public class ControladorUsuarios {
 
             @Override
             public void ejecutarAccionLibre() {
-                abrirModalCrearUsuario();
+                crearUsuario();
             }
             
         };
     }
     
     
-    // Metodo para optener cual es el frame padre de la vista JPanel modulo de usuarios
-    private JFrame getFramePadre(){
-        return (JFrame) SwingUtilities.getWindowAncestor(moduloUsuarios);
-    }
-    
-    
-    private void abrirModalCrearUsuario(){
-        int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( getFramePadre() );
+     /*
+    ============================================================================
+                METODOS PARA EL CONTROL DE LAS FILAS DE LA TABLA
+    ============================================================================
+    */
         
-        if(idUsuarioCreado != -1){
-         /*   
-            //TODO: pendiente pedir al modelo o al servicio la informacion del nuevo usuario
-            datosUsuario 
-            
-            FilaTablaUsuarios filaDatosUsuario = 
-                                    crearNuevaFilaTablaUsuarios(datosUsuario);
-             
-            agregarNuevaFilaTablaUsuarios(idUsuarioCreado, filaDatosUsuario);
-            
-            moduloUsuarios.inyectarNuevaFilaATablaUsuarios(filaDatosUsuario);
-         */
-        }
+    private FilaTablaUsuarios crearNuevaFilaTablaUsuarios( ModeloUsuario datosUsuario){
+        FilaTablaUsuarios filaDatosUsuario = new FilaTablaUsuarios();
+            filaDatosUsuario.setDatos(
+                     String.valueOf(  datosUsuario.getIdUsuario() ), 
+                     datosUsuario.getAlias(), 
+                     datosUsuario.getNombreCompleto(), 
+                     datosUsuario.getCorreo(), 
+                     datosUsuario.getTelefono(), 
+                     datosUsuario.getRol()
+             );
+        return filaDatosUsuario;
     }
     
+    
+    private void agregarNuevaFilaTablaUsuarios(int id, FilaTablaUsuarios fila){
+                    filasTablaUsuarios.put(    
+                     id,
+                     fila
+             );
+    }
     
     
     private void inicializarTablaUsuarios(){
@@ -120,46 +140,79 @@ public class ControladorUsuarios {
     
     }
     
-    private FilaTablaUsuarios crearNuevaFilaTablaUsuarios( ModeloUsuario datosUsuario){
-        FilaTablaUsuarios filaDatosUsuario = new FilaTablaUsuarios();
-            filaDatosUsuario.setDatos(
-                     String.valueOf(  datosUsuario.getIdUsuario() ), 
-                     datosUsuario.getAlias(), 
-                     datosUsuario.getNombreCompleto(), 
-                     datosUsuario.getCorreo(), 
-                     datosUsuario.getTelefono(), 
-                     datosUsuario.getRol()
-             );
-        return filaDatosUsuario;
-    }
     
-    
-    private void agregarNuevaFilaTablaUsuarios(int id, FilaTablaUsuarios fila){
-                    filasTablaUsuarios.put(    
-                     id,
-                     fila
-             );
-    }
-    
-    private void inyectarFilasTablaUsuarios(){
+    private void inyectarTablaAVista(){
         moduloUsuarios.inyectarFilasTablaUsuarios(filasTablaUsuarios);
     }
-            
+          
+    
+    /*
+    ============================================================================
+    ============================================================================
+    */
+    
+    
+    
+    /*
+    ============================================================================
+           METODO PARA ASIGNAR EL LISTENER A CADA BOTON DE EDITAR USUARIO
+    ============================================================================
+    */
     
     private void inicializarEventosBotones(){
         
         filasTablaUsuarios.forEach( ( Integer id, FilaTablaUsuarios fila )->{
             fila.getBtnEditar().addActionListener(e -> 
-                    ControladorDialogoUsuarios.editarOtroUsuario(getFramePadre(), id)
+                    editarUsuario(id)
             );
         });
         
     }
     
     
-    private void editarUsuario(JFrame ventanaPadre, Integer idUsuario){
+    /*
+    ============================================================================
+                METODOS PARA LAS ACCIONES (CREAR, EDITAR Y BUSCAR)
+    ============================================================================
+    */
+    
+    
+    // Metodo para optener cual es el frame padre de la vista JPanel modulo de usuarios
+    private JFrame getFramePadre(){
+        return (JFrame) SwingUtilities.getWindowAncestor(moduloUsuarios);
+    }
+    
+    
+    private void crearUsuario(){
+        /* 
+        Con el metodo estatico ControladorDialogoUsuarios.crearUsuario se abre
+         un modal para crear un usuario, si se crea este devuelve el Id de
+         dicho usuario, en dado caso que no se cree se espera recibir un -1
+        */
+        int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( getFramePadre() );
         
-        boolean seEditoUsuario = ControladorDialogoUsuarios.editarOtroUsuario(getFramePadre(), idUsuario);
+        if(idUsuarioCreado != -1){
+         /*   
+            //TODO: pendiente pedir al modelo o al servicio la informacion del nuevo usuario
+            datosUsuario 
+            
+            FilaTablaUsuarios filaDatosUsuario = 
+                                    crearNuevaFilaTablaUsuarios(datosUsuario);
+             
+            agregarNuevaFilaTablaUsuarios(idUsuarioCreado, filaDatosUsuario);
+            
+            moduloUsuarios.inyectarNuevaFilaATablaUsuarios(filaDatosUsuario);
+         */
+        }
+    }
+    
+ 
+    private void editarUsuario(Integer idUsuario){
+        
+        boolean seEditoUsuario = 
+                ControladorDialogoUsuarios.editarOtroUsuario(
+                        getFramePadre(), idUsuario
+                );
         
         if( seEditoUsuario ){
             //TODO hacer la consulta con el servicio o el modelo del usuario editado, 
