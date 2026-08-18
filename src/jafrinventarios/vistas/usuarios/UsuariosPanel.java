@@ -7,7 +7,6 @@ package jafrinventarios.vistas.usuarios;
 
 import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre;
 import java.util.LinkedHashMap;
-import javax.swing.JPanel;
 
 
 /**
@@ -205,7 +204,10 @@ public class UsuariosPanel extends javax.swing.JPanel {
         return panelBusquedaYAccionLibre;
     }
     
+    //Metodo para poder agregar toda la lista de usuarios recibida, por medio de
+    // LinkedHashMap mantenemos el orden en el cual ha sido enviada.
     public void inyectarFilasTablaUsuarios(LinkedHashMap<Integer, FilaTablaUsuarios> filasTablaUsuarios){
+        //Remover todo el contenido dentro del contenedorContenidoTabla
         contenedorContenidoTabla.removeAll();
         
         filasTablaUsuarios.values().forEach(fila -> {
@@ -215,7 +217,8 @@ public class UsuariosPanel extends javax.swing.JPanel {
         redubijarPanel();
     }
     
-    
+    // Metodo para inyectar una nueva fila, pensado unicamente para cuando se cree
+    // un nuevo usuario
     public void inyectarNuevaFilaATablaUsuarios( FilaTablaUsuarios fila ){
 
         contenedorContenidoTabla.add(fila);

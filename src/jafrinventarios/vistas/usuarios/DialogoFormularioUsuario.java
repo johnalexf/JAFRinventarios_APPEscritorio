@@ -35,7 +35,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
                             CONSTRUCTOR PUBLICO
     ============================================================================
     El controlador ofrece metodos estaticos para poder establecer con el mismo
-    cuales son los paremetros que sean acorde a la intencion del controlador
+    cuales son los paremetros que sean acorde a la intencion del metodo estatico.
     */
     public DialogoFormularioUsuario(   Window parent, 
                                         TipoDialogo modo, 
@@ -58,7 +58,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
             break;
         }
         
-        agregarCamposAFormulario(esAdministrador);
+        agregarCamposAGestorFormulario(esAdministrador);
         
     }
     
@@ -104,6 +104,10 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     }
     
     private void personalizacionCrearNuevoUsuario(){
+        /* Como la mayoria de usos de este dialogo es para editar usuarios, 
+            el titulo y el texto del boton estan predeterminados para dicha 
+            funcion, por ende solo en crear un nuevo usuarios se personalizan.
+        */
         tituloFormulario.setText("Crear Nuevo Usuario");
         btnEnviarFormulario.setText("Crear");
     
@@ -113,9 +117,9 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     }
     
     
-    private void agregarCamposAFormulario(boolean esAdministrador){
+    private void agregarCamposAGestorFormulario(boolean esAdministrador){
         
-        agregarCampoAlias();
+        agregarCampoAlias(esAdministrador);
         /*
             El combo box rol se agrega desde el controlador por medio de 
             inicializarComboBoxRoles Cuando sea para gestionar usuarios
@@ -173,11 +177,11 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         
     }
     
-    private void agregarCampoAlias(){
+    private void agregarCampoAlias( boolean esAdministrador ){
         formularioDatosUsuario.agregarCampoTexto( inputAlias, 
                                           lblErrorInputAlias, 
                                           TipoDatoFormulario.ALIAS, 
-                                          true);
+                                          esAdministrador);
     }
 
     

@@ -6,8 +6,6 @@
 package jafrinventarios.vistas.usuarios;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  *
@@ -156,7 +154,16 @@ public class FilaTablaUsuarios extends javax.swing.JPanel {
         add(contenedorFila);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    ============================================================================
+                                METODOS PRIVADOS
+    ============================================================================
+    */
 
+    /*
+    Estos setter son privados puesto que el controlador tendra que mandar toda
+    la informacion ya sea para actualizar la fila o asignar los datos iniciales.
+    */
     private void setTextLblDatoId(String dato) {
         this.lblDatoId.setText(dato);
     }
