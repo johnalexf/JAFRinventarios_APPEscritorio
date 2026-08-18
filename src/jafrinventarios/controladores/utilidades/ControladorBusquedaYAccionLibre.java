@@ -64,6 +64,9 @@ public class ControladorBusquedaYAccionLibre {
         // Escuchar el clic en el botón de la lupa
         panelBusquedaYAccion.getBtnBuscar().addActionListener(e -> validarYEjecutarBusqueda());
         
+        // Escuchar el clic en el boton de limpiar busqueda
+        panelBusquedaYAccion.getBtnLimpiarBusqueda().addActionListener( e -> ejecutarLimpiezaDeBusqueda() );
+        
         // Escuchar el clic en el boton de accion libre para una accion destinada desde el controlador principal
         panelBusquedaYAccion.getBtnAccionLibre().addActionListener(e -> definidorFunciones.ejecutarAccionLibre());
     }
@@ -71,16 +74,13 @@ public class ControladorBusquedaYAccionLibre {
     
     private void validarYEjecutarBusqueda() {
         
-        String termino = panelBusquedaYAccion.getInputBusqueda().getText().trim();
+        String termino = panelBusquedaYAccion.getTextoLimpioInputBusqueda();
         
         // Validamos que no esté vacío (el placeholder nativo de FlatLaf no interfiere aquí)
         if (!termino.isEmpty()) {
-            // Como la busqueda es valida (No es vacio y no son solo espacios)
+            // Como la busqueda es valida ( No es vacio )
             // Ejecuta la accion declarada en el controlador principal
-            
-            //TODO: Cuando el usuario realice una busqueda exitosa y desee cancelarla
-            //Debe existir un boton "X" para devolverse a mostrar toda la lista completa
-            //pendiente para cuando se pueda hacer una consulta para validar su correcto funcionamiento
+
             if( !definidorFunciones.ejecutarBusqueda(termino) ){
                 
                 JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(panelBusquedaYAccion);
@@ -91,9 +91,24 @@ public class ControladorBusquedaYAccionLibre {
                         + "\n por favor intente con otro texto."
                 );
                 
+                if( panelBusquedaYAccion.getIsVisibleBtnLimpiar() ){
+                    ejecutarLimpiezaDeBusqueda();
+                }else{
+                    panelBusquedaYAccion.setLimpiarInputBusqueda();
+                }
+                
+            }else{
+                panelBusquedaYAccion.setVisibilidadBtnLimpiar(true);
             }
         }
         
+    }
+    
+    
+    private void ejecutarLimpiezaDeBusqueda(){
+        definidorFunciones.limpiarBusqueda();
+        panelBusquedaYAccion.setVisibilidadBtnLimpiar(false);
+        panelBusquedaYAccion.setLimpiarInputBusqueda();
     }
     
     

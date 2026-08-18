@@ -26,6 +26,8 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
         
        // Redondear los bordes del contenedor usando FlatLaf
         contenedorBuscador.putClientProperty("FlatLaf.style", "arc: 15");
+        
+        setVisibilidadBtnLimpiar(false);
     }
 
     /**
@@ -146,14 +148,32 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
     ============================================================================
     */
     
-    public JButton getBtnAccionLibre(){
-        return btnAccionLibre;
-    }
+    //SETTERS
     
     public void setTextBtnAccionLibre( String textoBoton ){
         btnAccionLibre.setText( textoBoton );
     }
     
+    public void setPlaceholderInputBusqueda( String  opcionesBusqueda ){
+        inputBusqueda.putClientProperty("JTextField.placeholderText", "Buscar por " + opcionesBusqueda);
+    }
+    
+    public void setLimpiarInputBusqueda(){
+        inputBusqueda.setText("");
+    }
+    
+    public void setVisibilidadBtnLimpiar( boolean mostrar ){
+        btnLimpiar.setVisible(mostrar);
+    }
+    
+    
+    
+    //GETTERS
+    
+    public JButton getBtnAccionLibre(){
+        return btnAccionLibre;
+    }
+   
     public JButton getBtnBuscar(){
         return btnBuscar;
     }
@@ -162,13 +182,18 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
         return inputBusqueda;
     }
     
-    public void setPlaceholderInputBusqueda( String  opcionesBusqueda ){
-        inputBusqueda.putClientProperty("JTextField.placeholderText", "Buscar por " + opcionesBusqueda);
-    }
-    
     public JButton getBtnLimpiarBusqueda(){
         return btnLimpiar;
     }
+    
+    public String getTextoLimpioInputBusqueda(){
+        return inputBusqueda.getText().trim();
+    }
+    
+    public boolean getIsVisibleBtnLimpiar(){
+        return btnLimpiar.isVisible();
+    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

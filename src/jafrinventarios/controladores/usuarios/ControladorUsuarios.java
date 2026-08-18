@@ -28,7 +28,7 @@ public class ControladorUsuarios {
      se identifica con el id para poder acceder al boton, y tambien para cuando
      se necesite actualizar la informacion de un item editado
     */
-    private LinkedHashMap<Integer, FilaTablaUsuarios> filasTablaUsuarios;
+    private LinkedHashMap<Integer, FilaTablaUsuarios> tablaDatosUsuarios;
 
      /*
     ============================================================================
@@ -52,8 +52,10 @@ public class ControladorUsuarios {
         );
         
         
-        filasTablaUsuarios = new LinkedHashMap<>();
-        inicializarTablaUsuarios();
+        tablaDatosUsuarios = new LinkedHashMap<>();
+        estructurarTablaUsuarios(
+                obtenerListaUsuariosBD("")
+        );
         inyectarTablaAVista();
         inicializarEventosBotones();
         
@@ -70,11 +72,12 @@ public class ControladorUsuarios {
             
             @Override
             public boolean ejecutarBusqueda(String terminoBusqueda) {
-                System.out.println("Buscando en la BD de Usuarios el término: " + terminoBusqueda);
-                // Aquí va tu lógica para filtrar la tabla de usuarios
-                //Responde si encontro algo o no para que el controlador muestre un mensaje de error en dado caso que sea false
-                return false;
-                //TODO por el momento lo dejamos en false para ver el mensaje de error y hasta que se haga la respectiva busqueda
+                return procesarBusqueda(terminoBusqueda);
+            }
+            
+            @Override
+            public void limpiarBusqueda(){
+                reiniciarTabla();
             }
 
             @Override
@@ -92,59 +95,113 @@ public class ControladorUsuarios {
     ============================================================================
     */
         
-    private FilaTablaUsuarios crearNuevaFilaTablaUsuarios( ModeloUsuario datosUsuario){
+    
+    private FilaTablaUsuarios crearNuevaFilaTablaUsuarios( ModeloUsuario datosUsuario ){
         FilaTablaUsuarios filaDatosUsuario = new FilaTablaUsuarios();
-            filaDatosUsuario.setDatos(
+        return escribirDatosAFila(filaDatosUsuario, datosUsuario);
+    }
+    
+    
+    private FilaTablaUsuarios escribirDatosAFila( FilaTablaUsuarios fila, ModeloUsuario datosUsuario ){
+        fila.setDatos(
                      String.valueOf(  datosUsuario.getIdUsuario() ), 
                      datosUsuario.getAlias(), 
                      datosUsuario.getNombreCompleto(), 
                      datosUsuario.getCorreo(), 
                      datosUsuario.getTelefono(), 
                      datosUsuario.getRol()
-             );
-        return filaDatosUsuario;
+        );
+        return fila;
     }
     
     
     private void agregarNuevaFilaTablaUsuarios(int id, FilaTablaUsuarios fila){
-                    filasTablaUsuarios.put(    
+                    tablaDatosUsuarios.put(    
                      id,
                      fila
              );
     }
     
     
-    private void inicializarTablaUsuarios(){
-    
+    private LinkedHashMap<Integer, ModeloUsuario> obtenerListaUsuariosBD( String filtro ){
+        
         LinkedHashMap<Integer, ModeloUsuario> listaUsuarios = new LinkedHashMap<>();
             
         /*
         Simulacion de respuesta del servicio del modelo de usuarios
+        por el momento como no existe la funcion, asumimos que solo responde para
+        cuando no hay una palabra de filtro, pero la idea es que el servicio del modelo
+        pueda buscar y devolver una lista dependiendo de dicha busquedad
         */
-         listaUsuarios.put(1, new ModeloUsuario(1, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Administrador", true));
-         listaUsuarios.put(2, new ModeloUsuario(2, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
-         listaUsuarios.put(3, new ModeloUsuario(3, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
-         listaUsuarios.put(4, new ModeloUsuario(4, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
-         listaUsuarios.put(5, new ModeloUsuario(5, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
-         listaUsuarios.put(6, new ModeloUsuario(6, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
-         
-        
-        listaUsuarios.forEach((Integer id, ModeloUsuario datosUsuario) ->{
-             
-            FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
-             
-            agregarNuevaFilaTablaUsuarios(id, filaDatosUsuario);
+        if( filtro.equals("") ){
+            listaUsuarios.put(1, new ModeloUsuario(1, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Administrador", true));
+            listaUsuarios.put(2, new ModeloUsuario(2, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
+            listaUsuarios.put(3, new ModeloUsuario(3, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
+            listaUsuarios.put(4, new ModeloUsuario(4, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
+            listaUsuarios.put(5, new ModeloUsuario(5, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
+            listaUsuarios.put(6, new ModeloUsuario(6, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
         }
+        
+        return listaUsuarios;
+         
+    }
+    
+    
+    private void estructurarTablaUsuarios( LinkedHashMap<Integer, ModeloUsuario> listaUsuariosBD ){
+         
+        listaUsuariosBD.forEach((Integer id, ModeloUsuario datosUsuario) ->{
+             
+                FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
+
+                agregarNuevaFilaTablaUsuarios(id, filaDatosUsuario);
+            }
         );
          
-    
     }
     
     
+    private void limpiarTablaUsuario(){
+        tablaDatosUsuarios.clear();
+    }
+    
+    
+    private void reiniciarTabla(){
+        limpiarTablaUsuario();
+        estructurarTablaUsuarios(
+                obtenerListaUsuariosBD("")
+        );
+        inyectarTablaAVista();
+    }
+    
+    
+    private boolean procesarBusqueda( String filtro ){
+        System.out.println("Buscando en la BD de Usuarios el término: " + filtro);
+        
+        LinkedHashMap<Integer, ModeloUsuario> listaUsuarios;
+        
+        listaUsuarios = obtenerListaUsuariosBD( filtro );
+        
+        if( listaUsuarios.isEmpty() ){
+            return false;
+        }else{
+            limpiarTablaUsuario();
+            estructurarTablaUsuarios( listaUsuarios );
+            inyectarTablaAVista();
+            return true;
+        }
+  
+    }
+    
+            
     private void inyectarTablaAVista(){
-        moduloUsuarios.inyectarFilasTablaUsuarios(filasTablaUsuarios);
+        moduloUsuarios.inyectarFilasTablaUsuarios(tablaDatosUsuarios);
     }
-          
+    
+    
+    private void inyectarNuevaFilaAVista(FilaTablaUsuarios fila){
+        moduloUsuarios.inyectarNuevaFilaATablaUsuarios(fila);
+    }
+    
     
     /*
     ============================================================================
@@ -161,7 +218,7 @@ public class ControladorUsuarios {
     
     private void inicializarEventosBotones(){
         
-        filasTablaUsuarios.forEach( ( Integer id, FilaTablaUsuarios fila )->{
+        tablaDatosUsuarios.forEach( ( Integer id, FilaTablaUsuarios fila )->{
             fila.getBtnEditar().addActionListener(e -> 
                     editarUsuario(id)
             );
@@ -196,12 +253,11 @@ public class ControladorUsuarios {
             //TODO: pendiente pedir al modelo o al servicio la informacion del nuevo usuario
             datosUsuario 
             
-            FilaTablaUsuarios filaDatosUsuario = 
-                                    crearNuevaFilaTablaUsuarios(datosUsuario);
+            FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
              
-            agregarNuevaFilaTablaUsuarios(idUsuarioCreado, filaDatosUsuario);
+            agregarNuevaFilaTablaUsuarios(id, filaDatosUsuario);
             
-            moduloUsuarios.inyectarNuevaFilaATablaUsuarios(filaDatosUsuario);
+            inyectarNuevaFilaAVista( filaDatosUsuario );
          */
         }
     }
@@ -217,16 +273,9 @@ public class ControladorUsuarios {
         if( seEditoUsuario ){
             //TODO hacer la consulta con el servicio o el modelo del usuario editado, 
             // para asignar los nuevos valores 
-         /* ModeloUsuario usuarioEditado = 
+         /* ModeloUsuario usuarioEditado = funcion del modelo que retorna los datos del usuario
             FilaTablaUsuarios filaDatosUsuario = filasTablaUsuarios.get(idUsuario);
-            filaDatosUsuario.setDatos(
-                     String.valueOf(  datosUsuario.getIdUsuario() ), 
-                     datosUsuario.getAlias(), 
-                     datosUsuario.getNombreCompleto(), 
-                     datosUsuario.getCorreo(), 
-                     datosUsuario.getTelefono(), 
-                     datosUsuario.getRol()
-             );
+            asignarDatosAFila( filaDatosUsuario, datosUsuario );
           */
         }
         
