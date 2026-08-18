@@ -7,6 +7,7 @@ package jafrinventarios.controladores.usuarios;
 
 import jafrinventarios.controladores.acceso.ControladorContrasena;
 import jafrinventarios.modelos.ModeloSesionUsuario;
+import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import java.util.HashMap;
@@ -65,7 +66,7 @@ public class ControladorDialogoUsuarios {
         }
         
         if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO){
-            cargarDatosAVista(tipoDialogo);
+            cargarDatosAVista( obtenerDatosPerfil(), tipoDialogo);
             mensajeExitoso = "El usuario se ha actualizado correctamente";
         }else{
             mensajeExitoso = "Usuario creado correctamente \n La contraseña se le envia al usuario por correo"; 
@@ -159,25 +160,11 @@ public class ControladorDialogoUsuarios {
     ============================================================================
     */
     
-    private void cargarDatosAVista(DialogoFormularioUsuario.TipoDialogo tipoDialogo){
-        
-        if(tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO){
-            dialogoUsuario.setId( Integer.toString(idUsuario) );
-            dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario(esUsuarioHabilitado);
-        }
-        
-        //Simluacion consulta a la base de datos para saber la informacion del usuario
-        HashMap<String, String> datosBD = new HashMap<>();
-        datosBD.put("alias", "johnalex");
-        datosBD.put("rol", "Administrador");
-        datosBD.put("primerNombre", "John");
-        datosBD.put("primerApellido", "Forero");
-        datosBD.put("nombreCompleto", "John Forero Rubio");
-        datosBD.put("telefono", "3202173409");
-        datosBD.put("correo", "john@gmail.com");
+    private HashMap<String, String> obtenerDatosPerfil(){
+    
         /*
         TODO Se pretende crear una funcion en el modelo que devuelva toda la informacion
-        de un usuario sin la contreña, y complementando el campo nombreCompleto, 
+        de un usuario sin la contreña, 
         inicialmente esta funcion se utilizara para las tres diferentes posibilidades
         que son, editar perfil de administrador o de vendedor y editar otro usuario
         aun que se podria evaluar para que solo entregue la informacion necesaria
@@ -185,8 +172,35 @@ public class ControladorDialogoUsuarios {
         funcion, se tomara la dicision si el tiempo amerita a crear una funcion o funciones
         mas especificas.
         */
+        //TODO Dicha funcion anterior tendra como argumento idUsuario
+        
+        //Simulacion de respuesta
+        ModeloUsuario usuario = new ModeloUsuario(1, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Administrador", true);
+        
+        HashMap<String, String> datosPerfil = new HashMap<>();
+        datosPerfil.put("alias", usuario.getAlias() );
+        datosPerfil.put("rol", usuario.getRol() );
+        datosPerfil.put("primerNombre", usuario.getPrimerNombre() );
+        datosPerfil.put("segundoNombre", usuario.getSegundoNombre() );
+        datosPerfil.put("primerApellido", usuario.getPrimerApellido() );
+        datosPerfil.put("segundoApellido", usuario.getSegundoApellido() );
+        datosPerfil.put("nombreCompleto", usuario.getNombreCompleto() );
+        datosPerfil.put("telefono", usuario.getTelefono() );
+        datosPerfil.put("correo", usuario.getCorreo() );
+        
+        esUsuarioHabilitado = usuario.getEstaHabilitado();
+        
+        return datosPerfil;
+    }
+    
+    private void cargarDatosAVista(HashMap<String, String> datosPerfil, DialogoFormularioUsuario.TipoDialogo tipoDialogo){
+        
+        if(tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO){
+            dialogoUsuario.setId( Integer.toString(idUsuario) );
+            dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario(esUsuarioHabilitado);
+        }
 
-        dialogoUsuario.asignarDatosEnFormulario(datosBD);
+        dialogoUsuario.asignarDatosEnFormulario(datosPerfil);
     
     }
     
