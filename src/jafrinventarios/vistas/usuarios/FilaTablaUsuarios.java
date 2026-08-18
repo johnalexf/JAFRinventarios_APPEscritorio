@@ -5,6 +5,7 @@
  */
 package jafrinventarios.vistas.usuarios;
 
+import jafrinventarios.vistas.utilidades.componentes.EfectoHoverPanel;
 import javax.swing.JButton;
 
 /**
@@ -18,6 +19,9 @@ public class FilaTablaUsuarios extends javax.swing.JPanel {
      */
     public FilaTablaUsuarios() {
         initComponents();
+        
+        EfectoHoverPanel.aplicarEfecto(contenedorDatos);
+        
     }
 
     /**
@@ -147,6 +151,7 @@ public class FilaTablaUsuarios extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         contenedorDatos.add(btnEditar, gridBagConstraints);
 
         contenedorFila.add(contenedorDatos, java.awt.BorderLayout.PAGE_START);
