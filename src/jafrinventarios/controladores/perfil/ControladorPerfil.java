@@ -8,7 +8,6 @@ package jafrinventarios.controladores.perfil;
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.controladores.usuarios.ControladorDialogoUsuarios;
 import jafrinventarios.modelos.ModeloSesionUsuario;
-import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import java.util.HashMap;
 import javax.swing.JFrame;
@@ -27,27 +26,35 @@ public class ControladorPerfil {
         this.moduloPerfil = moduloPerfil;
         this.esAdministrador = ModeloSesionUsuario.getInstancia().esAdministrador();
         
-        cargarDatosPerfil();
+        cargarDatosPerfil( obtenerDatosPerfil() );
         
         configurarEventosBotones();
     }
     
     
-    private void cargarDatosPerfil(){
-        // Simulacion consulta a la base de datos
-        HashMap<String, String> datosBD = new HashMap<>();
-        datosBD.put("nombreEmpresa", "Albania");
-        datosBD.put("nombreUsuario", "John Forero");
-        datosBD.put("alias", "johnalex");
-        datosBD.put("correo", "john@gmail.com");
-        datosBD.put("telefono", "3202173409");
+    private HashMap<String, String> obtenerDatosPerfil(){
+        // Simulacion consulta a la base de datos con 
+        //ModeloSesionUsuario.getInstancia().getIdUsuario();
+        //
+        // Aqui el controlador se encarga de convertir la respuesta del modelo
+        // o del servicio del modelo, en una respuesta que entienda la vista modeloPerfil
+        HashMap<String, String> datosPerfil = new HashMap<>();
+        datosPerfil.put("nombreEmpresa", "Albania");
+        datosPerfil.put("nombreUsuario", "John Forero");
+        datosPerfil.put("alias", "johnalex");
+        datosPerfil.put("correo", "john@gmail.com");
+        datosPerfil.put("telefono", "3202173409");
         
         if(esAdministrador){
-            datosBD.put("codigo", "A@$d654Vf0");
+            datosPerfil.put("codigo", "A@$d654Vf0");
         }
-        
-        moduloPerfil.escribirDatos(datosBD);
-        
+    
+        return datosPerfil;
+    }
+    
+    
+    private void cargarDatosPerfil( HashMap<String, String> datosPerfil ){
+        moduloPerfil.escribirDatos(datosPerfil);
     }
     
     
@@ -66,11 +73,14 @@ public class ControladorPerfil {
     private void procesarEdicionUsuario(){
         JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(moduloPerfil);
         
+        boolean seEditoUsuario;
         //TODO por el momento se mantienen estas lineas de codigo para hacer pruebas
-        ControladorDialogoUsuarios.editarPerfil(ventanaPadre, true);
-        ControladorDialogoUsuarios.editarPerfil(ventanaPadre, false);
-        ControladorDialogoUsuarios.editarOtroUsuario(ventanaPadre, 20);
-        ControladorDialogoUsuarios.crearUsuario(ventanaPadre);
+        seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(ventanaPadre, true);
+        seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(ventanaPadre, false);
+        
+        if(seEditoUsuario){
+            cargarDatosPerfil( obtenerDatosPerfil() );
+        }
 
     }
     
