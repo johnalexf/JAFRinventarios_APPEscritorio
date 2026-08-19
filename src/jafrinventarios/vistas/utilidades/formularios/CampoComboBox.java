@@ -5,7 +5,7 @@
  */
 package jafrinventarios.vistas.utilidades.formularios;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
@@ -19,21 +19,23 @@ public class CampoComboBox extends CampoGestionable{
     /* 
     Este mapa debe venir de la base de datos, con el diccionario de valores posibles
      que puede seleccionar el usuario de la siguiente manera:
-     clave: nombreItem, valor: idItem 
+     clave: idItem, valor: nombreItem 
     */
-    private final HashMap<String, Integer> listaOpcionesConId;
+    private final LinkedHashMap<Integer , String> listaOpcionesConId;
+    private final LinkedHashMap<String , Integer> listaOpcionesInvertida;
     private final boolean esObligatorio;
     private final String concepto;
 
     public CampoComboBox(
             JComboBox comboBox,
             String concepto,
-            HashMap<String, Integer> listaOpcionesConId, 
+            LinkedHashMap<Integer , String> listaOpcionesConId, 
             JLabel lblError,
             boolean esObligatorio ) {
         super(comboBox, lblError);
         this.comboBox = comboBox;
         this.listaOpcionesConId = listaOpcionesConId;
+        this.listaOpcionesInvertida = invertirLista(listaOpcionesConId);
         this.esObligatorio = esObligatorio;
         this.concepto = concepto;
         
@@ -43,14 +45,27 @@ public class CampoComboBox extends CampoGestionable{
     }
     
     
+    private LinkedHashMap< String , Integer > invertirLista( LinkedHashMap<Integer , String> lista ){
+         LinkedHashMap< String , Integer > listaInvertida = new LinkedHashMap<>();
+         
+         lista.forEach( 
+            (id , nombreItem ) -> {
+                listaInvertida.put( nombreItem , id);
+            } 
+         );
+        
+         return listaInvertida;
+    }
+    
+    
     private void cargarListaDatosDisponibles() {
         
         //Remover los items para asignar los de la base de datos
         comboBox.removeAllItems();
         comboBox.addItem("Seleccionar " + concepto);
         
-        // Llenamos el ComboBox solo con los nombres (las claves del mapa)
-        listaOpcionesConId.keySet().forEach(nombreItem -> {
+        // Llenamos el ComboBox solo con los nombres (los valores del mapa)
+        listaOpcionesConId.values().forEach(nombreItem -> {
             comboBox.addItem(nombreItem);
         });
         
@@ -84,33 +99,47 @@ public class CampoComboBox extends CampoGestionable{
     }
 
     /*
-    Como la funcion getValorComponente es usada por el validadorFormulario
+    Como la funcion getValorComponente es usada por el gestorFormulario
         para recolectar los datos en un mapa que se envia al controlador 
         en el caso de los comboBox nos interesa enviarle el id del item que 
-        se haya seleccionado, el cual esta en listaOpcionesConId
+        se haya seleccionado, el cual esta en listaOpcionesInvertida
     */
     @Override
     protected String getValorComponente() {
         
         String valorTextual = (String) comboBox.getSelectedItem();
         
-        return String.valueOf(listaOpcionesConId.get(valorTextual));
+        return String.valueOf(listaOpcionesInvertida.get(valorTextual));
         
     }
 
     @Override
-    protected void setValorComponente(String valor) {
+    protected void setValorComponente( String idString ) {
+        
         // Si el valor es nulo o vacío, seleccionamos la opción por defecto ("Seleccionar...")
-        if (valor == null || valor.trim().isEmpty()) {
+        //Validar si viene vacío o nulo ANTES de intentar convertir a número
+        if (idString == null || idString.trim().isEmpty() || idString.equals("-1")) {
             comboBox.setSelectedIndex(0);
-        } else {
-            // Swing busca el texto exacto dentro del ComboBox y lo selecciona
-            if(listaOpcionesConId.containsKey(valor)){
-                comboBox.setSelectedItem(valor);
-            }else{
-                System.out.println("El valor \"" + valor + "\" No esta en el comboBox " + concepto );
-            }
+            return; // Cortamos la ejecución aquí
         }
+        
+        //Intentar convertir en numero
+        try {
+            Integer id = Integer.parseInt(idString);
+            
+            // Buscar el id en la lista de opciones
+            if(  listaOpcionesConId.containsKey(id)  ){
+                comboBox.setSelectedItem( listaOpcionesConId.get(id) );
+            }else{
+                System.out.println("El valor para el id\"" + id + "\" No esta en el comboBox " + concepto );
+            }
+            
+        } catch ( NumberFormatException e ) {
+            //Capturar el error si envían letras o formatos inválidos
+            System.err.println("Error al asignar valor en " + concepto + ": '" + idString + "' no es un número válido.");
+            comboBox.setSelectedIndex(0); // Reset visual por seguridad
+        }
+        
     }
     
 }
