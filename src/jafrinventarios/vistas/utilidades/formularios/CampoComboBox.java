@@ -22,6 +22,12 @@ public class CampoComboBox extends CampoGestionable{
      clave: idItem, valor: nombreItem 
     */
     private final LinkedHashMap<Integer , String> listaOpcionesConId;
+    /*
+    Se crea un mapa invertido para cuando se necesite devolver el id del item 
+    seleccionado, esto con el fin de evitar recorrer toda la listaOpcionesConId 
+    buscando cual es la clave del valor seleccionado, esto facilita que se pueda
+    buscar el valor con el id de la siguiente manera listaOpcionesInvertida.get(valorTextual)
+    */
     private final LinkedHashMap<String , Integer> listaOpcionesInvertida;
     private final boolean esObligatorio;
     private final String concepto;
@@ -100,9 +106,9 @@ public class CampoComboBox extends CampoGestionable{
 
     /*
     Como la funcion getValorComponente es usada por el gestorFormulario
-        para recolectar los datos en un mapa que se envia al controlador 
+        para recolectar los datos en un mapa que se envia al controlador, 
         en el caso de los comboBox nos interesa enviarle el id del item que 
-        se haya seleccionado, el cual esta en listaOpcionesInvertida
+        se haya seleccionado, el cual esta de facil busqueda en listaOpcionesInvertida
     */
     @Override
     protected String getValorComponente() {
