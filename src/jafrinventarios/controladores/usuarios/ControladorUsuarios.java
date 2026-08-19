@@ -92,7 +92,7 @@ public class ControladorUsuarios {
     
     /*
     ============================================================================
-                METODOS PARA CONSULTA AL SERVICIO
+                METODOS PARA CONSULTAR AL SERVICIO
     ============================================================================
     */
         
@@ -105,7 +105,7 @@ public class ControladorUsuarios {
     }
     
     private DTOUsuarioTabla obtenerDatosUsuario( int idUsuario ){
-        return servicioUsuarios.obtenerDatosUsuario(idUsuario);
+        return servicioUsuarios.obtenerDatosDTOUsuario(idUsuario);
     }
     
     
@@ -216,7 +216,7 @@ public class ControladorUsuarios {
          un modal para crear un usuario, si se crea este devuelve el Id de
          dicho usuario, en dado caso que no se cree se espera recibir un -1
         */
-        int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( getFramePadre() );
+        int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( getFramePadre() , servicioUsuarios);
         
         //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
         idUsuarioCreado = -1;
@@ -241,7 +241,7 @@ public class ControladorUsuarios {
         
         boolean seEditoUsuario = 
                 ControladorDialogoUsuarios.editarOtroUsuario(
-                        getFramePadre(), idUsuario
+                        getFramePadre(), idUsuario, servicioUsuarios
                 );
         
         //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea

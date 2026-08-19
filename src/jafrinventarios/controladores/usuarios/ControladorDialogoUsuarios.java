@@ -9,6 +9,7 @@ import jafrinventarios.controladores.acceso.ControladorContrasena;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.servicios.usuarios.ServicioRoles;
+import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import java.util.HashMap;
@@ -23,6 +24,8 @@ import javax.swing.JFrame;
 public class ControladorDialogoUsuarios {
     
     private DialogoFormularioUsuario dialogoUsuario;
+    
+    private ServicioUsuarios servicioUsuarios;
     
     //Variable de soporte para personalizar el controlador segun el tipo de dialogo:
     //EDITAR_PERFIL_PROPIO, EDITAR_OTRO_USUARIO y CREAR_NUEVO_USUARIO
@@ -54,9 +57,12 @@ public class ControladorDialogoUsuarios {
             DialogoFormularioUsuario dialogoUsuario, 
             DialogoFormularioUsuario.TipoDialogo tipoDialogo,
             boolean esAdminsitrador,
-            int idUsuario ){
+            int idUsuario,
+            ServicioUsuarios servicioUsuarios){
         
         this.dialogoUsuario = dialogoUsuario;
+        this.servicioUsuarios = servicioUsuarios;
+        
         //Para pruebas se dejara esAdministrador como parametro del contralador
         //this.esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
         this.esAdministrador = esAdminsitrador;
@@ -85,7 +91,7 @@ public class ControladorDialogoUsuarios {
      METODOS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
     ============================================================================
     */
-    public static boolean editarPerfil(JFrame ventanaPadre, boolean esAdministrador){
+    public static boolean editarPerfil(JFrame ventanaPadre, boolean esAdministrador, ServicioUsuarios servicioUsuarios){
         
         //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
         //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
@@ -101,7 +107,8 @@ public class ControladorDialogoUsuarios {
                         dialogoUsuario, 
                         DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO, 
                         esAdministrador,
-                        ModeloSesionUsuario.getInstancia().getIdUsuario()
+                        ModeloSesionUsuario.getInstancia().getIdUsuario(),
+                        servicioUsuarios
         );
         
         return controlador.isOperacionExitosa();
@@ -109,7 +116,7 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    public static boolean editarOtroUsuario(JFrame ventanaPadre, int idUsuario){
+    public static boolean editarOtroUsuario(JFrame ventanaPadre, int idUsuario, ServicioUsuarios servicioUsuarios){
         
         //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
         //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
@@ -124,7 +131,8 @@ public class ControladorDialogoUsuarios {
             new ControladorDialogoUsuarios( dialogoUsuario, 
                                             DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO, 
                                             true,
-                                            idUsuario
+                                            idUsuario,
+                                            servicioUsuarios
         );
         
         return controlador.isOperacionExitosa();
@@ -132,7 +140,7 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    public static int crearUsuario(JFrame ventanaPadre){
+    public static int crearUsuario(JFrame ventanaPadre, ServicioUsuarios servicioUsuarios){
         
         //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
         //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
@@ -147,7 +155,8 @@ public class ControladorDialogoUsuarios {
             new ControladorDialogoUsuarios( dialogoUsuario, 
                                             DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO, 
                                             true,
-                                            -1
+                                            -1,
+                                            servicioUsuarios
         );
         
         return controlador.getIdUsuario();
@@ -156,6 +165,42 @@ public class ControladorDialogoUsuarios {
         
 //==============================================================================
         
+    
+    /*
+    ============================================================================
+                METODOS PARA CONSULTAR AL SERVICIO
+    ============================================================================
+    */
+    
+    private ModeloUsuario obtenerDatosUsuario( int idUsuario ){
+        return servicioUsuarios.obtenerDatosUsuario(idUsuario);
+    }
+    
+    private boolean editarPerfil( ModeloUsuario usuario ){
+        return servicioUsuarios.editarPerfil(usuario);
+    }
+    
+    private boolean editarOtroUsuario( ModeloUsuario usuario ){
+        return servicioUsuarios.editarOtroUsuario(usuario);
+    }
+    
+    private boolean conmutarEstadoUsuario (  int idUsuario  ){
+        return servicioUsuarios.conmutarEstadoUsuario(idUsuario);
+    }
+    
+    private boolean esUsuarioHabilitado( int idUsuario ){
+        return servicioUsuarios.esUsuarioHabilitado(idUsuario);
+    }
+        
+    private boolean crearUsuario( ModeloUsuario usuario ){
+        return servicioUsuarios.crearUsuario(usuario);
+    }
+    
+    private LinkedHashMap<Integer, String> obtenerDiccionarioRoles(){
+        return  ServicioRoles.obtenerDiccionarioRoles();
+    } 
+    
+    
     /*
     ============================================================================
                             METODOS INICIALES
@@ -164,37 +209,24 @@ public class ControladorDialogoUsuarios {
     
     private HashMap<String, String> obtenerDatosPerfil(){
     
-        /*
-        TODO Se pretende crear una funcion en el modelo que devuelva toda la informacion
-        de un usuario sin la contreña, 
-        inicialmente esta funcion se utilizara para las tres diferentes posibilidades
-        que son, editar perfil de administrador o de vendedor y editar otro usuario
-        aun que se podria evaluar para que solo entregue la informacion necesaria
-        dependiendo de la circunstancia, en el momento a llegar a implementar dicha
-        funcion, se tomara la dicision si el tiempo amerita a crear una funcion o funciones
-        mas especificas.
-        */
-        //TODO Dicha funcion anterior tendra como argumento idUsuario
-        
-        //Simulacion de respuesta
-        ModeloUsuario usuario = new ModeloUsuario(1, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Administrador", true);
+        ModeloUsuario usuario = obtenerDatosUsuario( idUsuario );
         
         HashMap<String, String> datosPerfil = new HashMap<>();
-        datosPerfil.put("alias", usuario.getAlias() );
-        //TODO Ahora es con id el rol por lo tanto se espera un int y convertirlo a string
-        // pendiente adecuar cuando se cree el servicio de obtener informacion de un usuario
-        datosPerfil.put("rol", usuario.getRol() );
-        datosPerfil.put("primerNombre", usuario.getPrimerNombre() );
-        datosPerfil.put("segundoNombre", usuario.getSegundoNombre() );
-        datosPerfil.put("primerApellido", usuario.getPrimerApellido() );
-        datosPerfil.put("segundoApellido", usuario.getSegundoApellido() );
-        datosPerfil.put("nombreCompleto", usuario.getNombreCompleto() );
-        datosPerfil.put("telefono", usuario.getTelefono() );
-        datosPerfil.put("correo", usuario.getCorreo() );
         
-        esUsuarioHabilitado = usuario.getEstaHabilitado();
+        datosPerfil.put("alias", usuario.getAliasUsuario() );
+        datosPerfil.put("rol", String.valueOf( usuario.getIdRolUsuario() ) );
+        datosPerfil.put("primerNombre", usuario.getPrimerNombreUsuario() );
+        datosPerfil.put("segundoNombre", usuario.getSegundoNombreUsuario() );
+        datosPerfil.put("primerApellido", usuario.getPrimerApellidoUsuario() );
+        datosPerfil.put("segundoApellido", usuario.getSegundoApellidoUsuario() );
+        datosPerfil.put("nombreCompleto", usuario.getNombreCompletoUsuario() );
+        datosPerfil.put("telefono", usuario.getTelefonoUsuario() );
+        datosPerfil.put("correo", usuario.getCorreoUsuario() );
+        
+        esUsuarioHabilitado = usuario.estaHabilitado();
         
         return datosPerfil;
+        
     }
     
     
@@ -211,11 +243,8 @@ public class ControladorDialogoUsuarios {
     
     
     private void inicializarComboBoxRoles(){
-        LinkedHashMap<Integer, String> diccionarioRoles = ServicioRoles.obtenerDiccionarioRoles();
-        
-         // Le asignamos el diccionario al comboBox
+        LinkedHashMap<Integer, String> diccionarioRoles = obtenerDiccionarioRoles();
         dialogoUsuario.inicializarComboBoxRoles( diccionarioRoles );
-    
     }
     
     

@@ -26,7 +26,7 @@ public class ModeloUsuario {
     private String segundoApellidoUsuario;
     private String contrasenaUsuario;
     private int idRolUsuario;
-    private boolean estaHabilitado;
+    private boolean habilitado;
 
     
     /*
@@ -46,7 +46,7 @@ public class ModeloUsuario {
                             String segundoApellidoUsuario, 
                             String contrasenaUsuario, 
                             int idRolUsuario, 
-                            boolean estaHabilitado) {
+                            boolean habilitado) {
         this.idUsuario = idUsuario;
         this.idEmpresa = idEmpresa;
         this.aliasUsuario = aliasUsuario;
@@ -58,7 +58,7 @@ public class ModeloUsuario {
         this.segundoApellidoUsuario = segundoApellidoUsuario;
         this.contrasenaUsuario = contrasenaUsuario;
         this.idRolUsuario = idRolUsuario;
-        this.estaHabilitado = estaHabilitado;
+        this.habilitado = habilitado;
     }
    
     
@@ -71,6 +71,10 @@ public class ModeloUsuario {
 
     public int getIdUsuario() {
         return idUsuario;
+    }
+
+    public int getIdEmpresa() {
+        return idEmpresa;
     }
 
     public String getAliasUsuario() {
@@ -105,8 +109,8 @@ public class ModeloUsuario {
         return idRolUsuario;
     }
 
-    public boolean isEstaHabilitado() {
-        return estaHabilitado;
+    public boolean estaHabilitado() {
+        return habilitado;
     }
     
     public String getNombreCompletoUsuario(){
@@ -119,8 +123,12 @@ public class ModeloUsuario {
                                     SETTERS
     ============================================================================
      */
-    //El set de id no se expone la unica fuente que lo asigna es la base de datos
+    //El set de idUsuario no se expone la unica fuente que lo asigna es la base de datos
 
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+    
     public void setAliasUsuario(String aliasUsuario) {
         this.aliasUsuario = aliasUsuario;
     }
@@ -153,8 +161,8 @@ public class ModeloUsuario {
         this.idRolUsuario = idRolUsuario;
     }
 
-    public void setEstaHabilitado(boolean estaHabilitado) {
-        this.estaHabilitado = estaHabilitado;
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
     }
     
     
