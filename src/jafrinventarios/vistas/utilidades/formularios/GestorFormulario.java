@@ -7,6 +7,7 @@ package jafrinventarios.vistas.utilidades.formularios;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -78,7 +79,7 @@ public class GestorFormulario {
     public void agregarCampoComboBox(
                                 JComboBox comboBox,
                                 String concepto,
-                                HashMap<String, Integer> listaOpcionesConId, 
+                                LinkedHashMap< Integer, String > listaOpcionesConId, 
                                 JLabel lblError,
                                 boolean esObligatorio ){
         validarNombreEnComponente(comboBox);
