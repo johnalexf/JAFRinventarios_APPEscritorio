@@ -11,6 +11,7 @@ import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import java.awt.Window;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.swing.JButton;
 
 /**
@@ -122,7 +123,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         agregarCampoAlias(esAdministrador);
         /*
             El combo box rol se agrega desde el controlador por medio de 
-            inicializarComboBoxRoles Cuando sea para gestionar usuarios
+            inicializarComboBoxRoles Cuando sea para gestionar otros usuarios
         */
         
         agregarCamposNombreCompleto(esAdministrador);
@@ -918,12 +919,12 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     }
     
     //Exponer inicializar el combo box esperando la lista de roles a asignar
-    public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {
+    public void inicializarComboBoxRoles( LinkedHashMap<Integer, String> diccionarioRoles ) {
         
         formularioDatosUsuario.agregarCampoComboBox(
                 comboBoxRolUsuario,
                 "Tipo de Usuario",
-                rolesDeBD, 
+                diccionarioRoles, 
                 lblErrorComboBoxRolUsuario, 
                 true);
         

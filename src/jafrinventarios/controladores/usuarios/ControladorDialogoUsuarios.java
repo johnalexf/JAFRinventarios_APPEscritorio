@@ -8,9 +8,11 @@ package jafrinventarios.controladores.usuarios;
 import jafrinventarios.controladores.acceso.ControladorContrasena;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
+import jafrinventarios.servicios.usuarios.ServicioRoles;
 import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.JFrame;
 
@@ -179,6 +181,8 @@ public class ControladorDialogoUsuarios {
         
         HashMap<String, String> datosPerfil = new HashMap<>();
         datosPerfil.put("alias", usuario.getAlias() );
+        //TODO Ahora es con id el rol por lo tanto se espera un int y convertirlo a string
+        // pendiente adecuar cuando se cree el servicio de obtener informacion de un usuario
         datosPerfil.put("rol", usuario.getRol() );
         datosPerfil.put("primerNombre", usuario.getPrimerNombre() );
         datosPerfil.put("segundoNombre", usuario.getSegundoNombre() );
@@ -193,6 +197,7 @@ public class ControladorDialogoUsuarios {
         return datosPerfil;
     }
     
+    
     private void cargarDatosAVista(HashMap<String, String> datosPerfil, DialogoFormularioUsuario.TipoDialogo tipoDialogo){
         
         if(tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO){
@@ -206,15 +211,10 @@ public class ControladorDialogoUsuarios {
     
     
     private void inicializarComboBoxRoles(){
-        System.out.println("Simulando consulta de roles a la BD...");
+        LinkedHashMap<Integer, String> diccionarioRoles = ServicioRoles.obtenerDiccionarioRoles();
         
-        // Clave: Nombre del rol a mostrar | Valor: ID del rol en la base de datos
-        HashMap<String, Integer> rolesBD = new HashMap<>();
-        rolesBD.put("Administrador", 1);
-        rolesBD.put("Vendedor", 2);
-        
-        // Le ordenamos a la vista que dibuje estos datos
-        dialogoUsuario.inicializarComboBoxRoles(rolesBD);
+         // Le asignamos el diccionario al comboBox
+        dialogoUsuario.inicializarComboBoxRoles( diccionarioRoles );
     
     }
     
