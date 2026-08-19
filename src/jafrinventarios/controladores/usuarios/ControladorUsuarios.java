@@ -5,12 +5,14 @@
  */
 package jafrinventarios.controladores.usuarios;
 
+import jafrinventarios.DTOs.Usuarios.DTOUsuarioTabla;
 import jafrinventarios.controladores.utilidades.ControladorBusquedaYAccionLibre;
 import jafrinventarios.vistas.usuarios.UsuariosPanel;
 import jafrinventarios.controladores.utilidades.FuncionesBusquedaYAccionLibre;
-import jafrinventarios.modelos.usuarios.ModeloUsuario;
+import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.usuarios.FilaTablaUsuarios;
 import java.util.LinkedHashMap;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -22,6 +24,8 @@ public class ControladorUsuarios {
     
     
     private final UsuariosPanel moduloUsuarios;
+    
+    private final ServicioUsuarios servicioUsuarios;
     
     /* 
     LinkedHashMap con las filas que representan los datos de cada usuario
@@ -35,9 +39,10 @@ public class ControladorUsuarios {
                         CONSTRUCTOR PUBLICO
     ============================================================================
     */
-    public ControladorUsuarios(UsuariosPanel moduloUsuarios) {
+    public ControladorUsuarios (UsuariosPanel moduloUsuarios , ServicioUsuarios servicioUsuarios) {
         
         this.moduloUsuarios = moduloUsuarios;
+        this.servicioUsuarios = servicioUsuarios;
         
         /* 
         Instanciamos el sub-controlador de la barra de busquedad y el boton de accion libre
@@ -53,9 +58,7 @@ public class ControladorUsuarios {
         
         
         tablaDatosUsuarios = new LinkedHashMap<>();
-        estructurarTablaUsuarios(
-                obtenerListaUsuariosBD("")
-        );
+        estructurarTablaUsuarios( obtenerTodosLosUsuario() );
         inyectarTablaAVista();
         
         
@@ -87,31 +90,49 @@ public class ControladorUsuarios {
         };
     }
     
+    /*
+    ============================================================================
+                METODOS PARA CONSULTA AL SERVICIO
+    ============================================================================
+    */
+        
+    private List<DTOUsuarioTabla> obtenerTodosLosUsuario() {
+       return servicioUsuarios.obtenerTodosLosUsuarios();  
+    }
+        
+    private List<DTOUsuarioTabla> obtenerListaUsuariosPorFiltro( String filtro ){
+       return servicioUsuarios.obtenerListaUsuariosPorFiltro(filtro);  
+    }
+    
+    private DTOUsuarioTabla obtenerDatosUsuario( int idUsuario ){
+        return servicioUsuarios.obtenerDatosUsuario(idUsuario);
+    }
+    
     
      /*
     ============================================================================
                 METODOS PARA EL CONTROL DE LAS FILAS DE LA TABLA
     ============================================================================
     */
-        
+       
     
-    private FilaTablaUsuarios crearNuevaFilaTablaUsuarios( ModeloUsuario datosUsuario ){
-        FilaTablaUsuarios filaDatosUsuario = new FilaTablaUsuarios();
-        return asignarDatosAFila(filaDatosUsuario, datosUsuario);
-    }
-    
-    
-    private FilaTablaUsuarios asignarDatosAFila( FilaTablaUsuarios fila, ModeloUsuario datosUsuario ){
+    private FilaTablaUsuarios asignarDatosAFila( FilaTablaUsuarios fila, DTOUsuarioTabla datosUsuario ){
         fila.setDatos(
                      String.valueOf(  datosUsuario.getIdUsuario() ), 
-                     datosUsuario.getAlias(), 
-                     datosUsuario.getNombreCompleto(), 
-                     datosUsuario.getCorreo(), 
-                     datosUsuario.getTelefono(), 
-                     datosUsuario.getRol()
+                     datosUsuario.getAliasUsuario(), 
+                     datosUsuario.getNombreCompletoUsuario(), 
+                     datosUsuario.getCorreoUsuario(), 
+                     datosUsuario.getTelefonoUsuario(), 
+                     datosUsuario.getNombreRolUsuario()
         );
         fila.setEstadoVisual( datosUsuario.getEstaHabilitado() );
         return fila;
+    }
+    
+    
+    private FilaTablaUsuarios crearNuevaFilaTablaUsuarios( DTOUsuarioTabla datosUsuario ){
+        FilaTablaUsuarios filaDatosUsuario = new FilaTablaUsuarios();
+        return asignarDatosAFila(filaDatosUsuario, datosUsuario);
     }
     
     
@@ -120,39 +141,15 @@ public class ControladorUsuarios {
     }
     
     
-    private LinkedHashMap<Integer, ModeloUsuario> obtenerListaUsuariosBD( String filtro ){
-        
-        LinkedHashMap<Integer, ModeloUsuario> listaUsuarios = new LinkedHashMap<>();
-            
-        /*
-        Simulacion de respuesta del servicio del modelo de usuarios
-        por el momento como no existe la funcion, asumimos que solo responde para
-        cuando no hay una palabra de filtro, pero la idea es que el servicio del modelo
-        pueda buscar y devolver una lista dependiendo de dicha busquedad
-        */
-        if( filtro.equals("") ){
-            listaUsuarios.put(1, new ModeloUsuario(1, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Administrador", true));
-            listaUsuarios.put(2, new ModeloUsuario(2, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
-            listaUsuarios.put(3, new ModeloUsuario(3, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
-            listaUsuarios.put(4, new ModeloUsuario(4, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
-            listaUsuarios.put(5, new ModeloUsuario(5, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", true));
-            listaUsuarios.put(6, new ModeloUsuario(6, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "Vendedor", false));
-        }
-        
-        return listaUsuarios;
+    private void estructurarTablaUsuarios( List<DTOUsuarioTabla> listaUsuariosBD ){
          
-    }
-    
-    
-    private void estructurarTablaUsuarios( LinkedHashMap<Integer, ModeloUsuario> listaUsuariosBD ){
-         
-        listaUsuariosBD.forEach((Integer id, ModeloUsuario datosUsuario) ->{
+        listaUsuariosBD.forEach( (DTOUsuarioTabla datosUsuario) ->{
              
                 FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
                 
-                inicializarEventoBotonEditar(id, filaDatosUsuario);
+                inicializarEventoBotonEditar( datosUsuario.getIdUsuario() , filaDatosUsuario);
 
-                agregarNuevaFilaTablaUsuarios(id, filaDatosUsuario);
+                agregarNuevaFilaTablaUsuarios( datosUsuario.getIdUsuario() , filaDatosUsuario);
             }
         );
          
@@ -166,32 +163,11 @@ public class ControladorUsuarios {
     
     private void reiniciarTabla(){
         limpiarTablaUsuarios();
-        estructurarTablaUsuarios(
-                obtenerListaUsuariosBD("")
-        );
+        estructurarTablaUsuarios( obtenerTodosLosUsuario() );
         inyectarTablaAVista();
-    }
+    }  
+       
     
-    
-    private boolean procesarBusqueda( String filtro ){
-        System.out.println("Buscando en la BD de Usuarios el término: " + filtro);
-        
-        LinkedHashMap<Integer, ModeloUsuario> listaUsuarios;
-        
-        listaUsuarios = obtenerListaUsuariosBD( filtro );
-        
-        if( listaUsuarios.isEmpty() ){
-            return false;
-        }else{
-            limpiarTablaUsuarios();
-            estructurarTablaUsuarios( listaUsuarios );
-            inyectarTablaAVista();
-            return true;
-        }
-  
-    }
-    
-            
     private void inyectarTablaAVista(){
         moduloUsuarios.inyectarFilasTablaUsuarios(tablaDatosUsuarios);
     }
@@ -242,19 +218,21 @@ public class ControladorUsuarios {
         */
         int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( getFramePadre() );
         
+        //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
+        idUsuarioCreado = -1;
+        
         if(idUsuarioCreado != -1){
-         /*   
-            //TODO: pendiente pedir al modelo o al servicio la informacion del nuevo usuario
-            datosUsuario 
+           
+            DTOUsuarioTabla datosUsuario =  obtenerDatosUsuario( idUsuarioCreado );
             
             FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
              
-            agregarNuevaFilaTablaUsuarios(id, filaDatosUsuario);
+            agregarNuevaFilaTablaUsuarios(idUsuarioCreado, filaDatosUsuario);
             
-            inicializarEventoBotonEditar(id, fila);
+            inicializarEventoBotonEditar(idUsuarioCreado, filaDatosUsuario);
             
             inyectarNuevaFilaAVista( filaDatosUsuario );
-         */
+ 
         }
     }
     
@@ -266,15 +244,35 @@ public class ControladorUsuarios {
                         getFramePadre(), idUsuario
                 );
         
+        //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea
+        seEditoUsuario = false;
+        
         if( seEditoUsuario ){
-            //TODO hacer la consulta con el servicio o el modelo del usuario editado, 
-            // para asignar los nuevos valores 
-         /* ModeloUsuario usuarioEditado = funcion del modelo que retorna los datos del usuario
-            FilaTablaUsuarios filaDatosUsuario = filasTablaUsuarios.get(idUsuario);
+            
+            DTOUsuarioTabla datosUsuario =  obtenerDatosUsuario( idUsuario );
+
+            FilaTablaUsuarios filaDatosUsuario = tablaDatosUsuarios.get(idUsuario);
+            
             asignarDatosAFila( filaDatosUsuario, datosUsuario );
-          */
+        
         }
         
+    }
+    
+    
+    private boolean procesarBusqueda( String filtro ){
+
+        List<DTOUsuarioTabla> listaUsuarios = obtenerListaUsuariosPorFiltro( filtro );
+        
+        if( listaUsuarios.isEmpty() ){
+            return false;
+        }else{
+            limpiarTablaUsuarios();
+            estructurarTablaUsuarios( listaUsuarios );
+            inyectarTablaAVista();
+            return true;
+        }
+  
     }
     
 

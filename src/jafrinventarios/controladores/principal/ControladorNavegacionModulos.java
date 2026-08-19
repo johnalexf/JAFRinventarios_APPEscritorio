@@ -8,6 +8,7 @@ package jafrinventarios.controladores.principal;
 import jafrinventarios.controladores.perfil.ControladorPerfil;
 import jafrinventarios.controladores.usuarios.ControladorUsuarios;
 import jafrinventarios.modelos.ModeloSesionUsuario;
+import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import jafrinventarios.vistas.principal.DialogoMenu;
 import jafrinventarios.vistas.principal.HeaderPanel;
@@ -122,7 +123,7 @@ public class ControladorNavegacionModulos {
                 break;
             case USUARIOS:
                 moduloActual =  new UsuariosPanel();
-                new ControladorUsuarios( (UsuariosPanel)  moduloActual);
+                new ControladorUsuarios( (UsuariosPanel)  moduloActual, new ServicioUsuarios() );
                 break;
         }
         

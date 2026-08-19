@@ -16,18 +16,16 @@ package jafrinventarios.modelos.usuarios;
 public class ModeloUsuario {
     
     private int idUsuario;
-    //private int idEmpresa; para pruebas visuales no necesitamos empresa
-    private String alias;
-    private String telefono;
-    private String correo;
-    private String primerNombre;
-    private String segundoNombre;
-    private String primerApellido;
-    private String segundoApellido;
-    //private String contrasena; Tampoco necesitamos por el momento contraseña
-    private String rol; 
-    //El rol sabemos que debe ser entero por la relacion entre tablas de la base
-    //de datos, por consiguiente lo manejamos como string para pruebas de la interfaz visual.
+    private int idEmpresa;
+    private String aliasUsuario;
+    private String telefonoUsuario;
+    private String correoUsuario;
+    private String primerNombreUsuario;
+    private String segundoNombreUsuario;
+    private String primerApellidoUsuario;
+    private String segundoApellidoUsuario;
+    private String contrasenaUsuario;
+    private int idRolUsuario;
     private boolean estaHabilitado;
 
     
@@ -36,118 +34,128 @@ public class ModeloUsuario {
                         CONSTRUCTOR
     ============================================================================
     */
-    public ModeloUsuario(int idUsuario, String alias, String telefono, String correo, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String rol, boolean esHabilitado) {
+
+    public ModeloUsuario(   int idUsuario, 
+                            int idEmpresa, 
+                            String aliasUsuario, 
+                            String telefonoUsuario, 
+                            String correoUsuario, 
+                            String primerNombreUsuario, 
+                            String segundoNombreUsuario, 
+                            String primerApellidoUsuario, 
+                            String segundoApellidoUsuario, 
+                            String contrasenaUsuario, 
+                            int idRolUsuario, 
+                            boolean estaHabilitado) {
         this.idUsuario = idUsuario;
-        this.alias = alias;
-        this.telefono = telefono;
-        this.correo = correo;
-        this.primerNombre = primerNombre;
-        this.segundoNombre = segundoNombre;
-        this.primerApellido = primerApellido;
-        this.segundoApellido = segundoApellido;
-        this.rol = rol;
-        this.estaHabilitado = esHabilitado;
+        this.idEmpresa = idEmpresa;
+        this.aliasUsuario = aliasUsuario;
+        this.telefonoUsuario = telefonoUsuario;
+        this.correoUsuario = correoUsuario;
+        this.primerNombreUsuario = primerNombreUsuario;
+        this.segundoNombreUsuario = segundoNombreUsuario;
+        this.primerApellidoUsuario = primerApellidoUsuario;
+        this.segundoApellidoUsuario = segundoApellidoUsuario;
+        this.contrasenaUsuario = contrasenaUsuario;
+        this.idRolUsuario = idRolUsuario;
+        this.estaHabilitado = estaHabilitado;
     }
+   
     
     
     /*
     ============================================================================
-                       GETTERS
+                                  GETTERS
     ============================================================================
     */
-    
-    
+
     public int getIdUsuario() {
         return idUsuario;
     }
 
-    public String getAlias() {
-        return alias;
+    public String getAliasUsuario() {
+        return aliasUsuario;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getTelefonoUsuario() {
+        return telefonoUsuario;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getCorreoUsuario() {
+        return correoUsuario;
     }
 
-    public String getPrimerNombre() {
-        return primerNombre;
+    public String getPrimerNombreUsuario() {
+        return primerNombreUsuario;
     }
 
-    public String getSegundoNombre() {
-        return segundoNombre;
+    public String getSegundoNombreUsuario() {
+        return segundoNombreUsuario;
     }
 
-    public String getPrimerApellido() {
-        return primerApellido;
+    public String getPrimerApellidoUsuario() {
+        return primerApellidoUsuario;
     }
 
-    public String getSegundoApellido() {
-        return segundoApellido;
-    }
-    
-    public String getNombreCompleto(){
-        return primerNombre + " " + segundoNombre + " " + primerApellido + " " + segundoApellido;
+    public String getSegundoApellidoUsuario() {
+        return segundoApellidoUsuario;
     }
 
-    public String getRol() {
-        return rol;
+    public int getIdRolUsuario() {
+        return idRolUsuario;
     }
 
-    public boolean getEstaHabilitado() {
+    public boolean isEstaHabilitado() {
         return estaHabilitado;
     }
     
-    
+    public String getNombreCompletoUsuario(){
+        return primerNombreUsuario + " " + segundoNombreUsuario + " " + primerApellidoUsuario + " " + segundoApellidoUsuario;
+    }
+
+
     /*
     ============================================================================
-                        SETTERS
+                                    SETTERS
     ============================================================================
-    */
+     */
+    //El set de id no se expone la unica fuente que lo asigna es la base de datos
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setAliasUsuario(String aliasUsuario) {
+        this.aliasUsuario = aliasUsuario;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
+    public void setTelefonoUsuario(String telefonoUsuario) {
+        this.telefonoUsuario = telefonoUsuario;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setCorreoUsuario(String correoUsuario) {
+        this.correoUsuario = correoUsuario;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setPrimerNombreUsuario(String primerNombreUsuario) {
+        this.primerNombreUsuario = primerNombreUsuario;
     }
 
-    public void setPrimerNombre(String primerNombre) {
-        this.primerNombre = primerNombre;
+    public void setSegundoNombreUsuario(String segundoNombreUsuario) {
+        this.segundoNombreUsuario = segundoNombreUsuario;
     }
 
-    public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = segundoNombre;
-    }
-
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
-    }
-
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
-    public void setEstaHabilitado(boolean esHabilitado) {
-        this.estaHabilitado = esHabilitado;
+    public void setPrimerApellidoUsuario(String primerApellidoUsuario) {
+        this.primerApellidoUsuario = primerApellidoUsuario;
     }
     
+    public void setSegundoApellidoUsuario(String segundoApellidoUsuario) {
+        this.segundoApellidoUsuario = segundoApellidoUsuario;
+    }
+
+    public void setIdRolUsuario(int idRolUsuario) {
+        this.idRolUsuario = idRolUsuario;
+    }
+
+    public void setEstaHabilitado(boolean estaHabilitado) {
+        this.estaHabilitado = estaHabilitado;
+    }
     
     
 }
