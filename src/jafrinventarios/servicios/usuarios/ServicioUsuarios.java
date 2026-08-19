@@ -85,6 +85,13 @@ public class ServicioUsuarios {
        
         // La contraseña a pesar de que es parte del ModeloUsuario la dejamos vacia
         // de igual manera al hacer la consulta a la base de datos no se pedira este dato
+        
+        /* 
+        El idEmpresa tiene una particularidad y es que solo existira en la base
+        de datos una empresa, por tanto es irrelevante este dato pues no se utilizara
+        para editar un usuario, sin embargo se enviara de todas maneras el asignado
+        que tenga el usuario.
+        */
         ModeloUsuario usuarioConsultado = 
                 //new ModeloUsuario( idUsuario, idEmpresa,aliasUsuario, telefonoUsuario, correoUsuario, primerNombreUsuario, segundoNombreUsuario,
                 //                    primerApellidoUsuario, segundoApellidoUsuario, contrasenaUsuario, idRolUsuario, estaHabilitado)

@@ -27,21 +27,20 @@ public class ControladorDialogoUsuarios {
     
     private ServicioUsuarios servicioUsuarios;
     
+    private ModeloUsuario modeloUsuario;
+    
     //Variable de soporte para personalizar el controlador segun el tipo de dialogo:
     //EDITAR_PERFIL_PROPIO, EDITAR_OTRO_USUARIO y CREAR_NUEVO_USUARIO
     private DialogoFormularioUsuario.TipoDialogo tipoDialogo;
     
     private boolean esAdministrador;
+    
     // Variable con el id del usuario a editar, para el caso de CREAR_NUEVO_USUARIO
     // Esta variable sera la respuesta del nuevo usuario.
     private int idUsuario;
     
     //Variable para personalizar el mensaje exitoso si es para crear o editar
     private String mensajeExitoso;
-    
-    //TODO esta variable es para pruebas, cuando se conecte la base de datos
-    //se hara la consulta y se eliminara esta variable.
-    private boolean esUsuarioHabilitado = true;
     
     // Variable usada para responder segun el resultado de la operacion para
     // las funciones de editar perfil u otro usuario
@@ -74,7 +73,8 @@ public class ControladorDialogoUsuarios {
         }
         
         if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO){
-            cargarDatosAVista( obtenerDatosPerfil(), tipoDialogo);
+            this.modeloUsuario = obtenerDatosUsuario( idUsuario );
+            cargarDatosAVista( empaquetarDatosUsuario(), tipoDialogo);
             mensajeExitoso = "El usuario se ha actualizado correctamente";
         }else{
             mensajeExitoso = "Usuario creado correctamente \n La contraseña se le envia al usuario por correo"; 
@@ -207,23 +207,19 @@ public class ControladorDialogoUsuarios {
     ============================================================================
     */
     
-    private HashMap<String, String> obtenerDatosPerfil(){
+    private HashMap<String, String> empaquetarDatosUsuario(){
     
-        ModeloUsuario usuario = obtenerDatosUsuario( idUsuario );
-        
         HashMap<String, String> datosPerfil = new HashMap<>();
         
-        datosPerfil.put("alias", usuario.getAliasUsuario() );
-        datosPerfil.put("rol", String.valueOf( usuario.getIdRolUsuario() ) );
-        datosPerfil.put("primerNombre", usuario.getPrimerNombreUsuario() );
-        datosPerfil.put("segundoNombre", usuario.getSegundoNombreUsuario() );
-        datosPerfil.put("primerApellido", usuario.getPrimerApellidoUsuario() );
-        datosPerfil.put("segundoApellido", usuario.getSegundoApellidoUsuario() );
-        datosPerfil.put("nombreCompleto", usuario.getNombreCompletoUsuario() );
-        datosPerfil.put("telefono", usuario.getTelefonoUsuario() );
-        datosPerfil.put("correo", usuario.getCorreoUsuario() );
-        
-        esUsuarioHabilitado = usuario.estaHabilitado();
+        datosPerfil.put("alias",modeloUsuario.getAliasUsuario() );
+        datosPerfil.put("rol", String.valueOf(modeloUsuario.getIdRolUsuario() ) );
+        datosPerfil.put("primerNombre",modeloUsuario.getPrimerNombreUsuario() );
+        datosPerfil.put("segundoNombre",modeloUsuario.getSegundoNombreUsuario() );
+        datosPerfil.put("primerApellido",modeloUsuario.getPrimerApellidoUsuario() );
+        datosPerfil.put("segundoApellido",modeloUsuario.getSegundoApellidoUsuario() );
+        datosPerfil.put("nombreCompleto",modeloUsuario.getNombreCompletoUsuario() );
+        datosPerfil.put("telefono",modeloUsuario.getTelefonoUsuario() );
+        datosPerfil.put("correo",modeloUsuario.getCorreoUsuario() );
         
         return datosPerfil;
         
@@ -234,7 +230,7 @@ public class ControladorDialogoUsuarios {
         
         if(tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO){
             dialogoUsuario.setId( Integer.toString(idUsuario) );
-            dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario(esUsuarioHabilitado);
+            dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.estaHabilitado() );
         }
 
         dialogoUsuario.asignarDatosEnFormulario(datosPerfil);
@@ -342,32 +338,24 @@ public class ControladorDialogoUsuarios {
     
     private void conmutarEstadoUsuario(){
     
-        /*
-        TODO Al tener la conexion con la base de datos, se debe crear una 
-        funcion que permita conmutar su estado entre habilitado o inhabilitado
-        De igual manera se realizara por parte de la vista la adecuacion para intercambiar
-        el boton de deshabilitar por habilitar.
-        */
-        
-     if( 
-            !DialogoMensajePersonalizado.mostrarAdvertenciaConRespuesta(
-                dialogoUsuario,
-                "Advertencia", 
-                esUsuarioHabilitado ? 
-                "Esta a punto de deshabilitar al usuario y por tanto este ya no podra iniciar sesion, sin embargo sus transacciones siguen almacenadas":
-                "Esta a punto de habilitar al usuario y por tanto este podra iniciar sesion."
-             )
-      ){
-         return;
-      }
-        
-        //TODO conexion con la base de datos para que conmute al usuario
-        
-        //TODO consulta del nuevo estado del usuario
-        // simulacion de intercambio de estado
-        operacionExitosa = true;
-        esUsuarioHabilitado = !esUsuarioHabilitado;
-        dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario(esUsuarioHabilitado);
+        boolean deseaContinuar = 
+           DialogoMensajePersonalizado.mostrarAdvertenciaConRespuesta(
+                   dialogoUsuario,
+                   "Advertencia", 
+                   modeloUsuario.estaHabilitado() ? 
+                   "Esta a punto de deshabilitar al usuario y por tanto este ya no podra iniciar sesion, sin embargo sus transacciones siguen almacenadas":
+                   "Esta a punto de habilitar al usuario y por tanto este podra iniciar sesion."
+                );
+
+        if( !deseaContinuar )  return;
+
+        boolean seConmutoEstado = conmutarEstadoUsuario( idUsuario );
+        if( seConmutoEstado ){
+            modeloUsuario.setHabilitado(  esUsuarioHabilitado( idUsuario )  );
+            dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.estaHabilitado() );
+            operacionExitosa = true;
+        }
+  
         
     }
     
