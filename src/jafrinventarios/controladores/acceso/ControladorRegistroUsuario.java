@@ -5,10 +5,12 @@
  */
 package jafrinventarios.controladores.acceso;
 
+import jafrinventarios.servicios.usuarios.ServicioRoles;
 import jafrinventarios.vistas.acceso.RegistroUsuarioPanel;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -30,15 +32,10 @@ public class ControladorRegistroUsuario {
     
     
     private void cargarRoles() {
-        System.out.println("Simulando consulta de roles a la BD...");
+        LinkedHashMap<Integer, String> diccionarioRoles = ServicioRoles.obtenerDiccionarioRoles();
         
-        // Clave: Nombre del rol a mostrar | Valor: ID del rol en la base de datos
-        HashMap<String, Integer> rolesBD = new HashMap<>();
-        rolesBD.put("Administrador", 1);
-        rolesBD.put("Vendedor", 2);
-        
-        // Le ordenamos a la vista que dibuje estos datos
-        this.vistaRegistro.inicializarComboBoxRoles(rolesBD);
+        // Le asignamos el diccionario al comboBox
+        this.vistaRegistro.inicializarComboBoxRoles( diccionarioRoles );
     }
     
     

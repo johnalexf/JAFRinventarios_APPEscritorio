@@ -12,6 +12,7 @@ import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.swing.JFrame;
 
 /**
@@ -1106,22 +1107,25 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     } 
     
     
-    // =======================================================
-    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
-    // =======================================================
+    /* 
+    ============================================================================
+                       MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    ============================================================================
     
-    // metodo para que el constructor envie los roles que estan en la base de datos
-    // Se espera que la clave sea el nombre y el valor sea el id, este se utilizara
-    // estrategicamente en un nuevo CampoGestionable de tipo chechbox para devolver el id
-    // cuando el controlador solicite recopilar la informacion del formulario.
+     metodo para que el constructor envie los roles que estan en la base de datos
+     Se espera que la clave sea el id y el valor sea el nombre, este se utilizara
+     estrategicamente en un nuevo CampoGestionable de tipo chechbox para devolver el id
+     cuando el controlador solicite recopilar la informacion del formulario.
     
-    // Se ha creado dentro del constructor del CampoComboBox una funcion para que cargue el hashmap enviado al comboBox
-    public void inicializarComboBoxRoles(HashMap<String, Integer> rolesDeBD) {
+    Se ha creado dentro del constructor del CampoComboBox una funcion 
+    para que cargue el linkedhashmap enviado al comboBox
+    */
+    public void inicializarComboBoxRoles(LinkedHashMap<Integer, String> diccionarioRoles) {
         
         formularioRegistro.agregarCampoComboBox(
                 comboBoxRolUsuario,
                 "Tipo de Usuario",
-                rolesDeBD, 
+                diccionarioRoles, 
                 null, 
                 true);
         
