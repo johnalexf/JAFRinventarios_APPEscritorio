@@ -7,7 +7,7 @@ package jafrinventarios.controladores.acceso;
 
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import java.awt.Window;
 import java.util.HashMap;
 
@@ -103,7 +103,7 @@ public class ControladorContrasena {
     private void procesarPaso( NombresTarjetasContrasena tarjeta ){
 
         if(!ventanaContrasena.ejecutarValidacionFormulario(tarjeta)){
-            DialogoMensajePersonalizado.mostrarErrorFormatoCampos(ventanaContrasena);
+            DialogoAlerta.mostrarErrorFormatoCampos(ventanaContrasena);
             return;
         }
         
@@ -223,7 +223,7 @@ public class ControladorContrasena {
         ventanaContrasena.mostrarErrorRespuestaBD(tarjeta, erroresBackend);
 
         // Mostramos un modal general para que el usuario sepa que algo falló
-        DialogoMensajePersonalizado.mostrarErrorRespuestaBD(ventanaContrasena, erroresBackend); 
+        DialogoAlerta.mostrarErrorRespuestaBD(ventanaContrasena, erroresBackend); 
     }
 
     

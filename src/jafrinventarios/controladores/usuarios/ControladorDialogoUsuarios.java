@@ -11,7 +11,7 @@ import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.servicios.usuarios.ServicioRoles;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -289,7 +289,7 @@ public class ControladorDialogoUsuarios {
         // Validaciones de los campos si corresponden a su tipo
         if( !dialogoUsuario.validarFormulario() ){
             System.out.println("Formulario no valido");
-            DialogoMensajePersonalizado.mostrarErrorFormatoCampos(dialogoUsuario);
+            DialogoAlerta.mostrarErrorFormatoCampos(dialogoUsuario);
             return;
         }
         
@@ -449,7 +449,7 @@ public class ControladorDialogoUsuarios {
     
     private boolean mostrarAdvertencia( String mensaje ){
         
-       return DialogoMensajePersonalizado.mostrarAdvertenciaConRespuesta(
+       return DialogoAlerta.mostrarAdvertenciaConRespuesta(
                    dialogoUsuario,
                    "Advertencia", 
                    mensaje
@@ -469,7 +469,7 @@ public class ControladorDialogoUsuarios {
     
     private void mostrarMensajeExitoso(String mensajeExitoso ){
         
-        DialogoMensajePersonalizado.mostrarExito(
+        DialogoAlerta.mostrarExito(
                     dialogoUsuario, 
                     "Operacion Exitosa", 
                     mensajeExitoso
@@ -479,7 +479,7 @@ public class ControladorDialogoUsuarios {
     
     
     private void mostrarError( String mensaje ){
-        DialogoMensajePersonalizado.mostrarError(dialogoUsuario, "Error", mensaje );
+        DialogoAlerta.mostrarError(dialogoUsuario, "Error", mensaje );
     }
     
     

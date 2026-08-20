@@ -6,7 +6,7 @@ import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.acceso.ServicioAutenticacion;
 import jafrinventarios.vistas.acceso.InicioSesionPanel;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -35,7 +35,7 @@ public class ControladorInicioSesion {
         // Delegar a la vista que valide que no haya campos vacíos o con errores
         if ( !vistaInicio.ejecutarValidacionFormulario() ) {
             JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vistaInicio);
-            DialogoMensajePersonalizado.mostrarErrorFormatoCampos(ventanaPadre);
+            DialogoAlerta.mostrarErrorFormatoCampos(ventanaPadre);
             return; // Cortamos la ejecución aquí si hay errores de formato de datos
         }
 

@@ -7,13 +7,13 @@ package jafrinventarios.vistas.acceso;
 
 import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
+import java.awt.Window;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 /**
@@ -1097,7 +1097,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     
     private void mostrarMensajeAyudaCodigo (){
            
-        DialogoMensajePersonalizado.mostrar(
+        DialogoAlerta.mostrar(
                 getVentanaPadre(), 
                 "Información código de acceso",
                 mensajeAyudaCodigo,
@@ -1164,12 +1164,12 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         Metodos para dialogos de mensajes de Alertas
     */
     
-    public JFrame getVentanaPadre(){
-        return (JFrame) SwingUtilities.getWindowAncestor(this);
+    public Window getVentanaPadre(){
+        return SwingUtilities.getWindowAncestor(this);
     }
     
     public void mostrarAlertaRegistroExitoso( String alias ){
-        DialogoMensajePersonalizado.mostrar(
+        DialogoAlerta.mostrar(
                     getVentanaPadre(), 
                     "Registro exitoso", 
                     "El usuario " + alias
@@ -1180,7 +1180,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     }
     
     public void mostrarAlertaErrorFormatoCampos(){
-        DialogoMensajePersonalizado.mostrarErrorFormatoCampos(getVentanaPadre());
+        DialogoAlerta.mostrarErrorFormatoCampos( getVentanaPadre() );
     }
             
             

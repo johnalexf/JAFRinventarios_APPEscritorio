@@ -24,7 +24,7 @@ import java.util.Map;
  * Esta clase se realiza para poder personalizar dialogos propios
  * y asi mantener el diseño de la aplicacion uniforme
  */
-public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
+public class DialogoAlerta extends DialogoBaseConSombra {
 
     /*
     Variable de respuesta utilizada para cuando se utilicen los dos botones
@@ -38,7 +38,7 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
         CONSTRUCTOR PRIVADO PARA EVITAR QUE SE CREE SIN SU DEBIDA CONFIGURACION
     =========================================================================================
     */
-    private DialogoMensajePersonalizado(
+    private DialogoAlerta(
                                     Window parent, 
                                     String titulo, 
                                     String mensaje, 
@@ -214,8 +214,8 @@ public class DialogoMensajePersonalizado extends DialogoBaseConSombra {
                                     IconosDialogosMensajePersonalizado tipoIcono, 
                                     boolean mostrarBotones) {
         
-        DialogoMensajePersonalizado dialogo =
-                new DialogoMensajePersonalizado(ventanaPadre, 
+        DialogoAlerta dialogo =
+                new DialogoAlerta(ventanaPadre, 
                                                 titulo, 
                                                 mensaje, 
                                                 tipoIcono, 

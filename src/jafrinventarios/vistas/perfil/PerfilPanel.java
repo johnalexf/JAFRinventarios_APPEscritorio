@@ -7,7 +7,7 @@ package jafrinventarios.vistas.perfil;
 
 import jafrinventarios.vistas.principal.Menu;
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import jafrinventarios.vistas.utilidades.rellenador.RellenadorComponentes;
@@ -505,7 +505,7 @@ public class PerfilPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAyudaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaCodigoActionPerformed
-        DialogoMensajePersonalizado.mostrar(
+        DialogoAlerta.mostrar(
                 (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
                 "Información código de acceso",
                 "Con este código usted como administrador se lo puede compartir a sus vendedores para que se puedan registrar personalmente en el aplicativo ",
