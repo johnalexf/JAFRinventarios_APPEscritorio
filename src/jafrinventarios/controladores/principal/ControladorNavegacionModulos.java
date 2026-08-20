@@ -72,7 +72,7 @@ public class ControladorNavegacionModulos {
     
     private void asignarNombreRolUsuario(){
         headerPanel.asignarNombreRolUsuario(
-                ModeloSesionUsuario.getInstancia().getRolUsuario()
+                ModeloSesionUsuario.getInstancia().getNombreRolUsuario()
         );
     }
     

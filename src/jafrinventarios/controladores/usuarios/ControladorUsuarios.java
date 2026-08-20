@@ -5,7 +5,7 @@
  */
 package jafrinventarios.controladores.usuarios;
 
-import jafrinventarios.DTOs.Usuarios.DTOUsuarioTabla;
+import jafrinventarios.DTOs.usuarios.DTOUsuarioTabla;
 import jafrinventarios.controladores.utilidades.ControladorBusquedaYAccionLibre;
 import jafrinventarios.vistas.usuarios.UsuariosPanel;
 import jafrinventarios.controladores.utilidades.FuncionesBusquedaYAccionLibre;

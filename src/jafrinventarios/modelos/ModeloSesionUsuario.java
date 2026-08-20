@@ -16,26 +16,34 @@ public class ModeloSesionUsuario {
 
     // Variables de estado de la sesión
     private int idUsuario;
-    private String rol;
+    private String nombreRol;
     private boolean esAdministrador;
+    private int idEmpresa; 
     private String nombreEmpresa;
 
-    private void asignarValoresPorDefecto(){
-        this.idUsuario = -1;
-        this.esAdministrador = false;
-        this.rol = "";
-        this.nombreEmpresa = "";
-    }
-    
-    
-    // Constructor privado para evitar que hagan "new ModeloSesionUsuario()" en otro lado
+    /* 
+    =================================================================================
+    Constructor privado: evita que se haga "new ModeloSesionUsuario()" en otro lado
+    =================================================================================
+    */
     private ModeloSesionUsuario() {
         // Inicializamos con valores por defecto seguros
         asignarValoresPorDefecto();
     }
-
     
-    // Método público estático para obtener la única instancia
+    private void asignarValoresPorDefecto(){
+        this.idUsuario = -1;
+        this.nombreRol = "";
+        this.esAdministrador = false;
+        this.idEmpresa = -1;
+        this.nombreEmpresa = "";
+    }
+    
+    /* 
+    ============================================================================
+            Método público estático para obtener la única instancia
+    ============================================================================
+    */
     public static ModeloSesionUsuario getInstancia() {
         if (instancia == null) {
             //Si no existe se crea una unica vez
@@ -43,38 +51,60 @@ public class ModeloSesionUsuario {
         }
         return instancia;
     }
-
-    // ==========================================
-    // GETTERS Y SETTERS
-    // ==========================================
+    
+    
+    /* 
+    ============================================================================
+                            Metodos principales
+    ============================================================================
+    */
 
     public void iniciarSesion(  int idUsuario, 
-                                String rol, 
+                                String nombreRol, 
                                 boolean esAdministrador, 
+                                int idEmpresa,
                                 String nombreEmpresa) {
         this.idUsuario = idUsuario;
-        this.rol = rol;
+        this.nombreRol = nombreRol;
         this.esAdministrador = esAdministrador;
+        this.idEmpresa = idEmpresa;
         this.nombreEmpresa = nombreEmpresa;
     }
 
     public void cerrarSesion() {
         asignarValoresPorDefecto();
     }
+    
+    
+    /* 
+    ============================================================================
+                                GETTERS
+    ============================================================================
+    */
+
 
     public int getIdUsuario() {
         return idUsuario;
     }
     
-    public String getRolUsuario(){
-        return rol;
+    public String getNombreRolUsuario(){
+        return nombreRol;
     }
 
     public boolean esAdministrador() {
         return esAdministrador;
     }
     
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+    
     public String getNombreEmpresa(){
         return nombreEmpresa;
     }
+    
+    //No se exponen setter puesto que despues de guardada la informacion, no se
+    //debe modificar.
+
+    
 }

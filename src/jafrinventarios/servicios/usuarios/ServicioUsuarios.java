@@ -5,7 +5,7 @@
  */
 package jafrinventarios.servicios.usuarios;
 
-import jafrinventarios.DTOs.Usuarios.DTOUsuarioTabla;
+import jafrinventarios.DTOs.usuarios.DTOUsuarioTabla;
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import java.util.ArrayList;
 import java.util.List;

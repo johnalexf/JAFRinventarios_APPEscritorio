@@ -9,6 +9,7 @@ package jafrinventarios.controladores;
 import jafrinventarios.controladores.acceso.ControladorInicioSesion;
 import jafrinventarios.controladores.acceso.ControladorRegistroUsuario;
 import jafrinventarios.controladores.principal.ControladorNavegacionModulos;
+import jafrinventarios.servicios.acceso.ServicioAutenticacion;
 import jafrinventarios.vistas.acceso.AccesoFrame;
 import jafrinventarios.vistas.principal.PrincipalFrame;
 import javax.swing.JFrame;
@@ -53,7 +54,8 @@ public class ControladorNavegacionGlobal {
         AccesoFrame vistaAcceso = new AccesoFrame();
         
         new ControladorInicioSesion(
-                vistaAcceso.getInicioSesionPanel()
+                vistaAcceso.getInicioSesionPanel(),
+                new ServicioAutenticacion()
         );
         new ControladorRegistroUsuario(
                 vistaAcceso.getRegistroUsuarioPanel()

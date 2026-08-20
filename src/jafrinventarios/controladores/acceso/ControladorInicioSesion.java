@@ -1,8 +1,10 @@
 
 package jafrinventarios.controladores.acceso;
 
+import jafrinventarios.DTOs.acceso.DTOCredenciales;
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.modelos.ModeloSesionUsuario;
+import jafrinventarios.servicios.acceso.ServicioAutenticacion;
 import jafrinventarios.vistas.acceso.InicioSesionPanel;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
 import java.util.HashMap;
@@ -13,10 +15,12 @@ import javax.swing.SwingUtilities;
 public class ControladorInicioSesion {
 
     private final InicioSesionPanel vistaInicio;
+    private final ServicioAutenticacion servicioAutenticacion;
 
     // El constructor recibe la vista ya creada
-    public ControladorInicioSesion(InicioSesionPanel vistaInicio) {
+    public ControladorInicioSesion(InicioSesionPanel vistaInicio, ServicioAutenticacion servicioAutenticacion ) {
         this.vistaInicio = vistaInicio;
+        this.servicioAutenticacion = servicioAutenticacion;
         inicializarEventosBotones();
     }
 
@@ -38,23 +42,21 @@ public class ControladorInicioSesion {
         // Si la validación de campos pasa, pedimos los datos limpios a la vista
         HashMap<String, String> datosFormulario = vistaInicio.recolectarDatosFormulario();
         
-        datosFormulario.forEach(    (clave, valor) ->
-            System.out.println(clave + " -> " + valor)
-        );
+        DTOCredenciales credenciales = 
+                servicioAutenticacion.iniciarSesion( 
+                        datosFormulario.get("correo") , 
+                        datosFormulario.get("contrasena")
+                );
 
-        // Llamar a la capa de Modelo para consultar la BD
-        System.out.println("Simulando consulta a BD : ");
-        boolean credencialesValidas = true; // Simulación de respuesta
+        if ( credenciales != null ) {
 
-        // Tomar decisión basada en la respuesta del Modelo
-        if ( credencialesValidas ) {
-            System.out.println("¡Ingreso exitoso!");
-            
-            /*
-            Simulacion de resupuesta de datos del usuario dentro del mismo metodo
-            iniciar sesion
-            */
-            ModeloSesionUsuario.getInstancia().iniciarSesion(0, "Administrador", true, "Albania");
+            ModeloSesionUsuario.getInstancia().iniciarSesion(
+                                                 credenciales.getIdUsuario(),
+                                                 credenciales.getNombreRol(),
+                                                 credenciales.esAdministrador(),
+                                                 credenciales.getIdEmpresa(),
+                                                 credenciales.getNombreEmpresa()
+            );
             
             ControladorNavegacionGlobal.getInstancia().cambiarAPrincipal();
             
@@ -72,6 +74,7 @@ public class ControladorInicioSesion {
         }
     }
 
+    
     private void procesarRecuperarContrasena() {
         JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vistaInicio);
         
