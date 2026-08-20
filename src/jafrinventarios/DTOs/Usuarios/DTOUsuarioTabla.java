@@ -18,7 +18,7 @@ public class DTOUsuarioTabla {
     private String correoUsuario;
     private String nombreCompletoUsuario;
     private String nombreRolUsuario;
-    private boolean estaHabilitado;
+    private boolean habilitado;
 
     public DTOUsuarioTabla(     int idUsuario, 
                                 String aliasUsuario, 
@@ -26,14 +26,14 @@ public class DTOUsuarioTabla {
                                 String correoUsuario, 
                                 String nombreCompletoUsuario, 
                                 String nombreRolUsuario, 
-                                boolean estaHabilitado) {
+                                boolean habilitado) {
         this.idUsuario = idUsuario;
         this.aliasUsuario = aliasUsuario;
         this.telefonoUsuario = telefonoUsuario;
         this.correoUsuario = correoUsuario;
         this.nombreCompletoUsuario = nombreCompletoUsuario;
         this.nombreRolUsuario = nombreRolUsuario;
-        this.estaHabilitado = estaHabilitado;
+        this.habilitado = habilitado;
     }
 
     public int getIdUsuario() {
@@ -60,8 +60,8 @@ public class DTOUsuarioTabla {
         return nombreRolUsuario;
     }
 
-    public boolean getEstaHabilitado() {
-        return estaHabilitado;
+    public boolean estaHabilitado() {
+        return habilitado;
     }
 
    

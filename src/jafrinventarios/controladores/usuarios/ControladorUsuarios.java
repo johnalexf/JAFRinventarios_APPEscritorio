@@ -125,7 +125,7 @@ public class ControladorUsuarios {
                      datosUsuario.getTelefonoUsuario(), 
                      datosUsuario.getNombreRolUsuario()
         );
-        fila.setEstadoVisual( datosUsuario.getEstaHabilitado() );
+        fila.setEstadoVisual( datosUsuario.estaHabilitado() );
         return fila;
     }
     
