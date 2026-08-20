@@ -14,6 +14,7 @@ import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonaliza
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -1097,7 +1098,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private void mostrarMensajeAyudaCodigo (){
            
         DialogoMensajePersonalizado.mostrar(
-                (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
+                getVentanaPadre(), 
                 "Información código de acceso",
                 mensajeAyudaCodigo,
                 IconosDialogosMensajePersonalizado.INFORMACION,
@@ -1107,12 +1108,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     } 
     
     
+    
     /* 
     ============================================================================
                        MÉTODOS PÚBLICOS PARA EL CONTROLADOR
     ============================================================================
-    
-     metodo para que el constructor envie los roles que estan en la base de datos
+    */
+     
+    /*metodo inicializarComboBoxRoles para que el controlador envie los roles que estan en la base de datos
      Se espera que la clave sea el id y el valor sea el nombre, este se utilizara
      estrategicamente en un nuevo CampoGestionable de tipo chechbox para devolver el id
      cuando el controlador solicite recopilar la informacion del formulario.
@@ -1155,6 +1158,32 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         mostrarFormularioDesdeInicio();
     }
     
+    
+        
+    /* 
+        Metodos para dialogos de mensajes de Alertas
+    */
+    
+    public JFrame getVentanaPadre(){
+        return (JFrame) SwingUtilities.getWindowAncestor(this);
+    }
+    
+    public void mostrarAlertaRegistroExitoso( String alias ){
+        DialogoMensajePersonalizado.mostrar(
+                    getVentanaPadre(), 
+                    "Registro exitoso", 
+                    "El usuario " + alias
+                    + "\n ha sido registrado correctamente"
+                    + "\n ya puedes iniciar sesion." , 
+                    IconosDialogosMensajePersonalizado.EXITO, 
+                    false);
+    }
+    
+    public void mostrarAlertaErrorFormatoCampos(){
+        DialogoMensajePersonalizado.mostrarErrorFormatoCampos(getVentanaPadre());
+    }
+            
+            
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAyudaCodigo;

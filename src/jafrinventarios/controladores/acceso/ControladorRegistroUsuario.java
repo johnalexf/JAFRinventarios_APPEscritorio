@@ -5,15 +5,12 @@
  */
 package jafrinventarios.controladores.acceso;
 
+import jafrinventarios.servicios.acceso.ServicioRegistro;
 import jafrinventarios.servicios.usuarios.ServicioRoles;
 import jafrinventarios.vistas.acceso.RegistroUsuarioPanel;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoMensajePersonalizado;
-import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -21,14 +18,29 @@ import javax.swing.SwingUtilities;
  */
 public class ControladorRegistroUsuario {
     
-    private RegistroUsuarioPanel vistaRegistro;
-
     
-    public ControladorRegistroUsuario(RegistroUsuarioPanel vistaRegistro) {
+    private RegistroUsuarioPanel vistaRegistro;
+    
+    private ServicioRegistro servicioRegistro;
+
+    /*
+    ============================================================================
+                        CONSTRUCTOR PUBLICO
+    ============================================================================
+    */
+    public ControladorRegistroUsuario(RegistroUsuarioPanel vistaRegistro, ServicioRegistro servicioRegistro ) {
         this.vistaRegistro = vistaRegistro;
+        this.servicioRegistro = servicioRegistro;
         cargarRoles();
         inicializarEventoBoton();
     }
+    
+    
+    /*
+    ============================================================================
+                    METODOS CONFIGURACION INICIAL DE LA VISTA
+    ============================================================================
+    */
     
     
     private void cargarRoles() {
@@ -47,15 +59,20 @@ public class ControladorRegistroUsuario {
     }
     
     
+    /*
+    ============================================================================
+                    METODO PARA REALIZAR EL REGISTRO
+    ============================================================================
+    */
+    
+    
     private void procesarRegistro(){
         
-        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vistaRegistro);
-        
+          
         // Delegar a la vista que valide que no haya campos vacíos o con errores
         if ( !vistaRegistro.ejecutarValidacionFormulario() ) {
-            
-            DialogoMensajePersonalizado.mostrarErrorFormatoCampos(ventanaPadre);
-            return; // Cortamos la ejecución aquí si hay erroresde formato de datos
+            vistaRegistro.mostrarAlertaErrorFormatoCampos();
+            return; // Cortamos la ejecución aquí si hay errores de formato de datos
         }
         
         // Si la validación de campos pasa, pedimos los datos limpios a la vista
@@ -71,14 +88,10 @@ public class ControladorRegistroUsuario {
 
         // Tomar decisión basada en la respuesta del Modelo
         if ( credencialesValidas ) {
-            System.out.println("¡Registro exitoso!");
-            
+
             vistaRegistro.ejecutarLimpiezaFormulario();
-            mostrarMensajeRegistroExitoso(ventanaPadre, datosFormulario.get("alias"));
-            
-            
-            //
-            
+            vistaRegistro.mostrarAlertaRegistroExitoso( datosFormulario.get("alias"));
+
         } else {
             // Mostrar error de credenciales inválidas
             System.out.println("EL o los datos ya existenten en la base de datos.");
@@ -94,14 +107,4 @@ public class ControladorRegistroUsuario {
     }
     
     
-    private void mostrarMensajeRegistroExitoso(JFrame ventanaPadre, String alias){
-        DialogoMensajePersonalizado.mostrar(
-                    ventanaPadre, 
-                    "Registro exitoso", 
-                    "El usuario " + alias
-                    + "\n ha sido registrado correctamente"
-                    + "\n ya puedes iniciar sesion." , 
-                    IconosDialogosMensajePersonalizado.EXITO, 
-                    false);
-    }
 }

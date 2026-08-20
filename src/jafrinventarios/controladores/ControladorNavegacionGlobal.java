@@ -10,6 +10,7 @@ import jafrinventarios.controladores.acceso.ControladorInicioSesion;
 import jafrinventarios.controladores.acceso.ControladorRegistroUsuario;
 import jafrinventarios.controladores.principal.ControladorNavegacionModulos;
 import jafrinventarios.servicios.acceso.ServicioAutenticacion;
+import jafrinventarios.servicios.acceso.ServicioRegistro;
 import jafrinventarios.vistas.acceso.AccesoFrame;
 import jafrinventarios.vistas.principal.PrincipalFrame;
 import javax.swing.JFrame;
@@ -58,7 +59,8 @@ public class ControladorNavegacionGlobal {
                 new ServicioAutenticacion()
         );
         new ControladorRegistroUsuario(
-                vistaAcceso.getRegistroUsuarioPanel()
+                vistaAcceso.getRegistroUsuarioPanel(),
+                new ServicioRegistro()
         );
         
         // Actualizamos cuál es la ventana activa y la mostramos
