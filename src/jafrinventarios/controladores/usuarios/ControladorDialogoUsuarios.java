@@ -39,9 +39,6 @@ public class ControladorDialogoUsuarios {
     // Esta variable sera la respuesta del nuevo usuario.
     private int idUsuario;
     
-    //Variable para personalizar el mensaje exitoso si es para crear o editar
-    private String mensajeExitoso;
-    
     // Variable usada para responder segun el resultado de la operacion para
     // las funciones de editar perfil u otro usuario
     private boolean operacionExitosa = false;
@@ -73,11 +70,8 @@ public class ControladorDialogoUsuarios {
         }
         
         if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO){
-            this.modeloUsuario = obtenerDatosUsuario( idUsuario );
-            cargarDatosAVista( empaquetarDatosUsuario(), tipoDialogo);
-            mensajeExitoso = "El usuario se ha actualizado correctamente";
-        }else{
-            mensajeExitoso = "Usuario creado correctamente \n La contraseña se le envia al usuario por correo"; 
+            this.modeloUsuario = obtenerModeloUsuario( idUsuario );
+            cargarDatosAVista( empaquetarDatosUsuarioEnDiccionario() );
         }
         
         inicializarEventosBotones();
@@ -168,12 +162,12 @@ public class ControladorDialogoUsuarios {
     
     /*
     ============================================================================
-                METODOS PARA CONSULTAR AL SERVICIO
+                METODOS PARA CONSULTAR A LOS SERVICIOS
     ============================================================================
     */
     
-    private ModeloUsuario obtenerDatosUsuario( int idUsuario ){
-        return servicioUsuarios.obtenerDatosUsuario(idUsuario);
+    private ModeloUsuario obtenerModeloUsuario( int idUsuario ){
+        return servicioUsuarios.obtenerModeloUsuario(idUsuario);
     }
     
     private boolean editarPerfil( ModeloUsuario usuario ){
@@ -192,7 +186,7 @@ public class ControladorDialogoUsuarios {
         return servicioUsuarios.esUsuarioHabilitado(idUsuario);
     }
         
-    private boolean crearUsuario( ModeloUsuario usuario ){
+    private int crearUsuario( ModeloUsuario usuario ){
         return servicioUsuarios.crearUsuario(usuario);
     }
     
@@ -207,7 +201,7 @@ public class ControladorDialogoUsuarios {
     ============================================================================
     */
     
-    private HashMap<String, String> empaquetarDatosUsuario(){
+    private HashMap<String, String> empaquetarDatosUsuarioEnDiccionario(){
     
         HashMap<String, String> datosPerfil = new HashMap<>();
         
@@ -226,7 +220,7 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    private void cargarDatosAVista(HashMap<String, String> datosPerfil, DialogoFormularioUsuario.TipoDialogo tipoDialogo){
+    private void cargarDatosAVista( HashMap<String, String> datosPerfil ){
         
         if(tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO){
             dialogoUsuario.setId( Integer.toString(idUsuario) );
@@ -268,58 +262,103 @@ public class ControladorDialogoUsuarios {
     
     private void procesarFormulario(){
         
+        // Validaciones de los campos si corresponden a su tipo
         if( !dialogoUsuario.validarFormulario() ){
             System.out.println("Formulario no valido");
             DialogoMensajePersonalizado.mostrarErrorFormatoCampos(dialogoUsuario);
             return;
         }
         
-        // Si la validación de campos pasa, pedimos los datos limpios a la vista
+        // Extracción y construcción del Modelo
         HashMap<String, String> datosFormulario = dialogoUsuario.recolectarDatosFormulario();
         imprimirEnConsolaFormulario( datosFormulario );
 
-        // TODO: conexion al modelo para que guarde los datos y responda
+        ModeloUsuario usuarioAProcesar = 
+                ( tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO ) 
+                ? modeloUsuario.clonar()
+                : new ModeloUsuario();
+
+        usuarioAProcesar = asignarDatosAModeloUsuario( usuarioAProcesar, datosFormulario );
+        System.out.println( modeloUsuario.toString() );
+        System.out.println( usuarioAProcesar.toString());
+        
+        // Auditoría de Cambios si es editar usuario o perfil
+        if( tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO ){
+            if( modeloUsuario.equals(usuarioAProcesar) ){
+                
+                //Si operacionExitosa es true significa que se cambio el estado del usuario
+                if( operacionExitosa ) procesarExitoYCierre();
+                else{
+                    mostrarError("No hay cambios para guardar");
+                    return;
+                }
+            }
+        }
+               
+        
+        /*
+        ========================================================================
+          LÓGICA DE BASE DE DATOS (Solo llegamos aquí si hay que guardar algo)
+        ========================================================================
+        */
+        
+        boolean seGuardoUsuario = false;
+        
         switch(tipoDialogo){
             case EDITAR_PERFIL_PROPIO:
-                //TODO: Consulta para editar perfil propio
+                seGuardoUsuario = editarPerfil(usuarioAProcesar);
                 break;
             case EDITAR_OTRO_USUARIO:
-                //TODO: Consulta para editar otro usuario
+                seGuardoUsuario = editarOtroUsuario(usuarioAProcesar);
                 break;
             case CREAR_NUEVO_USUARIO:
-                //TODO: Consulta para crear nuevo usuario
-                // La contraseña se envia por correo al nuevo usuario
+                idUsuario = crearUsuario(usuarioAProcesar);
+                seGuardoUsuario = (idUsuario != -1); 
                 break;
         }
         
-        boolean respuestaBD = true;
-
-        if(respuestaBD){
-            
-            DialogoMensajePersonalizado.mostrarExito(
-                    dialogoUsuario, 
-                    "Operacion Exitosa", 
-                    mensajeExitoso
-            );
+        // Manejo de la respuesta
+        if(seGuardoUsuario){
             operacionExitosa = true;
-            //TODO Cuando se crea un nuevo usuario se debe realizar el codigo
-            // para obtener el id del usuario creado
-            dialogoUsuario.dispose();
-            
-        }else{
-
-            //codigo simulacion de respuesta de la base de datos
+            procesarExitoYCierre();
+        } else {
+            // Simulación de errores (Más adelante esto vendrá del ServicioUsuarios)
+            mostrarError("Error en la base de datos");
             dialogoUsuario.mostrarErrorRespuestaBDEnFormulario(
-               new HashMap<>(
-                    Map.of(
-                        "alias", "El alias ya existe",
-                        "contrasena", "Contraseña erronea"
-                    )
-               )
+               new HashMap<>(Map.of("alias", "El alias ya existe"))
             );
-
         }
 
+    }
+    
+    
+    private ModeloUsuario asignarDatosAModeloUsuario( ModeloUsuario usuario, HashMap<String, String> datosFormulario ){
+    
+        if( datosFormulario.containsKey("alias") )
+            usuario.setAliasUsuario( datosFormulario.get("alias") );
+        
+        if( datosFormulario.containsKey("rol") )
+            usuario.setIdRolUsuario(  Integer.parseInt( datosFormulario.get("rol") ) );
+        
+        if( datosFormulario.containsKey("primerNombre") )
+            usuario.setPrimerNombreUsuario(datosFormulario.get("primerNombre") );
+        
+        if( datosFormulario.containsKey("segundoNombre") )
+            usuario.setSegundoNombreUsuario( datosFormulario.get("segundoNombre") );
+        
+        if( datosFormulario.containsKey("primerApellido") )
+            usuario.setPrimerApellidoUsuario(datosFormulario.get("primerApellido") );
+        
+        if( datosFormulario.containsKey("segundoApellido") )
+            usuario.setSegundoApellidoUsuario(datosFormulario.get("segundoApellido") );
+        
+        if( datosFormulario.containsKey("telefono") )
+            usuario.setTelefonoUsuario(datosFormulario.get("telefono") );
+        
+        if( datosFormulario.containsKey("correo") )
+            usuario.setCorreoUsuario(datosFormulario.get("correo") );
+        
+        return usuario;
     }
     
     
@@ -354,9 +393,32 @@ public class ControladorDialogoUsuarios {
             modeloUsuario.setHabilitado(  esUsuarioHabilitado( idUsuario )  );
             dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.estaHabilitado() );
             operacionExitosa = true;
+        }else{
+            System.out.println("Error en la base de datos");
         }
-  
         
+    }
+    
+    
+    private void procesarExitoYCierre(){
+        
+        String mensajeExitoso = (tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO)
+                ?  "El usuario se ha actualizado correctamente"
+                :   "Usuario creado correctamente \n La contraseña se le envia al usuario por correo"; 
+        
+        
+        DialogoMensajePersonalizado.mostrarExito(
+                    dialogoUsuario, 
+                    "Operacion Exitosa", 
+                    mensajeExitoso
+            );
+    
+        dialogoUsuario.dispose();
+    }
+    
+    
+    private void mostrarError( String mensaje ){
+        DialogoMensajePersonalizado.mostrarError(dialogoUsuario, "Error", mensaje );
     }
     
     

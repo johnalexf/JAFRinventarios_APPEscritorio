@@ -8,6 +8,7 @@ package jafrinventarios.controladores.perfil;
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.controladores.usuarios.ControladorDialogoUsuarios;
 import jafrinventarios.modelos.ModeloSesionUsuario;
+import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import java.util.HashMap;
 import javax.swing.JFrame;
@@ -75,8 +76,8 @@ public class ControladorPerfil {
         
         boolean seEditoUsuario;
         //TODO por el momento se mantienen estas lineas de codigo para hacer pruebas
-        seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(ventanaPadre, true);
-        seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(ventanaPadre, false);
+        seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(ventanaPadre, true, new ServicioUsuarios());
+        seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(ventanaPadre, false, new ServicioUsuarios());
         
         if(seEditoUsuario){
             cargarDatosPerfil( obtenerDatosPerfil() );

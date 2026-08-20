@@ -79,7 +79,7 @@ public class ServicioUsuarios {
     }
     
     //Este metodo devuelve un usuario del tipo ModeloUsuario que servira de base para poder editarlo y devolverlo para guardar los cambios
-    public ModeloUsuario obtenerDatosUsuario( int idUsuario ){
+    public ModeloUsuario obtenerModeloUsuario( int idUsuario ){
     
         //Smulacion de conexion y empaquetado de la informacion de un usuario
        
@@ -187,9 +187,9 @@ public class ServicioUsuarios {
     
     
     
-    public boolean crearUsuario( ModeloUsuario usuario ){
+    public int crearUsuario( ModeloUsuario usuario ){
     
-        boolean respuestaConsulta = false;
+        int respuestaConsulta = -1;
   
         /*
       
