@@ -1182,6 +1182,10 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     public void mostrarAlertaErrorFormatoCampos(){
         DialogoAlerta.mostrarErrorFormatoCampos( getVentanaPadre() );
     }
+    
+    public void mostrarError( String mensaje ){
+        DialogoAlerta.mostrarError(getVentanaPadre(), "Error", mensaje);
+    }
             
             
 

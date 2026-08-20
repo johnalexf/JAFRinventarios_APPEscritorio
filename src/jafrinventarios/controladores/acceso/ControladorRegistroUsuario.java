@@ -5,6 +5,7 @@
  */
 package jafrinventarios.controladores.acceso;
 
+import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.servicios.acceso.ServicioRegistro;
 import jafrinventarios.servicios.usuarios.ServicioRoles;
 import jafrinventarios.vistas.acceso.RegistroUsuarioPanel;
@@ -69,28 +70,60 @@ public class ControladorRegistroUsuario {
     private void procesarRegistro(){
         
           
-        // Delegar a la vista que valide que no haya campos vacíos o con errores
+        // Validaciones de los campos si corresponden a su tipo
         if ( !vistaRegistro.ejecutarValidacionFormulario() ) {
             vistaRegistro.mostrarAlertaErrorFormatoCampos();
             return; // Cortamos la ejecución aquí si hay errores de formato de datos
         }
         
-        // Si la validación de campos pasa, pedimos los datos limpios a la vista
+        // Extracción y construcción del Modelo
         HashMap<String, String> datosFormulario = vistaRegistro.recolectarDatosFormulario();
-        
         datosFormulario.forEach(    
             (clave, valor) ->   System.out.println(clave + " -> " + valor)
         );
 
-        // Llamar a la capa de Modelo para consultar la BD
-        System.out.println("Simulando consulta a BD : ");
-        boolean credencialesValidas = true; // Simulación de respuesta
+        ModeloUsuario usuario = new ModeloUsuario();
+        usuario = asignarDatosAModeloUsuario( usuario, datosFormulario );
+      
+        String codigo = datosFormulario.get("codigo");
+        
+        
+        // Auditoría de Codigo
+        if( !servicioRegistro.esValidoCodigo( codigo, usuario.getIdRolUsuario() ) ){
+            // TODO: La idea es que el servicio responda, puede responder
+            // falla de conexion, codigo no valido, o este codigo solo permitia crear un usuario administrador
+            vistaRegistro.mostrarError("El codigo no es valido");
+            vistaRegistro.mostrarErrorRespuestaBD(
+                   new HashMap<>(Map.of(
+                        "codigo", "Este codigo no es valido"
+                    ))
+            );
+        }
+        
+        
+        // Extraccion contrasena y nombre de la empresa si existe
+        String contrasena = (datosFormulario.containsKey("contrasena"))
+                                ? datosFormulario.get("contrasena")
+                                : "";
+        
+        String nombreEmpresa = (datosFormulario.containsKey("nombreEmpresa"))
+                                ? datosFormulario.get("nombreEmpresa")
+                                : "";
+        
+         /*
+        ========================================================================
+                                LÓGICA DE BASE DE DATOS 
+        ========================================================================
+        */
+        boolean usuarioRegistrado = 
+                servicioRegistro.registrarUsuario( codigo, usuario, contrasena, nombreEmpresa );
 
-        // Tomar decisión basada en la respuesta del Modelo
-        if ( credencialesValidas ) {
+
+        // Manejo de la respuesta
+        if ( usuarioRegistrado ) {
 
             vistaRegistro.ejecutarLimpiezaFormulario();
-            vistaRegistro.mostrarAlertaRegistroExitoso( datosFormulario.get("alias"));
+            vistaRegistro.mostrarAlertaRegistroExitoso( usuario.getAliasUsuario() );
 
         } else {
             // Mostrar error de credenciales inválidas
@@ -104,6 +137,37 @@ public class ControladorRegistroUsuario {
                     ))
             );
         }
+        
+    }
+    
+    
+    private ModeloUsuario asignarDatosAModeloUsuario( ModeloUsuario usuario, HashMap<String, String> datosFormulario ){
+    
+        if( datosFormulario.containsKey("alias") )
+            usuario.setAliasUsuario( datosFormulario.get("alias") );
+        
+        if( datosFormulario.containsKey("rol") )
+            usuario.setIdRolUsuario(  Integer.parseInt( datosFormulario.get("rol") ) );
+        
+        if( datosFormulario.containsKey("primerNombre") )
+            usuario.setPrimerNombreUsuario(datosFormulario.get("primerNombre") );
+        
+        if( datosFormulario.containsKey("segundoNombre") )
+            usuario.setSegundoNombreUsuario( datosFormulario.get("segundoNombre") );
+        
+        if( datosFormulario.containsKey("primerApellido") )
+            usuario.setPrimerApellidoUsuario(datosFormulario.get("primerApellido") );
+        
+        if( datosFormulario.containsKey("segundoApellido") )
+            usuario.setSegundoApellidoUsuario(datosFormulario.get("segundoApellido") );
+        
+        if( datosFormulario.containsKey("telefono") )
+            usuario.setTelefonoUsuario(datosFormulario.get("telefono") );
+        
+        if( datosFormulario.containsKey("correo") )
+            usuario.setCorreoUsuario(datosFormulario.get("correo") );
+        
+        return usuario;
     }
     
     
