@@ -214,4 +214,39 @@ public class ServicioUsuarios {
         return respuestaConsulta;
     }
     
+    
+    public boolean eliminarUsuario( int idUsuario ){
+    
+        boolean respuestaConsulta = false;
+        
+        /*
+        Para eliminar un usuario se hara la respectiva consulta, sin embargo
+        la base de datos no debe permitir eliminar un usuario si este
+        es la clave foranea de cualquier tabla, como ventas o productos
+        
+        Es importante tambien tener en cuenta en un futuro que el mismo administrador
+        no se pueda eliminar en gestion de usuarios, en su momento se planteara
+        el codigo para evitar esta eventualidad
+        */
+        
+        
+        return respuestaConsulta;
+    }
+    
+    
+    public boolean tieneRegistrosAsociados ( int idUsuario ){
+    
+        boolean respuestaConsulta = false;
+        
+        /*
+        Esta consulta se encargara de verificar si el usuario es clave foranea
+        de otra tabla, esto permite personalizar el dialogo para mostrar el boton
+        eliminar si no tiene una relacion
+        o deshabilitar si tiene una relacion
+        */
+        
+        
+        return respuestaConsulta;
+    }
+    
 }

@@ -35,6 +35,8 @@ public class ControladorDialogoUsuarios {
     
     private boolean esAdministrador;
     
+    private boolean tieneRegistrosAsociados;
+    
     // Variable con el id del usuario a editar, para el caso de CREAR_NUEVO_USUARIO
     // Esta variable sera la respuesta del nuevo usuario.
     private int idUsuario;
@@ -67,6 +69,10 @@ public class ControladorDialogoUsuarios {
         
         if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO){
              inicializarComboBoxRoles();
+        }
+        
+        if( tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO ){
+            tieneRegistrosAsociados = tieneRegistrosAsociados( idUsuario );
         }
         
         if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO){
@@ -194,6 +200,14 @@ public class ControladorDialogoUsuarios {
         return  ServicioRoles.obtenerDiccionarioRoles();
     } 
     
+    public boolean tieneRegistrosAsociados ( int idUsuario ){
+        return servicioUsuarios.tieneRegistrosAsociados( idUsuario );
+    }
+    
+    private boolean eliminarUsuario( int idUsuario ){
+        return servicioUsuarios.eliminarUsuario(idUsuario);
+    }
+    
     
     /*
     ============================================================================
@@ -224,7 +238,12 @@ public class ControladorDialogoUsuarios {
         
         if(tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO){
             dialogoUsuario.setId( Integer.toString(idUsuario) );
-            dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.estaHabilitado() );
+            if( tieneRegistrosAsociados ){
+                dialogoUsuario.mostrarBtnEditarEstadoUsuario();
+                dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.estaHabilitado() );
+            }else{
+                dialogoUsuario.mostrarBtnLinkEliminarUsuario();
+            }       
         }
 
         dialogoUsuario.asignarDatosEnFormulario(datosPerfil);
@@ -247,7 +266,12 @@ public class ControladorDialogoUsuarios {
         }
         
         if ( tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO ){
-            dialogoUsuario.getBtnLinkEditarEstadoUsuario().addActionListener( e -> conmutarEstadoUsuario() );
+            if( tieneRegistrosAsociados ){
+               dialogoUsuario.getBtnLinkEditarEstadoUsuario().addActionListener( e -> conmutarEstadoUsuario() ); 
+            }else{
+               dialogoUsuario.getBtnLinkEliminarUsuario().addActionListener( e -> eliminarUsuario() );
+            }
+            
         }
         
     }
@@ -287,7 +311,10 @@ public class ControladorDialogoUsuarios {
             if( modeloUsuario.equals(usuarioAProcesar) ){
                 
                 //Si operacionExitosa es true significa que se cambio el estado del usuario
-                if( operacionExitosa ) procesarExitoYCierre();
+                if( operacionExitosa ){
+                    mostrarMensajeExitoso();
+                    dialogoUsuario.dispose();
+                }
                 else{
                     mostrarError("No hay cambios para guardar");
                     return;
@@ -320,7 +347,8 @@ public class ControladorDialogoUsuarios {
         // Manejo de la respuesta
         if(seGuardoUsuario){
             operacionExitosa = true;
-            procesarExitoYCierre();
+            mostrarMensajeExitoso();
+            dialogoUsuario.dispose();
         } else {
             // Simulación de errores (Más adelante esto vendrá del ServicioUsuarios)
             mostrarError("Error en la base de datos");
@@ -378,9 +406,7 @@ public class ControladorDialogoUsuarios {
     private void conmutarEstadoUsuario(){
     
         boolean deseaContinuar = 
-           DialogoMensajePersonalizado.mostrarAdvertenciaConRespuesta(
-                   dialogoUsuario,
-                   "Advertencia", 
+                mostrarAdvertencia(
                    modeloUsuario.estaHabilitado() ? 
                    "Esta a punto de deshabilitar al usuario y por tanto este ya no podra iniciar sesion, sin embargo sus transacciones siguen almacenadas":
                    "Esta a punto de habilitar al usuario y por tanto este podra iniciar sesion."
@@ -400,20 +426,55 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    private void procesarExitoYCierre(){
+    private void eliminarUsuario(){
+     
+        boolean deseaContinuar = mostrarAdvertencia("Esta a punto de eliminar el usuario, este cambio es irreversible \nEsta seguro?");
+        
+        if( deseaContinuar ){
+            if( eliminarUsuario(idUsuario) ){
+                mostrarMensajeExitoso( " Usuario eliminado correctamente " );
+                dialogoUsuario.dispose();
+            }else{
+                mostrarError( "Error al tratar de eliminar el usuario" );
+            }
+        }
+    }
+    
+    
+    /*
+    ============================================================================
+                        METODOS PARA MOSTRAR DIALOGOS 
+    ============================================================================
+    */
+    
+    private boolean mostrarAdvertencia( String mensaje ){
+        
+       return DialogoMensajePersonalizado.mostrarAdvertenciaConRespuesta(
+                   dialogoUsuario,
+                   "Advertencia", 
+                   mensaje
+                );
+    
+    }
+    
+    private void mostrarMensajeExitoso(){
         
         String mensajeExitoso = (tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO)
                 ?  "El usuario se ha actualizado correctamente"
                 :   "Usuario creado correctamente \n La contraseña se le envia al usuario por correo"; 
-        
+            
+        mostrarMensajeExitoso( mensajeExitoso );
+    }
+    
+    
+    private void mostrarMensajeExitoso(String mensajeExitoso ){
         
         DialogoMensajePersonalizado.mostrarExito(
                     dialogoUsuario, 
                     "Operacion Exitosa", 
                     mensajeExitoso
             );
-    
-        dialogoUsuario.dispose();
+        
     }
     
     
@@ -425,7 +486,7 @@ public class ControladorDialogoUsuarios {
     
     /*
     ============================================================================
-                        METODOS RESPUESTA DE OPERACION
+                 METODOS RESPUESTA DESPUES DE CIERRE DEL DIALOGO
     ============================================================================
     */
     

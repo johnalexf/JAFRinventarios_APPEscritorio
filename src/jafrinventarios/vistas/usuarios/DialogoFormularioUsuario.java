@@ -47,6 +47,15 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         
         formularioDatosUsuario = new GestorFormulario();
         
+        /*
+        Por defecto ocultamos los botones de editar estado o eliminar usuarios
+        este pertenece unicamente a editar_otro_usuario
+        Por ende el controlador especificara si dicho usuario tiene una relacion
+        con otras tablas y segun esto dependera cual se muestra
+        */
+        btnLinkEditarEstadoUsuario.setVisible(false);
+        btnLinkEliminarUsuario.setVisible(false);
+        
         switch(modo){
             case EDITAR_PERFIL_PROPIO:
                 personalizacionEditarPerfil(esAdministrador);
@@ -78,9 +87,6 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         labelRol.setVisible(false);
         contenedorInputYErrorRol.setVisible(false);
 
-        //Tampoco pueden modificar su estado, es decir deshabilitarse o eliminarse
-        btnLinkEditarEstadoUsuario.setVisible(false);
-
         DinamismoLink.aplicarEfecto(btnLinkEditarContrasena);
         
         if(esAdministrador){
@@ -101,7 +107,6 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     
     private void personalizacionEditarOtroUsuario(){
         personalizacionBasicaAdministracionUsuarios();
-        DinamismoLink.aplicarEfecto(btnLinkEditarEstadoUsuario);
     }
     
     private void personalizacionCrearNuevoUsuario(){
@@ -114,7 +119,6 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     
         personalizacionBasicaAdministracionUsuarios();
         contenedorIdUsuario.setVisible(false);
-        btnLinkEditarEstadoUsuario.setVisible(false);
     }
     
     
@@ -260,6 +264,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         btnEnviarFormulario = new javax.swing.JButton();
         btnLinkEditarContrasena = new javax.swing.JButton();
         btnLinkEditarEstadoUsuario = new javax.swing.JButton();
+        btnLinkEliminarUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 0));
@@ -874,6 +879,19 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         gridBagConstraints.weighty = 1.0;
         contenedorBotones.add(btnLinkEditarEstadoUsuario, gridBagConstraints);
 
+        btnLinkEliminarUsuario.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnLinkEliminarUsuario.setForeground(new java.awt.Color(200, 0, 0));
+        btnLinkEliminarUsuario.setText("Eliminar Usuario");
+        btnLinkEliminarUsuario.setAlignmentX(0.5F);
+        btnLinkEliminarUsuario.setIconTextGap(10);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorBotones.add(btnLinkEliminarUsuario, gridBagConstraints);
+
         contenedorFormulario.add(contenedorBotones, java.awt.BorderLayout.PAGE_END);
 
         panelPrincipalScrolleable.setViewportView(contenedorFormulario);
@@ -902,6 +920,15 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         lblDatoID.setText(id);
     }
     
+    public void mostrarBtnLinkEliminarUsuario(){
+        btnLinkEliminarUsuario.setVisible(true);
+        DinamismoLink.aplicarEfecto(btnLinkEliminarUsuario);
+    }
+    
+    public void mostrarBtnEditarEstadoUsuario(){
+        btnLinkEditarEstadoUsuario.setVisible(true);
+        DinamismoLink.aplicarEfecto(btnLinkEditarEstadoUsuario);
+    }
     
     public void asignarIntencionBtnEditarEstadoUsuario(boolean esHabilitado){
         
@@ -943,6 +970,9 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         return btnLinkEditarEstadoUsuario;
     }
     
+    public JButton getBtnLinkEliminarUsuario(){
+        return btnLinkEliminarUsuario;
+    }
     
     //Exponer metodos para gestionar el formulario
     public boolean validarFormulario(){
@@ -966,6 +996,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     private javax.swing.JButton btnEnviarFormulario;
     private javax.swing.JButton btnLinkEditarContrasena;
     private javax.swing.JButton btnLinkEditarEstadoUsuario;
+    private javax.swing.JButton btnLinkEliminarUsuario;
     private javax.swing.JComboBox<String> comboBoxRolUsuario;
     private javax.swing.JPanel contenedorBotones;
     private javax.swing.JPanel contenedorBtnCerrar;
