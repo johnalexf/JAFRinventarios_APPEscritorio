@@ -6,11 +6,8 @@ import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.acceso.ServicioAutenticacion;
 import jafrinventarios.vistas.acceso.InicioSesionPanel;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 public class ControladorInicioSesion {
 
@@ -34,8 +31,7 @@ public class ControladorInicioSesion {
     private void procesarIngreso() {
         // Delegar a la vista que valide que no haya campos vacíos o con errores
         if ( !vistaInicio.ejecutarValidacionFormulario() ) {
-            JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vistaInicio);
-            DialogoAlerta.mostrarErrorFormatoCampos(ventanaPadre);
+            vistaInicio.mostrarAlertaErrorFormatoCampos();
             return; // Cortamos la ejecución aquí si hay errores de formato de datos
         }
 
@@ -76,15 +72,13 @@ public class ControladorInicioSesion {
 
     
     private void procesarRecuperarContrasena() {
-        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vistaInicio);
-        
        /*
         El controlador de inicio de sesión no sabe NADA de cómo se ensambla adentro
             Este metodo estatico permite delegar al controlador que arme la vista
             segun corresponda y asi evitar que el desarrollador tenga que instanciar
             un dialogoCambiarContrasena incorrecto
         */
-        ControladorContrasena.iniciarRecuperacion(ventanaPadre);
+        ControladorContrasena.iniciarRecuperacion( vistaInicio.getVentanaPadre() );
         
     }
 }

@@ -9,7 +9,10 @@ import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
+import java.awt.Window;
 import java.util.HashMap;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -230,10 +233,12 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    // =======================================================
-    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
-    // =======================================================
-
+    /* 
+    ============================================================================
+                       MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    ============================================================================
+    */
+    
     //Exponer los botones
     public javax.swing.JButton getBtnIngresar() {
         return btnIngresar;
@@ -257,6 +262,19 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         formularioIngreso.mostrarErrorRespuestaBD(erroresCamposBD);
     }
     
+    
+    /* 
+        Metodos para dialogos de mensajes de Alertas
+    */
+    
+    public Window getVentanaPadre(){
+        return SwingUtilities.getWindowAncestor(this);
+    }
+    
+    
+    public void mostrarAlertaErrorFormatoCampos(){
+        DialogoAlerta.mostrarErrorFormatoCampos( getVentanaPadre() );
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
