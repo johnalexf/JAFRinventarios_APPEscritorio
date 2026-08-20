@@ -9,6 +9,8 @@
  */
 package jafrinventarios.modelos.usuarios;
 
+import java.util.Objects;
+
 /**
  *
  * @author JOHN FORERO
@@ -31,10 +33,12 @@ public class ModeloUsuario {
     
     /*
     ============================================================================
-                        CONSTRUCTOR
+                        CONSTRUCTORES
     ============================================================================
     */
 
+    public ModeloUsuario(){}
+    
     public ModeloUsuario(   int idUsuario, 
                             int idEmpresa, 
                             String aliasUsuario, 
@@ -164,6 +168,126 @@ public class ModeloUsuario {
     public void setHabilitado(boolean habilitado) {
         this.habilitado = habilitado;
     }
+
+    
+    /*
+    ============================================================================
+                                EQUALS Y HASCHCODE
+    ============================================================================
+     */
+    
+    /*
+        El hashCode() es la huella digital numérica del objeto creado
+    Si dos objetos son iguales según el método .equals(), entonces 
+    obligatoriamente deben devolver el mismo número en .hashCode()
+    */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.aliasUsuario);
+        hash = 67 * hash + Objects.hashCode(this.telefonoUsuario);
+        hash = 67 * hash + Objects.hashCode(this.correoUsuario);
+        hash = 67 * hash + Objects.hashCode(this.primerNombreUsuario);
+        hash = 67 * hash + Objects.hashCode(this.segundoNombreUsuario);
+        hash = 67 * hash + Objects.hashCode(this.primerApellidoUsuario);
+        hash = 67 * hash + Objects.hashCode(this.segundoApellidoUsuario);
+        hash = 67 * hash + this.idRolUsuario;
+        return hash;
+    }
+
+    
+    /*
+    equals se encarga de comparar el objeto creado con otro objeto, se espera
+    que se comparen dos del tipo ModeloUsuarios para verificar si hubo un cambio
+    en sus campos.
+    */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ModeloUsuario other = (ModeloUsuario) obj;
+        if (this.idRolUsuario != other.idRolUsuario) {
+            return false;
+        }
+        if (!Objects.equals(this.aliasUsuario, other.aliasUsuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.telefonoUsuario, other.telefonoUsuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.correoUsuario, other.correoUsuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.primerNombreUsuario, other.primerNombreUsuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.segundoNombreUsuario, other.segundoNombreUsuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.primerApellidoUsuario, other.primerApellidoUsuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.segundoApellidoUsuario, other.segundoApellidoUsuario)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    /*
+    ============================================================================
+                             MÉTODO PARA CLONAR 
+    ============================================================================
+    */
+    public ModeloUsuario clonar() {
+               
+        return  new ModeloUsuario(
+                this.idUsuario,
+                this.idEmpresa,
+                this.aliasUsuario,
+                this.telefonoUsuario,
+                this.correoUsuario,
+                this.primerNombreUsuario,
+                this.segundoNombreUsuario,
+                this.primerApellidoUsuario,
+                this.segundoApellidoUsuario,
+                this.contrasenaUsuario,
+                this.idRolUsuario,
+                this.habilitado
+        );
+    
+    }
+
+    
+    /*
+    ============================================================================
+        MÉTODO OBTENER UN STRING CON TODOS LOS DATOS sin la Contraseña
+    ============================================================================
+    */
+    @Override
+    public String toString() {
+        return "ModeloUsuario \n" + 
+                "idUsuario=" + idUsuario + 
+                "\nidEmpresa=" + idEmpresa + 
+                "\naliasUsuario=" + aliasUsuario + 
+                "\ntelefonoUsuario=" + telefonoUsuario + 
+                "\ncorreoUsuario=" + correoUsuario + 
+                "\nprimerNombreUsuario=" + primerNombreUsuario + 
+                "\nsegundoNombreUsuario=" + segundoNombreUsuario + 
+                "\nprimerApellidoUsuario=" + primerApellidoUsuario + 
+                "\nsegundoApellidoUsuario=" + segundoApellidoUsuario +
+                "\nidRolUsuario=" + idRolUsuario + 
+                "\nhabilitado=" + habilitado + 
+                '\n';
+    }
+    
     
     
 }
