@@ -48,7 +48,7 @@ public class ControladorPerfil {
     ============================================================================
     */
     
-    private DTOUsuarioTabla obtenerDatosDTOUsuario( int idUsuario ){
+    private DTOUsuarioTabla obtenerDatosDTOUsuario( int idUsuario ) throws Exception{
         return servicioUsuarios.obtenerDatosDTOUsuario(idUsuario);
     }
     

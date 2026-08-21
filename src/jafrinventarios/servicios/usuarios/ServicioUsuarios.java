@@ -68,18 +68,24 @@ public class ServicioUsuarios {
     
     
     // Este metodo entrega un usuario tipo DTOUsuarioTabla y esta destinado solo para mostrar los datos en una tabla o una tarjeta de perfil
-    public DTOUsuarioTabla obtenerDatosDTOUsuario( int idUsuario ){
+    public DTOUsuarioTabla obtenerDatosDTOUsuario( int idUsuario ) throws Exception{
     
         //Por el momento no se va usar hasta que se conecte con la base de datos
         // pero se deja listo para que el controlador quede lo mayor posible terminado
         // Simulacion de la consulta y creacion del usuario con el id especifico
+        
+        /*
+        si la consulta no devuelve un usuario entonces lanzamos el error
+        throw new Exception("No se encontró la información del perfil en la base de datos.");
+        */
+        
         DTOUsuarioTabla usuarioConsultado = new DTOUsuarioTabla(10, "pnavarro", "3017778899", "pnavarro@empresa.com", "Patricia Navarro Pérez", "Vendedor", true);
 
         return usuarioConsultado;
     }
     
     //Este metodo devuelve un usuario del tipo ModeloUsuario que servira de base para poder editarlo y devolverlo para guardar los cambios
-    public ModeloUsuario obtenerModeloUsuario( int idUsuario ){
+    public ModeloUsuario obtenerModeloUsuario( int idUsuario ) throws Exception{
     
         //Smulacion de conexion y empaquetado de la informacion de un usuario
        
@@ -91,6 +97,10 @@ public class ServicioUsuarios {
         de datos una empresa, por tanto es irrelevante este dato pues no se utilizara
         para editar un usuario, sin embargo se enviara de todas maneras el asignado
         que tenga el usuario.
+        
+        si la consulta no devuelve un usuario entonces lanzamos el error
+        throw new Exception("No se encontró la información del perfil en la base de datos.");
+        
         */
         ModeloUsuario usuarioConsultado = 
                 //new ModeloUsuario( idUsuario, idEmpresa,aliasUsuario, telefonoUsuario, correoUsuario, primerNombreUsuario, segundoNombreUsuario,
@@ -102,9 +112,9 @@ public class ServicioUsuarios {
     }
     
     
-    public boolean editarPerfil( ModeloUsuario usuario ){
+    public void editarPerfil( ModeloUsuario usuario , boolean esAdministrador ) throws Exception{
     
-        boolean respuestaConsulta = false;
+        try {
   
         /*
             usuario.getIdUsuario(); Este es la clave para saber que usuario editar
@@ -125,38 +135,76 @@ public class ServicioUsuarios {
         valores es necesario que lo haga el adminsitrador desde la seccion usuarios.
         
         Por tanto cuando se estructure esta consulta se personalizara con el dato
-        
-         usuario.getIdRolUsuario() para lo cual se hara una consulta a la base 
-        de datos para determinar si es un usuario administrador
+           esAdministrador
         
         */
+        } 
+        /*
+        Ejemplo de manejo de la respuesta de la base de datos
+        Dejamos comentado hasta que se haga la conexion a la base de datos
+        catch (SQLIntegrityConstraintViolationException e) {
+            
+            String errorBD = e.getMessage();
+            HashMap<String, String> errores = new HashMap<>();
 
-        return respuestaConsulta;
+            // Buscar palabras clave en el error de la base de datos
+            if (errorBD.contains("correo_UNIQUE")) {
+                errores.put("correo", "Este correo ya está registrado.");
+            } 
+            if (errorBD.contains("alias_UNIQUE")) {
+                errores.put("alias", "El alias ya está en uso.");
+            }
+
+            // Lanzar la excepción personalizada con el mapa listo para la vista
+            throw new ExcepcionValidacionBD(errores);
+        }*/
+        catch (Exception e) {
+        }
+        
     }
     
     
-    public boolean editarOtroUsuario( ModeloUsuario usuario ){
+    public void editarOtroUsuario( ModeloUsuario usuario ) throws Exception{
     
-        boolean respuestaConsulta = false;
-  
-        /*
-            usuario.getIdUsuario(); Este es la clave para saber que usuario editar
-        
-        Cuando se desee editar el usuario se tendran en cuenta los siguientes campos
-            usuario.getAliasUsuario();
-            usuario.getTelefonoUsuario();
-            usuario.getCorreoUsuario();
-            usuario.getPrimerNombreUsuario();
-            usuario.getSegundoNombreUsuario();
-            usuario.getPrimerApellidoUsuario();
-            usuario.getSegundoApellidoUsuario();
-            usuario.getIdRolUsuario();
-        
-            para deshabilitarlo se creara una funcion destinada para ello
-        
-        */
+        try {
+            /*
+                usuario.getIdUsuario(); Este es la clave para saber que usuario editar
 
-        return respuestaConsulta;
+            Cuando se desee editar el usuario se tendran en cuenta los siguientes campos
+                usuario.getAliasUsuario();
+                usuario.getTelefonoUsuario();
+                usuario.getCorreoUsuario();
+                usuario.getPrimerNombreUsuario();
+                usuario.getSegundoNombreUsuario();
+                usuario.getPrimerApellidoUsuario();
+                usuario.getSegundoApellidoUsuario();
+                usuario.getIdRolUsuario();
+
+                para deshabilitarlo se creara una funcion destinada para ello
+
+            */
+        } 
+        /*Ejemplo de manejo de la respuesta de la base de datos
+        Dejamos comentado hasta que se haga la conexion a la base de datos
+        catch (SQLIntegrityConstraintViolationException e) {
+            
+            String errorBD = e.getMessage();
+            HashMap<String, String> errores = new HashMap<>();
+
+            // Buscar palabras clave en el error de la base de datos
+            if (errorBD.contains("correo_UNIQUE")) {
+                errores.put("correo", "Este correo ya está registrado.");
+            } 
+            if (errorBD.contains("alias_UNIQUE")) {
+                errores.put("alias", "El alias ya está en uso.");
+            }
+
+            // Lanzar la excepción personalizada con el mapa listo para la vista
+            throw new ExcepcionValidacionBD(errores);
+        }*/
+        catch (Exception e) {
+        }
+        
     }
     
     
@@ -187,9 +235,10 @@ public class ServicioUsuarios {
     
     
     
-    public int crearUsuario( ModeloUsuario usuario ){
+    public int crearUsuario( ModeloUsuario usuario ) throws Exception{
     
-        int respuestaConsulta = -1;
+        try {
+            
   
         /*
       
@@ -205,13 +254,38 @@ public class ServicioUsuarios {
             usuario.getIdRolUsuario();
         
             usuario.estaHabilitado() Este campo por defecto deberia ser true, 
-            por tanto se asignara como true al enviarlo a la base de datos y no 
-            dependera del valor que traiga consigo
+            por tanto se asignara como true al enviarlo a la base de datos y no  
+            dependera del valor que traiga consigo 
         */
+        
+        //cuando se concecte la base de datos se enviara el id correspondiente
+            return -1;
+        
+        } 
+         /*
+        Ejemplo de manejo de la respuesta de la base de datos
+        Dejamos comentado hasta que se haga la conexion a la base de datos
+        catch (SQLIntegrityConstraintViolationException e) {
+            
+            String errorBD = e.getMessage();
+            HashMap<String, String> errores = new HashMap<>();
 
+            // Buscar palabras clave en el error de la base de datos
+            if (errorBD.contains("correo_UNIQUE")) {
+                errores.put("correo", "Este correo ya está registrado.");
+            } 
+            if (errorBD.contains("alias_UNIQUE")) {
+                errores.put("alias", "El alias ya está en uso.");
+            }
+
+            // Lanzar la excepción personalizada con el mapa listo para la vista
+            throw new ExcepcionValidacionBD(errores);
+        }*/
+        catch (Exception e) {
+            return -1;
+        }
         
         
-        return respuestaConsulta;
     }
     
     

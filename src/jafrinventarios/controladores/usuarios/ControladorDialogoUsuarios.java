@@ -9,6 +9,7 @@ import jafrinventarios.controladores.acceso.ControladorContrasena;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.servicios.acceso.ServicioAutenticacion;
+import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.servicios.usuarios.ServicioRoles;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
@@ -77,7 +78,13 @@ public class ControladorDialogoUsuarios {
         }
         
         if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO){
-            this.modeloUsuario = obtenerModeloUsuario( idUsuario );
+            try {
+                this.modeloUsuario = obtenerModeloUsuario( idUsuario );
+            }catch (Exception e) {
+                //dialogoUsuario.mostrarAlertaError(e.getMessage());
+                return;
+            }
+            
             cargarDatosAVista( empaquetarDatosUsuarioEnDiccionario() );
         }
         
@@ -173,16 +180,16 @@ public class ControladorDialogoUsuarios {
     ============================================================================
     */
     
-    private ModeloUsuario obtenerModeloUsuario( int idUsuario ){
+    private ModeloUsuario obtenerModeloUsuario( int idUsuario ) throws Exception{
         return servicioUsuarios.obtenerModeloUsuario(idUsuario);
     }
     
-    private boolean editarPerfil( ModeloUsuario usuario ){
-        return servicioUsuarios.editarPerfil(usuario);
+    private void editarPerfil( ModeloUsuario usuario ) throws Exception{
+         servicioUsuarios.editarPerfil(usuario, esAdministrador);
     }
     
-    private boolean editarOtroUsuario( ModeloUsuario usuario ){
-        return servicioUsuarios.editarOtroUsuario(usuario);
+    private void editarOtroUsuario( ModeloUsuario usuario ) throws Exception{
+        servicioUsuarios.editarOtroUsuario(usuario);
     }
     
     private boolean conmutarEstadoUsuario (  int idUsuario  ){
@@ -193,7 +200,7 @@ public class ControladorDialogoUsuarios {
         return servicioUsuarios.esUsuarioHabilitado(idUsuario);
     }
         
-    private int crearUsuario( ModeloUsuario usuario ){
+    private int crearUsuario( ModeloUsuario usuario ) throws Exception{
         return servicioUsuarios.crearUsuario(usuario);
     }
     
@@ -334,29 +341,50 @@ public class ControladorDialogoUsuarios {
         
         switch(tipoDialogo){
             case EDITAR_PERFIL_PROPIO:
-                seGuardoUsuario = editarPerfil(usuarioAProcesar);
+                
+                try {
+                    editarPerfil(usuarioAProcesar);
+                }catch( ExcepcionValidacionBD e ){ 
+                    //dialogoUsuario.mostrarErroresValidacionCampos( e.getErrores() );
+                    return;
+                }catch (Exception e) {
+                    //dialogoUsuario.mostrarAlertaError(e.getMessage());
+                    return;
+                }
+                
                 break;
             case EDITAR_OTRO_USUARIO:
-                seGuardoUsuario = editarOtroUsuario(usuarioAProcesar);
+                                
+                try {
+                    editarOtroUsuario(usuarioAProcesar);
+                }catch( ExcepcionValidacionBD e ){ 
+                    //dialogoUsuario.mostrarErroresValidacionCampos( e.getErrores() );
+                    return;
+                }catch (Exception e) {
+                    //dialogoUsuario.mostrarAlertaError(e.getMessage());
+                    return;
+                }
+                
                 break;
             case CREAR_NUEVO_USUARIO:
-                idUsuario = crearUsuario(usuarioAProcesar);
-                seGuardoUsuario = (idUsuario != -1); 
+                
+                try {
+                    idUsuario = crearUsuario(usuarioAProcesar);
+                }catch( ExcepcionValidacionBD e ){ 
+                    //dialogoUsuario.mostrarErroresValidacionCampos( e.getErrores() );
+                    return;
+                }catch (Exception e) {
+                    //dialogoUsuario.mostrarAlertaError(e.getMessage());
+                    return;
+                }
+                
                 break;
         }
         
-        // Manejo de la respuesta
-        if(seGuardoUsuario){
-            operacionExitosa = true;
-            mostrarMensajeExitoso();
-            dialogoUsuario.dispose();
-        } else {
-            // Simulación de errores (Más adelante esto vendrá del ServicioUsuarios)
-            mostrarError("Error en la base de datos");
-            dialogoUsuario.mostrarErrorRespuestaBDEnFormulario(
-               new HashMap<>(Map.of("alias", "El alias ya existe"))
-            );
-        }
+        //Si no hubo ningun error se considera una operacion exitosa
+        operacionExitosa = true;
+        mostrarMensajeExitoso();
+        dialogoUsuario.dispose();
 
     }
     

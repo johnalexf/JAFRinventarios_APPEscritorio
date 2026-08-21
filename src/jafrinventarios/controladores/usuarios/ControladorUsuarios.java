@@ -104,7 +104,7 @@ public class ControladorUsuarios {
        return servicioUsuarios.obtenerListaUsuariosPorFiltro(filtro);  
     }
     
-    private DTOUsuarioTabla obtenerDatosUsuario( int idUsuario ){
+    private DTOUsuarioTabla obtenerDatosUsuario( int idUsuario ) throws Exception{
         return servicioUsuarios.obtenerDatosDTOUsuario(idUsuario);
     }
     
@@ -222,8 +222,15 @@ public class ControladorUsuarios {
         idUsuarioCreado = -1;
         
         if(idUsuarioCreado != -1){
-           
-            DTOUsuarioTabla datosUsuario =  obtenerDatosUsuario( idUsuarioCreado );
+            
+            DTOUsuarioTabla datosUsuario;
+            
+            try {
+                datosUsuario =  obtenerDatosUsuario( idUsuarioCreado );
+            }catch (Exception e) {
+                    //moduloUsuarios.mostrarAlertaError(e.getMessage());
+                return;
+            }
             
             FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
              
@@ -249,7 +256,14 @@ public class ControladorUsuarios {
         
         if( seEditoUsuario ){
             
-            DTOUsuarioTabla datosUsuario =  obtenerDatosUsuario( idUsuario );
+            DTOUsuarioTabla datosUsuario;
+            
+            try {
+                datosUsuario =  obtenerDatosUsuario( idUsuario );
+            }catch (Exception e) {
+                //moduloUsuarios.mostrarAlertaError(e.getMessage());
+                return;
+            }
 
             FilaTablaUsuarios filaDatosUsuario = tablaDatosUsuarios.get(idUsuario);
             
