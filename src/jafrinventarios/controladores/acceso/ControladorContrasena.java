@@ -7,8 +7,6 @@ package jafrinventarios.controladores.acceso;
 
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
-import java.awt.Window;
 import java.util.HashMap;
 
 /**
@@ -36,7 +34,7 @@ public class ControladorContrasena {
     =========================================================================================
     */
 
-    public static void iniciarRecuperacion( Window ventanaPadre ) {
+    public static void iniciarRecuperacion( java.awt.Window ventanaPadre ) {
         
         NombresTarjetasContrasena tarjetaInicial = NombresTarjetasContrasena.CORREO;
         
@@ -54,7 +52,7 @@ public class ControladorContrasena {
     }
     
     
-    public static void iniciarCambio( Window ventanaPadre ) {
+    public static void iniciarCambio( java.awt.Window ventanaPadre ) {
         //Cuando es para cambiar la contraseña se tomara el id almacenado en ModeloSesionUsuario
         
         NombresTarjetasContrasena tarjetaInicial = NombresTarjetasContrasena.CONTRASENA_ANTIGUA;
@@ -70,6 +68,12 @@ public class ControladorContrasena {
 
 // ========================================================================================
     
+    
+    /*
+    ============================================================================
+                    METODOS CONFIGURACION INICIAL DE LA VISTA
+    ============================================================================
+    */
     
     // Un método explícito para arrancar el flujo
     public void iniciar(NombresTarjetasContrasena tarjetaInicial) {
@@ -100,10 +104,16 @@ public class ControladorContrasena {
     }
     
     
+    /*
+    ============================================================================
+          METODOS PARA PROCESAR LOS PASOS PARA EL CAMBIO DE CONTRASEÑA
+    ============================================================================
+    */
+    
     private void procesarPaso( NombresTarjetasContrasena tarjeta ){
 
         if(!ventanaContrasena.ejecutarValidacionFormulario(tarjeta)){
-            DialogoAlerta.mostrarErrorFormatoCampos(ventanaContrasena);
+            mostrarDialogoErrorFormatoCampos();
             return;
         }
         
@@ -217,14 +227,32 @@ public class ControladorContrasena {
     }
     
     
+    /*
+    ============================================================================
+                        METODOS PARA MOSTRAR DIALOGOS
+    ============================================================================
+    */
+    
+    public void mostrarDialogoErrorFormatoCampos(){
+        ventanaContrasena.mostrarDialogoErrorFormatoCampos();
+    }
     
     private void mostrarErrorRespuestaBD(NombresTarjetasContrasena tarjeta, HashMap<String, String> erroresBackend ){
         // Le pasamos el error al ValidadorFormulario para que pinte el o los JLabel
         ventanaContrasena.mostrarErrorRespuestaBD(tarjeta, erroresBackend);
 
         // Mostramos un modal general para que el usuario sepa que algo falló
-        DialogoAlerta.mostrarErrorRespuestaBD(ventanaContrasena, erroresBackend); 
+        ventanaContrasena.mostrarDialogoErrorRespuestaBD( erroresBackend );
     }
+    
+    private void mostrarDialogoError ( String mensajeError ){
+        ventanaContrasena.mostrarDialogoError(mensajeError);
+    }
+    
+    private void mostrarDialogoExito( String mensajeExito ){
+        ventanaContrasena.mostrarDialogoExito(mensajeExito);
+    }
+    
 
     
 }

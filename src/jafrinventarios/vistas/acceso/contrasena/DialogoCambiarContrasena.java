@@ -9,6 +9,7 @@ import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import java.awt.CardLayout;
 import java.awt.Window;
@@ -124,10 +125,10 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         Metodos publicos para controlar la creacion del dialogo segun 
         la necesidad, si es para recuperar o cambiar la contraseña.
     */
-    public static DialogoCambiarContrasena recuperarContrasena(Window padreFrame){
+    public static DialogoCambiarContrasena recuperarContrasena(Window ventanaPadre){
                 
        return new DialogoCambiarContrasena( 
-                        padreFrame, 
+                        ventanaPadre, 
                         "Recuperar contraseña",
                         NombresTarjetasContrasena.CORREO
                 );
@@ -135,10 +136,10 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     }
     
 
-    public static DialogoCambiarContrasena cambiarContrasena(Window padreFrame){
+    public static DialogoCambiarContrasena cambiarContrasena(Window ventanaPadre){
 
         return  new DialogoCambiarContrasena( 
-                        padreFrame, 
+                        ventanaPadre, 
                         "Cambiar contraseña",
                         NombresTarjetasContrasena.CONTRASENA_ANTIGUA
                 );
@@ -712,6 +713,27 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         formularios.mostrarErrorRespuestaBD( tarjeta, erroresCamposBD);
     }
 
+    
+    /* 
+        Metodos para dialogos de mensajes de Alertas
+    */
+    
+    public void mostrarDialogoErrorFormatoCampos(){
+        DialogoAlerta.mostrarErrorFormatoCampos(this);
+    }
+    
+    public void mostrarDialogoErrorRespuestaBD( HashMap<String, String> erroresCamposBD ){
+        DialogoAlerta.mostrarErrorRespuestaBD( this , erroresCamposBD ); 
+    }
+    
+    public void mostrarDialogoError( String mensajeError ){
+        DialogoAlerta.mostrarError( this, "Error", mensajeError);
+    }
+    
+    public void mostrarDialogoExito( String mensajeExito ){
+        DialogoAlerta.mostrarExito( this, "Operacion Exitosa", mensajeExito);
+    }
+    
     
     /*
     ==========================================================================
