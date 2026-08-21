@@ -22,10 +22,7 @@ public class ControladorPerfil {
     private PerfilPanel moduloPerfil;
     
     private ServicioUsuarios servicioUsuarios;
-    
-    private boolean esAdministrador;
-
-    
+ 
     /*
     ============================================================================
                         CONSTRUCTOR PUBLICO
@@ -34,7 +31,6 @@ public class ControladorPerfil {
     public ControladorPerfil(PerfilPanel moduloPerfil, ServicioUsuarios servicioUsuarios ) {
         this.moduloPerfil = moduloPerfil;
         this.servicioUsuarios = servicioUsuarios;
-        this.esAdministrador = ModeloSesionUsuario.getInstancia().esAdministrador();
         
         cargarDatosPerfil( obtenerDatosPerfil() );
         
@@ -78,7 +74,7 @@ public class ControladorPerfil {
             datosPerfilEmpaquetados.put("correo", datosPerfil.getCorreoUsuario() );
             datosPerfilEmpaquetados.put("telefono", datosPerfil.getTelefonoUsuario() );
 
-            if( esAdministrador ){
+            if( ModeloSesionUsuario.getInstancia().esAdministrador() ){
                 String codigo = obtenerCodigoRegistroVendedor();
                 datosPerfilEmpaquetados.put("codigo", codigo);
             }
@@ -117,7 +113,7 @@ public class ControladorPerfil {
         boolean seEditoUsuario;
 
         seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(
-                moduloPerfil.getVentanaPadre(), esAdministrador , new ServicioUsuarios()
+                moduloPerfil.getVentanaPadre(), new ServicioUsuarios()
         );
         
         if(seEditoUsuario){

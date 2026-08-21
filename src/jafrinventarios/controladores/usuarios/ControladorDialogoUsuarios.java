@@ -35,8 +35,6 @@ public class ControladorDialogoUsuarios {
     //EDITAR_PERFIL_PROPIO, EDITAR_OTRO_USUARIO y CREAR_NUEVO_USUARIO
     private DialogoFormularioUsuario.TipoDialogo tipoDialogo;
     
-    private boolean esAdministrador;
-    
     private boolean tieneRegistrosAsociados;
     
     // Variable con el id del usuario a editar, para el caso de CREAR_NUEVO_USUARIO
@@ -56,16 +54,12 @@ public class ControladorDialogoUsuarios {
     private ControladorDialogoUsuarios(
             DialogoFormularioUsuario dialogoUsuario, 
             DialogoFormularioUsuario.TipoDialogo tipoDialogo,
-            boolean esAdminsitrador,
             int idUsuario,
             ServicioUsuarios servicioUsuarios){
         
         this.dialogoUsuario = dialogoUsuario;
         this.servicioUsuarios = servicioUsuarios;
-        
-        //Para pruebas se dejara esAdministrador como parametro del contralador
-        //this.esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
-        this.esAdministrador = esAdminsitrador;
+       
         this.tipoDialogo = tipoDialogo;
         this.idUsuario = idUsuario;
         
@@ -99,22 +93,19 @@ public class ControladorDialogoUsuarios {
      METODOS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
     ============================================================================
     */
-    public static boolean editarPerfil(Window ventanaPadre, boolean esAdministrador, ServicioUsuarios servicioUsuarios){
+    public static boolean editarPerfil(Window ventanaPadre, ServicioUsuarios servicioUsuarios){
         
-        //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
-        //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
     
         DialogoFormularioUsuario dialogoUsuario = 
                 new DialogoFormularioUsuario( ventanaPadre,
                                               DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO,
-                                              esAdministrador
+                                              ModeloSesionUsuario.getInstancia().esAdministrador()
                 );
         
         ControladorDialogoUsuarios controlador =
                 new ControladorDialogoUsuarios( 
                         dialogoUsuario, 
-                        DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO, 
-                        esAdministrador,
+                        DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO,
                         ModeloSesionUsuario.getInstancia().getIdUsuario(),
                         servicioUsuarios
         );
@@ -126,8 +117,6 @@ public class ControladorDialogoUsuarios {
     
     public static boolean editarOtroUsuario(Window ventanaPadre, int idUsuario, ServicioUsuarios servicioUsuarios){
         
-        //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
-        //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
     
         DialogoFormularioUsuario dialogoUsuario = 
                 new DialogoFormularioUsuario( ventanaPadre,
@@ -137,8 +126,7 @@ public class ControladorDialogoUsuarios {
         
         ControladorDialogoUsuarios controlador =
             new ControladorDialogoUsuarios( dialogoUsuario, 
-                                            DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO, 
-                                            true,
+                                            DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO,
                                             idUsuario,
                                             servicioUsuarios
         );
@@ -149,9 +137,6 @@ public class ControladorDialogoUsuarios {
     
     
     public static int crearUsuario(Window ventanaPadre, ServicioUsuarios servicioUsuarios){
-        
-        //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
-        //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
     
         DialogoFormularioUsuario dialogoUsuario = 
                 new DialogoFormularioUsuario( ventanaPadre,
@@ -162,7 +147,6 @@ public class ControladorDialogoUsuarios {
         ControladorDialogoUsuarios controlador = 
             new ControladorDialogoUsuarios( dialogoUsuario, 
                                             DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO, 
-                                            true,
                                             -1,
                                             servicioUsuarios
         );
@@ -185,7 +169,7 @@ public class ControladorDialogoUsuarios {
     }
     
     private void editarPerfil( ModeloUsuario usuario ) throws Exception{
-         servicioUsuarios.editarPerfil(usuario, esAdministrador);
+         servicioUsuarios.editarPerfil(usuario, ModeloSesionUsuario.getInstancia().esAdministrador() );
     }
     
     private void editarOtroUsuario( ModeloUsuario usuario ) throws Exception{
