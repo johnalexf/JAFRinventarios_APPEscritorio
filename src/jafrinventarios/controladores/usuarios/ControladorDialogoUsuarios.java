@@ -13,11 +13,9 @@ import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.servicios.usuarios.ServicioRoles;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
+import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario.TipoDialogo;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
-import java.awt.Window;
 
 /**
  *
@@ -33,7 +31,7 @@ public class ControladorDialogoUsuarios {
     
     //Variable de soporte para personalizar el controlador segun el tipo de dialogo:
     //EDITAR_PERFIL_PROPIO, EDITAR_OTRO_USUARIO y CREAR_NUEVO_USUARIO
-    private DialogoFormularioUsuario.TipoDialogo tipoDialogo;
+    private TipoDialogo tipoDialogo;
     
     private boolean tieneRegistrosAsociados;
     
@@ -53,7 +51,7 @@ public class ControladorDialogoUsuarios {
     */
     private ControladorDialogoUsuarios(
             DialogoFormularioUsuario dialogoUsuario, 
-            DialogoFormularioUsuario.TipoDialogo tipoDialogo,
+            TipoDialogo tipoDialogo,
             int idUsuario,
             ServicioUsuarios servicioUsuarios){
         
@@ -63,15 +61,15 @@ public class ControladorDialogoUsuarios {
         this.tipoDialogo = tipoDialogo;
         this.idUsuario = idUsuario;
         
-        if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO){
+        if(tipoDialogo != TipoDialogo.EDITAR_PERFIL_PROPIO){
              inicializarComboBoxRoles();
         }
         
-        if( tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO ){
+        if( tipoDialogo == TipoDialogo.EDITAR_OTRO_USUARIO ){
             tieneRegistrosAsociados = tieneRegistrosAsociados( idUsuario );
         }
         
-        if(tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO){
+        if(tipoDialogo != TipoDialogo.CREAR_NUEVO_USUARIO){
             try {
                 this.modeloUsuario = obtenerModeloUsuario( idUsuario );
             }catch (Exception e) {
@@ -93,19 +91,19 @@ public class ControladorDialogoUsuarios {
      METODOS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
     ============================================================================
     */
-    public static boolean editarPerfil(Window ventanaPadre, ServicioUsuarios servicioUsuarios){
+    public static boolean editarPerfil( java.awt.Window ventanaPadre, ServicioUsuarios servicioUsuarios){
         
     
         DialogoFormularioUsuario dialogoUsuario = 
                 new DialogoFormularioUsuario( ventanaPadre,
-                                              DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO,
+                                              TipoDialogo.EDITAR_PERFIL_PROPIO,
                                               ModeloSesionUsuario.getInstancia().esAdministrador()
                 );
         
         ControladorDialogoUsuarios controlador =
                 new ControladorDialogoUsuarios( 
                         dialogoUsuario, 
-                        DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO,
+                        TipoDialogo.EDITAR_PERFIL_PROPIO,
                         ModeloSesionUsuario.getInstancia().getIdUsuario(),
                         servicioUsuarios
         );
@@ -115,18 +113,18 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    public static boolean editarOtroUsuario(Window ventanaPadre, int idUsuario, ServicioUsuarios servicioUsuarios){
+    public static boolean editarOtroUsuario( java.awt.Window ventanaPadre, int idUsuario, ServicioUsuarios servicioUsuarios){
         
     
         DialogoFormularioUsuario dialogoUsuario = 
                 new DialogoFormularioUsuario( ventanaPadre,
-                                              DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO,
+                                              TipoDialogo.EDITAR_OTRO_USUARIO,
                                               true
                 );
         
         ControladorDialogoUsuarios controlador =
             new ControladorDialogoUsuarios( dialogoUsuario, 
-                                            DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO,
+                                            TipoDialogo.EDITAR_OTRO_USUARIO,
                                             idUsuario,
                                             servicioUsuarios
         );
@@ -136,17 +134,17 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    public static int crearUsuario(Window ventanaPadre, ServicioUsuarios servicioUsuarios){
+    public static int crearUsuario( java.awt.Window ventanaPadre, ServicioUsuarios servicioUsuarios){
     
         DialogoFormularioUsuario dialogoUsuario = 
                 new DialogoFormularioUsuario( ventanaPadre,
-                                              DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO,
+                                              TipoDialogo.CREAR_NUEVO_USUARIO,
                                               true
                 );
         
         ControladorDialogoUsuarios controlador = 
             new ControladorDialogoUsuarios( dialogoUsuario, 
-                                            DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO, 
+                                            TipoDialogo.CREAR_NUEVO_USUARIO, 
                                             -1,
                                             servicioUsuarios
         );
@@ -228,7 +226,7 @@ public class ControladorDialogoUsuarios {
     
     private void cargarDatosAVista( HashMap<String, String> datosPerfil ){
         
-        if(tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO){
+        if(tipoDialogo == TipoDialogo.EDITAR_OTRO_USUARIO){
             dialogoUsuario.setId( Integer.toString(idUsuario) );
             if( tieneRegistrosAsociados ){
                 dialogoUsuario.mostrarBtnEditarEstadoUsuario();
@@ -253,11 +251,11 @@ public class ControladorDialogoUsuarios {
     private void inicializarEventosBotones() {
         dialogoUsuario.getBtnEnviarFormulario().addActionListener(e -> procesarFormulario());
         
-        if ( tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_PERFIL_PROPIO ){
+        if ( tipoDialogo == TipoDialogo.EDITAR_PERFIL_PROPIO ){
             dialogoUsuario.getBtnLinkEditarContrasena().addActionListener( e -> mostrarDialogoEditarContrasena() );
         }
         
-        if ( tipoDialogo == DialogoFormularioUsuario.TipoDialogo.EDITAR_OTRO_USUARIO ){
+        if ( tipoDialogo == TipoDialogo.EDITAR_OTRO_USUARIO ){
             if( tieneRegistrosAsociados ){
                dialogoUsuario.getBtnLinkEditarEstadoUsuario().addActionListener( e -> conmutarEstadoUsuario() ); 
             }else{
@@ -280,35 +278,36 @@ public class ControladorDialogoUsuarios {
         
         // Validaciones de los campos si corresponden a su tipo
         if( !dialogoUsuario.validarFormulario() ){
-            System.out.println("Formulario no valido");
-            DialogoAlerta.mostrarErrorFormato(dialogoUsuario);
+            dialogoUsuario.mostrarAlertaErrorFormatoCampos();
             return;
         }
         
         // Extracción y construcción del Modelo
         HashMap<String, String> datosFormulario = dialogoUsuario.recolectarDatosFormulario();
+        //TODO pendiente eliminar luego de que se guarde en la base de datos
         imprimirEnConsolaFormulario( datosFormulario );
 
         ModeloUsuario usuarioAProcesar = 
-                ( tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO ) 
+                ( tipoDialogo != TipoDialogo.CREAR_NUEVO_USUARIO ) 
                 ? modeloUsuario.clonar()
                 : new ModeloUsuario();
 
         usuarioAProcesar = asignarDatosAModeloUsuario( usuarioAProcesar, datosFormulario );
+         //TODO pendiente eliminar luego de que se guarde en la base de datos
         System.out.println( modeloUsuario.toString() );
         System.out.println( usuarioAProcesar.toString());
         
         // Auditoría de Cambios si es editar usuario o perfil
-        if( tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO ){
+        if( tipoDialogo != TipoDialogo.CREAR_NUEVO_USUARIO ){
             if( modeloUsuario.equals(usuarioAProcesar) ){
                 
                 //Si operacionExitosa es true significa que se cambio el estado del usuario
                 if( operacionExitosa ){
-                    mostrarMensajeExitoso();
+                    dialogoUsuario.mostrarAlertaExitosa();
                     dialogoUsuario.dispose();
                 }
                 else{
-                    mostrarError("No hay cambios para guardar");
+                    dialogoUsuario.mostrarAlertaError("No hay cambios para guardar");
                     return;
                 }
             }
@@ -320,9 +319,7 @@ public class ControladorDialogoUsuarios {
           LÓGICA DE BASE DE DATOS (Solo llegamos aquí si hay que guardar algo)
         ========================================================================
         */
-        
-        boolean seGuardoUsuario = false;
-        
+           
         switch(tipoDialogo){
             case EDITAR_PERFIL_PROPIO:
                 
@@ -367,7 +364,7 @@ public class ControladorDialogoUsuarios {
         
         //Si no hubo ningun error se considera una operacion exitosa
         operacionExitosa = true;
-        mostrarMensajeExitoso();
+        dialogoUsuario.mostrarAlertaExitosa();
         dialogoUsuario.dispose();
 
     }
@@ -402,7 +399,7 @@ public class ControladorDialogoUsuarios {
         return usuario;
     }
     
-    
+    //TODO eliminar despues de conectar la base de datos.
     // Funcion para verificar la recoleccion de datos del formulario
     private void imprimirEnConsolaFormulario( HashMap<String, String> datosFormulario ){
         datosFormulario.forEach(    (clave, valor) ->
@@ -419,7 +416,7 @@ public class ControladorDialogoUsuarios {
     private void conmutarEstadoUsuario(){
     
         boolean deseaContinuar = 
-                mostrarAdvertencia(
+                dialogoUsuario.mostrarAlertaAdvertencia(
                    modeloUsuario.estaHabilitado() ? 
                    "Esta a punto de deshabilitar al usuario y por tanto este ya no podra iniciar sesion, sin embargo sus transacciones siguen almacenadas":
                    "Esta a punto de habilitar al usuario y por tanto este podra iniciar sesion."
@@ -441,60 +438,20 @@ public class ControladorDialogoUsuarios {
     
     private void eliminarUsuario(){
      
-        boolean deseaContinuar = mostrarAdvertencia("Esta a punto de eliminar el usuario, este cambio es irreversible \nEsta seguro?");
+        boolean deseaContinuar = 
+                dialogoUsuario.mostrarAlertaAdvertencia(
+                    "Esta a punto de eliminar el usuario, este cambio es irreversible \nEsta seguro?"
+                );
         
         if( deseaContinuar ){
             if( eliminarUsuario(idUsuario) ){
-                mostrarMensajeExitoso( " Usuario eliminado correctamente " );
+                dialogoUsuario.mostrarAlertaExitosa( " Usuario eliminado correctamente ");
                 dialogoUsuario.dispose();
             }else{
-                mostrarError( "Error al tratar de eliminar el usuario" );
+                dialogoUsuario.mostrarAlertaError( "Error al tratar de eliminar el usuario" );
             }
         }
     }
-    
-    
-    /*
-    ============================================================================
-                        METODOS PARA MOSTRAR DIALOGOS 
-    ============================================================================
-    */
-    
-    private boolean mostrarAdvertencia( String mensaje ){
-        
-       return DialogoAlerta.mostrarAdvertenciaConRespuesta(
-                   dialogoUsuario,
-                   "Advertencia", 
-                   mensaje
-                );
-    
-    }
-    
-    private void mostrarMensajeExitoso(){
-        
-        String mensajeExitoso = (tipoDialogo != DialogoFormularioUsuario.TipoDialogo.CREAR_NUEVO_USUARIO)
-                ?  "El usuario se ha actualizado correctamente"
-                :   "Usuario creado correctamente \n La contraseña se le envia al usuario por correo"; 
-            
-        mostrarMensajeExitoso( mensajeExitoso );
-    }
-    
-    
-    private void mostrarMensajeExitoso(String mensajeExitoso ){
-        
-        DialogoAlerta.mostrarExito(
-                    dialogoUsuario, 
-                    "Operacion Exitosa", 
-                    mensajeExitoso
-            );
-        
-    }
-    
-    
-    private void mostrarError( String mensaje ){
-        DialogoAlerta.mostrarError(dialogoUsuario, "Error", mensaje );
-    }
-    
     
     
     /*

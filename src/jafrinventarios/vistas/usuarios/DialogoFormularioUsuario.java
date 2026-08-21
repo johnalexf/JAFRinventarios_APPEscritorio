@@ -6,6 +6,7 @@
 package jafrinventarios.vistas.usuarios;
 
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
 import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
@@ -31,6 +32,8 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     
     private GestorFormulario formularioDatosUsuario;
     
+    private TipoDialogo tipoDialogo;
+    
     /*
     ============================================================================
                             CONSTRUCTOR PUBLICO
@@ -39,13 +42,14 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     cuales son los paremetros que sean acorde a la intencion del metodo estatico.
     */
     public DialogoFormularioUsuario(   Window parent, 
-                                        TipoDialogo modo, 
+                                        TipoDialogo tipoDialogo, 
                                         boolean esAdministrador ) {
         
         super(parent);
         initComponents();
         
         formularioDatosUsuario = new GestorFormulario();
+        this.tipoDialogo = tipoDialogo;
         
         /*
         Por defecto ocultamos los botones de editar estado o eliminar usuarios
@@ -56,7 +60,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         btnLinkEditarEstadoUsuario.setVisible(false);
         btnLinkEliminarUsuario.setVisible(false);
         
-        switch(modo){
+        switch(tipoDialogo){
             case EDITAR_PERFIL_PROPIO:
                 personalizacionEditarPerfil(esAdministrador);
                 break;
@@ -990,6 +994,49 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     public void asignarDatosEnFormulario( HashMap<String, String> datosBD ){
         formularioDatosUsuario.asignarDatos(datosBD);
     }
+    
+    
+    /* 
+        Metodos para dialogos de mensajes de Alertas
+    */
+    public void mostrarAlertaErrorFormatoCampos(){
+        DialogoAlerta.mostrarErrorFormato( this );
+    }
+    
+    public void mostrarAlertaExitosa(){
+        
+        String mensajeExitoso = (tipoDialogo != TipoDialogo.CREAR_NUEVO_USUARIO)
+                ?  "El usuario se ha actualizado correctamente"
+                :   "Usuario creado correctamente \n La contraseña se le envia al usuario por correo"; 
+            
+        mostrarAlertaExitosa( mensajeExitoso );
+    }
+    
+    
+    public void mostrarAlertaExitosa(String mensajeExitoso ){
+        
+        DialogoAlerta.mostrarExito(
+                    this, 
+                    "Operacion Exitosa", 
+                    mensajeExitoso
+            );
+        
+    }
+    
+    public boolean mostrarAlertaAdvertencia( String mensaje ){
+        
+       return DialogoAlerta.mostrarAdvertenciaConRespuesta(
+                   this,
+                   "Advertencia", 
+                   mensaje
+                );
+    
+    }
+    
+    public void mostrarAlertaError( String mensaje ){
+        DialogoAlerta.mostrarError( this, "Error", mensaje );
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
