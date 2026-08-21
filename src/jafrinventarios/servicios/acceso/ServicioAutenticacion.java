@@ -16,11 +16,8 @@ public class ServicioAutenticacion {
     /*
     Esta clase esta destinada para editar contraseña, recuperarla e iniciar sesion
     TODO pendiente de su estructuracion interna.
-    */
-    
-    private String mensajeError;
-    
-    
+    */    
+  
     public ServicioAutenticacion(){}
     
     
@@ -43,6 +40,7 @@ public class ServicioAutenticacion {
         return credencialesUsuario;
     }
     
+    
     protected String encriptarContrasena( String contrasena ){
     
         String contrasenaEncriptada = contrasena + "pendiente";
@@ -50,6 +48,93 @@ public class ServicioAutenticacion {
         TODO Encriptar contrasena
         */
         return contrasenaEncriptada;
+    }
+    
+    
+    protected String generarCodigo (){
+        
+        StringBuilder codigo = new StringBuilder();
+        
+        for( int i=0; i<10; i++){
+            double numAleatorio = Math.random();
+            int codigoASCII;
+            
+            if( numAleatorio < 0.35 )  
+                codigoASCII = (int) ( Math.random()*(57 - 48) + 48 );
+            else if(numAleatorio < 0.75 ) 
+                codigoASCII = (int) ( Math.random()*(90 - 65) + 65 );
+            else 
+                codigoASCII = (int) ( Math.random()*(122 - 97) + 97 );
+            
+            char caracter = (char) codigoASCII;
+            codigo.append(caracter);
+        }
+        
+        return codigo.toString();
+    }
+    
+    
+    public int existeCorreo ( String correo ){
+        
+        
+        /*
+        TODO
+        Hacer la validacion en la base de datos si el correo existe
+        y enviar el id al que pertenece ese correo.
+        devolver -1 si no existe
+        */
+        int idUsuario = 1;
+        //guardamos el id del usuario para saber a que correo pertenece o
+        //podemos guardar tambien el correo
+        
+        return idUsuario;
+    }
+    
+    
+    public String enviarCodigoCorreo ( String correo ){
+        
+        String codigo;
+        
+        /*
+            TODO    
+        Enviar el correo con el codigo, para ello existira una funcion en este 
+        servicio que pueda enviar correos, dependiendo de la configuracion
+        si es muy extensa, se hara un servicio aparte que sea destinado solo
+        para enviar codigos.
+        Si hubo alguna falla se envia el codigo en null;
+        */
+        codigo = generarCodigo();
+    
+        return codigo;
+    
+    }
+    
+    
+    // Este metodo es solo para cuando un usuario ya ha iniciado sesion
+    public boolean validarContrasenaAntigua( int idUsuario, String contrasenaAntigua ){
+    
+        /*
+        Hacer la consulta de si la contraseña coincide para el usuario, para esto
+        hay que encriptar la contraseña antes de verificar.
+        
+            si es valida la contrasena se devuelve true;
+        
+        */
+        
+        
+       return true;
+    }
+    
+    
+    
+    public boolean cambiarContrasena ( int idUsuario, String contrasenaNueva ){
+    
+        /*
+        encriptamos la contraseña y se la guardamos al idUsuario
+        
+        */
+    
+        return true;
     }
     
 }
