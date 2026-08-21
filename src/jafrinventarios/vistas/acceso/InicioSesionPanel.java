@@ -258,8 +258,8 @@ public class InicioSesionPanel extends javax.swing.JPanel {
         return formularioIngreso.recolectarDatos();
     }
     
-    public void mostrarErrorRespuestaBD(HashMap<String, String> erroresCamposBD ){
-        formularioIngreso.mostrarErroresExternos(erroresCamposBD);
+    public void mostrarErroresValidacionCampos(HashMap<String, String> errores ){
+        formularioIngreso.mostrarErroresExternos(errores);
     }
     
     
@@ -274,6 +274,10 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     
     public void mostrarAlertaErrorFormatoCampos(){
         DialogoAlerta.mostrarErrorFormato( getVentanaPadre() );
+    }
+    
+    public void mostrarAlertaError( String mensaje ){
+        DialogoAlerta.mostrarError( getVentanaPadre() , "Error", mensaje);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

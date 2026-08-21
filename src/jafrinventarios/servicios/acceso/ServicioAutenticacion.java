@@ -6,7 +6,9 @@
 package jafrinventarios.servicios.acceso;
 
 import jafrinventarios.DTOs.acceso.DTOCredenciales;
-import jafrinventarios.modelos.ModeloSesionUsuario;
+import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -21,13 +23,13 @@ public class ServicioAutenticacion {
     public ServicioAutenticacion(){}
     
     
-    public DTOCredenciales iniciarSesion( String correo, String contrasena ){
-        
+    public DTOCredenciales iniciarSesion( String correo, String contrasena ) throws Exception {
+
         DTOCredenciales credencialesUsuario;
         /*
         Se verifica si el correo esta en la base de datos y si la contrasena
         encriptada es la misma
-        
+
         Si todo esta correcta se hace la peticion de los siguientes datos
         int idUsuario;
         String nombreRol;
@@ -35,10 +37,27 @@ public class ServicioAutenticacion {
         int idEmpresa; 
         String nombreEmpresa;
         */
+
+        boolean correoExiste = true;
+        if( !correoExiste ){
+            throw new ExcepcionValidacionBD( 
+                    new HashMap<>( Map.of( "correo", "Este correo no esta registrado" ))
+            );
+        }
+
+        boolean contrasenaCorrecta = true;
+        if( !contrasenaCorrecta ){
+            throw new ExcepcionValidacionBD( 
+                    new HashMap<>( Map.of( "contrasena", "La contraseña no coincide" ))
+            );
+        }
+
+
         credencialesUsuario = new DTOCredenciales( 0, "Administrador", true, 0, "Albania" );
-        
         return credencialesUsuario;
+            
     }
+    
     
     
     protected String encriptarContrasena( String contrasena ){

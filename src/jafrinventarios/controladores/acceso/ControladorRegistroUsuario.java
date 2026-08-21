@@ -67,13 +67,6 @@ public class ControladorRegistroUsuario {
     ============================================================================
     */
     
-    
-    /*
-    ============================================================================
-                    METODO PARA REALIZAR EL REGISTRO
-    ============================================================================
-    */
-    
     private boolean esValidoCodigo( String codigo, int idRol ){
         return servicioRegistro.esValidoCodigo(codigo, idRol);
     }
@@ -82,6 +75,12 @@ public class ControladorRegistroUsuario {
         servicioRegistro.registrarUsuario(codigo, usuario, contrasena, nombreEmpresa);
     }
     
+    
+    /*
+    ============================================================================
+                    METODO PARA REALIZAR EL REGISTRO
+    ============================================================================
+    */
     
     private void procesarRegistro(){
         
@@ -109,7 +108,7 @@ public class ControladorRegistroUsuario {
             if( !esValidoCodigo( codigo, usuario.getIdRolUsuario() ) ){
                 // TODO: La idea es que el servicio responda, puede responder
                 // falla de conexion o este codigo solo permitia crear un usuario administrador
-                vistaRegistro.mostrarError("El codigo no es valido");
+                vistaRegistro.mostrarAlertaError("El codigo no es valido");
                 vistaRegistro.mostrarErroresValidacionCampos(
                        new HashMap<>(Map.of(
                             "codigo", "Este codigo no es valido"
@@ -118,7 +117,7 @@ public class ControladorRegistroUsuario {
                 return;
             }
         } catch (Exception e) {
-            vistaRegistro.mostrarError(e.getMessage());
+            vistaRegistro.mostrarAlertaError(e.getMessage());
             return;
         }
 
@@ -148,7 +147,7 @@ public class ControladorRegistroUsuario {
         }catch( ExcepcionValidacionBD e ){ 
             vistaRegistro.mostrarErroresValidacionCampos( e.getErrores() );
         }catch (Exception e) {
-            vistaRegistro.mostrarError(e.getMessage());
+            vistaRegistro.mostrarAlertaError(e.getMessage());
         }
         
 
