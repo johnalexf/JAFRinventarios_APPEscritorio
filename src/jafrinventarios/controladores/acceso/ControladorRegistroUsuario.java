@@ -7,6 +7,7 @@ package jafrinventarios.controladores.acceso;
 
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.servicios.acceso.ServicioRegistro;
+import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.servicios.usuarios.ServicioRoles;
 import jafrinventarios.vistas.acceso.RegistroUsuarioPanel;
 import java.util.HashMap;
@@ -62,9 +63,24 @@ public class ControladorRegistroUsuario {
     
     /*
     ============================================================================
+                METODOS PARA CONSULTAR A LOS SERVICIOS
+    ============================================================================
+    */
+    
+    
+    /*
+    ============================================================================
                     METODO PARA REALIZAR EL REGISTRO
     ============================================================================
     */
+    
+    private boolean esValidoCodigo( String codigo, int idRol ){
+        return servicioRegistro.esValidoCodigo(codigo, idRol);
+    }
+    
+    private void registrarUsuario ( String codigo, ModeloUsuario usuario, String contrasena, String nombreEmpresa ) throws Exception{
+        servicioRegistro.registrarUsuario(codigo, usuario, contrasena, nombreEmpresa);
+    }
     
     
     private void procesarRegistro(){
@@ -89,17 +105,23 @@ public class ControladorRegistroUsuario {
         
         
         // Auditoría de Codigo
-        if( !servicioRegistro.esValidoCodigo( codigo, usuario.getIdRolUsuario() ) ){
-            // TODO: La idea es que el servicio responda, puede responder
-            // falla de conexion, codigo no valido, o este codigo solo permitia crear un usuario administrador
-            vistaRegistro.mostrarError("El codigo no es valido");
-            vistaRegistro.mostrarErrorRespuestaBD(
-                   new HashMap<>(Map.of(
-                        "codigo", "Este codigo no es valido"
-                    ))
-            );
+        try {
+            if( !esValidoCodigo( codigo, usuario.getIdRolUsuario() ) ){
+                // TODO: La idea es que el servicio responda, puede responder
+                // falla de conexion o este codigo solo permitia crear un usuario administrador
+                vistaRegistro.mostrarError("El codigo no es valido");
+                vistaRegistro.mostrarErroresValidacionCampos(
+                       new HashMap<>(Map.of(
+                            "codigo", "Este codigo no es valido"
+                        ))
+                );
+                return;
+            }
+        } catch (Exception e) {
+            vistaRegistro.mostrarError(e.getMessage());
+            return;
         }
-        
+
         
         // Extraccion contrasena y nombre de la empresa si existe
         String contrasena = (datosFormulario.containsKey("contrasena"))
@@ -110,33 +132,28 @@ public class ControladorRegistroUsuario {
                                 ? datosFormulario.get("nombreEmpresa")
                                 : "";
         
+        
          /*
         ========================================================================
                                 LÓGICA DE BASE DE DATOS 
         ========================================================================
         */
-        boolean usuarioRegistrado = 
-                servicioRegistro.registrarUsuario( codigo, usuario, contrasena, nombreEmpresa );
-
-
-        // Manejo de la respuesta
-        if ( usuarioRegistrado ) {
-
+        try {
+            
+            registrarUsuario( codigo, usuario, contrasena, nombreEmpresa );
+            
             vistaRegistro.ejecutarLimpiezaFormulario();
             vistaRegistro.mostrarAlertaRegistroExitoso( usuario.getAliasUsuario() );
-
-        } else {
-            // Mostrar error de credenciales inválidas
-            System.out.println("EL o los datos ya existenten en la base de datos.");
-            
-            //codigo simulacion de respuesta de la base de datos
-            vistaRegistro.mostrarErrorRespuestaBD(
-                   new HashMap<>(Map.of(
-                        "correo", "Este correo ya esta registrado",
-                        "telefono", "El telefono ya existe"
-                    ))
-            );
+     
+        }catch( ExcepcionValidacionBD e ){ 
+            vistaRegistro.mostrarErroresValidacionCampos( e.getErrores() );
+        }catch (Exception e) {
+            vistaRegistro.mostrarError(e.getMessage());
         }
+        
+
+
+
         
     }
     
