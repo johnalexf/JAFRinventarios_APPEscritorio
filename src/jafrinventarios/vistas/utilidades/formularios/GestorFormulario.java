@@ -204,13 +204,17 @@ public class GestorFormulario {
     en dado caso que un campo tenga un error se mostrara el mensaje correspondiente en
     su lblError
     */
-    public void mostrarErrorRespuestaBD( HashMap<String, String> erroresCamposBD ){
+    public void mostrarErroresExternos( HashMap<String, String> errores ){
        
-        if(!erroresCamposBD.isEmpty()){
+        if(!errores.isEmpty()){
             
-           erroresCamposBD.entrySet().forEach( campoErrorBD -> {
-               CampoGestionable campoAMostrarError = listaCamposFormulario.get(campoErrorBD.getKey());
-               campoAMostrarError.mostrarError(campoErrorBD.getValue());
+           errores.entrySet().forEach( error -> {
+                if( listaCamposFormulario.containsKey( error.getKey()) ){
+                    CampoGestionable campoAMostrarError = listaCamposFormulario.get(error.getKey());
+                    campoAMostrarError.mostrarError(error.getValue());
+                }else{
+                    imprimirCampoInexistente( error.getKey() );
+                }
            });
         
         }
@@ -223,20 +227,25 @@ public class GestorFormulario {
         Por lo general se pretende usar para modales que permitan editar 
         informacion de un registro de una determinada tabla.
     */
-    public void asignarDatos( HashMap<String, String> datosBD ){
+    public void asignarDatos( HashMap<String, String> datos ){
         
-        if(!datosBD.isEmpty()){
+        if(!datos.isEmpty()){
             
-           datosBD.entrySet().forEach( dato -> {
+           datos.entrySet().forEach( dato -> {
                 if(listaCamposFormulario.containsKey(dato.getKey())){
                     CampoGestionable campo = listaCamposFormulario.get(dato.getKey());
                     campo.setValorComponente(dato.getValue());
                 }else{
-                    System.out.println("El campo con atributo name \"" + dato.getKey() + "\" No esta en el formulario");
+                    imprimirCampoInexistente( dato.getKey() );
                 }
            });
         
         }
+    }
+    
+    
+    private void imprimirCampoInexistente( String nameCampo ){
+        System.out.println("El campo con atributo name \"" + nameCampo + "\" No esta en el formulario");
     }
     
 

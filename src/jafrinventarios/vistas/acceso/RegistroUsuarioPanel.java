@@ -1150,7 +1150,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     }
     
     public void mostrarErrorRespuestaBD(HashMap<String, String> erroresCamposBD ){
-        formularioRegistro.mostrarErrorRespuestaBD(erroresCamposBD);
+        formularioRegistro.mostrarErroresExternos(erroresCamposBD);
     }
     
     public void ejecutarLimpiezaFormulario(){

@@ -259,7 +259,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     }
     
     public void mostrarErrorRespuestaBD(HashMap<String, String> erroresCamposBD ){
-        formularioIngreso.mostrarErrorRespuestaBD(erroresCamposBD);
+        formularioIngreso.mostrarErroresExternos(erroresCamposBD);
     }
     
     
