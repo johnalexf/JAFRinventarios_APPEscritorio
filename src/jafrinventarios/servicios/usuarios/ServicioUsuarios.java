@@ -249,4 +249,19 @@ public class ServicioUsuarios {
         return respuestaConsulta;
     }
     
+    
+    
+    
+    public String obtenerCodigoRegistroVendedor(){
+        
+        /*
+            Hacer la consulta para obtener el codigo que puede compartir un
+            administrador a los vendedores para que se registren, valido solo por
+            un uso
+        */
+        
+        return "10Fras125G";
+    
+    }
+    
 }

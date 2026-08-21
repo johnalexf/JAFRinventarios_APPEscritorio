@@ -119,7 +119,7 @@ public class ControladorNavegacionModulos {
         switch(seccionAsignada){
             case INICIO:
                 moduloActual =  new PerfilPanel(menuFijoPerfil, esAdministrador);
-                new ControladorPerfil( (PerfilPanel) moduloActual );
+                new ControladorPerfil( (PerfilPanel) moduloActual, new ServicioUsuarios() );
                 break;
             case USUARIOS:
                 moduloActual =  new UsuariosPanel();

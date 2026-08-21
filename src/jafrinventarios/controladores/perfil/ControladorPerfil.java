@@ -5,6 +5,7 @@
  */
 package jafrinventarios.controladores.perfil;
 
+import jafrinventarios.DTOs.usuarios.DTOUsuarioTabla;
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.controladores.usuarios.ControladorDialogoUsuarios;
 import jafrinventarios.modelos.ModeloSesionUsuario;
@@ -19,6 +20,9 @@ import java.util.HashMap;
 public class ControladorPerfil {
     
     private PerfilPanel moduloPerfil;
+    
+    private ServicioUsuarios servicioUsuarios;
+    
     private boolean esAdministrador;
 
     
@@ -27,13 +31,29 @@ public class ControladorPerfil {
                         CONSTRUCTOR PUBLICO
     ============================================================================
     */
-    public ControladorPerfil(PerfilPanel moduloPerfil) {
+    public ControladorPerfil(PerfilPanel moduloPerfil, ServicioUsuarios servicioUsuarios ) {
         this.moduloPerfil = moduloPerfil;
+        this.servicioUsuarios = servicioUsuarios;
         this.esAdministrador = ModeloSesionUsuario.getInstancia().esAdministrador();
         
         cargarDatosPerfil( obtenerDatosPerfil() );
         
         configurarEventosBotones();
+    }
+    
+    
+    /*
+    ============================================================================
+                METODOS PARA CONSULTAR A LOS SERVICIOS
+    ============================================================================
+    */
+    
+    private DTOUsuarioTabla obtenerDatosDTOUsuario( int idUsuario ){
+        return servicioUsuarios.obtenerDatosDTOUsuario(idUsuario);
+    }
+    
+    private String obtenerCodigoRegistroVendedor(){
+        return servicioUsuarios.obtenerCodigoRegistroVendedor();
     }
     
     
@@ -45,28 +65,29 @@ public class ControladorPerfil {
     
     
     private HashMap<String, String> obtenerDatosPerfil(){
-        // Simulacion consulta a la base de datos con 
-        //ModeloSesionUsuario.getInstancia().getIdUsuario();
-        //
-        // Aqui el controlador se encarga de convertir la respuesta del modelo
-        // o del servicio del modelo, en una respuesta que entienda la vista modeloPerfil
-        HashMap<String, String> datosPerfil = new HashMap<>();
-        datosPerfil.put("nombreEmpresa", "Albania");
-        datosPerfil.put("nombreUsuario", "John Forero");
-        datosPerfil.put("alias", "johnalex");
-        datosPerfil.put("correo", "john@gmail.com");
-        datosPerfil.put("telefono", "3202173409");
         
-        if(esAdministrador){
-            datosPerfil.put("codigo", "A@$d654Vf0");
+        DTOUsuarioTabla datosPerfil = obtenerDatosDTOUsuario( 
+                ModeloSesionUsuario.getInstancia().getIdUsuario()
+        );
+                     
+        HashMap<String, String> datosPerfilEmpaquetados = new HashMap<>();
+        datosPerfilEmpaquetados.put("nombreEmpresa", ModeloSesionUsuario.getInstancia().getNombreEmpresa() );
+        datosPerfilEmpaquetados.put("nombreUsuario", datosPerfil.getNombreCompletoUsuario() );
+        datosPerfilEmpaquetados.put("alias", datosPerfil.getAliasUsuario() );
+        datosPerfilEmpaquetados.put("correo", datosPerfil.getCorreoUsuario() );
+        datosPerfilEmpaquetados.put("telefono", datosPerfil.getTelefonoUsuario() );
+        
+        if( esAdministrador ){
+            String codigo = obtenerCodigoRegistroVendedor();
+            datosPerfilEmpaquetados.put("codigo", codigo);
         }
     
-        return datosPerfil;
+        return datosPerfilEmpaquetados;
     }
     
     
-    private void cargarDatosPerfil( HashMap<String, String> datosPerfil ){
-        moduloPerfil.escribirDatos(datosPerfil);
+    private void cargarDatosPerfil( HashMap<String, String> datosPerfilEmpaquetados ){
+        moduloPerfil.escribirDatos( datosPerfilEmpaquetados );
     }
     
     
