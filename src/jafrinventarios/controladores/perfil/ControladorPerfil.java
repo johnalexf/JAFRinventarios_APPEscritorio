@@ -11,8 +11,6 @@ import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import java.util.HashMap;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -23,6 +21,12 @@ public class ControladorPerfil {
     private PerfilPanel moduloPerfil;
     private boolean esAdministrador;
 
+    
+    /*
+    ============================================================================
+                        CONSTRUCTOR PUBLICO
+    ============================================================================
+    */
     public ControladorPerfil(PerfilPanel moduloPerfil) {
         this.moduloPerfil = moduloPerfil;
         this.esAdministrador = ModeloSesionUsuario.getInstancia().esAdministrador();
@@ -31,6 +35,13 @@ public class ControladorPerfil {
         
         configurarEventosBotones();
     }
+    
+    
+    /*
+    ============================================================================
+            METODOS CONFIGURACION INICIAL PLASMAR INFORMACION DE PERFIL
+    ============================================================================
+    */
     
     
     private HashMap<String, String> obtenerDatosPerfil(){
@@ -59,6 +70,11 @@ public class ControladorPerfil {
     }
     
     
+    /*
+    ============================================================================
+                            METODO EVENTOS BOTONES
+    ============================================================================
+    */
     private void configurarEventosBotones(){
         moduloPerfil.getBtnCerrarSesion().addActionListener(e -> procesarCierreSesion());
         moduloPerfil.getBtnEditarUsuario().addActionListener(e -> procesarEdicionUsuario());
@@ -72,12 +88,12 @@ public class ControladorPerfil {
     
     
     private void procesarEdicionUsuario(){
-        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(moduloPerfil);
-        
+              
         boolean seEditoUsuario;
-        //TODO por el momento se mantienen estas lineas de codigo para hacer pruebas
-        seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(ventanaPadre, true, new ServicioUsuarios());
-        seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(ventanaPadre, false, new ServicioUsuarios());
+
+        seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(
+                moduloPerfil.getVentanaPadre(), esAdministrador , new ServicioUsuarios()
+        );
         
         if(seEditoUsuario){
             cargarDatosPerfil( obtenerDatosPerfil() );

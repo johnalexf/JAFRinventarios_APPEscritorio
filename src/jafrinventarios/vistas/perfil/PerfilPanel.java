@@ -13,9 +13,11 @@ import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonaliza
 import jafrinventarios.vistas.utilidades.rellenador.RellenadorComponentes;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.datatransfer.StringSelection;
 import java.util.HashMap;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -25,6 +27,11 @@ public class PerfilPanel extends javax.swing.JPanel {
     
     private final RellenadorComponentes datosPerfilUsuario;
 
+    /*
+    ============================================================================
+                     CONSTRUCTOR PUBLICO
+    ============================================================================
+    */
     /**
      * Creates new form moduloInicio
      * @param menuNavegacion
@@ -51,6 +58,12 @@ public class PerfilPanel extends javax.swing.JPanel {
         contenedorMenu.add(menuNavegacion);
     }
     
+    
+    /*
+    ============================================================================
+                    METODOS CONFIGURACIONES INICIALES
+    ============================================================================
+    */
     
     private void agregarComponentesADatosPerfil(boolean esAdministrador){
         datosPerfilUsuario.agregarComponenteLabel(lblDatoNombreEmpresa);
@@ -506,7 +519,7 @@ public class PerfilPanel extends javax.swing.JPanel {
 
     private void btnAyudaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaCodigoActionPerformed
         DialogoAlerta.mostrar(
-                (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), 
+                getVentanaPadre(), 
                 "Información código de acceso",
                 "Con este código usted como administrador se lo puede compartir a sus vendedores para que se puedan registrar personalmente en el aplicativo ",
                 IconosDialogosMensajePersonalizado.INFORMACION,
@@ -520,11 +533,13 @@ public class PerfilPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCopiarCodigoActionPerformed
 
     
-    // =======================================================
-    // MÉTODOS PÚBLICOS PARA EL CONTROLADOR
-    // =======================================================
+    /*
+    ============================================================================
+                     MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    ============================================================================
+    */
     
-    
+    // Exponer botones
     public javax.swing.JButton getBtnCerrarSesion(){
         return btnLinkCerrarSesion;
     }
@@ -534,12 +549,22 @@ public class PerfilPanel extends javax.swing.JPanel {
     }
     
     /*
-    Se espera recibir en datosBD un diccionario con:
+    Se espera recibir en datos un diccionario con:
     clave (name del componente), valor (texto a escribir en el componente)
     */
-    public void escribirDatos(HashMap<String, String> datosBD){
-         datosPerfilUsuario.escribir(datosBD);
+    public void escribirDatos(HashMap<String, String> datos){
+         datosPerfilUsuario.escribir(datos);
     }
+    
+    
+    /* 
+        Metodos para dialogos de mensajes de Alertas
+    */
+    
+    public Window getVentanaPadre(){
+         return  SwingUtilities.getWindowAncestor( this );
+    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -16,7 +16,7 @@ import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.swing.JFrame;
+import java.awt.Window;
 
 /**
  *
@@ -92,7 +92,7 @@ public class ControladorDialogoUsuarios {
      METODOS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
     ============================================================================
     */
-    public static boolean editarPerfil(JFrame ventanaPadre, boolean esAdministrador, ServicioUsuarios servicioUsuarios){
+    public static boolean editarPerfil(Window ventanaPadre, boolean esAdministrador, ServicioUsuarios servicioUsuarios){
         
         //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
         //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
@@ -117,7 +117,7 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    public static boolean editarOtroUsuario(JFrame ventanaPadre, int idUsuario, ServicioUsuarios servicioUsuarios){
+    public static boolean editarOtroUsuario(Window ventanaPadre, int idUsuario, ServicioUsuarios servicioUsuarios){
         
         //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
         //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
@@ -141,7 +141,7 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    public static int crearUsuario(JFrame ventanaPadre, ServicioUsuarios servicioUsuarios){
+    public static int crearUsuario(Window ventanaPadre, ServicioUsuarios servicioUsuarios){
         
         //Para pruebas se dejara esAdministrador como parametro de la funcion editarUsuario
         //boolean esAdminsitrador = ModeloSesionUsuario.getInstancia().esAdministrador();
