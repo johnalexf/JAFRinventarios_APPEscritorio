@@ -290,7 +290,7 @@ public class ControladorDialogoUsuarios {
         // Validaciones de los campos si corresponden a su tipo
         if( !dialogoUsuario.validarFormulario() ){
             System.out.println("Formulario no valido");
-            DialogoAlerta.mostrarErrorFormatoCampos(dialogoUsuario);
+            DialogoAlerta.mostrarErrorFormato(dialogoUsuario);
             return;
         }
         

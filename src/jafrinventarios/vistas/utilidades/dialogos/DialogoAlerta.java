@@ -254,7 +254,7 @@ public class DialogoAlerta extends DialogoBaseConSombra {
     Metodo estatico para mostrar un error ya preestablecido con su titulo y mensaje
     para cuando en un formulario sus campos tengan algun error de tipo de formato o estan vacios
     */
-    public static void mostrarErrorFormatoCampos(Window ventanaPadre){
+    public static void mostrarErrorFormato(Window ventanaPadre){
     
         mostrarError(
                 ventanaPadre,
@@ -271,7 +271,7 @@ public class DialogoAlerta extends DialogoBaseConSombra {
         Metodo estatico para mostrar el error de cada campo de un formulario
         segun la respuesta de la base de datos
     */
-    public static void mostrarErrorRespuestaBD(Window ventanaPadre, HashMap<String, String> erroresFormulario){
+    public static void mostrarErroresValidacion(Window ventanaPadre, HashMap<String, String> erroresFormulario){
         
         StringBuilder armadoErrores = new StringBuilder();
         

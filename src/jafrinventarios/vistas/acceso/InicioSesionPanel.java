@@ -273,7 +273,7 @@ public class InicioSesionPanel extends javax.swing.JPanel {
     
     
     public void mostrarAlertaErrorFormatoCampos(){
-        DialogoAlerta.mostrarErrorFormatoCampos( getVentanaPadre() );
+        DialogoAlerta.mostrarErrorFormato( getVentanaPadre() );
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

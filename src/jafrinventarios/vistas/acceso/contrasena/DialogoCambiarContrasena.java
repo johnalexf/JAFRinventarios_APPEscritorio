@@ -719,11 +719,11 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     */
     
     public void mostrarAlertaErrorFormatoCampos(){
-        DialogoAlerta.mostrarErrorFormatoCampos(this);
+        DialogoAlerta.mostrarErrorFormato(this);
     }
     
     public void mostrarAlertaErrorCampos( HashMap<String, String> erroresCamposBD ){
-        DialogoAlerta.mostrarErrorRespuestaBD( this , erroresCamposBD ); 
+        DialogoAlerta.mostrarErroresValidacion( this , erroresCamposBD ); 
     }
     
     public void mostrarAlertaError( String mensajeError ){
