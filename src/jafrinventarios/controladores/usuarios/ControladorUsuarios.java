@@ -5,16 +5,15 @@
  */
 package jafrinventarios.controladores.usuarios;
 
-import jafrinventarios.DTOs.usuarios.DTOUsuarioTabla;
 import jafrinventarios.controladores.utilidades.ControladorBusquedaYAccionLibre;
-import jafrinventarios.vistas.usuarios.UsuariosPanel;
 import jafrinventarios.controladores.utilidades.FuncionesBusquedaYAccionLibre;
+import jafrinventarios.DTOs.usuarios.DTOUsuarioTabla;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.usuarios.FilaTablaUsuarios;
+import jafrinventarios.vistas.usuarios.UsuariosPanel;
+
 import java.util.LinkedHashMap;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -177,13 +176,6 @@ public class ControladorUsuarios {
         moduloUsuarios.inyectarNuevaFilaATablaUsuarios(fila);  
     }
     
-
-    /*
-    ============================================================================
-    ============================================================================
-    */
-    
-    
     
     /*
     ======================================================================================
@@ -204,19 +196,13 @@ public class ControladorUsuarios {
     */
     
     
-    // Metodo para optener cual es el frame padre de la vista JPanel modulo de usuarios
-    private JFrame getFramePadre(){
-        return (JFrame) SwingUtilities.getWindowAncestor(moduloUsuarios);
-    }
-    
-    
     private void crearUsuario(){
         /* 
         Con el metodo estatico ControladorDialogoUsuarios.crearUsuario se abre
          un modal para crear un usuario, si se crea este devuelve el Id de
          dicho usuario, en dado caso que no se cree se espera recibir un -1
         */
-        int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( getFramePadre() , servicioUsuarios);
+        int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( moduloUsuarios.getVentanaPadre() , servicioUsuarios);
         
         //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
         idUsuarioCreado = -1;
@@ -248,7 +234,7 @@ public class ControladorUsuarios {
         
         boolean seEditoUsuario = 
                 ControladorDialogoUsuarios.editarOtroUsuario(
-                        getFramePadre(), idUsuario, servicioUsuarios
+                    moduloUsuarios.getVentanaPadre() , idUsuario, servicioUsuarios
                 );
         
         //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea

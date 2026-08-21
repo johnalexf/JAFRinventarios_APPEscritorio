@@ -192,12 +192,10 @@ public class UsuariosPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    
-    
-    
+
     /*
     ============================================================================
-                        MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+                     MÉTODOS PÚBLICOS PARA EL CONTROLADOR
     ============================================================================
     */
     
@@ -234,8 +232,16 @@ public class UsuariosPanel extends javax.swing.JPanel {
         contenedorContenidoTabla.revalidate();
         contenedorContenidoTabla.repaint();
     }
+  
+        /* 
+        Metodos para dialogos de mensajes de Alertas
+    */
     
     
+    // Metodo para optener cual es el frame padre de la vista JPanel modulo de usuarios
+    public java.awt.Window getVentanaPadre(){
+        return javax.swing.SwingUtilities.getWindowAncestor( this );
+    }
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
