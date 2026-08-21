@@ -113,7 +113,7 @@ public class ControladorContrasena {
     private void procesarPaso( NombresTarjetasContrasena tarjeta ){
 
         if(!ventanaContrasena.ejecutarValidacionFormulario(tarjeta)){
-            mostrarDialogoErrorFormatoCampos();
+            ventanaContrasena.mostrarDialogoErrorFormatoCampos();
             return;
         }
         
@@ -229,14 +229,10 @@ public class ControladorContrasena {
     
     /*
     ============================================================================
-                        METODOS PARA MOSTRAR DIALOGOS
+            METODO PARA MOSTRAR DIALOGOS ERROR RESPUESTA BD
     ============================================================================
     */
-    
-    public void mostrarDialogoErrorFormatoCampos(){
-        ventanaContrasena.mostrarDialogoErrorFormatoCampos();
-    }
-    
+
     private void mostrarErrorRespuestaBD(NombresTarjetasContrasena tarjeta, HashMap<String, String> erroresBackend ){
         // Le pasamos el error al ValidadorFormulario para que pinte el o los JLabel
         ventanaContrasena.mostrarErrorRespuestaBD(tarjeta, erroresBackend);
@@ -244,15 +240,5 @@ public class ControladorContrasena {
         // Mostramos un modal general para que el usuario sepa que algo falló
         ventanaContrasena.mostrarDialogoErrorRespuestaBD( erroresBackend );
     }
-    
-    private void mostrarDialogoError ( String mensajeError ){
-        ventanaContrasena.mostrarDialogoError(mensajeError);
-    }
-    
-    private void mostrarDialogoExito( String mensajeExito ){
-        ventanaContrasena.mostrarDialogoExito(mensajeExito);
-    }
-    
-
-    
+  
 }
