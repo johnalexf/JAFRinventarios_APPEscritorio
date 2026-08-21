@@ -66,20 +66,24 @@ public class ControladorPerfil {
     
     private HashMap<String, String> obtenerDatosPerfil(){
         
-        DTOUsuarioTabla datosPerfil = obtenerDatosDTOUsuario( 
-                ModeloSesionUsuario.getInstancia().getIdUsuario()
-        );
-                     
         HashMap<String, String> datosPerfilEmpaquetados = new HashMap<>();
-        datosPerfilEmpaquetados.put("nombreEmpresa", ModeloSesionUsuario.getInstancia().getNombreEmpresa() );
-        datosPerfilEmpaquetados.put("nombreUsuario", datosPerfil.getNombreCompletoUsuario() );
-        datosPerfilEmpaquetados.put("alias", datosPerfil.getAliasUsuario() );
-        datosPerfilEmpaquetados.put("correo", datosPerfil.getCorreoUsuario() );
-        datosPerfilEmpaquetados.put("telefono", datosPerfil.getTelefonoUsuario() );
-        
-        if( esAdministrador ){
-            String codigo = obtenerCodigoRegistroVendedor();
-            datosPerfilEmpaquetados.put("codigo", codigo);
+        try {
+            DTOUsuarioTabla datosPerfil = obtenerDatosDTOUsuario( 
+                    ModeloSesionUsuario.getInstancia().getIdUsuario()
+            );
+
+            datosPerfilEmpaquetados.put("nombreEmpresa", ModeloSesionUsuario.getInstancia().getNombreEmpresa() );
+            datosPerfilEmpaquetados.put("nombreUsuario", datosPerfil.getNombreCompletoUsuario() );
+            datosPerfilEmpaquetados.put("alias", datosPerfil.getAliasUsuario() );
+            datosPerfilEmpaquetados.put("correo", datosPerfil.getCorreoUsuario() );
+            datosPerfilEmpaquetados.put("telefono", datosPerfil.getTelefonoUsuario() );
+
+            if( esAdministrador ){
+                String codigo = obtenerCodigoRegistroVendedor();
+                datosPerfilEmpaquetados.put("codigo", codigo);
+            }
+        }catch (Exception e) {
+             moduloPerfil.mostrarAlertaError( "Error", e.getMessage());
         }
     
         return datosPerfilEmpaquetados;

@@ -567,6 +567,10 @@ public class PerfilPanel extends javax.swing.JPanel {
          return  SwingUtilities.getWindowAncestor( this );
     }
     
+    public void mostrarAlertaError ( String titulo, String mensaje ){
+        DialogoAlerta.mostrarError( getVentanaPadre(), titulo, mensaje);
+    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
