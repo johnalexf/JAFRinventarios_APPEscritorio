@@ -707,10 +707,10 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     }
     
     // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError de cada campo
-    public void mostrarErrorEnCampos(
+    public void mostrarErroresValidacionCampos(
                             NombresTarjetasContrasena tarjeta,
-                            HashMap<String, String> erroresCamposBD ){
-        formularios.mostrarErrorRespuestaBD( tarjeta, erroresCamposBD);
+                            HashMap<String, String> errores ){
+        formularios.mostrarErroresValidacionCampos( tarjeta, errores);
     }
 
     
@@ -722,12 +722,16 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         DialogoAlerta.mostrarErrorFormato(this);
     }
     
-    public void mostrarAlertaErrorCampos( HashMap<String, String> erroresCamposBD ){
-        DialogoAlerta.mostrarErroresValidacion( this , erroresCamposBD ); 
+    public void mostrarAlertaErroresValidacionCampos( HashMap<String, String> errores ){
+        DialogoAlerta.mostrarErroresValidacion( this , errores ); 
     }
     
     public void mostrarAlertaError( String mensajeError ){
         DialogoAlerta.mostrarError( this, "Error", mensajeError);
+    }
+    
+    public void mostrarAlertaError( String titulo, String mensajeError ){
+        DialogoAlerta.mostrarError( this, titulo, mensajeError);
     }
     
     public void mostrarAlertaExito( String mensajeExito ){

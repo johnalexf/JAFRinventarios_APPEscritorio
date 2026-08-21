@@ -44,9 +44,9 @@ public class FormulariosEnTarjetas {
     }
     
     
-    public void mostrarErrorRespuestaBD(NombresTarjetasContrasena tarjeta, HashMap<String, String> erroresCamposBD ){
+    public void mostrarErroresValidacionCampos(NombresTarjetasContrasena tarjeta, HashMap<String, String> errores ){
         GestorFormulario formulario = getFormulario(tarjeta);
-        formulario.mostrarErroresExternos(erroresCamposBD);
+        formulario.mostrarErroresExternos(errores);
     }
     
 

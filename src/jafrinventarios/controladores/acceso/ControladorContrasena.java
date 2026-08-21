@@ -188,14 +188,18 @@ public class ControladorContrasena {
             if ( idUsuario != -1 ) {
                 codigoRecuperacion = generarCodigo();
                 enviarCodigoCorreo(correo, codigoRecuperacion);
+                //Linea de prueba para ver el codigo de recuperacion
+                System.out.println(" codigo de recuperacion : " + codigoRecuperacion );
                 avanzarSiguienteTarjeta(NombresTarjetasContrasena.CODIGO);
             } else {
                 HashMap<String, String> erroresBackend = new HashMap<>();
                 erroresBackend.put("correo", "No se encuentra registrado.");
 
-                mostrarErrorRespuestaBD(NombresTarjetasContrasena.CORREO, erroresBackend);
+                mostrarErroresValidacionCampos(NombresTarjetasContrasena.CORREO, erroresBackend);
             }
         } catch (Exception e) {
+            // Errores en el servicio
+            mostrarErrorServicio(e.getMessage());         
         }
         
         
@@ -211,7 +215,7 @@ public class ControladorContrasena {
             HashMap<String, String> erroresBackend = new HashMap<>();
             erroresBackend.put("codigo", "El codigo no coincide.");
             
-            mostrarErrorRespuestaBD(NombresTarjetasContrasena.CODIGO, erroresBackend);
+            mostrarErroresValidacionCampos(NombresTarjetasContrasena.CODIGO, erroresBackend);
         }
         
     }
@@ -227,9 +231,11 @@ public class ControladorContrasena {
                 HashMap<String, String> erroresBackend = new HashMap<>();
                 erroresBackend.put("contrasenaAntigua", "La contraseña no coincide");
 
-                mostrarErrorRespuestaBD(NombresTarjetasContrasena.CONTRASENA_ANTIGUA, erroresBackend);
+                mostrarErroresValidacionCampos(NombresTarjetasContrasena.CONTRASENA_ANTIGUA, erroresBackend);
             }
         } catch (Exception e) {
+            // Errores en el servicio
+            mostrarErrorServicio(e.getMessage()); 
         }
         
     }
@@ -246,6 +252,8 @@ public class ControladorContrasena {
                 ventanaContrasena.mostrarAlertaError( "No se pudo guardar la clave" );
             }
         } catch (Exception e) {
+            // Errores en el servicio
+            mostrarErrorServicio(e.getMessage());  
         }
         
         
@@ -263,12 +271,16 @@ public class ControladorContrasena {
     ============================================================================
     */
 
-    private void mostrarErrorRespuestaBD(NombresTarjetasContrasena tarjeta, HashMap<String, String> erroresBackend ){
+    private void mostrarErroresValidacionCampos(NombresTarjetasContrasena tarjeta, HashMap<String, String> errores ){
         // Le pasamos el error al ValidadorFormulario para que pinte el o los JLabel
-        ventanaContrasena.mostrarErrorEnCampos(tarjeta, erroresBackend);
+        ventanaContrasena.mostrarErroresValidacionCampos(tarjeta, errores);
 
         // Mostramos un modal general para que el usuario sepa que algo falló
-        ventanaContrasena.mostrarAlertaErrorCampos( erroresBackend );
+        ventanaContrasena.mostrarAlertaErroresValidacionCampos( errores );
+    }
+    
+    private void mostrarErrorServicio( String mensaje ){
+        ventanaContrasena.mostrarAlertaError("Error de conexion", mensaje);
     }
   
 }
