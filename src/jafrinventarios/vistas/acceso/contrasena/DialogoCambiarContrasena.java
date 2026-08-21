@@ -444,7 +444,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         inputContrasenaAntigua.setToolTipText("");
         inputContrasenaAntigua.setMargin(new java.awt.Insets(4, 10, 4, 10));
         inputContrasenaAntigua.setMinimumSize(new java.awt.Dimension(0, 34));
-        inputContrasenaAntigua.setName("contrasena"); // NOI18N
+        inputContrasenaAntigua.setName("contrasenaAntigua"); // NOI18N
         inputContrasenaAntigua.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputContrasenaAntigua.add(inputContrasenaAntigua);
 
@@ -707,7 +707,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     }
     
     // Exponer mostrar errrores de la respuesta a la consulta de la BD en lblError de cada campo
-    public void mostrarErrorRespuestaBD(
+    public void mostrarErrorEnCampos(
                             NombresTarjetasContrasena tarjeta,
                             HashMap<String, String> erroresCamposBD ){
         formularios.mostrarErrorRespuestaBD( tarjeta, erroresCamposBD);
@@ -718,19 +718,19 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         Metodos para dialogos de mensajes de Alertas
     */
     
-    public void mostrarDialogoErrorFormatoCampos(){
+    public void mostrarAlertaErrorFormatoCampos(){
         DialogoAlerta.mostrarErrorFormatoCampos(this);
     }
     
-    public void mostrarDialogoErrorRespuestaBD( HashMap<String, String> erroresCamposBD ){
+    public void mostrarAlertaErrorCampos( HashMap<String, String> erroresCamposBD ){
         DialogoAlerta.mostrarErrorRespuestaBD( this , erroresCamposBD ); 
     }
     
-    public void mostrarDialogoError( String mensajeError ){
+    public void mostrarAlertaError( String mensajeError ){
         DialogoAlerta.mostrarError( this, "Error", mensajeError);
     }
     
-    public void mostrarDialogoExito( String mensajeExito ){
+    public void mostrarAlertaExito( String mensajeExito ){
         DialogoAlerta.mostrarExito( this, "Operacion Exitosa", mensajeExito);
     }
     

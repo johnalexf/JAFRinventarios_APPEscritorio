@@ -74,7 +74,7 @@ public class ServicioAutenticacion {
     }
     
     
-    public int existeCorreo ( String correo ){
+    public int obtenerIdUsuarioConCorreo ( String correo ){
         
         
         /*

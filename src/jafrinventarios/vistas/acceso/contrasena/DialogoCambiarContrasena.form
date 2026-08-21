@@ -676,7 +676,7 @@
                                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                   <Dimension value="[0, 34]"/>
                                 </Property>
-                                <Property name="name" type="java.lang.String" value="contrasena" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="contrasenaAntigua" noResource="true"/>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                   <Dimension value="[0, 34]"/>
                                 </Property>

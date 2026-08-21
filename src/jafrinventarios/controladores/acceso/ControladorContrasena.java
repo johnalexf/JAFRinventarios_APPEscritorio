@@ -5,6 +5,7 @@
  */
 package jafrinventarios.controladores.acceso;
 
+import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.acceso.ServicioAutenticacion;
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
@@ -20,6 +21,11 @@ public class ControladorContrasena {
     
     private final ServicioAutenticacion servicioAutenticacion;
     
+    private int idUsuario = -1;
+    private String correoRecuperacion;
+    private String codigoRecuperacion;
+    
+    
     /*
     ========================================================================================
         CONSTRUCTOR PRIVADO PARA EVITAR QUE SE CREE SIN SU DEBIDA CONFIGURACION
@@ -32,6 +38,10 @@ public class ControladorContrasena {
         this.servicioAutenticacion = servicioAutenticacion;
         
         inicializarEventosBotones(tarjetaInicial);
+    }
+
+    private void setIdUsuario( int idUsuario ) {
+        this.idUsuario = idUsuario;
     }
     
     /*
@@ -68,6 +78,7 @@ public class ControladorContrasena {
         
         // Se auto-instancia 
         ControladorContrasena controlador = new ControladorContrasena(vista, tarjetaInicial, servicioAutenticacion );
+        controlador.setIdUsuario( ModeloSesionUsuario.getInstancia().getIdUsuario() );
         
         controlador.iniciar(tarjetaInicial);
     }
@@ -116,8 +127,8 @@ public class ControladorContrasena {
     ============================================================================
     */
     
-    private int existeCorreo( String correo ){
-        return servicioAutenticacion.existeCorreo(correo);
+    private int obtenerIdUsuarioConCorreo( String correo ){
+        return servicioAutenticacion.obtenerIdUsuarioConCorreo(correo);
     }
     
     private String generarCodigo(){
@@ -145,7 +156,7 @@ public class ControladorContrasena {
     private void procesarPaso( NombresTarjetasContrasena tarjeta ){
 
         if(!ventanaContrasena.ejecutarValidacionFormulario(tarjeta)){
-            ventanaContrasena.mostrarDialogoErrorFormatoCampos();
+            ventanaContrasena.mostrarAlertaErrorFormatoCampos();
             return;
         }
         
@@ -159,10 +170,10 @@ public class ControladorContrasena {
                 procesarCodigo(datosFormulario.get("codigo"));
                 break;
             case CONTRASENA_ANTIGUA:
-                procesarContrasenaAntiguaEnBD(datosFormulario.get("contrasena"));
+                procesarContrasenaAntiguaEnBD(datosFormulario.get("contrasenaAntigua"));
                 break;
             case CONTRASENA_NUEVA:
-                procesarCambioContrasenaEnBD(datosFormulario);
+                procesarCambioContrasenaEnBD(datosFormulario.get("contrasenaNueva"));
                 break;
         }
     
@@ -170,38 +181,33 @@ public class ControladorContrasena {
     
     
     private void procesarCorreoEnBD( String correo ){
-        //TODO Pendiente el metodo para consultar a la base de datos el correo
-        System.out.println("Consultando BD para el correo: " + correo);
 
-        // Simulación de la respuesta de la consulta
-        boolean correoExiste = true; 
+        try {
+            idUsuario = obtenerIdUsuarioConCorreo(correo);
         
-        if (correoExiste) {
-            // TODO: Enviar código al correo
-            avanzarSiguienteTarjeta(NombresTarjetasContrasena.CODIGO);
-        } else {
-            // Armamos el diccionario de errores como respondería el backend
-            HashMap<String, String> erroresBackend = new HashMap<>();
-            erroresBackend.put("correo", "No se encuentra registrado.");
-            
-            mostrarErrorRespuestaBD(NombresTarjetasContrasena.CORREO, erroresBackend);
+            if ( idUsuario != -1 ) {
+                codigoRecuperacion = generarCodigo();
+                enviarCodigoCorreo(correo, codigoRecuperacion);
+                avanzarSiguienteTarjeta(NombresTarjetasContrasena.CODIGO);
+            } else {
+                HashMap<String, String> erroresBackend = new HashMap<>();
+                erroresBackend.put("correo", "No se encuentra registrado.");
+
+                mostrarErrorRespuestaBD(NombresTarjetasContrasena.CORREO, erroresBackend);
+            }
+        } catch (Exception e) {
         }
+        
         
     }
     
     
     
     private void procesarCodigo (String codigo){
-        //TODO Pendiente el metodo para verificar codigo
-        System.out.println("Verificando codigo enviado al correo");
 
-        // Simulación de la respuesta de la consulta
-        boolean codigoCoincide = true; 
-        
-        if (codigoCoincide) {
+        if ( codigoRecuperacion.equals(codigo) ) {
             avanzarSiguienteTarjeta(NombresTarjetasContrasena.CONTRASENA_NUEVA);
         } else {
-            // Armamos el diccionario de errores como respondería el backend
             HashMap<String, String> erroresBackend = new HashMap<>();
             erroresBackend.put("codigo", "El codigo no coincide.");
             
@@ -213,43 +219,35 @@ public class ControladorContrasena {
     
     
     private void procesarContrasenaAntiguaEnBD (String contrasena){
-        //TODO Pendiente el metodo para verificar la contraseña actual
-        System.out.println("Verificando contraseña");
-
-        // Simulación de la respuesta de la consulta
-        boolean contrasenaValida = true; 
         
-        if (contrasenaValida) {
-            avanzarSiguienteTarjeta(NombresTarjetasContrasena.CONTRASENA_NUEVA);
-        } else {
-            // Armamos el diccionario de errores como respondería el backend
-            HashMap<String, String> erroresBackend = new HashMap<>();
-            erroresBackend.put("contrasena", "La contraseña no coincide");
-            
-            mostrarErrorRespuestaBD(NombresTarjetasContrasena.CONTRASENA_ANTIGUA, erroresBackend);
+        try {
+            if ( validarContrasenaAntigua(idUsuario, contrasena) ) {
+                avanzarSiguienteTarjeta(NombresTarjetasContrasena.CONTRASENA_NUEVA);
+            } else {
+                HashMap<String, String> erroresBackend = new HashMap<>();
+                erroresBackend.put("contrasenaAntigua", "La contraseña no coincide");
+
+                mostrarErrorRespuestaBD(NombresTarjetasContrasena.CONTRASENA_ANTIGUA, erroresBackend);
+            }
+        } catch (Exception e) {
         }
         
     }
             
     
     
-    private void procesarCambioContrasenaEnBD (HashMap<String, String> formulario){
-        //TODO Pendiente el metodo para verificar la contraseña actual
-        System.out.println("Verificando y guardando contraseña nueva");
-
-        // Simulación de la respuesta de la consulta
-        boolean contrasenaNuevaValida = true; 
+    private void procesarCambioContrasenaEnBD (String contrasena){
         
-        if (contrasenaNuevaValida) {
-            //
-            ventanaContrasena.dispose();
-        } else {
-            // Armamos el diccionario de errores como respondería el backend
-            HashMap<String, String> erroresBackend = new HashMap<>();
-            erroresBackend.put("contrasenaNueva", "Invalida");
-            
-            mostrarErrorRespuestaBD(NombresTarjetasContrasena.CONTRASENA_NUEVA, erroresBackend);
+        try {
+            if ( cambiarContrasena( idUsuario, contrasena ) ) {
+                //
+                ventanaContrasena.dispose();
+            } else {
+                ventanaContrasena.mostrarAlertaError( "No se pudo guardar la clave" );
+            }
+        } catch (Exception e) {
         }
+        
         
     }
     
@@ -267,10 +265,10 @@ public class ControladorContrasena {
 
     private void mostrarErrorRespuestaBD(NombresTarjetasContrasena tarjeta, HashMap<String, String> erroresBackend ){
         // Le pasamos el error al ValidadorFormulario para que pinte el o los JLabel
-        ventanaContrasena.mostrarErrorRespuestaBD(tarjeta, erroresBackend);
+        ventanaContrasena.mostrarErrorEnCampos(tarjeta, erroresBackend);
 
         // Mostramos un modal general para que el usuario sepa que algo falló
-        ventanaContrasena.mostrarDialogoErrorRespuestaBD( erroresBackend );
+        ventanaContrasena.mostrarAlertaErrorCampos( erroresBackend );
     }
   
 }
