@@ -112,6 +112,32 @@ public class ControladorContrasena {
     
     /*
     ============================================================================
+                METODOS PARA CONSULTAR A LOS SERVICIOS
+    ============================================================================
+    */
+    
+    private int existeCorreo( String correo ){
+        return servicioAutenticacion.existeCorreo(correo);
+    }
+    
+    private String generarCodigo(){
+        return servicioAutenticacion.generarCodigo();
+    }
+    
+    private boolean enviarCodigoCorreo( String correo, String codigo){
+        return servicioAutenticacion.enviarCodigoCorreo(correo, codigo);
+    }
+    
+    private boolean validarContrasenaAntigua( int idUsuario, String contrasenaAntigua){
+        return servicioAutenticacion.validarContrasenaAntigua(idUsuario, contrasenaAntigua);
+    }
+    
+    private boolean cambiarContrasena( int idUsuario, String contrasenaNueva ){
+        return servicioAutenticacion.cambiarContrasena(idUsuario, contrasenaNueva);
+    }
+    
+    /*
+    ============================================================================
           METODOS PARA PROCESAR LOS PASOS PARA EL CAMBIO DE CONTRASEÑA
     ============================================================================
     */

@@ -51,7 +51,7 @@ public class ServicioAutenticacion {
     }
     
     
-    protected String generarCodigo (){
+    public String generarCodigo (){
         
         StringBuilder codigo = new StringBuilder();
         
@@ -91,9 +91,7 @@ public class ServicioAutenticacion {
     }
     
     
-    public String enviarCodigoCorreo ( String correo ){
-        
-        String codigo;
+    public boolean enviarCodigoCorreo ( String correo, String codigo ){
         
         /*
             TODO    
@@ -101,11 +99,10 @@ public class ServicioAutenticacion {
         servicio que pueda enviar correos, dependiendo de la configuracion
         si es muy extensa, se hara un servicio aparte que sea destinado solo
         para enviar codigos.
-        Si hubo alguna falla se envia el codigo en null;
+        Si hubo alguna falla se envia true
         */
-        codigo = generarCodigo();
     
-        return codigo;
+        return true;
     
     }
     
