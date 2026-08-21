@@ -5,6 +5,7 @@
  */
 package jafrinventarios.controladores.acceso;
 
+import jafrinventarios.servicios.acceso.ServicioAutenticacion;
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
 import java.util.HashMap;
@@ -17,13 +18,18 @@ public class ControladorContrasena {
     
     private final DialogoCambiarContrasena ventanaContrasena;
     
+    private final ServicioAutenticacion servicioAutenticacion;
+    
     /*
     ========================================================================================
         CONSTRUCTOR PRIVADO PARA EVITAR QUE SE CREE SIN SU DEBIDA CONFIGURACION
     =========================================================================================
     */
-    private ControladorContrasena(  DialogoCambiarContrasena ventana, NombresTarjetasContrasena tarjetaInicial) {
+    private ControladorContrasena(  DialogoCambiarContrasena ventana, 
+                                    NombresTarjetasContrasena tarjetaInicial, 
+                                    ServicioAutenticacion servicioAutenticacion) {
         this.ventanaContrasena = ventana;
+        this.servicioAutenticacion = servicioAutenticacion;
         
         inicializarEventosBotones(tarjetaInicial);
     }
@@ -34,7 +40,7 @@ public class ControladorContrasena {
     =========================================================================================
     */
 
-    public static void iniciarRecuperacion( java.awt.Window ventanaPadre ) {
+    public static void iniciarRecuperacion( java.awt.Window ventanaPadre , ServicioAutenticacion servicioAutenticacion ) {
         
         NombresTarjetasContrasena tarjetaInicial = NombresTarjetasContrasena.CORREO;
         
@@ -42,7 +48,7 @@ public class ControladorContrasena {
         DialogoCambiarContrasena vista = DialogoCambiarContrasena.recuperarContrasena(ventanaPadre);
         
         // Se auto-instancia usando el constructor privado 
-        ControladorContrasena controlador = new ControladorContrasena(vista, tarjetaInicial);
+        ControladorContrasena controlador = new ControladorContrasena( vista, tarjetaInicial, servicioAutenticacion );
         
         // Muestra la ventana
         // Ejecutamos el controlador para que muestre el dialogo, es necesario hacerlo asi
@@ -52,7 +58,7 @@ public class ControladorContrasena {
     }
     
     
-    public static void iniciarCambio( java.awt.Window ventanaPadre ) {
+    public static void iniciarCambio( java.awt.Window ventanaPadre, ServicioAutenticacion servicioAutenticacion ) {
         //Cuando es para cambiar la contraseña se tomara el id almacenado en ModeloSesionUsuario
         
         NombresTarjetasContrasena tarjetaInicial = NombresTarjetasContrasena.CONTRASENA_ANTIGUA;
@@ -61,7 +67,7 @@ public class ControladorContrasena {
         DialogoCambiarContrasena vista = DialogoCambiarContrasena.cambiarContrasena(ventanaPadre);
         
         // Se auto-instancia 
-        ControladorContrasena controlador = new ControladorContrasena(vista, tarjetaInicial );
+        ControladorContrasena controlador = new ControladorContrasena(vista, tarjetaInicial, servicioAutenticacion );
         
         controlador.iniciar(tarjetaInicial);
     }

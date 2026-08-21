@@ -78,7 +78,7 @@ public class ControladorInicioSesion {
             segun corresponda y asi evitar que el desarrollador tenga que instanciar
             un dialogoCambiarContrasena incorrecto
         */
-        ControladorContrasena.iniciarRecuperacion( vistaInicio.getVentanaPadre() );
+        ControladorContrasena.iniciarRecuperacion( vistaInicio.getVentanaPadre(), servicioAutenticacion );
         
     }
 }

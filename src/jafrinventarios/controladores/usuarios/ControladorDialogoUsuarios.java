@@ -8,6 +8,7 @@ package jafrinventarios.controladores.usuarios;
 import jafrinventarios.controladores.acceso.ControladorContrasena;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
+import jafrinventarios.servicios.acceso.ServicioAutenticacion;
 import jafrinventarios.servicios.usuarios.ServicioRoles;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.usuarios.DialogoFormularioUsuario;
@@ -399,7 +400,7 @@ public class ControladorDialogoUsuarios {
     
     
     private void mostrarDialogoEditarContrasena(){
-        ControladorContrasena.iniciarCambio(dialogoUsuario);
+        ControladorContrasena.iniciarCambio( dialogoUsuario, new ServicioAutenticacion() );
     }
     
     
