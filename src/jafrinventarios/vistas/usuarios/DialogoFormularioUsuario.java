@@ -987,12 +987,12 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         return formularioDatosUsuario.recolectarDatos();
     }
     
-    public void mostrarErrorRespuestaBDEnFormulario( HashMap<String, String> erroresCamposBD ){
-        formularioDatosUsuario.mostrarErroresExternos(erroresCamposBD);
+    public void mostrarErroresValidacionCampos( HashMap<String, String> errores ){
+        formularioDatosUsuario.mostrarErroresExternos(errores);
     }
     
-    public void asignarDatosEnFormulario( HashMap<String, String> datosBD ){
-        formularioDatosUsuario.asignarDatos(datosBD);
+    public void asignarDatosEnFormulario( HashMap<String, String> datos ){
+        formularioDatosUsuario.asignarDatos(datos);
     }
     
     
