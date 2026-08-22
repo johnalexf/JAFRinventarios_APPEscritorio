@@ -2,13 +2,15 @@
     Clase utilitaria para agregar en un objeto todos los campos de un formulario
     o de una listado de informacion que se espera mostrar al usuario despues de 
     consultar la base de datos, como informacion de perfil o listas de productos
+
+    Se pretendia usar en todos los formularios de editar, pero se complemento
+    el anterior validadorFormulario paso a ser gestor de formulario y este permite
+    escribir los datos que se desean mostrar, esta clase entonces por el momento 
+    solo la usa el PerfilPanel
  */
 package jafrinventarios.vistas.utilidades.rellenador;
 
 import java.util.HashMap;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -22,6 +24,7 @@ public class RellenadorComponentes {
     */
     private final HashMap<String, ComponenteRellenable> diccionarioComponetes;
     
+    
     //Constructor 
     public RellenadorComponentes(){
         diccionarioComponetes =  new HashMap<>();
@@ -34,7 +37,7 @@ public class RellenadorComponentes {
         para la ejecucion del programa y se avisa del respectivo error de forma 
         personalizada
     */
-    private void validarNombreEnComponente(JComponent componente){
+    private void validarNombreEnComponente( javax.swing.JComponent componente){
         // Obtenemos el nombre asignado en las propiedades del diseñador visual
         String nombre = componente.getName();
         
@@ -53,7 +56,7 @@ public class RellenadorComponentes {
     
     
     //Metodo para agregar un componente que sea de tipo texto( ej: textField )
-    public void agregarComponenteTexto(JTextComponent componenteTexto){
+    public void agregarComponenteTexto(javax.swing.text.JTextComponent componenteTexto){
         
          /* 
             Si falta el nombre, 
@@ -69,18 +72,13 @@ public class RellenadorComponentes {
     
     
      //Metodo para agregar un componente que sea de tipo label
-    public void agregarComponenteLabel(JLabel componenteLabel){
+    public void agregarComponenteLabel( javax.swing.JLabel componenteLabel ){
 
          validarNombreEnComponente(componenteLabel);
          
          diccionarioComponetes.put(componenteLabel.getName(), new ComponenteLabel(componenteLabel));
          
     }
-    
-    
-    /*
-        TODO: Construir las clases y los metodos para campos de tipo comboBox
-    */
     
     
     /*
@@ -100,9 +98,6 @@ public class RellenadorComponentes {
         });
         
     } 
-    
-    
-    
     
     
 }
