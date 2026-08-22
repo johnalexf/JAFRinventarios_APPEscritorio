@@ -9,11 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -38,7 +35,7 @@ public class GestorFormulario {
     dentro de su propia caja
     */ 
     public void agregarCampoTexto( 
-            JTextComponent input, 
+            javax.swing.text.JTextComponent input, 
             JLabel lblError, 
             TipoDatoFormulario tipoDato, 
             boolean esObligatorio ){
@@ -58,8 +55,8 @@ public class GestorFormulario {
     por lo tanto necesita de un campo contraseña original para poder compararlos.
     */
     public void agregarCampoConfirmarContrasena( 
-                                    JPasswordField inputConfirmarContrasena, 
-                                    JPasswordField inputContrasena, 
+                                    javax.swing.JPasswordField inputConfirmarContrasena, 
+                                    javax.swing.JPasswordField inputContrasena, 
                                     JLabel lblError ){
         // Si falta el nombre, la aplicación se detiene aquí mismo con un error en consola
         validarNombreEnComponente(inputConfirmarContrasena);
@@ -77,7 +74,7 @@ public class GestorFormulario {
     enviar el id correspondiente a la base de datos.
     */
     public void agregarCampoComboBox(
-                                JComboBox comboBox,
+                                javax.swing.JComboBox comboBox,
                                 String concepto,
                                 LinkedHashMap< Integer, String > listaOpcionesConId, 
                                 JLabel lblError,
@@ -185,7 +182,7 @@ public class GestorFormulario {
         
         /* NOTA: Para que este metodo los resultados sean los esperados, es necesario
                  configurar el atributo name de cada uno de los componentes, con un nombre
-                 unico y representativo en la base de datos o el modelo.
+                 unico y representativo que lo tiene que conocer el controlador.
         */
         HashMap<String, String> recolectorDatos = new HashMap<>();
         listaCamposFormulario.entrySet().forEach(campoFormulario -> {

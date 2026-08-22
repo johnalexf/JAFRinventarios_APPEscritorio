@@ -8,8 +8,6 @@ package jafrinventarios.vistas.utilidades.formularios;
 
 import javax.swing.text.JTextComponent;
 import javax.swing.JLabel;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -39,22 +37,22 @@ public class CampoTexto extends CampoGestionable{
         // Escuchamos cualquier cambio que ocurra en el contenido del inputTexto.
         // A diferencia de KeyListener, DocumentListener detecta escritura,
         // borrado, pegado, cortar, deshacer, etc.
-        inputTexto.getDocument().addDocumentListener(new DocumentListener() {
+        inputTexto.getDocument().addDocumentListener( new javax.swing.event.DocumentListener() {
 
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate( javax.swing.event.DocumentEvent e ) {
                 // Se ejecuta cuando el usuario agrega texto al campo.
                 validar();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate( javax.swing.event.DocumentEvent e ) {
                 // Se ejecuta cuando el usuario elimina texto del campo.
                 validar();
             }
 
             @Override
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate( javax.swing.event.DocumentEvent e ) {
                 // Se ejecuta cuando cambian atributos del documento (por ejemplo,
                 // estilos de texto). En un JTextField normalmente este método
                 // no se utiliza, pero debe implementarse por la interfaz.

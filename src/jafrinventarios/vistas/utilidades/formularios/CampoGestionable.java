@@ -6,7 +6,6 @@ personalizar la respectiva validacion dependiendo del tipo de campo
  */
 package jafrinventarios.vistas.utilidades.formularios;
 
-import java.awt.Color;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
@@ -18,7 +17,7 @@ public abstract class CampoGestionable {
     
     private final JComponent componente;
     private final JLabel lblError;
-    private final String ESTILO_NORMAL_INPUT =
+    private final String ESTILO_NORMAL_COMPONENTE =
                             " borderColor:#777777; focusedBorderColor:#112355 ";
 
     
@@ -29,7 +28,7 @@ public abstract class CampoGestionable {
         
         // Configuramos el label en rojo para los errores y vacio
         if (this.lblError != null) {
-            this.lblError.setForeground(new Color(179,38,30));
+            this.lblError.setForeground( new java.awt.Color(179,38,30) );
             this.lblError.setText(""); 
         }
         
@@ -42,7 +41,7 @@ public abstract class CampoGestionable {
         componente.putClientProperty("JComponent.outline", null); 
         componente.putClientProperty(
             "FlatLaf.style",
-            ESTILO_NORMAL_INPUT
+            ESTILO_NORMAL_COMPONENTE
         );
     }
     
