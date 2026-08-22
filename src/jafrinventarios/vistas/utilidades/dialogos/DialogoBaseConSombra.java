@@ -46,7 +46,7 @@ public class DialogoBaseConSombra extends JDialog {
     }
 
     // Este es el método que heredarán los modales para abrirse
-    public void hacerVisibleDialogo() {
+    public void mostrar() {
         // mostrar fondo semitransparente
         mostrarGlassPanePadreDialogo();
         // Recalcular tamaño del dialog segun el tamaño que necesite cada componente interno

@@ -82,7 +82,7 @@ public class ControladorDialogoUsuarios {
         
         inicializarEventosBotones();
         
-        dialogoUsuario.hacerVisibleDialogo();
+        dialogoUsuario.mostrar();
     }
     
     

@@ -673,9 +673,9 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     ============================================================================
     */
     
-    //Exponer evento de hacerVisibleDialogo que viene desde el padre DialgoBaseConSombra
+    //Exponer evento de mostrar que viene desde el padre DialgoBaseConSombra
     public void mostrarDialogo(){
-        hacerVisibleDialogo();
+        mostrar();
     }
     
     
@@ -719,7 +719,7 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
     */
     
     public void mostrarAlertaErrorFormatoCampos(){
-        DialogoAlerta.mostrarErrorFormato(this);
+        DialogoAlerta.mostrarErrorFormatoCampos(this);
     }
     
     public void mostrarAlertaErroresValidacionCampos( HashMap<String, String> errores ){

@@ -1000,7 +1000,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         Metodos para dialogos de mensajes de Alertas
     */
     public void mostrarAlertaErrorFormatoCampos(){
-        DialogoAlerta.mostrarErrorFormato( this );
+        DialogoAlerta.mostrarErrorFormatoCampos( this );
     }
     
     public void mostrarAlertaExitosa(){

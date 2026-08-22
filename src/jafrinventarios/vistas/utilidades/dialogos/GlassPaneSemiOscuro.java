@@ -5,8 +5,6 @@
  */
 package jafrinventarios.vistas.utilidades.dialogos;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
@@ -18,12 +16,12 @@ import javax.swing.JPanel;
  * ============================================================================
  * CLASE: GlassPaneSemiOscuro
  * ============================================================================
- * JPanel utilizado como GlassPane de un JFrame para oscurecer la ventana
+ * JPanel utilizado como GlassPane de un java.awt.Window para oscurecer la ventana
  * mientras se muestra un JDialog.
  * 
  * El GlassPane SIEMPRE se dibuja encima de toda la interfaz.
  * Eso permite oscurecer toda la ventana sin modificar ninguno de los paneles.
- * Esta clase NO instala automáticamente el GlassPane dentro del JFrame,
+ * Esta clase NO instala automáticamente el GlassPane dentro del Window,
  * solo representa el JPanel que será utilizado como GlassPane.
  *
  * ¿Por qué existe?
@@ -33,7 +31,7 @@ import javax.swing.JPanel;
  * ¿Cómo se usa?
  *
  * GlassPaneSemiOscuro glassPane = new GlassPaneSemiOscuro();
- * frame.setGlassPane(glassPane);
+ * ((javax.swing.RootPaneContainer) ventana).setGlassPane(glassPane);
  * glassPane.setVisible(true);
  *
  * dialogo.setVisible(true);
@@ -54,7 +52,7 @@ public class GlassPaneSemiOscuro extends JPanel {
         setOpaque(false);
         
         // Negro con transparencia (Alpha = 120).
-        setBackground(new Color(0, 0, 0, 120));
+        setBackground(new java.awt.Color(0, 0, 0, 120));
     }
 
     /*
@@ -71,7 +69,7 @@ public class GlassPaneSemiOscuro extends JPanel {
      * transparente y no produciría el efecto de oscurecer la ventana.
      */
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent( java.awt.Graphics g ) {
         // Dibuja un rectángulo que cubre todo el panel con el color configurado.
         g.setColor(getBackground());
         g.fillRect(0, 0, getWidth(), getHeight());

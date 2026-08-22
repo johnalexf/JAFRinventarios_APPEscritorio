@@ -105,7 +105,7 @@ public class ControladorNavegacionModulos {
 
     
     private void mostrarDialogoMenu() {       
-        dialogoMenu.hacerVisibleDialogo();
+        dialogoMenu.mostrar();
     }
     
     

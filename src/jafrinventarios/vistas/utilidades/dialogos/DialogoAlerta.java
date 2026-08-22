@@ -1,6 +1,6 @@
 /*
      NOTA: Se decide crear una clase propia que simule un JoptionPane, ya que 
-     por defecto esta clase no permite personalizarla y daña completamente
+     por defecto JoptionPane no permite personalizarla y daña completamente
      el estilo que se quiere mantener en toda la aplicacion. 
 
      Ademas para globalizar los iconos a utilizar se crea un enum dentro del paquete
@@ -221,7 +221,7 @@ public class DialogoAlerta extends DialogoBaseConSombra {
                                                 tipoIcono, 
                                                 mostrarBotones);
         
-        dialogo.hacerVisibleDialogo();
+        dialogo.mostrar();
         // Mostrar el diálogo (el código se pausa aquí hasta que se cierra el modal)
         
         return dialogo.respuesta;
@@ -254,7 +254,7 @@ public class DialogoAlerta extends DialogoBaseConSombra {
     Metodo estatico para mostrar un error ya preestablecido con su titulo y mensaje
     para cuando en un formulario sus campos tengan algun error de tipo de formato o estan vacios
     */
-    public static void mostrarErrorFormato(Window ventanaPadre){
+    public static void mostrarErrorFormatoCampos(Window ventanaPadre){
     
         mostrarError(
                 ventanaPadre,
@@ -266,10 +266,10 @@ public class DialogoAlerta extends DialogoBaseConSombra {
     
     /*
     ===========================================================================
-      METODO ESTATICO PARA MOSTRAR EL ERROR DE RESPUESTA DE LA BASE DE DATOS
+      METODO ESTATICO PARA MOSTRAR EL ERROR DE VALIDACIONES DE CAMPOS
     ===========================================================================
-        Metodo estatico para mostrar el error de cada campo de un formulario
-        segun la respuesta de la base de datos
+        Metodo estatico para mostrar el error de VALIDACION de cada campo de un formulario 
+        Si esta incumpliendo con alguna regla de negocio
     */
     public static void mostrarErroresValidacion(Window ventanaPadre, HashMap<String, String> erroresFormulario){
         
