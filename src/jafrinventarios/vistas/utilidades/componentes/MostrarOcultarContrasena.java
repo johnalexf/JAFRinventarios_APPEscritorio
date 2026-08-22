@@ -41,7 +41,7 @@ public final class MostrarOcultarContrasena {
 
         btnMostrarOcultarContrasena.addActionListener(e -> {
 
-            boolean contrasenaOculta = inputContrasena.getEchoChar() == caracterOriginal;
+            boolean contrasenaOculta = ( inputContrasena.getEchoChar() == caracterOriginal );
 
             if (contrasenaOculta) {
                 // Mostrar contraseña

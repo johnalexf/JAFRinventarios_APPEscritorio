@@ -17,9 +17,6 @@ ES COMO SE DELEGA LA VERDADERA ACCION DE BUSCAR Y DEL BOTON btnAccionLibre
 package jafrinventarios.controladores.utilidades;
 
 import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -83,13 +80,7 @@ public class ControladorBusquedaYAccionLibre {
 
             if( !definidorFunciones.ejecutarBusqueda(termino) ){
                 
-                JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(panelBusquedaYAccion);
-                DialogoAlerta.mostrarError( 
-                        ventanaPadre , 
-                        "Error en la búsqueda", 
-                        "No se encontro ninguna relación con el texto " + termino
-                        + "\n por favor intente con otro texto."
-                );
+                panelBusquedaYAccion.mostrarAlertaErrorBusqueda(termino);
                 
                 if( panelBusquedaYAccion.getIsVisibleBtnLimpiar() ){
                     ejecutarLimpiezaDeBusqueda();

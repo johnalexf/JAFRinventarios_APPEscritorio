@@ -5,9 +5,11 @@
  */
 package jafrinventarios.vistas.utilidades.componentes;
 
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -111,7 +113,6 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
         contenedorBtnBuscarEInput.add(btnBuscar);
 
         inputBusqueda.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        inputBusqueda.setText("Prueba");
         inputBusqueda.setToolTipText("");
         inputBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         inputBusqueda.setMargin(new java.awt.Insets(4, 10, 4, 10));
@@ -192,6 +193,18 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
     
     public boolean getIsVisibleBtnLimpiar(){
         return btnLimpiar.isVisible();
+    }
+    
+    
+    public void mostrarAlertaErrorBusqueda( String termino ){
+    
+        DialogoAlerta.mostrarError( 
+                SwingUtilities.getWindowAncestor( this ) , 
+                "Error en la búsqueda", 
+                "No se encontro ninguna relación con el texto " + termino
+                + "\n por favor intente con otro texto."
+        );
+    
     }
     
     
