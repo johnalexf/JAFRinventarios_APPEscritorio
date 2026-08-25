@@ -18,7 +18,7 @@ import java.util.List;
 public class ControladorUsuarios {
     
     
-    private final UsuariosPanel moduloUsuarios;
+    private final UsuariosPanel panelUsuarios;
     
     private final ServicioUsuarios servicioUsuarios;
     
@@ -34,9 +34,9 @@ public class ControladorUsuarios {
                         CONSTRUCTOR PUBLICO
     ============================================================================
     */
-    public ControladorUsuarios (UsuariosPanel moduloUsuarios , ServicioUsuarios servicioUsuarios) {
+    public ControladorUsuarios (UsuariosPanel panelUsuarios , ServicioUsuarios servicioUsuarios) {
         
-        this.moduloUsuarios = moduloUsuarios;
+        this.panelUsuarios = panelUsuarios;
         this.servicioUsuarios = servicioUsuarios;
         
         /* 
@@ -45,7 +45,7 @@ public class ControladorUsuarios {
          desee buscar o cuando presione el boton de accion libre.
         */
         new ControladorBusquedaYAccionLibre(   
-                moduloUsuarios.getPanelBusquedaYAccionLibre(), 
+                panelUsuarios.getPanelBusquedaYAccionLibre(), 
                 asignarFuncionesBusquedaYAccionLibre(),
                 "Alias, Nombre, Correo, Telefono o Rol ",
                 "Agregar Nuevo Usuario"
@@ -150,12 +150,12 @@ public class ControladorUsuarios {
       
     
     private void inyectarTablaAVista(){
-        moduloUsuarios.inyectarFilasTablaUsuarios(tablaDatosUsuarios);
+        panelUsuarios.inyectarFilasTablaUsuarios(tablaDatosUsuarios);
     }
     
     
     private void inyectarNuevaFilaAVista(FilaTablaUsuarios fila){
-        moduloUsuarios.inyectarNuevaFilaATablaUsuarios(fila);  
+        panelUsuarios.inyectarNuevaFilaATablaUsuarios(fila);  
     }
     
     
@@ -164,8 +164,7 @@ public class ControladorUsuarios {
             estructurarTablaUsuarios( obtenerTodosLosUsuarios() );
             inyectarTablaAVista();
         } catch (Exception e) {
-            //TODO crear metodo en ModuloUsuario para poder mostrar una alerta de error
-            //moduloUsuarios.mostrarAlertaError(e.getMessage());
+            panelUsuarios.mostrarModalError(e.getMessage());
         }
 
     }
@@ -206,7 +205,7 @@ public class ControladorUsuarios {
          un modal para crear un usuario, si se crea este devuelve el Id de
          dicho usuario, en dado caso que no se cree se espera recibir un -1
         */
-        int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( moduloUsuarios.getVentanaPadre() , servicioUsuarios);
+        int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( panelUsuarios.getVentanaPadre() , servicioUsuarios);
         
         //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
         idUsuarioCreado = -1;
@@ -225,8 +224,7 @@ public class ControladorUsuarios {
                 inyectarNuevaFilaAVista( filaDatosUsuario );
                 
             }catch (Exception e) {
-                //TODO crear metodo en ModuloUsuario para poder mostrar una alerta de error
-                //moduloUsuarios.mostrarAlertaError(e.getMessage());
+                panelUsuarios.mostrarModalError(e.getMessage());
             }
 
         }
@@ -237,7 +235,7 @@ public class ControladorUsuarios {
         
         boolean seEditoUsuario = 
                 ControladorDialogoUsuarios.editarOtroUsuario(
-                    moduloUsuarios.getVentanaPadre() , idUsuario, servicioUsuarios
+                    panelUsuarios.getVentanaPadre() , idUsuario, servicioUsuarios
                 );
         
         //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea
@@ -279,8 +277,7 @@ public class ControladorUsuarios {
                 return true;
             }
         } catch (Exception e) {
-            //TODO crear metodo en ModuloUsuario para poder mostrar una alerta de error
-            //moduloUsuarios.mostrarAlertaError(e.getMessage());
+            panelUsuarios.mostrarModalError(e.getMessage());
             return false;
         }
 

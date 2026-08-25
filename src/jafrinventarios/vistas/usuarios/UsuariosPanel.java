@@ -2,6 +2,7 @@
 package jafrinventarios.vistas.usuarios;
 
 import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import java.util.LinkedHashMap;
 
 
@@ -238,6 +239,10 @@ public class UsuariosPanel extends javax.swing.JPanel {
     public java.awt.Window getVentanaPadre(){
         return javax.swing.SwingUtilities.getWindowAncestor( this );
     }
+    
+    public void mostrarModalError (String mensaje){
+        DialogoAlerta.mostrarError( getVentanaPadre(), "Error", mensaje);
+    } 
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
