@@ -1,6 +1,4 @@
 
-
-
 package jafrinventarios.servicios.excepciones;
 
 import java.util.HashMap;

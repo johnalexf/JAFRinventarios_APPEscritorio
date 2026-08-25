@@ -8,7 +8,6 @@ import jafrinventarios.servicios.acceso.ServicioAutenticacion;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.vistas.acceso.InicioSesionPanel;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ControladorInicioSesion {
 
