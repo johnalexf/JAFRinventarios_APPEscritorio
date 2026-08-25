@@ -87,14 +87,16 @@ public class RellenadorComponentes {
         y como valor el texto o el valor pertinente que se desee asignar
         al componente como clave
     */
-    public void escribir( HashMap<String, String> datosBD){
+    public void escribir( HashMap<String, String> datos){
         
-        datosBD.forEach((clave,valor)-> {
-              
-            ComponenteRellenable campo = diccionarioComponetes.get(clave);
-              
-             campo.escribirEnCampo(valor);
-             
+        datos.forEach((clave,valor)-> {  
+            // Verificar si la clave existe en nuestro el diccionario
+            if ( diccionarioComponetes.containsKey(clave) ) {
+                ComponenteRellenable campo = diccionarioComponetes.get(clave);
+                campo.escribirEnCampo(valor);
+            } else {
+                System.out.println("El campo con atributo name \"" + clave + "\" No esta en el formulario");
+            } 
         });
         
     } 
