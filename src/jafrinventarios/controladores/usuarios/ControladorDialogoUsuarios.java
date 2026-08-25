@@ -62,7 +62,18 @@ public class ControladorDialogoUsuarios {
         }
         
         if( tipoDialogo == TipoDialogo.EDITAR_OTRO_USUARIO ){
-            tieneRegistrosAsociados = tieneRegistrosAsociados( idUsuario );
+            try {
+                tieneRegistrosAsociados = tieneRegistrosAsociados( idUsuario );
+            } catch (Exception e) {
+                dialogoUsuario.mostrarAlertaError(e.getMessage());
+                /*
+                NOTA: en dado caso que no se pueda conocer si el usuario tiene
+                registros asociados, se asigna como verdadero  tieneRegistrosAsociados, 
+                ya que de esto depende si se le muestra al usuario del programa si puede eliminar
+                o deshabilitar el usuario, para evitar una eliminacion equivocada lo dejamos en true
+                */
+                tieneRegistrosAsociados = true;
+            }    
         }
         
         if(tipoDialogo != TipoDialogo.CREAR_NUEVO_USUARIO){
@@ -170,11 +181,11 @@ public class ControladorDialogoUsuarios {
         servicioUsuarios.editarOtroUsuario(usuario);
     }
     
-    private boolean conmutarEstadoUsuario (  int idUsuario  ){
-        return servicioUsuarios.conmutarEstadoUsuario(idUsuario);
+    private void conmutarEstadoUsuario (  int idUsuario  ) throws Exception{
+        servicioUsuarios.conmutarEstadoUsuario(idUsuario);
     }
     
-    private boolean esUsuarioHabilitado( int idUsuario ){
+    private boolean esUsuarioHabilitado( int idUsuario ) throws Exception {
         return servicioUsuarios.esUsuarioHabilitado(idUsuario);
     }
         
@@ -182,16 +193,16 @@ public class ControladorDialogoUsuarios {
         return servicioUsuarios.crearUsuario(usuario);
     }
     
-    private LinkedHashMap<Integer, String> obtenerDiccionarioRoles(){
+    private LinkedHashMap<Integer, String> obtenerDiccionarioRoles() throws Exception{
         return  ServicioRoles.obtenerDiccionarioRoles();
     } 
     
-    public boolean tieneRegistrosAsociados ( int idUsuario ){
+    public boolean tieneRegistrosAsociados ( int idUsuario ) throws Exception{
         return servicioUsuarios.tieneRegistrosAsociados( idUsuario );
     }
     
-    private boolean eliminarUsuario( int idUsuario ){
-        return servicioUsuarios.eliminarUsuario(idUsuario);
+    private void eliminarUsuario( int idUsuario ) throws Exception{
+        servicioUsuarios.eliminarUsuario(idUsuario);
     }
     
     
@@ -238,8 +249,13 @@ public class ControladorDialogoUsuarios {
     
     
     private void inicializarComboBoxRoles(){
-        LinkedHashMap<Integer, String> diccionarioRoles = obtenerDiccionarioRoles();
-        dialogoUsuario.inicializarComboBoxRoles( diccionarioRoles );
+        try {
+            LinkedHashMap<Integer, String> diccionarioRoles = obtenerDiccionarioRoles();
+            dialogoUsuario.inicializarComboBoxRoles( diccionarioRoles );
+        } catch (Exception e) {
+            dialogoUsuario.mostrarAlertaError(e.getMessage());
+        }
+
     }
     
     
@@ -333,6 +349,10 @@ public class ControladorDialogoUsuarios {
             case EDITAR_OTRO_USUARIO:
                                 
                 try {
+                    //TODO: Si se conmuta de usuario administrador entre vendedor
+                    // seria ideal avisarle al usuario del programa lo que implica estos
+                    // cambios, puesto que un administrador podria ver todos los modulos
+                    // y tiene derechos para editar y eliminar cualquier item de cualquier modulo
                     editarOtroUsuario(usuarioAProcesar);
                 }catch( ExcepcionValidacionBD e ){ 
                     //dialogoUsuario.mostrarErroresValidacionCampos( e.getErrores() );
@@ -419,15 +439,17 @@ public class ControladorDialogoUsuarios {
                 );
 
         if( !deseaContinuar )  return;
-
-        boolean seConmutoEstado = conmutarEstadoUsuario( idUsuario );
-        if( seConmutoEstado ){
+        
+        try {
+            conmutarEstadoUsuario( idUsuario );
             modeloUsuario.setHabilitado(  esUsuarioHabilitado( idUsuario )  );
             dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.isHabilitado() );
             operacionExitosa = true;
-        }else{
-            System.out.println("Error en la base de datos");
+        } catch (Exception e) {
+            dialogoUsuario.mostrarAlertaError(e.getMessage());
         }
+
+
         
     }
     
@@ -440,11 +462,11 @@ public class ControladorDialogoUsuarios {
                 );
         
         if( deseaContinuar ){
-            if( eliminarUsuario(idUsuario) ){
+            try {
                 dialogoUsuario.mostrarAlertaExitosa( " Usuario eliminado correctamente ");
                 dialogoUsuario.dispose();
-            }else{
-                dialogoUsuario.mostrarAlertaError( "Error al tratar de eliminar el usuario" );
+            } catch (Exception e) {
+                dialogoUsuario.mostrarAlertaError( e.getMessage() );
             }
         }
     }

@@ -42,10 +42,16 @@ public class ControladorRegistroUsuario {
     
     
     private void cargarRoles() {
-        LinkedHashMap<Integer, String> diccionarioRoles = ServicioRoles.obtenerDiccionarioRoles();
         
-        // Le asignamos el diccionario al comboBox
-        this.vistaRegistro.inicializarComboBoxRoles( diccionarioRoles );
+        try {
+            LinkedHashMap<Integer, String> diccionarioRoles = obtenerDiccionarioRoles();
+        
+            // Le asignamos el diccionario al comboBox
+            this.vistaRegistro.inicializarComboBoxRoles( diccionarioRoles );
+        } catch (Exception e) {
+            vistaRegistro.mostrarAlertaError(e.getMessage());
+        }
+        
     }
     
     
@@ -62,6 +68,10 @@ public class ControladorRegistroUsuario {
                 METODOS PARA CONSULTAR A LOS SERVICIOS
     ============================================================================
     */
+    
+    private LinkedHashMap<Integer, String> obtenerDiccionarioRoles() throws Exception{
+        return ServicioRoles.obtenerDiccionarioRoles();
+    }
     
     private boolean esValidoCodigo( String codigo, int idRol ) throws Exception{
         return servicioRegistro.esValidoCodigo(codigo, idRol);
@@ -146,11 +156,8 @@ public class ControladorRegistroUsuario {
             vistaRegistro.mostrarAlertaError(e.getMessage());
         }
         
-
-
-
-        
     }
+    
     
     
     private ModeloUsuario asignarDatosAModeloUsuario( ModeloUsuario usuario, HashMap<String, String> datosFormulario ){

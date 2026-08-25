@@ -53,9 +53,7 @@ public class ControladorUsuarios {
         
         
         tablaDatosUsuarios = new LinkedHashMap<>();
-        estructurarTablaUsuarios( obtenerTodosLosUsuario() );
-        inyectarTablaAVista();
-        
+        mostrarTodosLosUsuarios();
         
     }
     
@@ -91,11 +89,11 @@ public class ControladorUsuarios {
     ============================================================================
     */
         
-    private List<DTOUsuarioTabla> obtenerTodosLosUsuario() {
+    private List<DTOUsuarioTabla> obtenerTodosLosUsuarios() throws Exception{
        return servicioUsuarios.obtenerTodosLosUsuarios();  
     }
         
-    private List<DTOUsuarioTabla> obtenerListaUsuariosPorFiltro( String filtro ){
+    private List<DTOUsuarioTabla> obtenerListaUsuariosPorFiltro( String filtro ) throws Exception{
        return servicioUsuarios.obtenerListaUsuariosPorFiltro(filtro);  
     }
     
@@ -149,19 +147,7 @@ public class ControladorUsuarios {
         );
          
     }
-    
-    
-    private void limpiarTablaUsuarios(){
-        tablaDatosUsuarios.clear();
-    }
-    
-    
-    private void reiniciarTabla(){
-        limpiarTablaUsuarios();
-        estructurarTablaUsuarios( obtenerTodosLosUsuario() );
-        inyectarTablaAVista();
-    }  
-       
+      
     
     private void inyectarTablaAVista(){
         moduloUsuarios.inyectarFilasTablaUsuarios(tablaDatosUsuarios);
@@ -171,6 +157,28 @@ public class ControladorUsuarios {
     private void inyectarNuevaFilaAVista(FilaTablaUsuarios fila){
         moduloUsuarios.inyectarNuevaFilaATablaUsuarios(fila);  
     }
+    
+    
+    private void mostrarTodosLosUsuarios(){
+        try {
+            estructurarTablaUsuarios( obtenerTodosLosUsuarios() );
+            inyectarTablaAVista();
+        } catch (Exception e) {
+            //TODO crear metodo en ModuloUsuario para poder mostrar una alerta de error
+            //moduloUsuarios.mostrarAlertaError(e.getMessage());
+        }
+
+    }
+    
+    
+    private void limpiarTablaUsuarios(){
+        tablaDatosUsuarios.clear();
+    }
+
+    private void reiniciarTabla(){
+        limpiarTablaUsuarios();
+        mostrarTodosLosUsuarios();
+    }  
     
     
     /*
@@ -205,23 +213,22 @@ public class ControladorUsuarios {
         
         if(idUsuarioCreado != -1){
             
-            DTOUsuarioTabla datosUsuario;
-            
             try {
-                datosUsuario =  obtenerDatosUsuario( idUsuarioCreado );
-            }catch (Exception e) {
-                    //moduloUsuarios.mostrarAlertaError(e.getMessage());
-                return;
-            }
-            
-            FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
+                DTOUsuarioTabla datosUsuario =  obtenerDatosUsuario( idUsuarioCreado );
+                
+                FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
              
-            agregarNuevaFilaTablaUsuarios(idUsuarioCreado, filaDatosUsuario);
-            
-            inicializarEventoBotonEditar(idUsuarioCreado, filaDatosUsuario);
-            
-            inyectarNuevaFilaAVista( filaDatosUsuario );
- 
+                agregarNuevaFilaTablaUsuarios(idUsuarioCreado, filaDatosUsuario);
+
+                inicializarEventoBotonEditar(idUsuarioCreado, filaDatosUsuario);
+
+                inyectarNuevaFilaAVista( filaDatosUsuario );
+                
+            }catch (Exception e) {
+                //TODO crear metodo en ModuloUsuario para poder mostrar una alerta de error
+                //moduloUsuarios.mostrarAlertaError(e.getMessage());
+            }
+
         }
     }
     
@@ -238,19 +245,17 @@ public class ControladorUsuarios {
         
         if( seEditoUsuario ){
             
-            DTOUsuarioTabla datosUsuario;
-            
             try {
-                datosUsuario =  obtenerDatosUsuario( idUsuario );
+                DTOUsuarioTabla datosUsuario =  obtenerDatosUsuario( idUsuario );
+                
+                FilaTablaUsuarios filaDatosUsuario = tablaDatosUsuarios.get(idUsuario);
+            
+                asignarDatosAFila( filaDatosUsuario, datosUsuario );
+                
             }catch (Exception e) {
                 //moduloUsuarios.mostrarAlertaError(e.getMessage());
-                return;
             }
 
-            FilaTablaUsuarios filaDatosUsuario = tablaDatosUsuarios.get(idUsuario);
-            
-            asignarDatosAFila( filaDatosUsuario, datosUsuario );
-        
         }
         
     }
@@ -258,17 +263,27 @@ public class ControladorUsuarios {
     
     private boolean procesarBusqueda( String filtro ){
 
-        List<DTOUsuarioTabla> listaUsuarios = obtenerListaUsuariosPorFiltro( filtro );
+        try {
+            List<DTOUsuarioTabla> listaUsuarios = obtenerListaUsuariosPorFiltro( filtro );
         
-        if( listaUsuarios.isEmpty() ){
+            if( listaUsuarios.isEmpty() ){
+                /*
+                  En ControladorBusquedaYAccionLibre, esta centralizado para que se 
+                    muestre un mensaje de error si no se encontro ningun filtro
+                */
+                return false;
+            }else{
+                limpiarTablaUsuarios();
+                estructurarTablaUsuarios( listaUsuarios );
+                inyectarTablaAVista();
+                return true;
+            }
+        } catch (Exception e) {
+            //TODO crear metodo en ModuloUsuario para poder mostrar una alerta de error
+            //moduloUsuarios.mostrarAlertaError(e.getMessage());
             return false;
-        }else{
-            limpiarTablaUsuarios();
-            estructurarTablaUsuarios( listaUsuarios );
-            inyectarTablaAVista();
-            return true;
         }
-  
+
     }
     
 

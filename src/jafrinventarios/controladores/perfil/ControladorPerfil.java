@@ -44,7 +44,7 @@ public class ControladorPerfil {
         return servicioUsuarios.obtenerDatosDTOUsuario(idUsuario);
     }
     
-    private String obtenerCodigoRegistroVendedor(){
+    private String obtenerCodigoRegistroVendedor() throws Exception{
         return servicioUsuarios.obtenerCodigoRegistroVendedor();
     }
     

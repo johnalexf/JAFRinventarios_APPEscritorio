@@ -41,7 +41,7 @@ public class ServicioUsuarios {
     }
 
     
-    public List<DTOUsuarioTabla> obtenerTodosLosUsuarios() {
+    public List<DTOUsuarioTabla> obtenerTodosLosUsuarios() throws Exception{
         
         //TODO: Aqui se hara la consulta a la base de datos y se armara
         //la lista de todos los usuarios, por el momento se simula tanto la consulta
@@ -52,12 +52,23 @@ public class ServicioUsuarios {
     }
     
     
-    public List<DTOUsuarioTabla> obtenerListaUsuariosPorFiltro( String filtro ) {
+    public List<DTOUsuarioTabla> obtenerListaUsuariosPorFiltro( String filtro ) throws Exception {
         System.out.println("Buscando en la BD de Usuarios el término: " + filtro);
         
         //TODO: Aqui se hara la consulta a la base de datos y se armara
         //la lista de todos los usuarios que cumplan el filtro, por el momento se simula que no hay coincidencias
         List<DTOUsuarioTabla> listaUsuarios = new ArrayList<>();
+        
+        try {
+            
+            //Si el resultado no arroja ningun valor, entonces mandamos la lista vacia
+        } catch (Exception e) {
+            // Si se puede determinar si el error es por base de datos
+            //Entonces crear el error
+            //throw new Exception("Error de conexion");
+            
+        }
+        
         
         return listaUsuarios;
     }
@@ -108,7 +119,7 @@ public class ServicioUsuarios {
     }
     
     
-    public void editarPerfil( ModeloUsuario usuario , boolean esAdministrador ) throws Exception{
+    public void editarPerfil( ModeloUsuario usuario , boolean isAdministrador ) throws Exception{
     
         try {
   
@@ -205,26 +216,28 @@ public class ServicioUsuarios {
     
     
     
-    public boolean conmutarEstadoUsuario (  int idUsuario  ){
+    public void conmutarEstadoUsuario (  int idUsuario  ) throws Exception {
     
-        boolean respuestaConsulta = false;
   
         /*
             idUsuario Este es la clave para saber que usuario editar
         
             consultamos su estado y lo conmutamos
         
-            
+        //si hay error crear el error segun sea el caso
+        //    throw new RuntimeException("No se pudo editar el estado del usuario");
         */
         
-        return respuestaConsulta;
     }
     
     
-    public boolean esUsuarioHabilitado( int idUsuario ){
+    public boolean esUsuarioHabilitado( int idUsuario ) throws Exception {
     
         //Por el momento retornamos true, pero aca se hara la consulta y se 
         // devolvera su respectivo estado
+        
+        //si hay error crear el error segun sea el caso
+        //    throw new RuntimeException("No se pudo obtener el valor del usuario");
         
         return true;
     }
@@ -279,15 +292,15 @@ public class ServicioUsuarios {
         }*/
         catch (Exception e) {
             return -1;
+            //si hay error crear el error segun sea el caso
+            //    throw new RuntimeException("No se pudo completar la operacion o falla en el servicio");
         }
         
         
     }
     
     
-    public boolean eliminarUsuario( int idUsuario ){
-    
-        boolean respuestaConsulta = false;
+    public void eliminarUsuario( int idUsuario ) throws Exception{
         
         /*
         Para eliminar un usuario se hara la respectiva consulta, sin embargo
@@ -297,14 +310,26 @@ public class ServicioUsuarios {
         Es importante tambien tener en cuenta en un futuro que el mismo administrador
         no se pueda eliminar en gestion de usuarios, en su momento se planteara
         el codigo para evitar esta eventualidad
+        
+        //si hay error crear el error segun sea el caso
+        //    throw new RuntimeException("No se pudo completar la operacion o falla en el servicio");
+        
+        Aqui tambien se va verificar si el idUsuario es clave foranea para
+        evitar eliminarlo si tiene registros asociados en dado caso
+        se devolvera el error con el mensaje 
+        throw new RuntimeException("Usuario con registros asociados no se puede eliminar");
+        
+        tambien existira una regla que un usuario adminsitrador no se puede eliminar
+        aqui para ser mas especifico se puede crear una variable superAdminsitrador
+        que solo sera el primer adminsitrador registrado y este no se podra eliminar
+        dependiendo del tiempo para implementar la solucion se decidira cual opcion
+        realizar
         */
-        
-        
-        return respuestaConsulta;
+
     }
     
     
-    public boolean tieneRegistrosAsociados ( int idUsuario ){
+    public boolean tieneRegistrosAsociados ( int idUsuario ) throws Exception{
     
         boolean respuestaConsulta = false;
         
@@ -313,6 +338,10 @@ public class ServicioUsuarios {
         de otra tabla, esto permite personalizar el dialogo para mostrar el boton
         eliminar si no tiene una relacion
         o deshabilitar si tiene una relacion
+        
+        //si hay error crear el error segun sea el caso
+            //    throw new RuntimeException("No se pudo completar la operacion o falla en el servicio");
+        
         */
         
         
@@ -322,7 +351,7 @@ public class ServicioUsuarios {
     
     
     
-    public String obtenerCodigoRegistroVendedor(){
+    public String obtenerCodigoRegistroVendedor() throws Exception{
         
         /*
             Hacer la consulta para obtener el codigo que puede compartir un

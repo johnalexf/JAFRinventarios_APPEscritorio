@@ -17,7 +17,7 @@ public class ServicioRoles {
      * En el futuro, este método se conectará a la base de datos (SELECT * FROM roles),
      * llenará una lista de objetos ModeloRol y luego extraerá el diccionario.
      */
-    public static LinkedHashMap<Integer, String> obtenerDiccionarioRoles() {
+    public static LinkedHashMap<Integer, String> obtenerDiccionarioRoles() throws Exception{
         
         // Simulamos lo que respondería la base de datos creando los modelos
         List<ModeloRol> rolesBD = new ArrayList<>();
@@ -30,6 +30,9 @@ public class ServicioRoles {
         rolesBD.forEach(rol -> {
             diccionarioRoles.put(rol.getIdRol(), rol.getNombreRol());
         });
+        
+        //si hay error crear el error segun sea el caso
+        //    throw new RuntimeException("No se pudo obtener la lista de roles");
         
         return diccionarioRoles;
     }
