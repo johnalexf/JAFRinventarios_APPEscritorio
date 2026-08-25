@@ -70,7 +70,7 @@ public class GestorFormulario {
     
     /*
     Metodo para agregar ComboBox, se requiere de un diccionario 
-    clave: nombreItem, valor: idItem, para asi en la recoleccion de datos,
+    clave: idItem, valor: nombreItem, para asi en la recoleccion de datos,
     enviar el id correspondiente a la base de datos.
     */
     public void agregarCampoComboBox(
