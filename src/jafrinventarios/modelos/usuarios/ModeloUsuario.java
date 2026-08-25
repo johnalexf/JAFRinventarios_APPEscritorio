@@ -113,7 +113,7 @@ public class ModeloUsuario {
         return idRolUsuario;
     }
 
-    public boolean estaHabilitado() {
+    public boolean isHabilitado() {
         return habilitado;
     }
     

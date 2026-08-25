@@ -74,7 +74,7 @@ public class ControladorInicioSesion {
             ModeloSesionUsuario.getInstancia().iniciarSesion(
                                                  credenciales.getIdUsuario(),
                                                  credenciales.getNombreRol(),
-                                                 credenciales.esAdministrador(),
+                                                 credenciales.isAdministrador(),
                                                  credenciales.getIdEmpresa(),
                                                  credenciales.getNombreEmpresa()
             );

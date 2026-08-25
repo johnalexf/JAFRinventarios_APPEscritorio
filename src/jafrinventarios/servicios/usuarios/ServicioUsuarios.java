@@ -100,7 +100,7 @@ public class ServicioUsuarios {
         */
         ModeloUsuario usuarioConsultado = 
                 //new ModeloUsuario( idUsuario, idEmpresa,aliasUsuario, telefonoUsuario, correoUsuario, primerNombreUsuario, segundoNombreUsuario,
-                //                    primerApellidoUsuario, segundoApellidoUsuario, contrasenaUsuario, idRolUsuario, estaHabilitado)
+                //                    primerApellidoUsuario, segundoApellidoUsuario, contrasenaUsuario, idRolUsuario, isHabilitado)
                 new ModeloUsuario( idUsuario, 1, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "", 1, true);
 
         return usuarioConsultado;
@@ -249,7 +249,7 @@ public class ServicioUsuarios {
             usuario.getSegundoApellidoUsuario();
             usuario.getIdRolUsuario();
         
-            usuario.estaHabilitado() Este campo por defecto deberia ser true, 
+            usuario.isHabilitado() Este campo por defecto deberia ser true, 
             por tanto se asignara como true al enviarlo a la base de datos y no  
             dependera del valor que traiga consigo 
         */

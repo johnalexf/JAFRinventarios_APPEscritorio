@@ -70,7 +70,7 @@ public class ControladorPerfil {
             datosPerfilEmpaquetados.put("correo", datosPerfil.getCorreoUsuario() );
             datosPerfilEmpaquetados.put("telefono", datosPerfil.getTelefonoUsuario() );
 
-            if( ModeloSesionUsuario.getInstancia().esAdministrador() ){
+            if( ModeloSesionUsuario.getInstancia().isAdministrador() ){
                 String codigo = obtenerCodigoRegistroVendedor();
                 datosPerfilEmpaquetados.put("codigo", codigo);
             }

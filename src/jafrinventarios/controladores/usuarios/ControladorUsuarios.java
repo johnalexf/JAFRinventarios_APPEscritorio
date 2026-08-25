@@ -120,7 +120,7 @@ public class ControladorUsuarios {
                      datosUsuario.getTelefonoUsuario(), 
                      datosUsuario.getNombreRolUsuario()
         );
-        fila.setEstadoVisual( datosUsuario.estaHabilitado() );
+        fila.setEstadoVisual( datosUsuario.isHabilitado() );
         return fila;
     }
     

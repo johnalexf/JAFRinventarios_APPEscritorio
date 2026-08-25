@@ -29,7 +29,7 @@ public class ServicioAutenticacion {
         Si todo esta correcta se hace la peticion de los siguientes datos
         int idUsuario;
         String nombreRol;
-        boolean esAdministrador; Esta variable se agrega por medio de un if validando si el nombre del rol es "Administrador"
+        boolean isAdministrador; Esta variable se agrega por medio de un if validando si el nombre del rol es "Administrador"
         int idEmpresa; 
         String nombreEmpresa;
         */

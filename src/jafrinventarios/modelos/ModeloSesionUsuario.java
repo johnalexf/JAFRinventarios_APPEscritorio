@@ -13,7 +13,7 @@ public class ModeloSesionUsuario {
     // Variables de estado de la sesión
     private int idUsuario;
     private String nombreRol;
-    private boolean esAdministrador;
+    private boolean isAdministrador;
     private int idEmpresa; 
     private String nombreEmpresa;
 
@@ -30,7 +30,7 @@ public class ModeloSesionUsuario {
     private void asignarValoresPorDefecto(){
         this.idUsuario = -1;
         this.nombreRol = "";
-        this.esAdministrador = false;
+        this.isAdministrador = false;
         this.idEmpresa = -1;
         this.nombreEmpresa = "";
     }
@@ -57,12 +57,12 @@ public class ModeloSesionUsuario {
 
     public void iniciarSesion(  int idUsuario, 
                                 String nombreRol, 
-                                boolean esAdministrador, 
+                                boolean isAdministrador, 
                                 int idEmpresa,
                                 String nombreEmpresa) {
         this.idUsuario = idUsuario;
         this.nombreRol = nombreRol;
-        this.esAdministrador = esAdministrador;
+        this.isAdministrador = isAdministrador;
         this.idEmpresa = idEmpresa;
         this.nombreEmpresa = nombreEmpresa;
     }
@@ -87,8 +87,8 @@ public class ModeloSesionUsuario {
         return nombreRol;
     }
 
-    public boolean esAdministrador() {
-        return esAdministrador;
+    public boolean isAdministrador() {
+        return isAdministrador;
     }
     
     public int getIdEmpresa() {

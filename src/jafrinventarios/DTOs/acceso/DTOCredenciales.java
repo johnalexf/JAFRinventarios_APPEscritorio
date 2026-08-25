@@ -9,7 +9,7 @@ public class DTOCredenciales {
     
     private int idUsuario;
     private String nombreRol;
-    private boolean esAdministrador;
+    private boolean isAdministrador;
     private int idEmpresa; 
     private String nombreEmpresa;
 
@@ -21,10 +21,10 @@ public class DTOCredenciales {
     
     public DTOCredenciales(){}
 
-    public DTOCredenciales( int idUsuario, String nombreRol, boolean esAdministrador, int idEmpresa, String nombreEmpresa ) {
+    public DTOCredenciales( int idUsuario, String nombreRol, boolean isAdministrador, int idEmpresa, String nombreEmpresa ) {
         this.idUsuario = idUsuario;
         this.nombreRol = nombreRol;
-        this.esAdministrador = esAdministrador;
+        this.isAdministrador = isAdministrador;
         this.idEmpresa = idEmpresa;
         this.nombreEmpresa = nombreEmpresa;
     }
@@ -44,8 +44,8 @@ public class DTOCredenciales {
         return nombreRol;
     }
 
-    public boolean esAdministrador() {
-        return esAdministrador;
+    public boolean isAdministrador() {
+        return isAdministrador;
     }
 
     public int getIdEmpresa() {

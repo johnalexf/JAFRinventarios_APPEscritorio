@@ -93,7 +93,7 @@ public class ControladorDialogoUsuarios {
         DialogoFormularioUsuario dialogoUsuario = 
                 new DialogoFormularioUsuario( ventanaPadre,
                                               TipoDialogo.EDITAR_PERFIL_PROPIO,
-                                              ModeloSesionUsuario.getInstancia().esAdministrador()
+                                              ModeloSesionUsuario.getInstancia().isAdministrador()
                 );
         
         ControladorDialogoUsuarios controlador =
@@ -163,7 +163,7 @@ public class ControladorDialogoUsuarios {
     }
     
     private void editarPerfil( ModeloUsuario usuario ) throws Exception{
-         servicioUsuarios.editarPerfil(usuario, ModeloSesionUsuario.getInstancia().esAdministrador() );
+         servicioUsuarios.editarPerfil(usuario, ModeloSesionUsuario.getInstancia().isAdministrador() );
     }
     
     private void editarOtroUsuario( ModeloUsuario usuario ) throws Exception{
@@ -226,7 +226,7 @@ public class ControladorDialogoUsuarios {
             dialogoUsuario.setId( Integer.toString(idUsuario) );
             if( tieneRegistrosAsociados ){
                 dialogoUsuario.mostrarBtnEditarEstadoUsuario();
-                dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.estaHabilitado() );
+                dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.isHabilitado() );
             }else{
                 dialogoUsuario.mostrarBtnLinkEliminarUsuario();
             }       
@@ -413,7 +413,7 @@ public class ControladorDialogoUsuarios {
     
         boolean deseaContinuar = 
                 dialogoUsuario.mostrarAlertaAdvertencia(
-                   modeloUsuario.estaHabilitado() ? 
+                   modeloUsuario.isHabilitado() ? 
                    "Esta a punto de deshabilitar al usuario y por tanto este ya no podra iniciar sesion, sin embargo sus transacciones siguen almacenadas":
                    "Esta a punto de habilitar al usuario y por tanto este podra iniciar sesion."
                 );
@@ -423,7 +423,7 @@ public class ControladorDialogoUsuarios {
         boolean seConmutoEstado = conmutarEstadoUsuario( idUsuario );
         if( seConmutoEstado ){
             modeloUsuario.setHabilitado(  esUsuarioHabilitado( idUsuario )  );
-            dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.estaHabilitado() );
+            dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.isHabilitado() );
             operacionExitosa = true;
         }else{
             System.out.println("Error en la base de datos");

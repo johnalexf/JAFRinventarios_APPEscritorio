@@ -56,7 +56,7 @@ public class DTOUsuarioTabla {
         return nombreRolUsuario;
     }
 
-    public boolean estaHabilitado() {
+    public boolean isHabilitado() {
         return habilitado;
     }
 

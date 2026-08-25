@@ -55,7 +55,7 @@ public class ControladorNavegacionModulos {
     }
     
     private void consultarSiEsAdministrador(){
-        this.esAdministrador = ModeloSesionUsuario.getInstancia().esAdministrador();
+        this.esAdministrador = ModeloSesionUsuario.getInstancia().isAdministrador();
     }
     
     
