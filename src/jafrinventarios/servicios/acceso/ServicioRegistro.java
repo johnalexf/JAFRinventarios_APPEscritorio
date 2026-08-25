@@ -18,7 +18,7 @@ public class ServicioRegistro {
     y un codigo de acceso
     */
     
-    public boolean esValidoCodigo( String codigo, int idRol ){
+    public boolean esValidoCodigo( String codigo, int idRol ) throws Exception {
     
         boolean respuestaBD = true;
         /*

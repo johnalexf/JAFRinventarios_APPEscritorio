@@ -3,6 +3,7 @@ package jafrinventarios.controladores.acceso;
 
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.acceso.ServicioAutenticacion;
+import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
 import java.util.HashMap;
@@ -123,7 +124,7 @@ public class ControladorContrasena {
     ============================================================================
     */
     
-    private int obtenerIdUsuarioConCorreo( String correo ){
+    private int obtenerIdUsuarioConCorreo( String correo ) throws Exception {
         return servicioAutenticacion.obtenerIdUsuarioConCorreo(correo);
     }
     
@@ -131,16 +132,16 @@ public class ControladorContrasena {
         return servicioAutenticacion.generarCodigo();
     }
     
-    private boolean enviarCodigoCorreo( String correo, String codigo){
-        return servicioAutenticacion.enviarCodigoCorreo(correo, codigo);
+    private void enviarCodigoCorreo( String correo, String codigo) throws Exception{
+        servicioAutenticacion.enviarCodigoCorreo(correo, codigo);
     }
     
-    private boolean validarContrasenaAntigua( int idUsuario, String contrasenaAntigua){
+    private boolean validarContrasenaAntigua( int idUsuario, String contrasenaAntigua) throws Exception{
         return servicioAutenticacion.validarContrasenaAntigua(idUsuario, contrasenaAntigua);
     }
     
-    private boolean cambiarContrasena( int idUsuario, String contrasenaNueva ){
-        return servicioAutenticacion.cambiarContrasena(idUsuario, contrasenaNueva);
+    private void cambiarContrasena( int idUsuario, String contrasenaNueva ) throws Exception {
+        servicioAutenticacion.cambiarContrasena(idUsuario, contrasenaNueva);
     }
     
     /*
@@ -181,19 +182,16 @@ public class ControladorContrasena {
         try {
             idUsuario = obtenerIdUsuarioConCorreo(correo);
         
-            if ( idUsuario != -1 ) {
-                codigoRecuperacion = generarCodigo();
-                enviarCodigoCorreo(correo, codigoRecuperacion);
-                //Linea de prueba para ver el codigo de recuperacion
-                System.out.println(" codigo de recuperacion : " + codigoRecuperacion );
-                avanzarSiguienteTarjeta(NombresTarjetasContrasena.CODIGO);
-            } else {
-                HashMap<String, String> erroresBackend = new HashMap<>();
-                erroresBackend.put("correo", "No se encuentra registrado.");
-
-                mostrarErroresValidacionCampos(NombresTarjetasContrasena.CORREO, erroresBackend);
-            }
-        } catch (Exception e) {
+            codigoRecuperacion = generarCodigo();
+            enviarCodigoCorreo(correo, codigoRecuperacion);
+            //Linea de prueba para ver el codigo de recuperacion
+            System.out.println(" codigo de recuperacion : " + codigoRecuperacion );
+            avanzarSiguienteTarjeta(NombresTarjetasContrasena.CODIGO);
+            
+        } catch ( ExcepcionValidacionBD e ){ 
+            mostrarErroresValidacionCampos( NombresTarjetasContrasena.CORREO, e.getErrores() );        
+        } 
+        catch (Exception e) {
             // Errores en el servicio
             mostrarErrorServicio(e.getMessage());         
         }
@@ -241,12 +239,8 @@ public class ControladorContrasena {
     private void procesarCambioContrasenaEnBD (String contrasena){
         
         try {
-            if ( cambiarContrasena( idUsuario, contrasena ) ) {
-                //
-                ventanaContrasena.dispose();
-            } else {
-                ventanaContrasena.mostrarAlertaError( "No se pudo guardar la clave" );
-            }
+            cambiarContrasena( idUsuario, contrasena );
+            ventanaContrasena.dispose();
         } catch (Exception e) {
             // Errores en el servicio
             mostrarErrorServicio(e.getMessage());  

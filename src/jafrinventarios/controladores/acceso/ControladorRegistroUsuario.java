@@ -63,7 +63,7 @@ public class ControladorRegistroUsuario {
     ============================================================================
     */
     
-    private boolean esValidoCodigo( String codigo, int idRol ){
+    private boolean esValidoCodigo( String codigo, int idRol ) throws Exception{
         return servicioRegistro.esValidoCodigo(codigo, idRol);
     }
     

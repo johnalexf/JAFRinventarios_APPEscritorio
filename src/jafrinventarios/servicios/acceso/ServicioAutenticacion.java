@@ -89,24 +89,27 @@ public class ServicioAutenticacion {
     }
     
     
-    public int obtenerIdUsuarioConCorreo ( String correo ){
+    public int obtenerIdUsuarioConCorreo ( String correo ) throws Exception {
         
         
         /*
         TODO
         Hacer la validacion en la base de datos si el correo existe
         y enviar el id al que pertenece ese correo.
-        devolver -1 si no existe
         */
         int idUsuario = 1;
-        //guardamos el id del usuario para saber a que correo pertenece o
-        //podemos guardar tambien el correo
+        boolean correoExiste = true;
+        if( !correoExiste ){
+            throw new ExcepcionValidacionBD( 
+                    new HashMap<>( Map.of( "correo", "Este correo no esta registrado" ))
+            );
+        }
         
         return idUsuario;
     }
     
     
-    public boolean enviarCodigoCorreo ( String correo, String codigo ){
+    public void enviarCodigoCorreo ( String correo, String codigo ) throws Exception{
         
         /*
             TODO    
@@ -114,23 +117,21 @@ public class ServicioAutenticacion {
         servicio que pueda enviar correos, dependiendo de la configuracion
         si es muy extensa, se hara un servicio aparte que sea destinado solo
         para enviar codigos.
-        Si hubo alguna falla se envia true
         */
-    
-        return true;
+        //throw new RuntimeException("Correo no se pudo enviar");
     
     }
     
     
     // Este metodo es solo para cuando un usuario ya ha iniciado sesion
-    public boolean validarContrasenaAntigua( int idUsuario, String contrasenaAntigua ){
+    public boolean validarContrasenaAntigua( int idUsuario, String contrasenaAntigua ) throws Exception{
     
         /*
         Hacer la consulta de si la contraseña coincide para el usuario, para esto
         hay que encriptar la contraseña antes de verificar.
         
             si es valida la contrasena se devuelve true;
-        
+        throw new RuntimeException("No se pudo validar la contraseña");
         */
         
         
@@ -139,14 +140,13 @@ public class ServicioAutenticacion {
     
     
     
-    public boolean cambiarContrasena ( int idUsuario, String contrasenaNueva ){
+    public void cambiarContrasena ( int idUsuario, String contrasenaNueva ) throws Exception{
     
         /*
         encriptamos la contraseña y se la guardamos al idUsuario
-        
+        throw new RuntimeException("No se pudo guardar la contraseña");
         */
     
-        return true;
     }
     
 }
