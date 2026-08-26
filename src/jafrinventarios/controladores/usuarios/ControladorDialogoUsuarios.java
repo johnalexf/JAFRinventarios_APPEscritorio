@@ -306,7 +306,9 @@ public class ControladorDialogoUsuarios {
 
         usuarioAProcesar = asignarDatosAModeloUsuario( usuarioAProcesar, datosFormulario );
          //TODO pendiente eliminar luego de que se guarde en la base de datos
-        System.out.println( modeloUsuario.toString() );
+        if( tipoDialogo != TipoDialogo.CREAR_NUEVO_USUARIO ){
+            System.out.println( modeloUsuario.toString() );
+        }
         System.out.println( usuarioAProcesar.toString());
         
         // Auditoría de Cambios si es editar usuario o perfil
