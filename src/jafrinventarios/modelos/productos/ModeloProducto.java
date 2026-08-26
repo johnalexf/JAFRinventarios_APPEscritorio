@@ -1,6 +1,8 @@
 
 package jafrinventarios.modelos.productos;
 
+import java.util.Objects;
+
 /**
  *
  * @author JOHN FORERO
@@ -126,6 +128,122 @@ public class ModeloProducto {
         this.habilitado = habilitado;
     }
 
+    
+    /*
+    ============================================================================
+                                EQUALS Y HASCHCODE
+    ============================================================================
+    */
+
+    /*
+    El hashCode() es la huella digital numérica del objeto creado
+    Si dos objetos son iguales según el método .equals(), entonces 
+    obligatoriamente deben devolver el mismo número en .hashCode()
+    */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + this.idProducto;
+        hash = 97 * hash + this.idProveedor;
+        hash = 97 * hash + Objects.hashCode(this.nombreProducto);
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.precioCompra) ^ (Double.doubleToLongBits(this.precioCompra) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.precioVenta) ^ (Double.doubleToLongBits(this.precioVenta) >>> 32));
+        hash = 97 * hash + this.cantidadMinimaStock;
+        hash = 97 * hash + this.cantidadDisponible;
+        hash = 97 * hash + (this.habilitado ? 1 : 0);
+        return hash;
+    }
+    
+    
+    /*
+    equals se encarga de comparar el objeto creado con otro objeto, se espera
+    que se comparen dos del tipo ModeloProducto para verificar si hubo un cambio
+    en sus campos, antes de guardar por medio del servicio los cambios.
+    */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ModeloProducto other = (ModeloProducto) obj;
+        if (this.idProducto != other.idProducto) {
+            return false;
+        }
+        if (this.idProveedor != other.idProveedor) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.precioCompra) != Double.doubleToLongBits(other.precioCompra)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.precioVenta) != Double.doubleToLongBits(other.precioVenta)) {
+            return false;
+        }
+        if (this.cantidadMinimaStock != other.cantidadMinimaStock) {
+            return false;
+        }
+        if (this.cantidadDisponible != other.cantidadDisponible) {
+            return false;
+        }
+        if (this.habilitado != other.habilitado) {
+            return false;
+        }
+        if (!Objects.equals(this.nombreProducto, other.nombreProducto)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    /*
+    ============================================================================
+                             MÉTODO PARA CLONAR 
+    ============================================================================
+    */
+    
+    public ModeloProducto clonar(){
+        
+        return new ModeloProducto(
+                this.idProducto,
+                this.idProveedor,
+                this.nombreProducto,
+                this.precioCompra,
+                this.precioVenta,
+                this.cantidadMinimaStock,
+                this.cantidadDisponible,
+                this.habilitado
+        );
+    
+    }
+    
+    
+    /*
+    ============================================================================
+                MÉTODO OBTENER UN STRING CON TODOS LOS DATOS
+    ============================================================================
+    Se usara para cuando se necesite imprimir en consola y verificar que 
+    los datos almacenados corresponden a los esperados.
+    */
+
+    @Override
+    public String toString() {
+        return "ModeloProducto" + 
+                "\nidProducto=" + idProducto + 
+                "\nidProveedor=" + idProveedor + 
+                "\nnombreProducto=" + nombreProducto + 
+                "\nprecioCompra=" + precioCompra + 
+                "\nprecioVenta=" + precioVenta + 
+                "\ncantidadMinimaStock=" + cantidadMinimaStock + 
+                "\ncantidadDisponible=" + cantidadDisponible + 
+                "\nhabilitado=" + habilitado + 
+                '\n';
+    }
+    
     
     
     
