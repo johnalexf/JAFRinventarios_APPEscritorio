@@ -31,6 +31,9 @@ public class ModeloProveedor {
     ============================================================================
     */
 
+    public ModeloProveedor() {
+    }
+
     public ModeloProveedor( int idProveedor, 
                             String nombreComercial, 
                             String primerNombreContacto, 
