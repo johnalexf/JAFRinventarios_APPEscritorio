@@ -9,6 +9,7 @@ package jafrinventarios.servicios.proveedores;
 import jafrinventarios.DTOs.proveedores.DTOProveedorTabla;
 import jafrinventarios.modelos.proveedores.ModeloProveedor;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -21,9 +22,26 @@ public class ServicioProveedores {
     public ServicioProveedores() {
     }
     
+    /*
+    Metodo estatico para no instanciar el servicio para los controladores que 
+    solo necesitan de esta funcion
+    */
+    public static LinkedHashMap<Integer, String> obtenerDiccionarioProveedores() throws Exception{
+    
+        //TODO Por el momento se hace la simulacion
+        List<DTOProveedorTabla> proveedoresBD = simulacionConsultaBDTodosProveedores();
+        
+        LinkedHashMap<Integer, String> diccionarioProveedores = new LinkedHashMap<>();
+        proveedoresBD.forEach( proveedor -> {
+            diccionarioProveedores.put( proveedor.getIdProveedor() , proveedor.getNombreComercial() );
+        });
+        
+        return diccionarioProveedores;
+        
+    }
     
     //TODO Esta es una simulacion cuando se conecte a la base de datos se eliminara
-    private List<DTOProveedorTabla> simulacionConsultaBDTodosProveedores () {
+    private static List<DTOProveedorTabla> simulacionConsultaBDTodosProveedores () {
         List<DTOProveedorTabla> listaProveedoresTablas = new ArrayList<>();
         
         listaProveedoresTablas.add(new DTOProveedorTabla(1, "Panificadora El Trigo", "Carlos Alberto Ruiz", "3101234567", "Calle 45 # 12-34", "contacto@eltrigo.com", true));
