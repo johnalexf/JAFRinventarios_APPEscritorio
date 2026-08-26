@@ -12,13 +12,6 @@ import java.util.List;
  */
 public class ServicioUsuarios {
     
-    //TODO este servicio debera tener un String o un StringBuilder que permita
-    //almacenar si algun error paso para poder devolverlo al controlador
-    // en dado caso se podra pensar en un hashmap que tenga dos concepto
-    // errorGeneral para el error especifico
-    // y errorespecifico para empaquetar en otro hashmap los errores por cada campo
-    // como por ejemplo lo mas comun que este repetido como un correo, telefono o alias
-    
     public ServicioUsuarios() {
     }
 
