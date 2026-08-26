@@ -8,6 +8,7 @@ package jafrinventarios.servicios.productos;
 import jafrinventarios.DTOs.productos.DTOProductoTabla;
 import jafrinventarios.modelos.productos.ModeloProducto;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -19,8 +20,26 @@ public class ServicioProductos {
     public ServicioProductos() {
     }
     
+        /*
+    Metodo estatico para no instanciar el servicio para los controladores que 
+    solo necesitan de esta funcion
+    */
+    public static LinkedHashMap<Integer, String> obtenerDiccionarioProductos() throws Exception{
+    
+        //TODO Por el momento se hace la simulacion
+        List<DTOProductoTabla> productosBD = simulacionConsultaBDTodosProductos();
+        
+        LinkedHashMap<Integer, String> diccionarioProductos = new LinkedHashMap<>();
+        productosBD.forEach( producto -> {
+            diccionarioProductos.put( producto.getIdProducto(), producto.getNombreProducto());
+        });
+        
+        return diccionarioProductos;
+        
+    }
+    
     //TODO Esta es una simulacion cuando se conecte a la base de datos se eliminara
-    private List<DTOProductoTabla> simulacionConsultaBDTodosProductos () {
+    private static List<DTOProductoTabla> simulacionConsultaBDTodosProductos () {
         List<DTOProductoTabla> listaProductosTablas = new ArrayList<>();
         
         listaProductosTablas.add(new DTOProductoTabla(1, "Pan Tajado Blanco (Bolsa)", 2500.0, 3500.0, 20, 50, true, "Panificadora El Trigo"));
