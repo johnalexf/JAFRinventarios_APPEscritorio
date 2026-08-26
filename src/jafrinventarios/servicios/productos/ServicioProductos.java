@@ -228,7 +228,7 @@ public class ServicioProductos {
     Metodo para eliminar un producto.
     Pero si este tiene alguna relacion con otra tabla no se puede eliminar
     */
-    public void eliminarProducto ( int idProducto ) throws Exception{
+    public void eliminarProducto ( int idProducto , boolean isAdministrador ) throws Exception{
         
         /*
         TODO:
