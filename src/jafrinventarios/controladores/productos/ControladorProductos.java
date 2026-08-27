@@ -159,9 +159,10 @@ public class ControladorProductos {
 
         try {
             List<DTOProductoTabla> listaProductos = obtenerTodosLosProductos();
-            //TODO que pasa si la lista esta vacia? deberia mostrarse un panel que diga "Aun no hay productos guardados, puedes crearlos"
-            estructurarDiccionario( listaProductos );
-            panelProductos.inyectarFilas( diccionarioProductos );
+            if (!listaProductos.isEmpty()){
+                estructurarDiccionario( listaProductos );
+                panelProductos.inyectarFilas( diccionarioProductos );
+            }
         } catch (Exception e) {
             /*
             e.printStackTrace(); Util para hacer el seguimiento de un error
@@ -172,6 +173,14 @@ public class ControladorProductos {
         }
         
     }
+    
+    
+    /*
+    TODO:
+    En la funcion de crear nueva fila, es importante tener en cuenta si 
+    el diccionarioProductos esta vacio, entonces antes de agregar la fila
+    la vista usar remover contenido puesto que es el primer registro
+    */
     
 
 

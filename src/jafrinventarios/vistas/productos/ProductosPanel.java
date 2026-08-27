@@ -44,7 +44,9 @@ public class ProductosPanel extends javax.swing.JPanel {
         lblTituloEditar = new javax.swing.JLabel();
         panelScrolleableContenidoTabla = new javax.swing.JScrollPane();
         contenedorContenidoTabla = new javax.swing.JPanel();
-        filaTablaProductos1 = new jafrinventarios.vistas.productos.FilaTablaProductos();
+        contenedorSinDatos = new javax.swing.JPanel();
+        tituloSinDatos = new javax.swing.JLabel();
+        labelDescripcionSinDatos = new javax.swing.JLabel();
 
         setOpaque(false);
         setLayout(new java.awt.BorderLayout());
@@ -182,7 +184,24 @@ public class ProductosPanel extends javax.swing.JPanel {
 
         contenedorContenidoTabla.setBackground(new java.awt.Color(205, 205, 205));
         contenedorContenidoTabla.setLayout(new javax.swing.BoxLayout(contenedorContenidoTabla, javax.swing.BoxLayout.Y_AXIS));
-        contenedorContenidoTabla.add(filaTablaProductos1);
+
+        contenedorSinDatos.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorSinDatos.setLayout(new java.awt.GridLayout(2, 1, 0, 20));
+
+        tituloSinDatos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        tituloSinDatos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloSinDatos.setText("Aún no tienes productos registrados");
+        tituloSinDatos.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        tituloSinDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        contenedorSinDatos.add(tituloSinDatos);
+
+        labelDescripcionSinDatos.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        labelDescripcionSinDatos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelDescripcionSinDatos.setText("Comienza a organizar tu inventario agregando tu primer producto ahora mismo.");
+        labelDescripcionSinDatos.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        contenedorSinDatos.add(labelDescripcionSinDatos);
+
+        contenedorContenidoTabla.add(contenedorSinDatos);
 
         panelScrolleableContenidoTabla.setViewportView(contenedorContenidoTabla);
 
@@ -208,14 +227,18 @@ public class ProductosPanel extends javax.swing.JPanel {
     LinkedHashMap mantenemos el orden en el cual ha sido enviada.
     */
     public void inyectarFilas( LinkedHashMap<Integer, FilaTablaProductos> filasTablaProductos ){
-        //Remover todo el contenido dentro del contenedorContenidoTabla
-        contenedorContenidoTabla.removeAll();
+        removerContenido();
         
         filasTablaProductos.values().forEach(fila -> {
             contenedorContenidoTabla.add(fila);
         });
         
         redubijarPanel();
+    }
+    
+    public void removerContenido(){
+        //Remover todo el contenido dentro del contenedorContenidoTabla
+        contenedorContenidoTabla.removeAll();
     }
     
     /*
@@ -259,9 +282,10 @@ public class ProductosPanel extends javax.swing.JPanel {
     private javax.swing.JPanel contenedorBusquedaYAccionLibre;
     private javax.swing.JPanel contenedorContenidoTabla;
     private javax.swing.JPanel contenedorHeaderTabla;
+    private javax.swing.JPanel contenedorSinDatos;
     private javax.swing.JPanel contenedorTabla;
     private javax.swing.JPanel contenedorTitulosTabla;
-    private jafrinventarios.vistas.productos.FilaTablaProductos filaTablaProductos1;
+    private javax.swing.JLabel labelDescripcionSinDatos;
     private javax.swing.JLabel lblTituloCantidadDisponible;
     private javax.swing.JLabel lblTituloCantidadMinStock;
     private javax.swing.JLabel lblTituloEditar;
@@ -272,5 +296,6 @@ public class ProductosPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTituloProveedor;
     private jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre panelBusquedaYAccionLibre;
     private javax.swing.JScrollPane panelScrolleableContenidoTabla;
+    private javax.swing.JLabel tituloSinDatos;
     // End of variables declaration//GEN-END:variables
 }
