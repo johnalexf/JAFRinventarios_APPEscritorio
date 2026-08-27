@@ -9,9 +9,17 @@ public enum TipoDatoFormulario {
     // Definimos las reglas con su Regex y su mensaje
     
     NOMBRE("^[a-zA-ZáéíóúÁÉÍÓÚñÑ'\\-\\s]+$", "Solo se permiten letras"),
+    
+    // Permite: letras, números, espacios, *, (), -, ., /
+    NOMBRE_PRODUCTO("^[a-zA-Z0-9ÁÉÍÓÚáéíóúÑñ\\s\\*\\(\\)\\-\\.\\/]+$", "Nombre invalido"),
+    
+    //Permite: letras, números, espacios, ., -, &, ,
+    NOMBRE_EMPRESA("^[a-zA-Z0-9ÁÉÍÓÚáéíóúÑñ\\s\\.\\-\\&\\,]+$", "Nombre invalido"),
+    
     //El telefono en colombia puede ser fijo o movil, ambos el tamaño es de 10
     //ya que el telefono fijo ahora se escribe como 601#######
     TELEFONO("^[0-9]{10}$", "Debe contener 10 números"),
+    
     CORREO("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$", "Formato de correo inválido"),
     ALIAS("^[\\w]{5,}$","Solo se permiten letras y números, min 5 caracteres"),
     CONTRASENA(
