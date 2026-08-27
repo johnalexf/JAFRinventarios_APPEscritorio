@@ -178,8 +178,8 @@ public class FilaTablaProductos extends javax.swing.JPanel {
     Estos setter son privados puesto que el controlador tendra que mandar toda
     la informacion ya sea para actualizar la fila o asignar los datos iniciales.
     */
-    private void setId(String dato) {
-        this.lblDatoId.setText(dato);
+    private void setId( int  id ) {
+        this.lblDatoId.setText( Integer.toString(id) );
     }
 
     private void setNombre(String dato) {
@@ -224,7 +224,7 @@ public class FilaTablaProductos extends javax.swing.JPanel {
     
     //SETTERS
     
-    public void setDatos(   String id,
+    public void setDatos(   int id,
                             String nombreProducto,
                             String nombreProveedor,
                             double precioCompra,

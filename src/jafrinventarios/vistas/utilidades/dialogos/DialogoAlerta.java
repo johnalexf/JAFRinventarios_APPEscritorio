@@ -373,7 +373,11 @@ public class DialogoAlerta extends DialogoBaseConSombra {
         
         // Asignar los textos a los JLabels del diseño
         tituloDialogo.setText(titulo);
-        mensajeDialogo.setText(empaquetarMensaje(mensaje));
+        if(mensaje == null)
+            mensaje = "Error desconocido en el sistema";
+        
+         mensajeDialogo.setText(empaquetarMensaje(mensaje));
+            
     }
     
     

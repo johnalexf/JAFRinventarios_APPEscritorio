@@ -1,16 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package jafrinventarios.controladores.productos;
 
+import jafrinventarios.DTOs.productos.DTOProductoTabla;
 import jafrinventarios.controladores.utilidades.ControladorBusquedaYAccionLibre;
 import jafrinventarios.controladores.utilidades.FuncionesBusquedaYAccionLibre;
+import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.productos.ServicioProductos;
 import jafrinventarios.vistas.productos.FilaTablaProductos;
 import jafrinventarios.vistas.productos.ProductosPanel;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  *
@@ -27,7 +26,13 @@ public class ControladorProductos {
     * Buscar la fila de un registro que se edito
     * Elimnar la fila si el registro se elimino
     */
-    private LinkedHashMap<Integer, FilaTablaProductos> tablaProductos;
+    private LinkedHashMap<Integer, FilaTablaProductos> diccionarioProductos;
+    
+    /*
+    Variable para personalizar tanto la vista como para la consultas
+    a los metodos del servicio
+    */
+    private boolean isAdministrador;
     
     /*
     ============================================================================
@@ -37,7 +42,8 @@ public class ControladorProductos {
     public ControladorProductos(ProductosPanel panelProductos, ServicioProductos servicioProductos) {
         this.panelProductos = panelProductos;
         this.servicioProductos = servicioProductos;
-        
+        this.isAdministrador = ModeloSesionUsuario.getInstancia().isAdministrador();
+        this.diccionarioProductos = new LinkedHashMap<>(); 
         /*
         Instanciar el controlador de la barra de busqueda y boton de accion libre
         pasando como parametro la instancia de la interfaz que permite asignar
@@ -51,6 +57,7 @@ public class ControladorProductos {
                 "Agregar Nuevo producto"
         );
         
+        mostrarTodosLosProductos();
         
     }
     
@@ -72,7 +79,8 @@ public class ControladorProductos {
             
             @Override
             public void limpiarBusqueda(){
-                //TODO reiniciarTabla();
+                diccionarioProductos.clear();
+                mostrarTodosLosProductos();
             }
 
             @Override
@@ -84,5 +92,88 @@ public class ControladorProductos {
     }
     
     
+    /*
+    ============================================================================
+                METODOS PARA CONSULTAR AL SERVICIO
+    ============================================================================
+    */
+    private List<DTOProductoTabla> obtenerTodosLosProductos() throws Exception{
+       return servicioProductos.obtenerTodosLosProductos( isAdministrador );  
+    }
+        
+    private List<DTOProductoTabla> obtenerListaProductosPorFiltro( String filtro ) throws Exception{
+       return servicioProductos.obtenerListaProductosPorFiltro(filtro, isAdministrador );  
+    }
+    
+    private DTOProductoTabla obtenerDatosProducto( int idProducto ) throws Exception{
+        return servicioProductos.obtenerDatosDTOProducto( idProducto );
+    }
+    
+    
+    /*
+    ============================================================================
+                METODOS PARA EL CONTROL DE LAS FILAS DE LA TABLA
+    ============================================================================
+    */
+    private FilaTablaProductos asignarDatosAFila ( FilaTablaProductos fila, DTOProductoTabla datosProducto ){
+        fila.setDatos(
+            datosProducto.getIdProducto(), 
+            datosProducto.getNombreProducto(), 
+            datosProducto.getNombreProveedor(), 
+            datosProducto.getPrecioCompra(), 
+            datosProducto.getPrecioVenta(), 
+            datosProducto.getCantidadDisponible(), 
+            datosProducto.getCantidadMinimaStock()
+        );
+        if( isAdministrador )
+            fila.setEstadoVisual( datosProducto.isHabilitado() );
+        else
+            fila.ocultarBtnEditar();
+        
+        return fila;
+    }
+    
+    
+    private FilaTablaProductos crearNuevaFila ( DTOProductoTabla datosProducto ){
+        FilaTablaProductos fila = new FilaTablaProductos();
+        return asignarDatosAFila(fila, datosProducto);
+    }
+    
+    
+    private void agregarFilaADiccionario( int id, FilaTablaProductos fila){
+         diccionarioProductos.put( id, fila );
+    }
+    
+    
+    private void estructurarDiccionario ( List<DTOProductoTabla> listaProductos ){
+        listaProductos.forEach( producto -> {
+            FilaTablaProductos fila = crearNuevaFila( producto );
+            //TODO inicializarBotonEditar
+            agregarFilaADiccionario( producto.getIdProducto(), fila );
+        } );
+    
+    }
+    
+    
+    private void mostrarTodosLosProductos(){
+
+        try {
+            List<DTOProductoTabla> listaProductos = obtenerTodosLosProductos();
+            //TODO que pasa si la lista esta vacia? deberia mostrarse un panel que diga "Aun no hay productos guardados, puedes crearlos"
+            estructurarDiccionario( listaProductos );
+            panelProductos.inyectarFilas( diccionarioProductos );
+        } catch (Exception e) {
+            /*
+            e.printStackTrace(); Util para hacer el seguimiento de un error
+            que no tiene mensaje.
+            */
+            
+            panelProductos.mostrarModalError(e.getMessage());
+        }
+        
+    }
+    
+
+
     
 }
