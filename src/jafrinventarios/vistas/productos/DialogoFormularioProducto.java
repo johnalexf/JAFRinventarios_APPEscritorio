@@ -157,7 +157,7 @@ public class DialogoFormularioProducto extends DialogoBaseConSombra{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 0));
-        setName("dialogoUsuario"); // NOI18N
+        setName("dialogoProducto"); // NOI18N
         setUndecorated(true);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 

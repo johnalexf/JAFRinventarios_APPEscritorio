@@ -6,7 +6,7 @@
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[600, 0]"/>
     </Property>
-    <Property name="name" type="java.lang.String" value="dialogoUsuario" noResource="true"/>
+    <Property name="name" type="java.lang.String" value="dialogoProducto" noResource="true"/>
     <Property name="undecorated" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
