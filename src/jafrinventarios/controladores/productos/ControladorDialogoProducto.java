@@ -9,6 +9,7 @@ import jafrinventarios.servicios.proveedores.ServicioProveedores;
 import jafrinventarios.vistas.productos.DialogoFormularioProducto;
 import jafrinventarios.vistas.productos.DialogoFormularioProducto.TipoDialogo;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -21,12 +22,14 @@ public class ControladorDialogoProducto {
     
     // Variable de soporte para personalizar el controlador si es para editar o crear
     private TipoDialogo tipoDialogo;
+    
+    private ModeloProducto modeloProducto;
 
     /*
     Variable que determina si un registro a editar tiene asociacion con otros
     en dado caso no se puede eliminar pero si habilitar
     */
-    private boolean tieneRegistrosAsociados;
+    private boolean tieneRegistrosAsociados = false;
     
     /*
     Variable que en el caso de editar tendra el id del registro a modificar
@@ -59,8 +62,21 @@ public class ControladorDialogoProducto {
         
         this.usuarioAdministrador = ModeloSesionUsuario.getInstancia().isAdministrador();
         
+        inicializarComboBoxProveedores();
         
-        //this.dialogoProducto.mostrar();
+        if ( tipoDialogo == TipoDialogo.EDITAR_PRODUCTO) {
+            try {
+                modeloProducto = obtenerModeloProducto( idProducto );
+                tieneRegistrosAsociados = tieneRegistrosAsociados( idProducto );
+                cargarDatosAVista( obtenerModeloEnDiccionario() );
+            } catch (Exception e) {
+                this.dialogoProducto.mostrarAlertaError(e.getMessage());
+            }
+        }
+        
+        //TODO inicializar botones
+        
+        this.dialogoProducto.mostrar();
     }
     
     
@@ -113,7 +129,7 @@ public class ControladorDialogoProducto {
     ============================================================================
     */
     
-    private HashMap<Integer, String> obtenerDiccionarioProveedores() throws Exception{
+    private LinkedHashMap<Integer, String> obtenerDiccionarioProveedores() throws Exception{
         return ServicioProveedores.obtenerDiccionarioProveedores();
     }
     
@@ -145,11 +161,58 @@ public class ControladorDialogoProducto {
         servicioProductos.eliminarProducto( idProducto, usuarioAdministrador );
     }
     
+    
+    /*
+    ============================================================================
+                            METODOS INICIALES
+    ============================================================================
+    */
+    
+    
+    
+    
     /*
     ============================================================================
                  METODOS RESPUESTA DESPUES DE CIERRE DEL DIALOGO
     ============================================================================
     */
+    private void inicializarComboBoxProveedores(){
+        try {
+            LinkedHashMap<Integer, String> diccionarioProveedores = obtenerDiccionarioProveedores();
+            dialogoProducto.inicializarComboBoxProveedores(diccionarioProveedores);        
+        } catch (Exception e) {
+            dialogoProducto.mostrarAlertaError(e.getMessage());
+        }
+    }
+    
+    private HashMap<String, String> obtenerModeloEnDiccionario(){
+    
+        HashMap<String, String> diccionarioProducto = new HashMap<>();
+        
+        diccionarioProducto.put( "nombreProducto", modeloProducto.getNombreProducto() );
+        diccionarioProducto.put( "proveedor", Integer.toString( modeloProducto.getIdProveedor() ) );
+        diccionarioProducto.put( "precioCompra", Double.toString( modeloProducto.getPrecioCompra() ) );
+        diccionarioProducto.put( "precioVenta", Double.toString( modeloProducto.getPrecioVenta() ) );
+        diccionarioProducto.put( "cantidadMinimaStock", Integer.toString( modeloProducto.getCantidadMinimaStock() ));
+        diccionarioProducto.put( "cantidadDisponible", Integer.toString( modeloProducto.getCantidadDisponible() ) );
+    
+        return diccionarioProducto;
+        
+    }
+    
+    private void cargarDatosAVista ( HashMap<String, String> producto ){
+        dialogoProducto.setId( idProducto );
+        dialogoProducto.asignarDatosEnFormulario( producto );
+        if ( tieneRegistrosAsociados ) {
+            dialogoProducto.mostrarBtnEditarEstadoProducto();
+            dialogoProducto.asignarIntencionBtnEditarEstadoProducto(
+                                            modeloProducto.isHabilitado());
+        }else{
+            dialogoProducto.mostrarBtnLinkEliminarProducto();
+        }
+    }
+    
+    
     
     /* 
     Funcion para retornar true en dado caso que se haya realizado 
