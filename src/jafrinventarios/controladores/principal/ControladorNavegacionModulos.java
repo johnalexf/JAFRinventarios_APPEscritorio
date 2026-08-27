@@ -2,14 +2,17 @@
 package jafrinventarios.controladores.principal;
 
 import jafrinventarios.controladores.perfil.ControladorPerfil;
+import jafrinventarios.controladores.productos.ControladorProductos;
 import jafrinventarios.controladores.usuarios.ControladorUsuarios;
 import jafrinventarios.modelos.ModeloSesionUsuario;
+import jafrinventarios.servicios.productos.ServicioProductos;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import jafrinventarios.vistas.principal.DialogoMenu;
 import jafrinventarios.vistas.principal.HeaderPanel;
 import jafrinventarios.vistas.principal.Menu;
 import jafrinventarios.vistas.principal.PrincipalFrame;
+import jafrinventarios.vistas.productos.ProductosPanel;
 import jafrinventarios.vistas.usuarios.UsuariosPanel;
 import jafrinventarios.vistas.utilidades.iconos.IconosSecciones;
 import javax.swing.JPanel;
@@ -120,6 +123,10 @@ public class ControladorNavegacionModulos {
             case USUARIOS:
                 moduloActual =  new UsuariosPanel();
                 new ControladorUsuarios( (UsuariosPanel)  moduloActual, new ServicioUsuarios() );
+                break;
+            case PRODUCTOS:
+                moduloActual = new ProductosPanel();
+                new ControladorProductos( (ProductosPanel) moduloActual, new ServicioProductos() );
                 break;
         }
         
