@@ -8,7 +8,7 @@ package jafrinventarios.vistas.utilidades.formularios;
 public enum TipoDatoFormulario {
     // Definimos las reglas con su Regex y su mensaje
     
-    NOMBRE("^[a-zA-ZáéíóúÁÉÍÓÚñÑ'\\-\\s]+$", "Solo se permiten letras"),
+    NOMBRE_PERSONA("^[a-zA-ZáéíóúÁÉÍÓÚñÑ'\\-\\s]+$", "Solo se permiten letras"),
     
     // Permite: letras, números, espacios, *, (), -, ., /
     NOMBRE_PRODUCTO("^[a-zA-Z0-9ÁÉÍÓÚáéíóúÑñ\\s\\*\\(\\)\\-\\.\\/]+$", "Nombre invalido"),

@@ -140,29 +140,29 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
     private void agregarCamposNombreCompleto(boolean esAdministrador){
         
         if(esAdministrador){
-            formularioDatosUsuario.agregarCampoTexto( inputPrimerNombre, 
+            formularioDatosUsuario.agregarCampoTexto(inputPrimerNombre, 
                                               lblErrorInputPrimerNombre, 
-                                              TipoDatoFormulario.NOMBRE, 
+                                              TipoDatoFormulario.NOMBRE_PERSONA, 
                                               true);
 
-            formularioDatosUsuario.agregarCampoTexto( inputSegundoNombre, 
+            formularioDatosUsuario.agregarCampoTexto(inputSegundoNombre, 
                                               lblErrorInputSegundoNombre, 
-                                              TipoDatoFormulario.NOMBRE, 
+                                              TipoDatoFormulario.NOMBRE_PERSONA, 
                                               false);
 
-            formularioDatosUsuario.agregarCampoTexto( inputPrimerApellido, 
+            formularioDatosUsuario.agregarCampoTexto(inputPrimerApellido, 
                                               lblErrorInputPrimerApellido, 
-                                              TipoDatoFormulario.NOMBRE, 
+                                              TipoDatoFormulario.NOMBRE_PERSONA, 
                                               true);
 
-            formularioDatosUsuario.agregarCampoTexto( inputSegundoApellido, 
+            formularioDatosUsuario.agregarCampoTexto(inputSegundoApellido, 
                                               lblErrorInputSegundoApellido, 
-                                              TipoDatoFormulario.NOMBRE, 
+                                              TipoDatoFormulario.NOMBRE_PERSONA, 
                                               false);
         }else{
-            formularioDatosUsuario.agregarCampoTexto(   inputNombreCompleto, 
+            formularioDatosUsuario.agregarCampoTexto(inputNombreCompleto, 
                                             null, 
-                                            TipoDatoFormulario.NOMBRE, 
+                                            TipoDatoFormulario.NOMBRE_PERSONA, 
                                             false
             );
         }

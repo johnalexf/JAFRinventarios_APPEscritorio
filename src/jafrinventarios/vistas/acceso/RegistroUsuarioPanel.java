@@ -54,18 +54,14 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     private void inyectarCamposAFormulario(){
         
         // Campos Nombre completo
-        formularioRegistro.agregarCampoTexto(
-                inputPrimerNombre, lblErrorInputPrimerNombre, 
-                TipoDatoFormulario.NOMBRE, true);
-        formularioRegistro.agregarCampoTexto(
-                inputSegundoNombre, lblErrorInputSegundoNombre, 
-                TipoDatoFormulario.NOMBRE, false);
-        formularioRegistro.agregarCampoTexto(
-                inputPrimerApellido, lblErrorInputPrimerApellido, 
-                TipoDatoFormulario.NOMBRE, true);
-        formularioRegistro.agregarCampoTexto(
-                inputSegundoApellido, lblErrorInputSegundoApellido, 
-                TipoDatoFormulario.NOMBRE, false);
+        formularioRegistro.agregarCampoTexto(inputPrimerNombre, lblErrorInputPrimerNombre, 
+                TipoDatoFormulario.NOMBRE_PERSONA, true);
+        formularioRegistro.agregarCampoTexto(inputSegundoNombre, lblErrorInputSegundoNombre, 
+                TipoDatoFormulario.NOMBRE_PERSONA, false);
+        formularioRegistro.agregarCampoTexto(inputPrimerApellido, lblErrorInputPrimerApellido, 
+                TipoDatoFormulario.NOMBRE_PERSONA, true);
+        formularioRegistro.agregarCampoTexto(inputSegundoApellido, lblErrorInputSegundoApellido, 
+                TipoDatoFormulario.NOMBRE_PERSONA, false);
         
         //Campos Datos de contacto
         formularioRegistro.agregarCampoTexto(
@@ -1081,9 +1077,8 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         
         //Inyectar o Eliminar Campo datos de la empresa a camposFormularioRegistro
         if(mostrar){
-            formularioRegistro.agregarCampoTexto(
-                inputNombreComercial, lblErrorInputNombreComercial, 
-                TipoDatoFormulario.NOMBRE, true);
+            formularioRegistro.agregarCampoTexto(inputNombreComercial, lblErrorInputNombreComercial, 
+                TipoDatoFormulario.NOMBRE_EMPRESA, true);
         }else{
             formularioRegistro.eliminarCualquierCampo(inputNombreComercial);
         }
