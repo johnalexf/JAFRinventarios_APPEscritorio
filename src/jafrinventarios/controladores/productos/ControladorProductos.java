@@ -176,7 +176,7 @@ public class ControladorProductos {
     
     /*
     ======================================================================================
-     METODO PARA ASIGNAR EL LISTENER AL BOTON DE EDITAR USUARIO DE UNA FilaTablaProductos
+     METODO PARA ASIGNAR EL LISTENER AL BOTON DE EDITAR PRODUCTO DE UNA FilaTablaProductos
     ======================================================================================
     */
         
