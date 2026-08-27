@@ -85,7 +85,7 @@ public class ControladorDialogoUsuarios {
                 return;
             }
             
-            cargarDatosAVista( empaquetarDatosUsuarioEnDiccionario() );
+            cargarDatosAVista( obtenerModeloEnDiccionario() );
         }
         
         inicializarEventosBotones();
@@ -213,7 +213,7 @@ public class ControladorDialogoUsuarios {
     ============================================================================
     */
     
-    private HashMap<String, String> empaquetarDatosUsuarioEnDiccionario(){
+    private HashMap<String, String> obtenerModeloEnDiccionario(){
     
         HashMap<String, String> datosPerfil = new HashMap<>();
         
