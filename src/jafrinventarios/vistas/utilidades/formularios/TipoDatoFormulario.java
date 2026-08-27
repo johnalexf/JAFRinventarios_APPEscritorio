@@ -21,6 +21,12 @@ public enum TipoDatoFormulario {
     CODIGO("^.{10}$","Debe tener exactamente 10 caracteres"),
     NUMERO_ENTERO("^[0-9]+$", "Solo se permiten números enteros"),
     NUMERO_DOUBLE("^[0-9]+(?:\\.[0-9]{1,2})?$", "Solo se permiten números reales"),
+    /*
+    REQUERIDO es para aquellos campos que por lo menos deben tener algun caracter
+    ya que su contenido no depende de una validacion en la vista, si no que de una
+    validacion de comprobacion en la base de datos, o para aquellos campos que sea 
+    de texto libre como motivo de eliminacion de un campo para manejar logs.
+    */
     REQUERIDO(".*\\S.*", "Este campo no puede estar vacío");
 
     private final String regex;
