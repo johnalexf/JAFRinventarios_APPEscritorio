@@ -63,7 +63,7 @@ public class DialogoFormularioProducto extends DialogoBaseConSombra{
         
         formularioDatosProducto.agregarCampoTexto(inputNombre, 
                                           lblErrorInputNombre, 
-                                          TipoDatoFormulario.NOMBRE, 
+                                          TipoDatoFormulario.NOMBRE_PRODUCTO, 
                                           true);
         /*
             El combo box rol se agrega desde el controlador por medio de 
