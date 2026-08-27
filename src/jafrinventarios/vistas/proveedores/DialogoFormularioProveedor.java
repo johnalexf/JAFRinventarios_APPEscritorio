@@ -8,7 +8,6 @@ import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import java.awt.Window;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import javax.swing.JButton;
 
 /**
