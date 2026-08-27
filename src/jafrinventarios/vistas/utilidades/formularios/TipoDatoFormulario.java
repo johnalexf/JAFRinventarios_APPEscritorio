@@ -19,7 +19,8 @@ public enum TipoDatoFormulario {
         "Formato invalido"
     ),
     CODIGO("^.{10}$","Debe tener exactamente 10 caracteres"),
-    NUMERO("^[0-9]+$", "Solo se permiten números enteros"),
+    NUMERO_ENTERO("^[0-9]+$", "Solo se permiten números enteros"),
+    NUMERO_DOUBLE("^[0-9]+(?:\\.[0-9]{1,2})?$", "Solo se permiten números reales"),
     REQUERIDO(".*\\S.*", "Este campo no puede estar vacío");
 
     private final String regex;
