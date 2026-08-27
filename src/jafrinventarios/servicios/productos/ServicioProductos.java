@@ -240,7 +240,7 @@ public class ServicioProductos {
     /*
     Metodo para consultar si un producto hace parte del registro de otra tabla
     */
-    public boolean tieneRegistrosAsociados ( int idProducto ) throws Exception{
+    public boolean isProductoEliminable ( int idProducto ) throws Exception{
     
         /*
         TODO

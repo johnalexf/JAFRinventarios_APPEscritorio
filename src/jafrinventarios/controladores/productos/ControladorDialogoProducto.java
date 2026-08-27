@@ -29,7 +29,7 @@ public class ControladorDialogoProducto {
     Variable que determina si un registro a editar tiene asociacion con otros
     en dado caso no se puede eliminar pero si habilitar
     */
-    private boolean tieneRegistrosAsociados = false;
+    private boolean isProductoEliminable = false;
     
     /*
     Variable que en el caso de editar tendra el id del registro a modificar
@@ -67,7 +67,7 @@ public class ControladorDialogoProducto {
         if ( tipoDialogo == TipoDialogo.EDITAR_PRODUCTO) {
             try {
                 modeloProducto = obtenerModeloProducto( idProducto );
-                tieneRegistrosAsociados = tieneRegistrosAsociados( idProducto );
+                isProductoEliminable = isProductoEliminable( idProducto );
                 cargarDatosAVista( obtenerModeloEnDiccionario() );
             } catch (Exception e) {
                 this.dialogoProducto.mostrarAlertaError(e.getMessage());
@@ -153,8 +153,8 @@ public class ControladorDialogoProducto {
         servicioProductos.conmutarEstadoProducto(idProducto, usuarioAdministrador);
     }
     
-    private boolean tieneRegistrosAsociados ( int idProducto ) throws Exception{
-        return servicioProductos.tieneRegistrosAsociados( idProducto );
+    private boolean isProductoEliminable ( int idProducto ) throws Exception{
+        return servicioProductos.isProductoEliminable( idProducto );
     }
     
     private void eliminarProducto ( int idProducto ) throws Exception {
@@ -203,12 +203,12 @@ public class ControladorDialogoProducto {
     private void cargarDatosAVista ( HashMap<String, String> producto ){
         dialogoProducto.setId( idProducto );
         dialogoProducto.asignarDatosEnFormulario( producto );
-        if ( tieneRegistrosAsociados ) {
+        if ( isProductoEliminable ) {
+            dialogoProducto.mostrarBtnLinkEliminarProducto();
+        }else{
             dialogoProducto.mostrarBtnEditarEstadoProducto();
             dialogoProducto.asignarIntencionBtnEditarEstadoProducto(
                                             modeloProducto.isHabilitado());
-        }else{
-            dialogoProducto.mostrarBtnLinkEliminarProducto();
         }
     }
     

@@ -227,7 +227,7 @@ public class ServicioProveedores {
     /*
     Metodo para consultar si un proveedor hace parte del registro de otra tabla
     */
-    public boolean tieneRegistrosAsociados ( int idProveedor ) throws Exception{
+    public boolean isProveedorEliminable ( int idProveedor ) throws Exception{
     
         /*
         TODO

@@ -30,7 +30,7 @@ public class ControladorDialogoUsuarios {
     //EDITAR_PERFIL_PROPIO, EDITAR_OTRO_USUARIO y CREAR_NUEVO_USUARIO
     private TipoDialogo tipoDialogo;
     
-    private boolean tieneRegistrosAsociados;
+    private boolean isUsuarioEliminable;
     
     // Variable con el id del usuario a editar, para el caso de CREAR_NUEVO_USUARIO
     // Esta variable sera la respuesta del nuevo usuario.
@@ -64,16 +64,16 @@ public class ControladorDialogoUsuarios {
         
         if( tipoDialogo == TipoDialogo.EDITAR_OTRO_USUARIO ){
             try {
-                tieneRegistrosAsociados = tieneRegistrosAsociados( idUsuario );
+                isUsuarioEliminable = isUsuarioEliminable( idUsuario );
             } catch (Exception e) {
                 dialogoUsuario.mostrarAlertaError(e.getMessage());
                 /*
-                NOTA: en dado caso que no se pueda conocer si el usuario tiene
-                registros asociados, se asigna como verdadero  tieneRegistrosAsociados, 
+                NOTA: en dado caso que no se pueda conocer si el usuario se puede 
+                eliminar, se asigna como falso  isUsuarioEliminable, 
                 ya que de esto depende si se le muestra al usuario del programa si puede eliminar
-                o deshabilitar el usuario, para evitar una eliminacion equivocada lo dejamos en true
+                o deshabilitar el usuario, para evitar una eliminacion equivocada lo dejamos en false
                 */
-                tieneRegistrosAsociados = true;
+                isUsuarioEliminable = false;
             }    
         }
         
@@ -186,8 +186,8 @@ public class ControladorDialogoUsuarios {
         servicioUsuarios.conmutarEstadoUsuario(idUsuario);
     }
     
-    private boolean esUsuarioHabilitado( int idUsuario ) throws Exception {
-        return servicioUsuarios.esUsuarioHabilitado(idUsuario);
+    private boolean isUsuarioHabilitado( int idUsuario ) throws Exception {
+        return servicioUsuarios.isUsuarioHabilitado(idUsuario);
     }
         
     private int crearUsuario( ModeloUsuario usuario ) throws Exception{
@@ -198,8 +198,8 @@ public class ControladorDialogoUsuarios {
         return  ServicioRoles.obtenerDiccionarioRoles();
     } 
     
-    public boolean tieneRegistrosAsociados ( int idUsuario ) throws Exception{
-        return servicioUsuarios.tieneRegistrosAsociados( idUsuario );
+    public boolean isUsuarioEliminable ( int idUsuario ) throws Exception{
+        return servicioUsuarios.isUsuarioEliminable( idUsuario );
     }
     
     private void eliminarUsuario( int idUsuario ) throws Exception{
@@ -236,11 +236,11 @@ public class ControladorDialogoUsuarios {
         
         if(tipoDialogo == TipoDialogo.EDITAR_OTRO_USUARIO){
             dialogoUsuario.setId( Integer.toString(idUsuario) );
-            if( tieneRegistrosAsociados ){
+            if( isUsuarioEliminable ){
+                dialogoUsuario.mostrarBtnLinkEliminarUsuario();
+            }else{
                 dialogoUsuario.mostrarBtnEditarEstadoUsuario();
                 dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.isHabilitado() );
-            }else{
-                dialogoUsuario.mostrarBtnLinkEliminarUsuario();
             }       
         }
 
@@ -269,10 +269,10 @@ public class ControladorDialogoUsuarios {
         }
         
         if ( tipoDialogo == TipoDialogo.EDITAR_OTRO_USUARIO ){
-            if( tieneRegistrosAsociados ){
-               dialogoUsuario.getBtnLinkEditarEstadoUsuario().addActionListener( e -> conmutarEstadoUsuario() ); 
-            }else{
+            if( isUsuarioEliminable ){
                dialogoUsuario.getBtnLinkEliminarUsuario().addActionListener( e -> eliminarUsuario() );
+            }else{
+               dialogoUsuario.getBtnLinkEditarEstadoUsuario().addActionListener( e -> conmutarEstadoUsuario() ); 
             }
             
         }
@@ -446,7 +446,7 @@ public class ControladorDialogoUsuarios {
         
         try {
             conmutarEstadoUsuario( idUsuario );
-            modeloUsuario.setHabilitado(  esUsuarioHabilitado( idUsuario )  );
+            modeloUsuario.setHabilitado(  isUsuarioHabilitado( idUsuario )  );
             dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.isHabilitado() );
             resultadoDialogo = ResultadoDialogo.ACTUALIZADO;
         } catch (Exception e) {

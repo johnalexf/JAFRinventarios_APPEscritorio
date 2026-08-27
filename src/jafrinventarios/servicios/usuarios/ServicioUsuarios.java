@@ -224,7 +224,7 @@ public class ServicioUsuarios {
     }
     
     
-    public boolean esUsuarioHabilitado( int idUsuario ) throws Exception {
+    public boolean isUsuarioHabilitado( int idUsuario ) throws Exception {
     
         //Por el momento retornamos true, pero aca se hara la consulta y se 
         // devolvera su respectivo estado
@@ -322,7 +322,7 @@ public class ServicioUsuarios {
     }
     
     
-    public boolean tieneRegistrosAsociados ( int idUsuario ) throws Exception{
+    public boolean isUsuarioEliminable ( int idUsuario ) throws Exception{
     
         boolean respuestaConsulta = false;
         

@@ -229,7 +229,7 @@ public class ServicioClientes {
     /*
     Metodo para consultar si un cliente hace parte del registro de otra tabla
     */
-    public boolean tieneRegistrosAsociados ( int idCliente ) throws Exception{
+    public boolean isClienteEliminable ( int idCliente ) throws Exception{
     
         /*
         TODO
