@@ -48,7 +48,7 @@ public class ControladorProveedores {
         new ControladorBusquedaYAccionLibre(
                 panelProveedores.getPanelBusquedaYAccionLibre(),
                 funcionesBusquedaYAccionLibre(),
-                "Id, nombre o proveedor",
+                "Id, Nombre comercial, Nombre contacto, Direccion, Correo o Telefono",
                 "Agregar Nuevo proveedor"
         );
         
