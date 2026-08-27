@@ -2,6 +2,7 @@
 package jafrinventarios.controladores.usuarios;
 
 import jafrinventarios.controladores.acceso.ControladorContrasena;
+import jafrinventarios.controladores.utilidades.ResultadoDialogo;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.servicios.acceso.ServicioAutenticacion;
@@ -36,8 +37,8 @@ public class ControladorDialogoUsuarios {
     private int idUsuario;
     
     // Variable usada para responder segun el resultado de la operacion para
-    // las funciones de editar perfil u otro usuario
-    private boolean operacionExitosa = false;
+    // las funciones de editar perfil u editar otro usuario
+    private ResultadoDialogo resultadoDialogo = ResultadoDialogo.SIN_CAMBIOS;
 
     
     /*
@@ -98,7 +99,7 @@ public class ControladorDialogoUsuarios {
      METODOS ESTÁTICAS: Los únicos puntos de acceso para los demás controladores
     ============================================================================
     */
-    public static boolean editarPerfil( java.awt.Window ventanaPadre, ServicioUsuarios servicioUsuarios){
+    public static ResultadoDialogo editarPerfil( java.awt.Window ventanaPadre, ServicioUsuarios servicioUsuarios){
         
     
         DialogoFormularioUsuario dialogoUsuario = 
@@ -115,12 +116,12 @@ public class ControladorDialogoUsuarios {
                         servicioUsuarios
         );
         
-        return controlador.isOperacionExitosa();
+        return controlador.obtenerResultadoDialogo();
         
     }
     
     
-    public static boolean editarOtroUsuario( java.awt.Window ventanaPadre, int idUsuario, ServicioUsuarios servicioUsuarios){
+    public static ResultadoDialogo editarOtroUsuario( java.awt.Window ventanaPadre, int idUsuario, ServicioUsuarios servicioUsuarios){
         
     
         DialogoFormularioUsuario dialogoUsuario = 
@@ -136,7 +137,7 @@ public class ControladorDialogoUsuarios {
                                             servicioUsuarios
         );
         
-        return controlador.isOperacionExitosa();
+        return controlador.obtenerResultadoDialogo();
         
     }
     
@@ -314,9 +315,8 @@ public class ControladorDialogoUsuarios {
         // Auditoría de Cambios si es editar usuario o perfil
         if( tipoDialogo != TipoDialogo.CREAR_NUEVO_USUARIO ){
             if( modeloUsuario.equals(usuarioAProcesar) ){
-                
-                //Si operacionExitosa es true significa que se cambio el estado del usuario
-                if( operacionExitosa ){
+                //Este if es para cuando solo se deshabilito el usuario sin editar ningun campo
+                if( obtenerResultadoDialogo() == ResultadoDialogo.ACTUALIZADO ){
                     dialogoUsuario.mostrarAlertaExitosa();
                     dialogoUsuario.dispose();
                 }
@@ -339,6 +339,7 @@ public class ControladorDialogoUsuarios {
                 
                 try {
                     editarPerfil(usuarioAProcesar);
+                    resultadoDialogo = ResultadoDialogo.ACTUALIZADO;
                 }catch( ExcepcionValidacionBD e ){ 
                     //dialogoUsuario.mostrarErroresValidacionCampos( e.getErrores() );
                     return;
@@ -356,6 +357,7 @@ public class ControladorDialogoUsuarios {
                     // cambios, puesto que un administrador podria ver todos los modulos
                     // y tiene derechos para editar y eliminar cualquier item de cualquier modulo
                     editarOtroUsuario(usuarioAProcesar);
+                    resultadoDialogo = ResultadoDialogo.ACTUALIZADO;
                 }catch( ExcepcionValidacionBD e ){ 
                     //dialogoUsuario.mostrarErroresValidacionCampos( e.getErrores() );
                     return;
@@ -380,8 +382,8 @@ public class ControladorDialogoUsuarios {
                 break;
         }
         
-        //Si no hubo ningun error se considera una operacion exitosa
-        operacionExitosa = true;
+        //Si no hubo ningun error se considera que fue una operacion terminada
+        // y por ende se cierra el modal.
         dialogoUsuario.mostrarAlertaExitosa();
         dialogoUsuario.dispose();
 
@@ -446,7 +448,7 @@ public class ControladorDialogoUsuarios {
             conmutarEstadoUsuario( idUsuario );
             modeloUsuario.setHabilitado(  esUsuarioHabilitado( idUsuario )  );
             dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.isHabilitado() );
-            operacionExitosa = true;
+            resultadoDialogo = ResultadoDialogo.ACTUALIZADO;
         } catch (Exception e) {
             dialogoUsuario.mostrarAlertaError(e.getMessage());
         }
@@ -465,6 +467,8 @@ public class ControladorDialogoUsuarios {
         
         if( deseaContinuar ){
             try {
+                eliminarUsuario( idUsuario );
+                resultadoDialogo = ResultadoDialogo.ELIMINADO;
                 dialogoUsuario.mostrarAlertaExitosa( " Usuario eliminado correctamente ");
                 dialogoUsuario.dispose();
             } catch (Exception e) {
@@ -484,8 +488,8 @@ public class ControladorDialogoUsuarios {
     Funcion para retornar true en dado caso que se haya realizado 
     cualquier cambio a cualquier usuario
     */
-    public boolean isOperacionExitosa() {
-        return operacionExitosa;
+    public ResultadoDialogo obtenerResultadoDialogo() {
+        return resultadoDialogo;
     }
     
     //Funcion para retornar el id del usuario creado

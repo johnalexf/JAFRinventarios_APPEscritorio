@@ -224,6 +224,15 @@ public class UsuariosPanel extends javax.swing.JPanel {
     }
     
     
+    public void eliminarFila ( FilaTablaUsuarios fila ){
+
+        contenedorContenidoTabla.remove(fila);
+        redubijarPanel();
+
+    }
+    
+    
+    
     private void redubijarPanel(){
         // Avisar a Swing que recalcule los tamaños y redibuje el panel
         contenedorContenidoTabla.revalidate();

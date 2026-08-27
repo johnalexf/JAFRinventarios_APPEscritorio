@@ -4,6 +4,7 @@ package jafrinventarios.controladores.perfil;
 import jafrinventarios.DTOs.usuarios.DTOUsuarioTabla;
 import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.controladores.usuarios.ControladorDialogoUsuarios;
+import jafrinventarios.controladores.utilidades.ResultadoDialogo;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.perfil.PerfilPanel;
@@ -106,13 +107,11 @@ public class ControladorPerfil {
     
     private void procesarEdicionUsuario(){
               
-        boolean seEditoUsuario;
-
-        seEditoUsuario = ControladorDialogoUsuarios.editarPerfil(
+        ResultadoDialogo  resultadoDialogo = ControladorDialogoUsuarios.editarPerfil(
                 moduloPerfil.getVentanaPadre(), new ServicioUsuarios()
         );
         
-        if(seEditoUsuario){
+        if( resultadoDialogo == ResultadoDialogo.ACTUALIZADO ){
             cargarDatosPerfil( obtenerDatosPerfil() );
         }
 

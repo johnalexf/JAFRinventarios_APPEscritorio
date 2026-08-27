@@ -4,6 +4,7 @@ package jafrinventarios.controladores.usuarios;
 import jafrinventarios.controladores.utilidades.ControladorBusquedaYAccionLibre;
 import jafrinventarios.controladores.utilidades.FuncionesBusquedaYAccionLibre;
 import jafrinventarios.DTOs.usuarios.DTOUsuarioTabla;
+import jafrinventarios.controladores.utilidades.ResultadoDialogo;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.usuarios.FilaTablaUsuarios;
 import jafrinventarios.vistas.usuarios.UsuariosPanel;
@@ -233,28 +234,33 @@ public class ControladorUsuarios {
  
     private void editarUsuario(Integer idUsuario){
         
-        boolean seEditoUsuario = 
+        ResultadoDialogo resultadoOperacion = 
                 ControladorDialogoUsuarios.editarOtroUsuario(
                     panelUsuarios.getVentanaPadre() , idUsuario, servicioUsuarios
                 );
         
         //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea
-        seEditoUsuario = false;
+        resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
         
-        if( seEditoUsuario ){
+        if( resultadoOperacion == ResultadoDialogo.ACTUALIZADO ){
             
             try {
                 DTOUsuarioTabla datosUsuario =  obtenerDatosUsuario( idUsuario );
-                
                 FilaTablaUsuarios filaDatosUsuario = tablaDatosUsuarios.get(idUsuario);
-            
                 asignarDatosAFila( filaDatosUsuario, datosUsuario );
-                
+   
             }catch (Exception e) {
                 //moduloUsuarios.mostrarAlertaError(e.getMessage());
             }
+        }
+        
+        if( resultadoOperacion == ResultadoDialogo.ELIMINADO ){
+            
+            FilaTablaUsuarios filaDatosUsuario = tablaDatosUsuarios.get(idUsuario);
+            panelUsuarios.eliminarFila( filaDatosUsuario );
 
         }
+        
         
     }
     
