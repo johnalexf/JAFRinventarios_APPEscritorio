@@ -4,6 +4,7 @@ package jafrinventarios.controladores.productos;
 import jafrinventarios.DTOs.productos.DTOProductoTabla;
 import jafrinventarios.controladores.utilidades.ControladorBusquedaYAccionLibre;
 import jafrinventarios.controladores.utilidades.FuncionesBusquedaYAccionLibre;
+import jafrinventarios.controladores.utilidades.ResultadoDialogo;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.productos.ServicioProductos;
 import jafrinventarios.vistas.productos.FilaTablaProductos;
@@ -72,9 +73,7 @@ public class ControladorProductos {
             
             @Override
             public boolean ejecutarBusqueda(String terminoBusqueda) {
-                //TODO Hacer la funcion de busqueda
-                // return procesarBusqueda( terminoBusqueda )
-                return false;
+                return procesarBusqueda(terminoBusqueda);
             }
             
             @Override
@@ -85,7 +84,7 @@ public class ControladorProductos {
 
             @Override
             public void ejecutarAccionLibre() {
-                // TODO crearProducto();
+                crearProducto();
             }
             
         };
@@ -148,7 +147,7 @@ public class ControladorProductos {
     private void estructurarDiccionario ( List<DTOProductoTabla> listaProductos ){
         listaProductos.forEach( producto -> {
             FilaTablaProductos fila = crearNuevaFila( producto );
-            //TODO inicializarBotonEditar
+            inicializarBotonEditar( producto.getIdProducto(), fila );
             agregarFilaADiccionario( producto.getIdProducto(), fila );
         } );
     
@@ -176,12 +175,106 @@ public class ControladorProductos {
     
     
     /*
-    TODO:
-    En la funcion de crear nueva fila, es importante tener en cuenta si 
-    el diccionarioProductos esta vacio, entonces antes de agregar la fila
-    la vista usar remover contenido puesto que es el primer registro
+    ======================================================================================
+     METODO PARA ASIGNAR EL LISTENER AL BOTON DE EDITAR USUARIO DE UNA FilaTablaProductos
+    ======================================================================================
+    */
+        
+    private void inicializarBotonEditar( Integer id, FilaTablaProductos fila ){
+        fila.getBtnEditar().addActionListener(e -> editarProducto( id ) );
+    }
+    
+    
+    /*
+    ============================================================================
+                METODOS PARA LAS ACCIONES (CREAR, EDITAR Y BUSCAR)
+    ============================================================================
     */
     
+       
+    private void crearProducto(){
+
+        int idProductoCreado;
+//              = ControladorDialogoProductos.crearProducto( 
+//                        panelProductos.getVentanaPadre() , 
+//                        servicioProductos);
+        
+        //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
+        idProductoCreado = -1;
+        
+        if(idProductoCreado != -1){
+            
+            try {
+                DTOProductoTabla producto = obtenerDatosProducto( idProductoCreado );
+                FilaTablaProductos fila = crearNuevaFila( producto );
+                inicializarBotonEditar( producto.getIdProducto(), fila );
+                
+                boolean diccionarioVacio = diccionarioProductos.isEmpty();
+                agregarFilaADiccionario( producto.getIdProducto(), fila );
+                
+                /*
+                Si el diccionario estaba vacio significa que en la vista aun
+                se muestra el mensaje de no hay productos, por tanto es necesario
+                remover el contenido, para ahi si asignarle una nueva fila
+                */
+                if( diccionarioVacio ) panelProductos.removerContenido();
+                panelProductos.inyectarNuevaFila( fila );
+                
+            }catch (Exception e) {
+                panelProductos.mostrarModalError(e.getMessage());
+            }
+
+        }
+    }
+    
+        
+    private void editarProducto( Integer idProducto ){
+        
+        ResultadoDialogo resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
+//                ControladorDialogoProductos.editarProducto(
+//                    panelProductos.getVentanaPadre() , idProducto, servicioProductos
+//                );
+        
+        //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea
+        resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
+        
+        if( resultadoOperacion == ResultadoDialogo.ACTUALIZADO ){  
+            try {
+                DTOProductoTabla producto = obtenerDatosProducto( idProducto );
+                FilaTablaProductos fila = diccionarioProductos.get( idProducto );
+                asignarDatosAFila( fila, producto );
+            }catch (Exception e) {
+                panelProductos.mostrarModalError( e.getMessage() );
+            }
+        }
+        
+        if( resultadoOperacion == ResultadoDialogo.ELIMINADO ){
+            FilaTablaProductos fila = diccionarioProductos.get( idProducto );
+            panelProductos.eliminarFila( fila );
+            diccionarioProductos.remove( idProducto );
+        }
+        
+    }
+    
+    
+    private boolean procesarBusqueda( String filtro ){
+
+        try {
+            List<DTOProductoTabla> listaProductos = obtenerListaProductosPorFiltro( filtro );
+            if( listaProductos.isEmpty() ){
+                return false;
+            }else{
+                diccionarioProductos.clear();
+                estructurarDiccionario( listaProductos );
+                panelProductos.inyectarFilas( diccionarioProductos );
+                return true;
+            }
+        } catch (Exception e) {
+            panelProductos.mostrarModalError(e.getMessage());
+            return false;
+        }
+
+    }
 
 
     
