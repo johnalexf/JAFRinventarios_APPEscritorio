@@ -202,7 +202,7 @@ public class UsuariosPanel extends javax.swing.JPanel {
     
     //Metodo para poder agregar toda la lista de usuarios recibida, por medio de
     // LinkedHashMap mantenemos el orden en el cual ha sido enviada.
-    public void inyectarFilasTablaUsuarios(LinkedHashMap<Integer, FilaTablaUsuarios> filasTablaUsuarios){
+    public void inyectarFilas(LinkedHashMap<Integer, FilaTablaUsuarios> filasTablaUsuarios){
         //Remover todo el contenido dentro del contenedorContenidoTabla
         contenedorContenidoTabla.removeAll();
         
@@ -215,22 +215,16 @@ public class UsuariosPanel extends javax.swing.JPanel {
     
     // Metodo para inyectar una nueva fila, pensado unicamente para cuando se cree
     // un nuevo usuario
-    public void inyectarNuevaFilaATablaUsuarios( FilaTablaUsuarios fila ){
-
+    public void inyectarNuevaFila( FilaTablaUsuarios fila ){
         contenedorContenidoTabla.add(fila);
-        
         redubijarPanel();
-
     }
     
     
     public void eliminarFila ( FilaTablaUsuarios fila ){
-
         contenedorContenidoTabla.remove(fila);
         redubijarPanel();
-
     }
-    
     
     
     private void redubijarPanel(){
@@ -239,7 +233,8 @@ public class UsuariosPanel extends javax.swing.JPanel {
         contenedorContenidoTabla.repaint();
     }
   
-        /* 
+    
+    /* 
         Metodos para dialogos de mensajes de Alertas
     */
     

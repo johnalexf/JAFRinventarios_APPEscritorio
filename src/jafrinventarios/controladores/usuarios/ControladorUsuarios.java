@@ -18,9 +18,7 @@ import java.util.List;
  */
 public class ControladorUsuarios {
     
-    
     private final UsuariosPanel panelUsuarios;
-    
     private final ServicioUsuarios servicioUsuarios;
     
     /* 
@@ -28,14 +26,14 @@ public class ControladorUsuarios {
      se identifica con el id para poder acceder al boton, y tambien para cuando
      se necesite actualizar la informacion de un item editado
     */
-    private LinkedHashMap<Integer, FilaTablaUsuarios> tablaDatosUsuarios;
+    private LinkedHashMap<Integer, FilaTablaUsuarios> diccionarioUsuarios;
 
      /*
     ============================================================================
                         CONSTRUCTOR PUBLICO
     ============================================================================
     */
-    public ControladorUsuarios (UsuariosPanel panelUsuarios , ServicioUsuarios servicioUsuarios) {
+    public ControladorUsuarios( UsuariosPanel panelUsuarios , ServicioUsuarios servicioUsuarios) {
         
         this.panelUsuarios = panelUsuarios;
         this.servicioUsuarios = servicioUsuarios;
@@ -53,10 +51,11 @@ public class ControladorUsuarios {
         );
         
         
-        tablaDatosUsuarios = new LinkedHashMap<>();
+        diccionarioUsuarios = new LinkedHashMap<>();
         mostrarTodosLosUsuarios();
         
     }
+    
     
     /* 
     Metodo para crear desde la interfaz FuncionesBusquedaYAccionLibre el objeto
@@ -73,7 +72,8 @@ public class ControladorUsuarios {
             
             @Override
             public void limpiarBusqueda(){
-                reiniciarTabla();
+                diccionarioUsuarios.clear();
+                mostrarTodosLosUsuarios();
             }
 
             @Override
@@ -124,61 +124,38 @@ public class ControladorUsuarios {
     }
     
     
-    private FilaTablaUsuarios crearNuevaFilaTablaUsuarios( DTOUsuarioTabla datosUsuario ){
+    private FilaTablaUsuarios crearNuevaFila( DTOUsuarioTabla datosUsuario ){
         FilaTablaUsuarios filaDatosUsuario = new FilaTablaUsuarios();
         return asignarDatosAFila(filaDatosUsuario, datosUsuario);
     }
     
     
-    private void agregarNuevaFilaTablaUsuarios(int id, FilaTablaUsuarios fila){
-        tablaDatosUsuarios.put(  id,  fila   );
+    private void agregarFilaADiccionario(int id, FilaTablaUsuarios fila){
+        diccionarioUsuarios.put(  id,  fila   );
     }
     
     
-    private void estructurarTablaUsuarios( List<DTOUsuarioTabla> listaUsuariosBD ){
+    private void estructurarDiccionario( List<DTOUsuarioTabla> listaUsuarios ){
          
-        listaUsuariosBD.forEach( (DTOUsuarioTabla datosUsuario) ->{
-             
-                FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
-                
-                inicializarEventoBotonEditar( datosUsuario.getIdUsuario() , filaDatosUsuario);
-
-                agregarNuevaFilaTablaUsuarios( datosUsuario.getIdUsuario() , filaDatosUsuario);
+        listaUsuarios.forEach( usuario ->{
+                FilaTablaUsuarios fila = crearNuevaFila(usuario);
+                inicializarBotonEditar( usuario.getIdUsuario() , fila);
+                agregarFilaADiccionario( usuario.getIdUsuario() , fila);
             }
         );
          
     }
-      
-    
-    private void inyectarTablaAVista(){
-        panelUsuarios.inyectarFilasTablaUsuarios(tablaDatosUsuarios);
-    }
-    
-    
-    private void inyectarNuevaFilaAVista(FilaTablaUsuarios fila){
-        panelUsuarios.inyectarNuevaFilaATablaUsuarios(fila);  
-    }
-    
+
     
     private void mostrarTodosLosUsuarios(){
         try {
-            estructurarTablaUsuarios( obtenerTodosLosUsuarios() );
-            inyectarTablaAVista();
+            estructurarDiccionario( obtenerTodosLosUsuarios() );
+            panelUsuarios.inyectarFilas(diccionarioUsuarios);
         } catch (Exception e) {
             panelUsuarios.mostrarModalError(e.getMessage());
         }
 
     }
-    
-    
-    private void limpiarTablaUsuarios(){
-        tablaDatosUsuarios.clear();
-    }
-
-    private void reiniciarTabla(){
-        limpiarTablaUsuarios();
-        mostrarTodosLosUsuarios();
-    }  
     
     
     /*
@@ -187,7 +164,7 @@ public class ControladorUsuarios {
     ======================================================================================
     */
         
-    private void inicializarEventoBotonEditar(Integer id, FilaTablaUsuarios fila){
+    private void inicializarBotonEditar(Integer id, FilaTablaUsuarios fila){
         fila.getBtnEditar().addActionListener(e -> editarUsuario(id));
     }
     
@@ -206,7 +183,10 @@ public class ControladorUsuarios {
          un modal para crear un usuario, si se crea este devuelve el Id de
          dicho usuario, en dado caso que no se cree se espera recibir un -1
         */
-        int idUsuarioCreado = ControladorDialogoUsuarios.crearUsuario( panelUsuarios.getVentanaPadre() , servicioUsuarios);
+        int idUsuarioCreado = 
+                ControladorDialogoUsuarios.crearUsuario( 
+                        panelUsuarios.getVentanaPadre() , 
+                        servicioUsuarios);
         
         //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
         idUsuarioCreado = -1;
@@ -215,15 +195,10 @@ public class ControladorUsuarios {
             
             try {
                 DTOUsuarioTabla datosUsuario =  obtenerDatosUsuario( idUsuarioCreado );
-                
-                FilaTablaUsuarios filaDatosUsuario = crearNuevaFilaTablaUsuarios(datosUsuario);
-             
-                agregarNuevaFilaTablaUsuarios(idUsuarioCreado, filaDatosUsuario);
-
-                inicializarEventoBotonEditar(idUsuarioCreado, filaDatosUsuario);
-
-                inyectarNuevaFilaAVista( filaDatosUsuario );
-                
+                FilaTablaUsuarios fila = crearNuevaFila(datosUsuario);
+                agregarFilaADiccionario(idUsuarioCreado, fila);
+                inicializarBotonEditar(idUsuarioCreado, fila);
+                panelUsuarios.inyectarNuevaFila( fila );
             }catch (Exception e) {
                 panelUsuarios.mostrarModalError(e.getMessage());
             }
@@ -246,19 +221,16 @@ public class ControladorUsuarios {
             
             try {
                 DTOUsuarioTabla datosUsuario =  obtenerDatosUsuario( idUsuario );
-                FilaTablaUsuarios filaDatosUsuario = tablaDatosUsuarios.get(idUsuario);
-                asignarDatosAFila( filaDatosUsuario, datosUsuario );
-   
+                FilaTablaUsuarios fila = diccionarioUsuarios.get(idUsuario);
+                asignarDatosAFila( fila, datosUsuario );
             }catch (Exception e) {
                 //moduloUsuarios.mostrarAlertaError(e.getMessage());
             }
         }
         
         if( resultadoOperacion == ResultadoDialogo.ELIMINADO ){
-            
-            FilaTablaUsuarios filaDatosUsuario = tablaDatosUsuarios.get(idUsuario);
+            FilaTablaUsuarios filaDatosUsuario = diccionarioUsuarios.get(idUsuario);
             panelUsuarios.eliminarFila( filaDatosUsuario );
-
         }
         
         
@@ -277,9 +249,9 @@ public class ControladorUsuarios {
                 */
                 return false;
             }else{
-                limpiarTablaUsuarios();
-                estructurarTablaUsuarios( listaUsuarios );
-                inyectarTablaAVista();
+                diccionarioUsuarios.clear();
+                estructurarDiccionario( listaUsuarios );
+                panelUsuarios.inyectarFilas( diccionarioUsuarios );
                 return true;
             }
         } catch (Exception e) {
