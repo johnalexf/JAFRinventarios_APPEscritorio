@@ -224,13 +224,14 @@ public class ControladorUsuarios {
                 FilaTablaUsuarios fila = diccionarioUsuarios.get(idUsuario);
                 asignarDatosAFila( fila, datosUsuario );
             }catch (Exception e) {
-                //moduloUsuarios.mostrarAlertaError(e.getMessage());
+                panelUsuarios.mostrarModalError(e.getMessage());
             }
         }
         
         if( resultadoOperacion == ResultadoDialogo.ELIMINADO ){
             FilaTablaUsuarios filaDatosUsuario = diccionarioUsuarios.get(idUsuario);
             panelUsuarios.eliminarFila( filaDatosUsuario );
+            diccionarioUsuarios.remove(idUsuario);
         }
         
         
