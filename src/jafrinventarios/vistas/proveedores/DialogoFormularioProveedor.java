@@ -47,6 +47,14 @@ public class DialogoFormularioProveedor extends DialogoBaseConSombra{
         if (this.tipoDialogo == TipoDialogo.CREAR_NUEVO_PROVEEDOR) {
             contenedorIdRegistro.setVisible(false);
             tituloFormulario.setText("Crear Nuevo Proveedor");
+            btnEnviarFormulario.setText("Crear Proveedor");
+            /*
+            Para el dialogo crear nuevo registro se ocultan algunos elementos y
+            para mantener un diseño uniforme se realizan los siguientes ajustes.
+            */
+            contenedorCuerpoFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 50, 0, 50));
+            contenedorBotones.setPreferredSize(new java.awt.Dimension(500, 90));
+            contenedorBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 20, 40));
         }
         
         //Ocultamos los botones por que es el controlador quien decide cual mostrar
@@ -257,7 +265,7 @@ public class DialogoFormularioProveedor extends DialogoBaseConSombra{
         contenedorDatosGenerales.setOpaque(false);
         contenedorDatosGenerales.setLayout(new javax.swing.BoxLayout(contenedorDatosGenerales, javax.swing.BoxLayout.Y_AXIS));
 
-        contenedorTituloDatosGenerales.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(5, 10, -5, 0)));
+        contenedorTituloDatosGenerales.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(10, 10, -5, 0)));
         contenedorTituloDatosGenerales.setOpaque(false);
         contenedorTituloDatosGenerales.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
@@ -269,7 +277,7 @@ public class DialogoFormularioProveedor extends DialogoBaseConSombra{
 
         contenedorDatosGenerales.add(contenedorTituloDatosGenerales);
 
-        contenedorEntradasDatosGenerales.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 20, 0, 20));
+        contenedorEntradasDatosGenerales.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 0, 20));
         contenedorEntradasDatosGenerales.setOpaque(false);
         contenedorEntradasDatosGenerales.setLayout(new java.awt.GridBagLayout());
 
@@ -682,7 +690,6 @@ public class DialogoFormularioProveedor extends DialogoBaseConSombra{
         btnLinkEditarEstadoRegistro.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         btnLinkEditarEstadoRegistro.setForeground(new java.awt.Color(200, 0, 0));
         btnLinkEditarEstadoRegistro.setText("Deshabilitar Proveedor");
-        btnLinkEditarEstadoRegistro.setActionCommand("Deshabilitar Proveedor");
         btnLinkEditarEstadoRegistro.setAlignmentX(0.5F);
         btnLinkEditarEstadoRegistro.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();

@@ -115,10 +115,18 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
             funcion, por ende solo en crear un nuevo usuarios se personalizan.
         */
         tituloFormulario.setText("Crear Nuevo Usuario");
-        btnEnviarFormulario.setText("Crear");
+        contenedorIdUsuario.setVisible(false);
+        btnEnviarFormulario.setText("Crear Usuario");
+        /*
+        Para el dialogo crear nuevo registro se ocultan algunos elementos y
+        para mantener un diseño uniforme se realizan los siguientes ajustes.
+        */
+        contenedorCuerpoFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 50, 0, 50));
+        contenedorBotones.setPreferredSize(new java.awt.Dimension(500, 90));
+        contenedorBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 20, 40));
     
         personalizacionBasicaAdministracionUsuarios();
-        contenedorIdUsuario.setVisible(false);
+        
     }
     
     
@@ -353,7 +361,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         contenedorCuenta.setOpaque(false);
         contenedorCuenta.setLayout(new javax.swing.BoxLayout(contenedorCuenta, javax.swing.BoxLayout.Y_AXIS));
 
-        contenedorTituloCuenta.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(5, 10, -5, 0)));
+        contenedorTituloCuenta.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(10, 10, -5, 0)));
         contenedorTituloCuenta.setOpaque(false);
         contenedorTituloCuenta.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
@@ -365,7 +373,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
 
         contenedorCuenta.add(contenedorTituloCuenta);
 
-        contenedorEntradasCuenta.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 20, 0, 20));
+        contenedorEntradasCuenta.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 0, 20));
         contenedorEntradasCuenta.setOpaque(false);
         contenedorEntradasCuenta.setLayout(new java.awt.GridBagLayout());
 
@@ -716,7 +724,7 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
 
         contenedorDatosContacto.add(contenedorTituloDatosContacto);
 
-        contenedorEntradasDatosContacto.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 20, 0, 20));
+        contenedorEntradasDatosContacto.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 0, 20));
         contenedorEntradasDatosContacto.setOpaque(false);
         contenedorEntradasDatosContacto.setLayout(new java.awt.GridBagLayout());
 

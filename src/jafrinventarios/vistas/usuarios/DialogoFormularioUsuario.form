@@ -333,7 +333,7 @@
                                 <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                               <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                                <EmptyBorder bottom="-5" left="10" right="0" top="5"/>
+                                <EmptyBorder bottom="-5" left="10" right="0" top="10"/>
                               </Border>
                             </CompoundBorder>
                           </Border>
@@ -361,7 +361,7 @@
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                            <EmptyBorder bottom="0" left="20" right="20" top="14"/>
+                            <EmptyBorder bottom="0" left="20" right="20" top="20"/>
                           </Border>
                         </Property>
                         <Property name="opaque" type="boolean" value="false"/>
@@ -1100,7 +1100,7 @@
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                            <EmptyBorder bottom="0" left="20" right="20" top="14"/>
+                            <EmptyBorder bottom="0" left="20" right="20" top="20"/>
                           </Border>
                         </Property>
                         <Property name="opaque" type="boolean" value="false"/>

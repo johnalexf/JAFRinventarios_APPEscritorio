@@ -55,7 +55,7 @@ public class ControladorProductos {
                 panelProductos.getPanelBusquedaYAccionLibre(),
                 funcionesBusquedaYAccionLibre(),
                 "Id, nombre o proveedor",
-                "Agregar Nuevo producto"
+                "Agregar Nuevo Producto"
         );
         
         mostrarTodosLosProductos();

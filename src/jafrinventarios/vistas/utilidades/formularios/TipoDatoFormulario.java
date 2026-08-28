@@ -28,7 +28,7 @@ public enum TipoDatoFormulario {
     ),
     CODIGO("^.{10}$","Debe tener exactamente 10 caracteres"),
     NUMERO_ENTERO("^[0-9]+$", "Solo se permiten números enteros"),
-    NUMERO_DOUBLE("^[0-9]+(?:\\.[0-9]{1,2})?$", "Solo se permiten números reales"),
+    NUMERO_DOUBLE("^[0-9]+(?:\\.[0-9]{1,2})?$", "Solo reales de hasta 2 decimales"),
     /*
     REQUERIDO es para aquellos campos que por lo menos deben tener algun caracter
     ya que su contenido no depende de una validacion en la vista, si no que de una
