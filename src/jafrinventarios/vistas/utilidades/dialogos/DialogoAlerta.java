@@ -140,7 +140,7 @@ public class DialogoAlerta extends DialogoBaseConSombra {
         tituloDialogo.setText("titulo del dialogo");
         contenedorCuerpo.add(tituloDialogo, java.awt.BorderLayout.PAGE_START);
 
-        mensajeDialogo.setFont(new java.awt.Font("Segoe UI", 0, 19)); // NOI18N
+        mensajeDialogo.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         mensajeDialogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mensajeDialogo.setText("Texto de prueba");
         contenedorCuerpo.add(mensajeDialogo, java.awt.BorderLayout.CENTER);
