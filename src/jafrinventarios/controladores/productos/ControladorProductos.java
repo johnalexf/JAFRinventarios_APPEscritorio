@@ -194,10 +194,10 @@ public class ControladorProductos {
        
     private void crearProducto(){
 
-        int idProductoCreado;
-//              = ControladorDialogoProductos.crearProducto( 
-//                        panelProductos.getVentanaPadre() , 
-//                        servicioProductos);
+        int idProductoCreado = ControladorDialogoProducto.crearProducto( 
+                        panelProductos.getVentanaPadre() , 
+                        servicioProductos
+        );
         
         //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
         idProductoCreado = -1;
@@ -230,10 +230,10 @@ public class ControladorProductos {
         
     private void editarProducto( Integer idProducto ){
         
-        ResultadoDialogo resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
-//                ControladorDialogoProductos.editarProducto(
-//                    panelProductos.getVentanaPadre() , idProducto, servicioProductos
-//                );
+        ResultadoDialogo resultadoOperacion = 
+                ControladorDialogoProducto.editarProducto(
+                    panelProductos.getVentanaPadre() , idProducto, servicioProductos
+                );
         
         //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea
         resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
