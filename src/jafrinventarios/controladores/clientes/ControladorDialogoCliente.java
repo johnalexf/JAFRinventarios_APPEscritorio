@@ -312,9 +312,9 @@ public class ControladorDialogoCliente {
     
     private void conmutarEstadoCliente(){
         boolean deseaContinuar = dialogoCliente.mostrarAlertaAdvertencia(
-            modeloCliente.isHabilitado()
+            ( modeloCliente.isHabilitado()
             ? "Esta a punto de deshabilitar el cliente y por tanto ya no podra registrar ventas con el."
-            : "Esta a punto de habilitar el cliente y ahora lo podra usar en ventas."
+            : "Esta a punto de habilitar el cliente y ahora lo podra usar en ventas." )
             + "\nEsta seguro?"
         );
         

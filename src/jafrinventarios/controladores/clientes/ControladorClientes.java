@@ -188,10 +188,10 @@ public class ControladorClientes {
        
     private void crearCliente(){
 
-        int idClienteCreado;
-//              = ControladorDialogoClientes.crearCliente( 
-//                        panelClientes.getVentanaPadre() , 
-//                        servicioClientes);
+        int idClienteCreado = ControladorDialogoCliente.crearCliente( 
+                        panelClientes.getVentanaPadre() , 
+                        servicioClientes
+        );
         
         //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
         idClienteCreado = -1;
@@ -224,10 +224,10 @@ public class ControladorClientes {
         
     private void editarCliente( Integer idCliente ){
         
-        ResultadoDialogo resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
-//                ControladorDialogoClientes.editarCliente(
-//                    panelClientes.getVentanaPadre() , idCliente, servicioClientes
-//                );
+        ResultadoDialogo resultadoOperacion = 
+                ControladorDialogoCliente.editarCliente(
+                    panelClientes.getVentanaPadre() , idCliente, servicioClientes
+                );
         
         //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea
         resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;

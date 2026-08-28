@@ -331,9 +331,9 @@ public class ControladorDialogoProducto {
     
     private void conmutarEstadoProducto(){
         boolean deseaContinuar = dialogoProducto.mostrarAlertaAdvertencia(
-            modeloProducto.isHabilitado()
+            ( modeloProducto.isHabilitado()
             ? "Esta a punto de deshabilitar el producto y por tanto ya no podra registrar ventas o compras con el."
-            : "Esta a punto de habilitar el producto y ahora lo podra usar en ventas o compras."
+            : "Esta a punto de habilitar el producto y ahora lo podra usar en ventas o compras." )
             + "\nEsta seguro?"
         );
         

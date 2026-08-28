@@ -307,9 +307,9 @@ public class ControladorDialogoProveedor {
     
     private void conmutarEstadoProveedor(){
         boolean deseaContinuar = dialogoProveedor.mostrarAlertaAdvertencia(
-            modeloProveedor.isHabilitado()
+            ( modeloProveedor.isHabilitado()
             ? "Esta a punto de deshabilitar el proveedor y por tanto ya no podra registrar productos o compras con el."
-            : "Esta a punto de habilitar el proveedor y ahora lo podra usar en productos o compras."
+            : "Esta a punto de habilitar el proveedor y ahora lo podra usar en productos o compras." )
             + "\nEsta seguro?"
         );
         
