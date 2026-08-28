@@ -74,7 +74,7 @@ public class ControladorDialogoProducto {
             }
         }
         
-        //TODO inicializar botones
+        inicializarEventosBotones();
         
         this.dialogoProducto.mostrar();
     }
@@ -168,14 +168,6 @@ public class ControladorDialogoProducto {
     ============================================================================
     */
     
-    
-    
-    
-    /*
-    ============================================================================
-                 METODOS RESPUESTA DESPUES DE CIERRE DEL DIALOGO
-    ============================================================================
-    */
     private void inicializarComboBoxProveedores(){
         try {
             LinkedHashMap<Integer, String> diccionarioProveedores = obtenerDiccionarioProveedores();
@@ -213,6 +205,76 @@ public class ControladorDialogoProducto {
     }
     
     
+    private void inicializarEventosBotones(){
+    
+        if( tipoDialogo == TipoDialogo.EDITAR_PRODUCTO){
+            if( isProductoEliminable )
+                dialogoProducto.getBtnLinkEliminarProducto().addActionListener(e -> eliminarProducto() );
+            else
+                dialogoProducto.getBtnLinkEditarEstadoProducto().addActionListener( e -> conmutarEstadoProducto() );
+        }
+        
+        dialogoProducto.getBtnEnviarFormulario().addActionListener( e -> procesarFormulario() );
+    
+    }
+    
+    
+    /*
+    ============================================================================
+                        METODOS OPERACION DE LOS BOTONES
+    ============================================================================
+    */
+    
+    private void procesarFormulario(){
+    
+    }
+    
+    
+    private void conmutarEstadoProducto(){
+        boolean deseaContinuar = dialogoProducto.mostrarAlertaAdvertencia(
+            modeloProducto.isHabilitado()
+            ? "Esta a punto de deshabilitar el producto y por tanto ya no podra registrar ventas o compras con el."
+            : "Esta a punto de habilitar el producto y ahora lo podra usar en ventas o compras."
+            + "\nEsta seguro?"
+        );
+        
+        if(deseaContinuar){
+            try {
+                conmutarEstadoProducto( idProducto );
+                modeloProducto.setHabilitado( isProductoHabilitado(idProducto) );
+                dialogoProducto.asignarIntencionBtnEditarEstadoProducto(
+                                            modeloProducto.isHabilitado()
+                );
+                resultadoEdicion = ResultadoDialogo.ACTUALIZADO;
+            } catch (Exception e) {
+                dialogoProducto.mostrarAlertaError( e.getMessage() );
+            }
+        }
+    
+    }
+    
+    private void eliminarProducto(){
+        boolean deseaContinuar = dialogoProducto.mostrarAlertaAdvertencia(
+            "Esta a punto de eliminar el producto, este cambio es irreversible \nEsta seguro?"
+        );
+        
+        if(deseaContinuar){
+            try {
+                eliminarProducto(idProducto);
+                resultadoEdicion = ResultadoDialogo.ELIMINADO;
+                dialogoProducto.mostrarAlertaExitosa("Producto eliminado correctamente");
+                dialogoProducto.dispose();
+            } catch (Exception e) {
+                dialogoProducto.mostrarAlertaError( e.getMessage() );
+            }   
+        }
+    }
+    
+    /*
+    ============================================================================
+                 METODOS RESPUESTA DESPUES DE CIERRE DEL DIALOGO
+    ============================================================================
+    */
     
     /* 
     Funcion para retornar true en dado caso que se haya realizado 
