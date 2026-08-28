@@ -4,6 +4,7 @@ package jafrinventarios.controladores.productos;
 import jafrinventarios.controladores.utilidades.ResultadoDialogo;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.modelos.productos.ModeloProducto;
+import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.servicios.productos.ServicioProductos;
 import jafrinventarios.servicios.proveedores.ServicioProveedores;
 import jafrinventarios.vistas.productos.DialogoFormularioProducto;
@@ -226,7 +227,105 @@ public class ControladorDialogoProducto {
     */
     
     private void procesarFormulario(){
+        
+        // Verificar que los campos esten diligenciados con un formato valido
+        if( !dialogoProducto.validarFormulario() ){
+            dialogoProducto.mostrarAlertaErrorFormatoCampos();
+            return;
+        }
+        
+        //Extraer los datos del formulario
+        HashMap<String, String> datosFormulario = dialogoProducto.recolectarDatosFormulario();
+        
+        
+        /*
+        Asignar datos a modelo, 
+        clonamos si es para editar con el fin de comprobar si hubieron cambios, 
+        pero si es para crear uno nuevo unicamente instanciamos el Modelo
+        */
+        ModeloProducto productoAProcesar =   
+                (tipoDialogo == TipoDialogo.EDITAR_PRODUCTO)
+                ? modeloProducto.clonar()
+                : new ModeloProducto();
+        
+        try {
+            productoAProcesar = asignarDatosAModelo( productoAProcesar, datosFormulario);
+        } catch (Exception e) {
+            dialogoProducto.mostrarAlertaError( e.getMessage() );
+            return;
+        }
+        
+        //Verificar si los modelos son iguales en dado caso que tipoDialogo sea EDITAR
+        if( tipoDialogo == TipoDialogo.EDITAR_PRODUCTO ){
+            if ( modeloProducto.equals( productoAProcesar )) {
+                if ( resultadoEdicion == ResultadoDialogo.ACTUALIZADO) {
+                    //Si entra aqui es por que se edito su estado habilitado
+                    dialogoProducto.mostrarAlertaExitosa("Producto editado correctamente");
+                    dialogoProducto.dispose();
+                }else{
+                    dialogoProducto.mostrarAlertaError("No hay cambios para guardar");
+                    return;
+                }  
+            }
+        }
+        
+        
+        /*
+        =======================================================================
+        GUARDAR EN LA BASE DE DATOS solo si cumplio las anteriores validaciones
+        =======================================================================
+        */
+        switch(tipoDialogo){
+            case EDITAR_PRODUCTO:
+                try {
+                    editarProducto( productoAProcesar );
+                    dialogoProducto.mostrarAlertaExitosa("Producto actualizado correctamente");
+                    resultadoEdicion = ResultadoDialogo.ACTUALIZADO;
+                    dialogoProducto.dispose();
+                }catch (ExcepcionValidacionBD e) {
+                    dialogoProducto.mostrarErroresValidacionCampos( e.getErrores() );
+                }catch (Exception e) {
+                    dialogoProducto.mostrarAlertaError(e.getMessage());
+                }
+                break;
+            case CREAR_NUEVO_PRODUCTO:
+                try {
+                    idProducto = crearProducto( productoAProcesar );
+                    dialogoProducto.mostrarAlertaExitosa("Producto creado correctamente");
+                    dialogoProducto.dispose();
+                }catch (ExcepcionValidacionBD e) {
+                    dialogoProducto.mostrarErroresValidacionCampos( e.getErrores() );
+                }catch (Exception e) {
+                    dialogoProducto.mostrarAlertaError(e.getMessage());
+                }
+                break;
+        }
     
+    }
+    
+    private ModeloProducto asignarDatosAModelo( ModeloProducto producto, HashMap<String, String> datos ) throws Exception{
+    
+        try {
+            if( datos.containsKey("nombreProducto") )
+                producto.setNombreProducto( datos.get("nombreProducto"));
+            if( datos.containsKey("proveedor") )
+                producto.setIdProveedor( Integer.parseInt( datos.get("proveedor") ));
+            if( datos.containsKey("precioCompra") )
+                producto.setPrecioCompra(Double.parseDouble(datos.get("precioCompra")));
+            if( datos.containsKey("precioVenta") )
+                producto.setPrecioVenta( Double.parseDouble(datos.get("precioVenta")));
+            if( datos.containsKey("cantidadMinimaStock") )
+                producto.setCantidadMinimaStock( Integer.parseInt(datos.get("cantidadMinimaStock")));
+            if( datos.containsKey("cantidadDisponible") )
+                producto.setCantidadDisponible( Integer.parseInt(datos.get("cantidadDisponible"))); 
+            
+            return producto;
+        } catch (Exception e) {
+            throw new Exception( "Error al convertir los datos del diccionario al tipo de variable del modelo" +
+                                "\n" + e.getMessage()
+            );
+        }
+        
     }
     
     
