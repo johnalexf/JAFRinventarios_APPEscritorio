@@ -1150,7 +1150,11 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     }
     
     
-        
+    public boolean isRegistroAdministrador(){
+        String tipoRegistro = comboBoxRolUsuario.getSelectedItem().toString();
+        return tipoRegistro.toLowerCase().equals("administrador");
+    }
+     
     /* 
         Metodos para dialogos de mensajes de Alertas
     */

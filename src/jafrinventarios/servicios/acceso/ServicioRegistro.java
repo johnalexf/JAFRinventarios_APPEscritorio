@@ -18,7 +18,7 @@ public class ServicioRegistro {
     y un codigo de acceso
     */
     
-    public boolean esValidoCodigo( String codigo, int idRol ) throws Exception {
+    public boolean isValidoCodigo( String codigo, boolean isRegistroAdminsitrador ) throws Exception {
     
         boolean respuestaBD = true;
         /*
@@ -40,48 +40,24 @@ public class ServicioRegistro {
     }
     
     
-    public void registrarUsuario ( String codigo, ModeloUsuario usuario, String contrasena, String nombreEmpresa ) throws Exception{
+    
+    public void registrarAdministrador ( ModeloUsuario usuario, String contrasena, String nombreEmpresa ) throws Exception{
     
         try {
             
             /*
-                Por seguridad se puede hacer una previa validacion si cada campo viene vacio
-                o nulo, entonces returnamos false y guardamos el error de campos vacios
-            */
-            /*
-                Aqui se van hacer los siguientes pasos:
 
-                1. Validar nuevamente el codigo con la funcion
-                    esValidoCodigo( codigo, usuario.getIdRolUsuario() )
-
-                2. Como se necesita verificar si es un usuario administrador, se creara
-                    una funcion que consulte si el id es o no administrador, por que de eso 
-                    depende de como se crea el usuario
-
-                Para no mantener esta funcion tan larga se crearan metodos privados
-                para crear un administrador o para crear un no adminsitrador
-
-                Opcion 1 : Es administrador
                 Dado que es un adminsitrador se creara la empresa primero
 
-                2.1 Crear la empresa con el nombreEmpresa, aparte existira un metodo 
+                1 Crear la empresa con el nombreEmpresa, aparte existira un metodo 
                     en Servicio autenticacion que creara un codigo aleatorio de 10 digitos  
                     se usara dicho metodo, para crear la empresa con el nombre y el codigo
 
-                2.2 En el mismo servicio de autenticacion, existira un metodo para 
+                2 En el mismo servicio de autenticacion, existira un metodo para 
                     encriptar la contraseña
 
-                2.3 Crear el usuario asociandolo al id de la empresa creada
+                3 Crear el usuario asociandolo al id de la empresa creada
 
-                Opcion 2 : No es administrador
-
-                2.1 Verificar si el codigo es el mismo que tiene la empresa guardado, obtener el id
-
-                2.2 encriptar la contraseña
-
-                2.3 Crear el usuario asociandolo al id de la empresa 
-
-                2.4 Modificar el codigo de acceso de la empresa
 
             */
         } 
@@ -109,4 +85,48 @@ public class ServicioRegistro {
 
 
     }
+    
+    
+    public void registrarNoAdministrador ( ModeloUsuario usuario, String contrasena ) throws Exception{
+    
+        try {
+            
+            /*
+                Como No es administrador
+
+                1. En la base de datos solo existira una empresa, por tanto se obtiene el id de ella
+
+                2 encriptar la contraseña
+
+                3 Crear el usuario asociandolo al id de la empresa 
+
+                4 Modificar el codigo de acceso de la empresa
+
+            */
+        } 
+        /*
+        Ejemplo de manejo de la respuesta de la base de datos
+        Dejamos comentado hasta que se haga la conexion a la base de datos
+        catch (SQLIntegrityConstraintViolationException e) {
+            
+            String errorBD = e.getMessage();
+            HashMap<String, String> errores = new HashMap<>();
+
+            // Buscar palabras clave en el error de la base de datos
+            if (errorBD.contains("correo_UNIQUE")) {
+                errores.put("correo", "Este correo ya está registrado.");
+            } 
+            if (errorBD.contains("alias_UNIQUE")) {
+                errores.put("alias", "El alias ya está en uso.");
+            }
+
+            // Lanzar la excepción personalizada con el mapa listo para la vista
+            throw new ExcepcionValidacionBD(errores);
+        }*/
+        catch (Exception e) {
+        }
+
+
+    }
+    
 }

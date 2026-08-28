@@ -73,12 +73,16 @@ public class ControladorRegistroUsuario {
         return ServicioRoles.obtenerDiccionarioRoles();
     }
     
-    private boolean esValidoCodigo( String codigo, int idRol ) throws Exception{
-        return servicioRegistro.esValidoCodigo(codigo, idRol);
+    private boolean isValidoCodigo( String codigo, boolean isRegistroAdministrador) throws Exception{
+        return servicioRegistro.isValidoCodigo( codigo, isRegistroAdministrador );
     }
     
-    private void registrarUsuario ( String codigo, ModeloUsuario usuario, String contrasena, String nombreEmpresa ) throws Exception{
-        servicioRegistro.registrarUsuario(codigo, usuario, contrasena, nombreEmpresa);
+    private void registrarAdministrador ( ModeloUsuario usuario, String contrasena, String nombreEmpresa ) throws Exception{
+        servicioRegistro.registrarAdministrador(usuario, contrasena, nombreEmpresa);
+    }
+    
+    private void registrarNoAdministrador ( ModeloUsuario usuario, String contrasena ) throws Exception{
+        servicioRegistro.registrarNoAdministrador( usuario, contrasena );
     }
     
     
@@ -107,11 +111,11 @@ public class ControladorRegistroUsuario {
         usuario = asignarDatosAModeloUsuario( usuario, datosFormulario );
       
         String codigo = datosFormulario.get("codigo");
-        
+        boolean registrarAdministrador = vistaRegistro.isRegistroAdministrador();
         
         // Auditoría de Codigo
-        try {
-            if( !esValidoCodigo( codigo, usuario.getIdRolUsuario() ) ){
+        try {                    
+            if( !isValidoCodigo( codigo, registrarAdministrador ) ){
                 // TODO: La idea es que el servicio responda, puede responder
                 // falla de conexion o este codigo solo permitia crear un usuario administrador
                 vistaRegistro.mostrarAlertaError("El codigo no es valido");
@@ -145,7 +149,10 @@ public class ControladorRegistroUsuario {
         */
         try {
             
-            registrarUsuario( codigo, usuario, contrasena, nombreEmpresa );
+            if(registrarAdministrador)
+                registrarAdministrador(usuario, contrasena, nombreEmpresa);
+            else
+                registrarNoAdministrador(usuario, contrasena);
             
             vistaRegistro.ejecutarLimpiezaFormulario();
             vistaRegistro.mostrarAlertaRegistroExitoso( usuario.getAliasUsuario() );
