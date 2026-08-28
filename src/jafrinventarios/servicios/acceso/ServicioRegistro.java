@@ -2,7 +2,11 @@
 package jafrinventarios.servicios.acceso;
 
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
+import jafrinventarios.servicios.Conexion_DB;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 
 /**
@@ -20,23 +24,58 @@ public class ServicioRegistro {
     
     public boolean isValidoCodigo( String codigo, boolean isRegistroAdminsitrador ) throws Exception {
     
-        boolean respuestaBD = true;
-        /*
-            TODO
-            Buscar en la base de datos que tipo de id es,
-            Si es para un administrador existira un codigo de un unico uso
-            que proveera el desarrollador, por tanto primero se consulta si hay
-            usuarios registrados y si no hay se valida el codigo con uno escrito
-            en estas lineas de codigo
+        Connection conexionBD = Conexion_DB.getConnection();
         
-            En dado caso que no sea para validar el codigo de un usuario administrador
-            es decir que sea para un vendedor, entonces debera existir una unica empresa
-            a la cual se va consultar el codigo de acceso que tiene en sus 
-            atributos y se compara con este.
+        if(isRegistroAdminsitrador){
+            
+            if( !codigo.equals("JaFr_1pp4*") )
+                return false;
+
+            String sentenciaSQL = "SELECT COUNT(*) AS 'cantidadEmpresas' FROM empresa";
+            
+            /*
+            Usamos try-with-resources para cerrar la consulta y no dejarla abierta
+            para evitar almacenamiento de las mismas en cache y acumulacion que
+            puede generar un colapso de la conexion con la base de datos.
+            */
+            try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
+                
+                ResultSet respuesta = consulta.executeQuery();
+
+                //En respuesta la fila 0 es el inicio, por eso usamos next para revisar si hay datos
+                if(respuesta.next()){
+                    if (respuesta.getInt("cantidadEmpresas") == 0) {
+                        //Si aun no hay empresas el codigo sigue siendo valido
+                        return true;        
+                    }else{
+                        /*
+                        Si ya hay una empresa entonces no se pueden crear mas usuarios administradores POR MEDIO DE CODIGO
+                        El codigo es solo valido para crear UN SOLO usuario administrador, por que la intencion es crear la empresa a la par.
+                        Recordar que se va crear solo una empresa y se uso esa tabla para poder centralizar el nombre y un codigo para dejar 
+                        registrar otros usuarios que no sean administradores.
+                        */
+                        throw new Exception("Este codigo era de un unico uso");
+                    }
+                }
+
+                return false; 
+            } 
+                
+                
+        }else{
         
-        */
+            String sentenciaSQL =  "SELECT id_empresa FROM empresa WHERE codigo_registro_usuario_vendedor = ?";
+            
+            try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
+                
+                consulta.setString(1, codigo);
+                ResultSet respuesta = consulta.executeQuery();
+
+                //Si hay un valor es por que si coincidio la contraseña
+                return respuesta.next();
+            }
+        }
         
-        return respuestaBD;
     }
     
     
