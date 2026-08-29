@@ -8,6 +8,7 @@
 package jafrinventarios.servicios.acceso;
 
 import org.mindrot.jbcrypt.BCrypt;
+import java.security.SecureRandom;
 
 /**
  *
@@ -15,6 +16,10 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class ServicioSeguridad {
     
+    // Generador de números aleatorios utilizado para operaciones 
+    // relacionadas con seguridad.
+    // Se utiliza en generarCodigo()
+    private static final SecureRandom RANDOM = new SecureRandom();
     
     /**
      * hashearContrasena
@@ -61,37 +66,35 @@ public class ServicioSeguridad {
     }
 
     
-    
+    /** 
+     * Genera un código aleatorio de 10 caracteres utilizando 
+     * letras mayúsculas, letras minúsculas y números. 
+     */
     public static String generarCodigo (){
         
-        StringBuilder codigo = new StringBuilder();
+        String caracteres = "0123456789" + 
+                            "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + 
+                            "abcdefghijklmnopqrstuvwxyz";
         
-        for( int i=0; i<10; i++){
-            double numAleatorio = Math.random();
-            int codigoASCII;
-            
-            if( numAleatorio < 0.35 )  
-                codigoASCII = (int) ( Math.random()*(57 - 48) + 48 );
-            else if(numAleatorio < 0.75 ) 
-                codigoASCII = (int) ( Math.random()*(90 - 65) + 65 );
-            else 
-                codigoASCII = (int) ( Math.random()*(122 - 97) + 97 );
-            
-            char caracter = (char) codigoASCII;
-            codigo.append(caracter);
-        }
+        StringBuilder codigo = new StringBuilder(); 
+        
+        for (int i = 0; i < 10; i++) {
+            // Seleccionamos aleatoriamente una posición 
+            // dentro de la cadena de caracteres disponibles. 
+            int posicion = RANDOM.nextInt(caracteres.length()); 
+            codigo.append(caracteres.charAt(posicion)); 
+        } 
         
         return codigo.toString();
     }
     
     
     public static String generarContrasena() {
-    
-    // Se reutiliza el método generarCodigo(), ya que
-    // ambos requieren generar una cadena aleatoria
-    // compuesta por letras y números.
-    return generarCodigo();
-}
+        // Se reutiliza el método generarCodigo(), ya que
+        // ambos requieren generar una cadena aleatoria
+        // compuesta por letras y números.
+        return generarCodigo();
+    }
     
     
 }
