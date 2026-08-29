@@ -66,7 +66,7 @@ public class ServicioAutenticacion {
     }
     
     
-    public String generarCodigo (){
+    public static String generarCodigo (){
         
         StringBuilder codigo = new StringBuilder();
         

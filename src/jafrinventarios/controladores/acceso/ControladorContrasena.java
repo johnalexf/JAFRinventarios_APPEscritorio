@@ -129,7 +129,7 @@ public class ControladorContrasena {
     }
     
     private String generarCodigo(){
-        return servicioAutenticacion.generarCodigo();
+        return ServicioAutenticacion.generarCodigo();
     }
     
     private void enviarCodigoCorreo( String correo, String codigo) throws Exception{

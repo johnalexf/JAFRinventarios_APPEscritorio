@@ -23,9 +23,11 @@ public class ModeloEmpresa {
     
     private int idEmpresa;
     private String nombreEmpresa;
-    private char[] codigoRegistroUsuarioVendedor = new char[10];
+    private String codigoRegistroUsuarioVendedor;
 
-    public ModeloEmpresa(int idEmpresa, String nombreEmpresa, char[] codigoRegistroUsuarioVendedor) {
+    public ModeloEmpresa(){}
+    
+    public ModeloEmpresa(int idEmpresa, String nombreEmpresa, String codigoRegistroUsuarioVendedor) {
         this.idEmpresa = idEmpresa;
         this.nombreEmpresa = nombreEmpresa;
         this.codigoRegistroUsuarioVendedor = codigoRegistroUsuarioVendedor;
@@ -43,11 +45,15 @@ public class ModeloEmpresa {
         this.nombreEmpresa = nombreEmpresa;
     }
 
-    public char[] getCodigoRegistroUsuarioVendedor() {
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+    
+    public String getCodigoRegistroUsuarioVendedor() {
         return codigoRegistroUsuarioVendedor;
     }
 
-    public void setCodigoRegistroUsuarioVendedor(char[] codigoRegistroUsuarioVendedor) {
+    public void setCodigoRegistroUsuarioVendedor( String codigoRegistroUsuarioVendedor ) {
         this.codigoRegistroUsuarioVendedor = codigoRegistroUsuarioVendedor;
     }
     

@@ -1,12 +1,14 @@
 
 package jafrinventarios.servicios.acceso;
 
+import jafrinventarios.modelos.usuarios.ModeloEmpresa;
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.servicios.Conexion_DB;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 
 /**
@@ -80,10 +82,52 @@ public class ServicioRegistro {
     
     
     
+    private int crearEmpresa ( String nombreEmpresa ) throws Exception{
+    
+        Connection conexionBD = Conexion_DB.getConnection();
+
+        ModeloEmpresa empresa = new ModeloEmpresa();
+        empresa.setNombreEmpresa(nombreEmpresa);
+        empresa.setCodigoRegistroUsuarioVendedor( ServicioAutenticacion.generarCodigo() );
+
+        String sentenciaSQL = 
+                "INSERT INTO \n" +
+                "	empresa\n" +
+                "    (nombre_empresa, codigo_registro_usuario_vendedor) \n" +
+                "VALUES ( ? , ? )";
+        
+        /*
+            Usamos RETURN_GENERATED_KEYS Para que en la misma consulta se retorne el id de la empresa creada
+        */
+        try( PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL, Statement.RETURN_GENERATED_KEYS )){
+        
+            consulta.setString(1, empresa.getNombreEmpresa());
+            consulta.setString(2, empresa.getCodigoRegistroUsuarioVendedor());
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if( filasAfectadas != 0){
+                try( ResultSet respuesta = consulta.getGeneratedKeys() ){ 
+                    if( respuesta.next() ){
+                        empresa.setIdEmpresa( respuesta.getInt( 1 ) );
+                    }else{
+                        throw new Exception( "Error al obtener el id de la empresa" );
+                    }
+                }
+                
+            }else{
+                throw new Exception ("No se creo la empresa en la base de datos");
+            }       
+        }
+        
+        return empresa.getIdEmpresa();
+    }
+    
+    
+    
     public void registrarAdministrador ( ModeloUsuario usuario, String contrasena, String nombreEmpresa ) throws Exception{
     
-        try {
-            
+        
             /*
 
                 Dado que es un adminsitrador se creara la empresa primero
@@ -99,7 +143,7 @@ public class ServicioRegistro {
 
 
             */
-        } 
+   
         /*
         Ejemplo de manejo de la respuesta de la base de datos
         Dejamos comentado hasta que se haga la conexion a la base de datos
@@ -119,8 +163,6 @@ public class ServicioRegistro {
             // Lanzar la excepción personalizada con el mapa listo para la vista
             throw new ExcepcionValidacionBD(errores);
         }*/
-        catch (Exception e) {
-        }
 
 
     }
