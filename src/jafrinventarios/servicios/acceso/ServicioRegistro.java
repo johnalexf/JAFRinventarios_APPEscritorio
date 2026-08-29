@@ -42,25 +42,24 @@ public class ServicioRegistro {
             */
             try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
                 
-                ResultSet respuesta = consulta.executeQuery();
-
-                //En respuesta la fila 0 es el inicio, por eso usamos next para revisar si hay datos
-                if(respuesta.next()){
-                    if (respuesta.getInt("cantidadEmpresas") == 0) {
-                        //Si aun no hay empresas el codigo sigue siendo valido
-                        return true;        
-                    }else{
-                        /*
-                        Si ya hay una empresa entonces no se pueden crear mas usuarios administradores POR MEDIO DE CODIGO
-                        El codigo es solo valido para crear UN SOLO usuario administrador, por que la intencion es crear la empresa a la par.
-                        Recordar que se va crear solo una empresa y se uso esa tabla para poder centralizar el nombre y un codigo para dejar 
-                        registrar otros usuarios que no sean administradores.
-                        */
-                        throw new Exception("Este codigo era de un unico uso");
+                try( ResultSet respuesta = consulta.executeQuery() ){
+                    //En respuesta la fila 0 es el inicio, por eso usamos next para revisar si hay datos
+                    if(respuesta.next()){
+                        if (respuesta.getInt("cantidadEmpresas") == 0) {
+                            //Si aun no hay empresas el codigo sigue siendo valido
+                            return true;        
+                        }else{
+                            /*
+                            Si ya hay una empresa entonces no se pueden crear mas usuarios administradores POR MEDIO DE CODIGO
+                            El codigo es solo valido para crear UN SOLO usuario administrador, por que la intencion es crear la empresa a la par.
+                            Recordar que se va crear solo una empresa y se uso esa tabla para poder centralizar el nombre y un codigo para dejar 
+                            registrar otros usuarios que no sean administradores.
+                            */
+                            throw new Exception("Este codigo era de un unico uso");
+                        }
                     }
+                    return false; 
                 }
-
-                return false; 
             } 
                 
                 
@@ -71,10 +70,11 @@ public class ServicioRegistro {
             try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
                 
                 consulta.setString(1, codigo);
-                ResultSet respuesta = consulta.executeQuery();
-
-                //Si hay un valor es por que si coincidio la contraseña
-                return respuesta.next();
+                
+                try( ResultSet respuesta = consulta.executeQuery() ){
+                    //Si hay un valor es por que si coincidio la contraseña
+                    return respuesta.next();
+                }        
             }
         }
         
@@ -106,7 +106,7 @@ public class ServicioRegistro {
             
             int filasAfectadas = consulta.executeUpdate();
             
-            if( filasAfectadas != 0){
+            if( filasAfectadas == 1){
                 try( ResultSet respuesta = consulta.getGeneratedKeys() ){ 
                     if( respuesta.next() ){
                         empresa.setIdEmpresa( respuesta.getInt( 1 ) );
