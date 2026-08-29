@@ -3,6 +3,7 @@ package jafrinventarios.controladores.acceso;
 
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.acceso.ServicioAutenticacion;
+import jafrinventarios.servicios.acceso.ServicioSeguridad;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
@@ -129,7 +130,7 @@ public class ControladorContrasena {
     }
     
     private String generarCodigo(){
-        return ServicioAutenticacion.generarCodigo();
+        return ServicioSeguridad.generarCodigo();
     }
     
     private void enviarCodigoCorreo( String correo, String codigo) throws Exception{

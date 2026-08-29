@@ -88,7 +88,7 @@ public class ServicioRegistro {
 
         ModeloEmpresa empresa = new ModeloEmpresa();
         empresa.setNombreEmpresa(nombreEmpresa);
-        empresa.setCodigoRegistroUsuarioVendedor( ServicioAutenticacion.generarCodigo() );
+        empresa.setCodigoRegistroUsuarioVendedor( ServicioSeguridad.generarCodigo() );
 
         String sentenciaSQL = 
                 "INSERT INTO \n" +

@@ -56,39 +56,6 @@ public class ServicioAutenticacion {
     
     
     
-    protected String encriptarContrasena( String contrasena ){
-    
-        String contrasenaEncriptada = contrasena + "pendiente";
-        /*
-        TODO Encriptar contrasena
-        */
-        return contrasenaEncriptada;
-    }
-    
-    
-    public static String generarCodigo (){
-        
-        StringBuilder codigo = new StringBuilder();
-        
-        for( int i=0; i<10; i++){
-            double numAleatorio = Math.random();
-            int codigoASCII;
-            
-            if( numAleatorio < 0.35 )  
-                codigoASCII = (int) ( Math.random()*(57 - 48) + 48 );
-            else if(numAleatorio < 0.75 ) 
-                codigoASCII = (int) ( Math.random()*(90 - 65) + 65 );
-            else 
-                codigoASCII = (int) ( Math.random()*(122 - 97) + 97 );
-            
-            char caracter = (char) codigoASCII;
-            codigo.append(caracter);
-        }
-        
-        return codigo.toString();
-    }
-    
-    
     public int obtenerIdUsuarioConCorreo ( String correo ) throws Exception {
         
         
