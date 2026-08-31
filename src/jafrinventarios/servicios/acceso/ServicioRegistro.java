@@ -3,7 +3,7 @@ package jafrinventarios.servicios.acceso;
 
 import jafrinventarios.modelos.usuarios.ModeloEmpresa;
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
-import jafrinventarios.servicios.Conexion_DB;
+import jafrinventarios.servicios.ConexionDB;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +26,7 @@ public class ServicioRegistro {
     
     public boolean isValidoCodigo( String codigo, boolean isRegistroAdminsitrador ) throws Exception {
     
-        Connection conexionBD = Conexion_DB.getConnection();
+        Connection conexionBD = ConexionDB.getConnection();
         
         if(isRegistroAdminsitrador){
             
@@ -84,7 +84,7 @@ public class ServicioRegistro {
     
     private int crearEmpresa ( String nombreEmpresa ) throws Exception{
     
-        Connection conexionBD = Conexion_DB.getConnection();
+        Connection conexionBD = ConexionDB.getConnection();
 
         ModeloEmpresa empresa = new ModeloEmpresa();
         empresa.setNombreEmpresa(nombreEmpresa);

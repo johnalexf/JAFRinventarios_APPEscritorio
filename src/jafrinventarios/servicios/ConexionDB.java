@@ -8,7 +8,7 @@ import java.sql.DriverManager;
  *
  * @author JOHN FORERO
  */
-public class Conexion_DB {
+public class ConexionDB {
     
     private static final String DB_NAME = "db_app_jafr";
     private static final String USERNAME = "root";
