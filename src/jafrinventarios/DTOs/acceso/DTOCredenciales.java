@@ -15,11 +15,9 @@ public class DTOCredenciales {
 
     /* 
     =================================================================================
-                                  Constructores 
+                                  Constructor
     =================================================================================
     */
-    
-    public DTOCredenciales(){}
 
     public DTOCredenciales( int idUsuario, String nombreRol, boolean isAdministrador, int idEmpresa, String nombreEmpresa ) {
         this.idUsuario = idUsuario;

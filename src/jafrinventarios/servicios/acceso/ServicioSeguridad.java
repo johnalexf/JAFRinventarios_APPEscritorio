@@ -45,7 +45,7 @@ public class ServicioSeguridad {
 
 
     /**
-     * verificarContraseña
+     * contrasenaCoincideConHash
      * Verifica si una contraseña coincide con un hash almacenado.
      *
      * BCrypt proporciona el método checkpw() para realizar esta
@@ -56,7 +56,7 @@ public class ServicioSeguridad {
      * No es necesario desencriptar el hash ni generar un hash
      * manualmente para realizar la comparación.
      */
-    public static boolean verificarContrasena(
+    public static boolean contrasenaCoincideConHash(
             String contraseña,
             String hash) {
 

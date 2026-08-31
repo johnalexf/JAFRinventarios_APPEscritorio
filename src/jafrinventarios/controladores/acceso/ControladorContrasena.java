@@ -138,7 +138,7 @@ public class ControladorContrasena {
     }
     
     private boolean validarContrasenaAntigua( int idUsuario, String contrasenaAntigua) throws Exception{
-        return servicioAutenticacion.validarContrasenaAntigua(idUsuario, contrasenaAntigua);
+        return servicioAutenticacion.validarContrasena(idUsuario, contrasenaAntigua);
     }
     
     private void cambiarContrasena( int idUsuario, String contrasenaNueva ) throws Exception {
