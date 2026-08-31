@@ -1,15 +1,11 @@
 
 package jafrinventarios.servicios.acceso;
 
-import jafrinventarios.modelos.usuarios.ModeloEmpresa;
+
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.servicios.ConexionDB;
-import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
+import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.HashMap;
 
 /**
  *
@@ -25,246 +21,66 @@ public class ServicioRegistro {
     */
     
     public boolean isValidoCodigo( String codigo, boolean isRegistroAdminsitrador ) throws Exception {
-    
-        Connection conexionBD = ConexionDB.getConnection();
+        
+        int idEmpresa = ServicioEmpresa.obtenerIdEmpresa();
         
         if(isRegistroAdminsitrador){
             
             if( !codigo.equals("JaFr_1pp4*") )
                 return false;
 
-            String sentenciaSQL = "SELECT COUNT(*) AS 'cantidadEmpresas' FROM empresa";
-            
-            /*
-            Usamos try-with-resources para cerrar la consulta y no dejarla abierta
-            para evitar almacenamiento de las mismas en cache y acumulacion que
-            puede generar un colapso de la conexion con la base de datos.
-            */
-            try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
-                
-                try( ResultSet respuesta = consulta.executeQuery() ){
-                    //En respuesta la fila 0 es el inicio, por eso usamos next para revisar si hay datos
-                    if(respuesta.next()){
-                        if (respuesta.getInt("cantidadEmpresas") == 0) {
-                            //Si aun no hay empresas el codigo sigue siendo valido
-                            return true;        
-                        }else{
-                            /*
-                            Si ya hay una empresa entonces no se pueden crear mas usuarios administradores POR MEDIO DE CODIGO
-                            El codigo es solo valido para crear UN SOLO usuario administrador, por que la intencion es crear la empresa a la par.
-                            Recordar que se va crear solo una empresa y se uso esa tabla para poder centralizar el nombre y un codigo para dejar 
-                            registrar otros usuarios que no sean administradores.
-                            */
-                            throw new Exception("Este codigo era de un unico uso");
-                        }
-                    }
-                    return false; 
-                }
-            } 
+            if( idEmpresa == -1 ){
+                //Si aun no hay empresas el codigo sigue siendo valido
+                return true;        
+            }else{
+                /*
+                Si ya hay una empresa entonces no se pueden crear mas usuarios administradores POR MEDIO DE CODIGO
+                El codigo es solo valido para crear UN SOLO usuario administrador, por que la intencion es crear la empresa a la par.
+                Recordar que se va crear solo una empresa y se uso esa tabla para poder centralizar el nombre y un codigo para dejar 
+                registrar otros usuarios que no sean administradores.
+                */
+                throw new Exception("Este codigo era de un unico uso");
+            }
                 
                 
         }else{
         
-            String sentenciaSQL =  "SELECT id_empresa FROM empresa WHERE codigo_registro_usuario_vendedor = ?";
-            
-            try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
-                
-                consulta.setString(1, codigo);
-                
-                try( ResultSet respuesta = consulta.executeQuery() ){
-                    //Si hay un valor es por que si coincidio la contraseña
-                    return respuesta.next();
-                }        
+            if(idEmpresa == -1){
+                throw new Exception( "Error aun no existe una empresa creada, primero se debe crear el usuario administrador" );
             }
-        }
-        
-    }
-    
-    
-    
-    private int crearEmpresa ( String nombreEmpresa ) throws Exception{
-    
-        Connection conexionBD = ConexionDB.getConnection();
-
-        ModeloEmpresa empresa = new ModeloEmpresa();
-        empresa.setNombreEmpresa(nombreEmpresa);
-        empresa.setCodigoRegistroUsuarioVendedor( ServicioSeguridad.generarCodigo() );
-
-        String sentenciaSQL = 
-                "INSERT INTO \n" +
-                "	empresa\n" +
-                "    (nombre_empresa, codigo_registro_usuario_vendedor) \n" +
-                "VALUES ( ? , ? )";
-        
-        /*
-            Usamos RETURN_GENERATED_KEYS Para que en la misma consulta se retorne el id de la empresa creada
-        */
-        try( PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL, Statement.RETURN_GENERATED_KEYS )){
-        
-            consulta.setString(1, empresa.getNombreEmpresa());
-            consulta.setString(2, empresa.getCodigoRegistroUsuarioVendedor());
             
-            int filasAfectadas = consulta.executeUpdate();
-            
-            if( filasAfectadas == 1){
-                try( ResultSet respuesta = consulta.getGeneratedKeys() ){ 
-                    if( respuesta.next() ){
-                        empresa.setIdEmpresa( respuesta.getInt( 1 ) );
-                    }else{
-                        throw new Exception( "Error al obtener el id de la empresa" );
-                    }
-                }
-                
-            }else{
-                throw new Exception ("No se creo la empresa en la base de datos");
-            }       
-        }
-        
-        return empresa.getIdEmpresa();
-    }
-    
-    
-    private void registrarUsuario (ModeloUsuario usuario) throws Exception{
-    
-        Connection conexionBD = ConexionDB.getConnection();
-
-        validarDatosUnicosUsuario(usuario);
-        
-        String sentenciaSQL = 
-                "INSERT INTO \n" +
-                "    usuarios(\n" +
-                "        id_empresa,\n" +
-                "        alias_usuario,\n" +
-                "        telefono_usuario,\n" +
-                "        correo_usuario,\n" +
-                "        primer_nombre_usuario,\n" +
-                "        segundo_nombre_usuario,\n" +
-                "        primer_apellido_usuario,\n" +
-                "        segundo_apellido_usuario,\n" +
-                "        contrasena_usuario,\n" +
-                "        id_rol_usuario,\n" +
-                "        habilitado\n" +
-                "    )\n" +
-                "VALUES\n" +
-                "    ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )";
-
-        try( PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ){
-
-            consulta.setInt( 1, usuario.getIdEmpresa() );
-            consulta.setString(2, usuario.getAliasUsuario());
-            consulta.setString(3, usuario.getTelefonoUsuario());
-            consulta.setString(4, usuario.getCorreoUsuario());
-            consulta.setString(5, usuario.getPrimerNombreUsuario());
-            consulta.setString(6, usuario.getSegundoNombreUsuario());
-            consulta.setString(7, usuario.getPrimerApellidoUsuario());
-            consulta.setString(8, usuario.getSegundoApellidoUsuario());
-            consulta.setString(9, usuario.getContrasenaUsuario());
-            consulta.setInt(10, usuario.getIdRolUsuario());
-            consulta.setBoolean(11, true);
-
-            int filasAfectadas = consulta.executeUpdate();
-            if(filasAfectadas != 1)
-                throw new Exception("No se pudo crear el usuario");
-        }
-    
-    }
-    
-    private void validarDatosUnicosUsuario( ModeloUsuario usuario ) throws Exception{
-        Connection conexionBD = ConexionDB.getConnection();
-        
-        String sentenciaSQL = 
-                "SELECT alias_usuario, correo_usuario, telefono_usuario \n" +
-                "FROM usuarios \n" +
-                "WHERE alias_usuario = ? OR correo_usuario = ? OR telefono_usuario = ?";
-
-        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
-              
-            consulta.setString(1, usuario.getAliasUsuario());
-            consulta.setString(2, usuario.getCorreoUsuario());
-            consulta.setString(3, usuario.getTelefonoUsuario());
-            
-            try( ResultSet respuesta = consulta.executeQuery() ){
-                
-                HashMap<String, String> erroresBD = new HashMap<>();
-                
-                while(respuesta.next()){
-                    if(respuesta.getString( "alias_usuario").equals(usuario.getAliasUsuario()))
-                       erroresBD.put("alias", "El alias ya está en uso");
-                    if(respuesta.getString("correo_usuario").equals(usuario.getCorreoUsuario()))
-                        erroresBD.put("correo", "Este correo ya esta registrado");
-                    if(respuesta.getString("telefono_usuario").equals(usuario.getTelefonoUsuario()))
-                        erroresBD.put("telefono", "Este telefono ya esta registrado");
-                }
-                
-                if(!erroresBD.isEmpty())
-                    throw new ExcepcionValidacionBD(erroresBD);
+            try {
+                String codigoEmpresa = ServicioEmpresa.obtenerCodigoEmpresa();
+                return codigoEmpresa.equals(codigo);
+            } catch (Exception e) {
+                throw new Exception("No se pudo validar el codigo \n" + e.getMessage());
             }
-        } 
-    }
-    
-    private int obtenerIdEmpresa() throws Exception{
-        /*
-            Recordar que el sistema esta diseñado para solo guardar una empresa,
-        por tanto se busca el id de la unica empresa registrada.
-        */
-        
-        Connection conexionBD = ConexionDB.getConnection();
-        
-        String sentenciaSQL = "SELECT id_empresa FROM empresa";
-        
-        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
-                
-            try( ResultSet respuesta = consulta.executeQuery() ){
-               if(respuesta.next()){
-                   return respuesta.getInt("id_empresa");
-               }else{
-                   throw new Exception("Error al obtener el id de la empresa");
-               }
-            }
+            
         }
         
     }
+      
     
-    private void editarCodigoEmpresa( int idEmpresa ) throws Exception{
-    
-        Connection conexionBD = ConexionDB.getConnection();
-        
-        String sentenciaSQL = "UPDATE empresa \n" +
-                                "SET codigo_registro_usuario_vendedor = ? \n" +
-                                "WHERE id_empresa = ?";
-        
-        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
-            
-            consulta.setString(1, ServicioSeguridad.generarCodigo());
-            consulta.setInt(2, idEmpresa);
-            
-            int filasAfectadas = consulta.executeUpdate();
-            
-            if(filasAfectadas != 1)
-                 throw new Exception("Error al modificar el codigo de registro de un vendedor en la empresa");
-        }
-    }
-    
-        
     public void registrarAdministrador ( ModeloUsuario usuario, String contrasena, String nombreEmpresa ) throws Exception{
     
-        usuario.setIdEmpresa( crearEmpresa(nombreEmpresa) );
+        usuario.setIdEmpresa( ServicioEmpresa.crearEmpresa(nombreEmpresa) );
         usuario.setContrasenaUsuario( ServicioSeguridad.hashearContrasena(contrasena) );
 
-        registrarUsuario(usuario);
+        ServicioUsuarios.registrarUsuario(usuario);
 
     }
     
     
     public void registrarNoAdministrador ( ModeloUsuario usuario, String contrasena ) throws Exception{
     
-        usuario.setIdEmpresa( obtenerIdEmpresa() );
+        usuario.setIdEmpresa( ServicioEmpresa.obtenerIdEmpresa() );
         usuario.setContrasenaUsuario( ServicioSeguridad.hashearContrasena(contrasena) );
         
-        registrarUsuario( usuario );
+        ServicioUsuarios.registrarUsuario( usuario );
         
-        editarCodigoEmpresa( usuario.getIdEmpresa() );
+        ServicioEmpresa.editarCodigoEmpresa( usuario.getIdEmpresa() );
 
     }
+    
     
 }

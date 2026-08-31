@@ -6,6 +6,7 @@ import jafrinventarios.controladores.ControladorNavegacionGlobal;
 import jafrinventarios.controladores.usuarios.ControladorDialogoUsuarios;
 import jafrinventarios.controladores.utilidades.ResultadoDialogo;
 import jafrinventarios.modelos.ModeloSesionUsuario;
+import jafrinventarios.servicios.acceso.ServicioEmpresa;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class ControladorPerfil {
     }
     
     private String obtenerCodigoRegistroVendedor() throws Exception{
-        return servicioUsuarios.obtenerCodigoRegistroVendedor();
+        return ServicioEmpresa.obtenerCodigoEmpresa();
     }
     
     
