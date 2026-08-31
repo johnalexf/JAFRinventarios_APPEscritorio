@@ -128,6 +128,8 @@ public class ServicioRegistro {
     
         Connection conexionBD = ConexionDB.getConnection();
 
+        validarDatosUnicosUsuario(usuario);
+        
         String sentenciaSQL = 
                 "INSERT INTO \n" +
                 "    usuarios(\n" +
@@ -164,26 +166,40 @@ public class ServicioRegistro {
             if(filasAfectadas != 1)
                 throw new Exception("No se pudo crear el usuario");
         }
-         /*
-        Ejemplo de manejo de la respuesta de la base de datos
-        Dejamos comentado hasta que se haga la conexion a la base de datos
-        catch (SQLIntegrityConstraintViolationException e) {
-            
-            String errorBD = e.getMessage();
-            HashMap<String, String> errores = new HashMap<>();
-
-            // Buscar palabras clave en el error de la base de datos
-            if (errorBD.contains("correo_UNIQUE")) {
-                errores.put("correo", "Este correo ya está registrado.");
-            } 
-            if (errorBD.contains("alias_UNIQUE")) {
-                errores.put("alias", "El alias ya está en uso.");
-            }
-
-            // Lanzar la excepción personalizada con el mapa listo para la vista
-            throw new ExcepcionValidacionBD(errores);
-        }*/
     
+    }
+    
+    private void validarDatosUnicosUsuario( ModeloUsuario usuario ) throws Exception{
+        Connection conexionBD = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT alias_usuario, correo_usuario, telefono_usuario \n" +
+                "FROM usuarios \n" +
+                "WHERE alias_usuario = ? OR correo_usuario = ? OR telefono_usuario = ?";
+
+        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
+              
+            consulta.setString(1, usuario.getAliasUsuario());
+            consulta.setString(2, usuario.getCorreoUsuario());
+            consulta.setString(3, usuario.getTelefonoUsuario());
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                
+                HashMap<String, String> erroresBD = new HashMap<>();
+                
+                while(respuesta.next()){
+                    if(respuesta.getString( "alias_usuario").equals(usuario.getAliasUsuario()))
+                       erroresBD.put("alias", "El alias ya está en uso");
+                    if(respuesta.getString("correo_usuario").equals(usuario.getCorreoUsuario()))
+                        erroresBD.put("correo", "Este correo ya esta registrado");
+                    if(respuesta.getString("telefono_usuario").equals(usuario.getTelefonoUsuario()))
+                        erroresBD.put("telefono", "Este telefono ya esta registrado");
+                }
+                
+                if(!erroresBD.isEmpty())
+                    throw new ExcepcionValidacionBD(erroresBD);
+            }
+        } 
     }
     
     private int obtenerIdEmpresa() throws Exception{

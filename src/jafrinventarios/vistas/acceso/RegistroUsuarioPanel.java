@@ -1141,6 +1141,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     }
     
     public void mostrarErroresValidacionCampos(HashMap<String, String> erroresCamposBD ){
+        DialogoAlerta.mostrarErroresValidacion(getVentanaPadre(), erroresCamposBD);
         formularioRegistro.mostrarErroresExternos(erroresCamposBD);
     }
     
