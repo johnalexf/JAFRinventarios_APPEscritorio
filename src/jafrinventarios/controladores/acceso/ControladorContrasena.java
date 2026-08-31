@@ -241,6 +241,7 @@ public class ControladorContrasena {
         
         try {
             cambiarContrasena( idUsuario, contrasena );
+            ventanaContrasena.mostrarAlertaExito("Contraseña cambiada correctamente");
             ventanaContrasena.dispose();
         } catch (Exception e) {
             // Errores en el servicio

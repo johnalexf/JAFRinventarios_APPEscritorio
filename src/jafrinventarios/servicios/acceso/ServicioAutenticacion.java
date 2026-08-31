@@ -160,10 +160,26 @@ public class ServicioAutenticacion {
     
     public void cambiarContrasena ( int idUsuario, String contrasenaNueva ) throws Exception{
     
-        /*
-        encriptamos la contraseña y se la guardamos al idUsuario
-        throw new RuntimeException("No se pudo guardar la contraseña");
-        */
+        Connection conexionDB =  ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "UPDATE\n" +
+                "    usuarios\n" +
+                "SET\n" +
+                "    contrasena_usuario = ?\n" +
+                "WHERE\n" +
+                "    id_usuario = ?";
+        
+        try( PreparedStatement consulta =  conexionDB.prepareStatement(sentenciaSQL)){
+            
+            consulta.setString(1, ServicioSeguridad.hashearContrasena(contrasenaNueva));
+            consulta.setInt(2, idUsuario);
+            
+            int filasAfectadas = consulta.executeUpdate(); 
+            if( filasAfectadas != 1 ){
+                throw new Exception("No se pudo guardar la contraseña");
+            }
+        }
     
     }
     
