@@ -124,27 +124,47 @@ public class ServicioRegistro {
     }
     
     
+    private void registrarUsuario (ModeloUsuario usuario) throws Exception{
     
-    public void registrarAdministrador ( ModeloUsuario usuario, String contrasena, String nombreEmpresa ) throws Exception{
-    
-        
-            /*
+        Connection conexionBD = ConexionDB.getConnection();
 
-                Dado que es un adminsitrador se creara la empresa primero
+        String sentenciaSQL = 
+                "INSERT INTO \n" +
+                "    usuarios(\n" +
+                "        id_empresa,\n" +
+                "        alias_usuario,\n" +
+                "        telefono_usuario,\n" +
+                "        correo_usuario,\n" +
+                "        primer_nombre_usuario,\n" +
+                "        segundo_nombre_usuario,\n" +
+                "        primer_apellido_usuario,\n" +
+                "        segundo_apellido_usuario,\n" +
+                "        contrasena_usuario,\n" +
+                "        id_rol_usuario,\n" +
+                "        habilitado\n" +
+                "    )\n" +
+                "VALUES\n" +
+                "    ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )";
 
-                1 Crear la empresa con el nombreEmpresa, aparte existira un metodo 
-                    en Servicio autenticacion que creara un codigo aleatorio de 10 digitos  
-                    se usara dicho metodo, para crear la empresa con el nombre y el codigo
+        try( PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ){
 
-                2 En el mismo servicio de autenticacion, existira un metodo para 
-                    encriptar la contraseña
+            consulta.setInt( 1, usuario.getIdEmpresa() );
+            consulta.setString(2, usuario.getAliasUsuario());
+            consulta.setString(3, usuario.getTelefonoUsuario());
+            consulta.setString(4, usuario.getCorreoUsuario());
+            consulta.setString(5, usuario.getPrimerNombreUsuario());
+            consulta.setString(6, usuario.getSegundoNombreUsuario());
+            consulta.setString(7, usuario.getPrimerApellidoUsuario());
+            consulta.setString(8, usuario.getSegundoApellidoUsuario());
+            consulta.setString(9, usuario.getContrasenaUsuario());
+            consulta.setInt(10, usuario.getIdRolUsuario());
+            consulta.setBoolean(11, true);
 
-                3 Crear el usuario asociandolo al id de la empresa creada
-
-
-            */
-   
-        /*
+            int filasAfectadas = consulta.executeUpdate();
+            if(filasAfectadas != 1)
+                throw new Exception("No se pudo crear el usuario");
+        }
+         /*
         Ejemplo de manejo de la respuesta de la base de datos
         Dejamos comentado hasta que se haga la conexion a la base de datos
         catch (SQLIntegrityConstraintViolationException e) {
@@ -163,50 +183,71 @@ public class ServicioRegistro {
             // Lanzar la excepción personalizada con el mapa listo para la vista
             throw new ExcepcionValidacionBD(errores);
         }*/
+    
+    }
+    
+    private int obtenerIdEmpresa() throws Exception{
+        /*
+            Recordar que el sistema esta diseñado para solo guardar una empresa,
+        por tanto se busca el id de la unica empresa registrada.
+        */
+        
+        Connection conexionBD = ConexionDB.getConnection();
+        
+        String sentenciaSQL = "SELECT id_empresa FROM empresa";
+        
+        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
+                
+            try( ResultSet respuesta = consulta.executeQuery() ){
+               if(respuesta.next()){
+                   return respuesta.getInt("id_empresa");
+               }else{
+                   throw new Exception("Error al obtener el id de la empresa");
+               }
+            }
+        }
+        
+    }
+    
+    private void editarCodigoEmpresa( int idEmpresa ) throws Exception{
+    
+        Connection conexionBD = ConexionDB.getConnection();
+        
+        String sentenciaSQL = "UPDATE empresa \n" +
+                                "SET codigo_registro_usuario_vendedor = ? \n" +
+                                "WHERE id_empresa = ?";
+        
+        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
+            
+            consulta.setString(1, ServicioSeguridad.generarCodigo());
+            consulta.setInt(2, idEmpresa);
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if(filasAfectadas != 1)
+                 throw new Exception("Error al modificar el codigo de registro de un vendedor en la empresa");
+        }
+    }
+    
+        
+    public void registrarAdministrador ( ModeloUsuario usuario, String contrasena, String nombreEmpresa ) throws Exception{
+    
+        usuario.setIdEmpresa( crearEmpresa(nombreEmpresa) );
+        usuario.setContrasenaUsuario( ServicioSeguridad.hashearContrasena(contrasena) );
 
+        registrarUsuario(usuario);
 
     }
     
     
     public void registrarNoAdministrador ( ModeloUsuario usuario, String contrasena ) throws Exception{
     
-        try {
-            
-            /*
-                Como No es administrador
-
-                1. En la base de datos solo existira una empresa, por tanto se obtiene el id de ella
-
-                2 encriptar la contraseña
-
-                3 Crear el usuario asociandolo al id de la empresa 
-
-                4 Modificar el codigo de acceso de la empresa
-
-            */
-        } 
-        /*
-        Ejemplo de manejo de la respuesta de la base de datos
-        Dejamos comentado hasta que se haga la conexion a la base de datos
-        catch (SQLIntegrityConstraintViolationException e) {
-            
-            String errorBD = e.getMessage();
-            HashMap<String, String> errores = new HashMap<>();
-
-            // Buscar palabras clave en el error de la base de datos
-            if (errorBD.contains("correo_UNIQUE")) {
-                errores.put("correo", "Este correo ya está registrado.");
-            } 
-            if (errorBD.contains("alias_UNIQUE")) {
-                errores.put("alias", "El alias ya está en uso.");
-            }
-
-            // Lanzar la excepción personalizada con el mapa listo para la vista
-            throw new ExcepcionValidacionBD(errores);
-        }*/
-        catch (Exception e) {
-        }
-
+        usuario.setIdEmpresa( obtenerIdEmpresa() );
+        usuario.setContrasenaUsuario( ServicioSeguridad.hashearContrasena(contrasena) );
+        
+        registrarUsuario( usuario );
+        
+        editarCodigoEmpresa( usuario.getIdEmpresa() );
 
     }
     

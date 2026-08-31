@@ -109,6 +109,10 @@ public class ModeloUsuario {
         return segundoApellidoUsuario;
     }
 
+    public String getContrasenaUsuario() {
+        return contrasenaUsuario;
+    }
+
     public int getIdRolUsuario() {
         return idRolUsuario;
     }
@@ -159,6 +163,10 @@ public class ModeloUsuario {
     
     public void setSegundoApellidoUsuario(String segundoApellidoUsuario) {
         this.segundoApellidoUsuario = segundoApellidoUsuario;
+    }
+
+    public void setContrasenaUsuario(String contrasenaUsuario) {
+        this.contrasenaUsuario = contrasenaUsuario;
     }
 
     public void setIdRolUsuario(int idRolUsuario) {
