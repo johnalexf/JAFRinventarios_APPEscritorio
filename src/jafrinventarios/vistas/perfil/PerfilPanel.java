@@ -212,10 +212,7 @@ public class PerfilPanel extends javax.swing.JPanel {
 
         lblDatoNombreEmpresa.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblDatoNombreEmpresa.setForeground(new java.awt.Color(30, 166, 177));
-        lblDatoNombreEmpresa.setMaximumSize(new java.awt.Dimension(0, 0));
-        lblDatoNombreEmpresa.setMinimumSize(new java.awt.Dimension(0, 0));
         lblDatoNombreEmpresa.setName("nombreEmpresa"); // NOI18N
-        lblDatoNombreEmpresa.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -240,10 +237,7 @@ public class PerfilPanel extends javax.swing.JPanel {
 
         lblDatoNombreUsuario.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblDatoNombreUsuario.setForeground(new java.awt.Color(30, 166, 177));
-        lblDatoNombreUsuario.setMaximumSize(new java.awt.Dimension(0, 0));
-        lblDatoNombreUsuario.setMinimumSize(new java.awt.Dimension(0, 0));
         lblDatoNombreUsuario.setName("nombreUsuario"); // NOI18N
-        lblDatoNombreUsuario.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -268,10 +262,7 @@ public class PerfilPanel extends javax.swing.JPanel {
 
         lblDatoAlias.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblDatoAlias.setForeground(new java.awt.Color(30, 166, 177));
-        lblDatoAlias.setMaximumSize(new java.awt.Dimension(0, 0));
-        lblDatoAlias.setMinimumSize(new java.awt.Dimension(0, 0));
         lblDatoAlias.setName("alias"); // NOI18N
-        lblDatoAlias.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -296,10 +287,7 @@ public class PerfilPanel extends javax.swing.JPanel {
 
         lblDatoTelefono.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblDatoTelefono.setForeground(new java.awt.Color(30, 166, 177));
-        lblDatoTelefono.setMaximumSize(new java.awt.Dimension(0, 0));
-        lblDatoTelefono.setMinimumSize(new java.awt.Dimension(0, 0));
         lblDatoTelefono.setName("telefono"); // NOI18N
-        lblDatoTelefono.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -324,10 +312,7 @@ public class PerfilPanel extends javax.swing.JPanel {
 
         lblDatoCorreo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblDatoCorreo.setForeground(new java.awt.Color(30, 166, 177));
-        lblDatoCorreo.setMaximumSize(new java.awt.Dimension(0, 0));
-        lblDatoCorreo.setMinimumSize(new java.awt.Dimension(0, 0));
         lblDatoCorreo.setName("correo"); // NOI18N
-        lblDatoCorreo.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -433,6 +418,7 @@ public class PerfilPanel extends javax.swing.JPanel {
 
         contenedorPerfil.add(contenedorContenido, java.awt.BorderLayout.CENTER);
 
+        contenedorFooter.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10));
         contenedorFooter.setMinimumSize(new java.awt.Dimension(0, 80));
         contenedorFooter.setOpaque(false);
         contenedorFooter.setPreferredSize(new java.awt.Dimension(0, 100));
