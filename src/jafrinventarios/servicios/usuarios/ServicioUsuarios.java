@@ -4,10 +4,12 @@ package jafrinventarios.servicios.usuarios;
 import jafrinventarios.DTOs.usuarios.DTOUsuarioTabla;
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.servicios.ConexionDB;
+import jafrinventarios.servicios.acceso.ServicioSeguridad;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -245,56 +247,24 @@ public class ServicioUsuarios {
     
     public int crearUsuario( ModeloUsuario usuario ) throws Exception{
     
-        try {
-            
-  
-        /*
-      
-        Cuando se desee crear un usuario se tendran en cuenta los siguientes campos
-            usuario.getIdEmpresa();
-            usuario.getAliasUsuario();
-            usuario.getTelefonoUsuario();
-            usuario.getCorreoUsuario();
-            usuario.getPrimerNombreUsuario();
-            usuario.getSegundoNombreUsuario();
-            usuario.getPrimerApellidoUsuario();
-            usuario.getSegundoApellidoUsuario();
-            usuario.getIdRolUsuario();
+        String contrasenaAleatoria = ServicioSeguridad.generarContrasena();
+        usuario.setContrasenaUsuario( ServicioSeguridad.hashearContrasena(contrasenaAleatoria) );
+        int idUsuarioCreado = registrarUsuario(usuario);
         
-            usuario.isHabilitado() Este campo por defecto deberia ser true, 
-            por tanto se asignara como true al enviarlo a la base de datos y no  
-            dependera del valor que traiga consigo 
-        */
-        
-        //cuando se concecte la base de datos se enviara el id correspondiente
-            return -1;
-        
-        } 
-         /*
-        Ejemplo de manejo de la respuesta de la base de datos
-        Dejamos comentado hasta que se haga la conexion a la base de datos
-        catch (SQLIntegrityConstraintViolationException e) {
-            
-            String errorBD = e.getMessage();
-            HashMap<String, String> errores = new HashMap<>();
-
-            // Buscar palabras clave en el error de la base de datos
-            if (errorBD.contains("correo_UNIQUE")) {
-                errores.put("correo", "Este correo ya está registrado.");
-            } 
-            if (errorBD.contains("alias_UNIQUE")) {
-                errores.put("alias", "El alias ya está en uso.");
-            }
-
-            // Lanzar la excepción personalizada con el mapa listo para la vista
-            throw new ExcepcionValidacionBD(errores);
-        }*/
-        catch (Exception e) {
-            return -1;
-            //si hay error crear el error segun sea el caso
-            //    throw new RuntimeException("No se pudo completar la operacion o falla en el servicio");
+        try {    
+            /*
+            TODO : ServicioCorreo.enviarContrasena(usuario.getCorreoUsuario(),  usuario.getNombreCompletoUsuario(), contrasenaAleatoria)
+            Enviar correo con la contrasena, en dado caso que suceda un error
+            se elimina el usuario, pues la operacion no se considera completa
+            si el correo con la contrasena no se envia, puesto que esto no le garantiza
+            al usuario creado que pueda iniciar sesion.
+            throw new Exception("Error al enviar el correo con la contraseña);
+            */
+            return idUsuarioCreado;
+        } catch (Exception e) {
+            eliminarUsuario(idUsuarioCreado);
+            throw new Exception("Error al crear el usuario \n"+ e.getMessage());
         }
-        
         
     }
     
@@ -347,8 +317,17 @@ public class ServicioUsuarios {
         return respuestaConsulta;
     }
     
+    /*
+    ============================================================================
+                               METODOS ESTATICOS
+    ============================================================================
+    */
     
-    public static void registrarUsuario (ModeloUsuario usuario) throws Exception{
+    /*
+    Registrar usuario funciona para el registro desde ServicioRegistro y tambien
+    para esta misma clase ServicioUsuarios para cuando se desee crear un usuario
+    */
+    public static int registrarUsuario (ModeloUsuario usuario) throws Exception{
     
         Connection conexionBD = ConexionDB.getConnection();
 
@@ -372,7 +351,7 @@ public class ServicioUsuarios {
                 "VALUES\n" +
                 "    ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )";
 
-        try( PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ){
+        try( PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL, Statement.RETURN_GENERATED_KEYS ) ){
 
             consulta.setInt( 1, usuario.getIdEmpresa() );
             consulta.setString(2, usuario.getAliasUsuario());
@@ -387,7 +366,16 @@ public class ServicioUsuarios {
             consulta.setBoolean(11, true);
 
             int filasAfectadas = consulta.executeUpdate();
-            if(filasAfectadas != 1)
+            if(filasAfectadas == 1)
+                try( ResultSet respuesta = consulta.getGeneratedKeys() ){ 
+                    if( respuesta.next() ){
+                        //Retornamos el id del usuario creado
+                        return ( respuesta.getInt( 1 ) );
+                    }else{
+                        throw new Exception( "Error al obtener el id de la empresa" );
+                    }
+                }
+            else
                 throw new Exception("No se pudo crear el usuario");
         }
     
