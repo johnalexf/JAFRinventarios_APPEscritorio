@@ -127,127 +127,178 @@ public class ServicioUsuarios {
     //Este metodo devuelve un usuario del tipo ModeloUsuario que servira de base para poder editarlo y devolverlo para guardar los cambios
     public ModeloUsuario obtenerModeloUsuario( int idUsuario ) throws Exception{
     
-        //Smulacion de conexion y empaquetado de la informacion de un usuario
-       
-        // La contraseña a pesar de que es parte del ModeloUsuario la dejamos vacia
-        // de igual manera al hacer la consulta a la base de datos no se pedira este dato
+        Connection conexionDB = ConexionDB.getConnection();
         
-        /* 
-        El idEmpresa tiene una particularidad y es que solo existira en la base
-        de datos una empresa, por tanto es irrelevante este dato pues no se utilizara
-        para editar un usuario, sin embargo se enviara de todas maneras el asignado
-        que tenga el usuario.
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_empresa,\n" +
+                "    alias_usuario AS 'alias',\n" +
+                "    telefono_usuario AS 'telefono',\n" +
+                "    correo_usuario AS 'correo',\n" +
+                "    primer_nombre_usuario AS 'primerNombre',\n" +
+                "    segundo_nombre_usuario AS 'segundoNombre',\n" +
+                "    primer_apellido_usuario AS 'primerApellido',\n" +
+                "    segundo_apellido_usuario AS 'segundoApellido',\n" +
+                "    id_rol_usuario AS 'idRol',\n" +
+                "    habilitado\n" +
+                "FROM\n" +
+                "    usuarios\n" +
+                "WHERE\n" +
+                "    id_usuario = ?";
         
-        si la consulta no devuelve un usuario entonces lanzamos el error
-        throw new Exception("No se encontró la información del perfil en la base de datos.");
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
         
-        */
-        ModeloUsuario usuarioConsultado = 
-                //new ModeloUsuario( idUsuario, idEmpresa,aliasUsuario, telefonoUsuario, correoUsuario, primerNombreUsuario, segundoNombreUsuario,
-                //                    primerApellidoUsuario, segundoApellidoUsuario, contrasenaUsuario, idRolUsuario, isHabilitado)
-                new ModeloUsuario( idUsuario, 1, "john1", "3202173409", "john1@gmail.com", "john","", "forero", "", "", 1, true);
-
-        return usuarioConsultado;
+            consulta.setInt(1, idUsuario);
+            
+            try(ResultSet respuesta = consulta.executeQuery()){
+            
+                if( respuesta.next() ){
+                    return new ModeloUsuario(
+                            idUsuario,
+                            respuesta.getInt("id_empresa"),
+                            respuesta.getString("alias"),
+                            respuesta.getString("telefono"),
+                            respuesta.getString("correo"),
+                            respuesta.getString("primerNombre"),
+                            respuesta.getString("segundoNombre"),
+                            respuesta.getString("primerApellido"),
+                            respuesta.getString("segundoApellido"),
+                            "",// Enviamos la contraseña vacia
+                            respuesta.getInt("idRol"),
+                            respuesta.getBoolean("habilitado")
+                    );  
+                }else
+                    throw new Exception("No existe un usuario con id : " + idUsuario);
+            }
+        }
         
     }
     
     
     public void editarPerfil( ModeloUsuario usuario , boolean isAdministrador ) throws Exception{
     
-        try {
-  
-        /*
-            usuario.getIdUsuario(); Este es la clave para saber que usuario editar
+        validarDatosUnicosExcluyendoIdUsuario(usuario);
         
-        Cuando se desee editar el perfil solo se tendran en cuenta los siguientes campos
-            usuario.getAliasUsuario();
-            usuario.getTelefonoUsuario();
-            usuario.getCorreoUsuario();
-            usuario.getPrimerNombreUsuario();
-            usuario.getSegundoNombreUsuario();
-            usuario.getPrimerApellidoUsuario();
-            usuario.getSegundoApellidoUsuario();
-        
-        Aunque hay una diferencia entre si es un perfil de un administrador a un vendedor
-        la interfaz grafica y el controlador estan diseñados para que un vendedor no
-        pueda modificar su nombre ni su alias, puesto esto puede alterar la integridad
-        de los datos sin previo conocimiento del administrador, para modificar estos 
-        valores es necesario que lo haga el adminsitrador desde la seccion usuarios.
-        
-        Por tanto cuando se estructure esta consulta se personalizara con el dato
-           esAdministrador
-        
-        */
-        } 
-        /*
-        Ejemplo de manejo de la respuesta de la base de datos
-        Dejamos comentado hasta que se haga la conexion a la base de datos
-        catch (SQLIntegrityConstraintViolationException e) {
-            
-            String errorBD = e.getMessage();
-            HashMap<String, String> errores = new HashMap<>();
-
-            // Buscar palabras clave en el error de la base de datos
-            if (errorBD.contains("correo_UNIQUE")) {
-                errores.put("correo", "Este correo ya está registrado.");
-            } 
-            if (errorBD.contains("alias_UNIQUE")) {
-                errores.put("alias", "El alias ya está en uso.");
-            }
-
-            // Lanzar la excepción personalizada con el mapa listo para la vista
-            throw new ExcepcionValidacionBD(errores);
-        }*/
-        catch (Exception e) {
-        }
+        if(isAdministrador)
+            editarPerfilAdministrador(usuario);
+        else
+            editarPerfilNoAdministrador(usuario);
         
     }
+    
+        
+    private void editarPerfilAdministrador(ModeloUsuario usuario)throws Exception{
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "UPDATE\n" +
+                "    usuarios\n" +
+                "SET\n" +
+                "    alias_usuario = ?,\n" +
+                "    telefono_usuario = ?,\n" +
+                "    correo_usuario = ?,\n" +
+                "    primer_nombre_usuario = ?,\n" +
+                "    segundo_nombre_usuario = ?,\n" +
+                "    primer_apellido_usuario = ?,\n" +
+                "    segundo_apellido_usuario = ?\n" +
+                "WHERE\n" +
+                "    id_usuario = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            
+            consulta.setString(1, usuario.getAliasUsuario());
+            consulta.setString(2, usuario.getTelefonoUsuario());
+            consulta.setString(3, usuario.getCorreoUsuario());
+            consulta.setString(4, usuario.getPrimerNombreUsuario());
+            consulta.setString(5, usuario.getSegundoNombreUsuario());
+            consulta.setString(6, usuario.getPrimerApellidoUsuario());
+            consulta.setString(7, usuario.getSegundoApellidoUsuario());
+            
+            consulta.setInt(8, usuario.getIdUsuario());
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if(filasAfectadas != 1)
+                throw new Exception("El usuario no edito correctamente");
+        
+        }
+    
+    }
+    
+    private void editarPerfilNoAdministrador(ModeloUsuario usuario) throws Exception{
+    
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "UPDATE\n" +
+                "    usuarios\n" +
+                "SET\n" +
+                "    telefono_usuario = ?,\n" +
+                "    correo_usuario = ?\n" +
+                "WHERE\n" +
+                "    id_usuario = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            
+            consulta.setString(1, usuario.getTelefonoUsuario());
+            consulta.setString(2, usuario.getCorreoUsuario());
+            
+            consulta.setInt(3, usuario.getIdUsuario());
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if(filasAfectadas != 1)
+                throw new Exception("El usuario no se edito correctamente");
+        
+        }
+    }
+    
     
     
     public void editarOtroUsuario( ModeloUsuario usuario ) throws Exception{
     
-        try {
-            /*
-                usuario.getIdUsuario(); Este es la clave para saber que usuario editar
-
-            Cuando se desee editar el usuario se tendran en cuenta los siguientes campos
-                usuario.getAliasUsuario();
-                usuario.getTelefonoUsuario();
-                usuario.getCorreoUsuario();
-                usuario.getPrimerNombreUsuario();
-                usuario.getSegundoNombreUsuario();
-                usuario.getPrimerApellidoUsuario();
-                usuario.getSegundoApellidoUsuario();
-                usuario.getIdRolUsuario();
-
-                para deshabilitarlo se creara una funcion destinada para ello
-
-            */
-        } 
-        /*Ejemplo de manejo de la respuesta de la base de datos
-        Dejamos comentado hasta que se haga la conexion a la base de datos
-        catch (SQLIntegrityConstraintViolationException e) {
+        validarDatosUnicosExcluyendoIdUsuario(usuario);
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "UPDATE\n" +
+                "    usuarios\n" +
+                "SET\n" +
+                "    alias_usuario = ?,\n" +
+                "    telefono_usuario = ?,\n" +
+                "    correo_usuario = ?,\n" +
+                "    primer_nombre_usuario = ?,\n" +
+                "    segundo_nombre_usuario = ?,\n" +
+                "    primer_apellido_usuario = ?,\n" +
+                "    segundo_apellido_usuario = ?,\n" +
+                "    id_rol_usuario = ?"+
+                "WHERE\n" +
+                "    id_usuario = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
             
-            String errorBD = e.getMessage();
-            HashMap<String, String> errores = new HashMap<>();
-
-            // Buscar palabras clave en el error de la base de datos
-            if (errorBD.contains("correo_UNIQUE")) {
-                errores.put("correo", "Este correo ya está registrado.");
-            } 
-            if (errorBD.contains("alias_UNIQUE")) {
-                errores.put("alias", "El alias ya está en uso.");
-            }
-
-            // Lanzar la excepción personalizada con el mapa listo para la vista
-            throw new ExcepcionValidacionBD(errores);
-        }*/
-        catch (Exception e) {
+            consulta.setString(1, usuario.getAliasUsuario());
+            consulta.setString(2, usuario.getTelefonoUsuario());
+            consulta.setString(3, usuario.getCorreoUsuario());
+            consulta.setString(4, usuario.getPrimerNombreUsuario());
+            consulta.setString(5, usuario.getSegundoNombreUsuario());
+            consulta.setString(6, usuario.getPrimerApellidoUsuario());
+            consulta.setString(7, usuario.getSegundoApellidoUsuario());
+            consulta.setInt(8, usuario.getIdRolUsuario());
+            
+            consulta.setInt(9, usuario.getIdUsuario());
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if(filasAfectadas != 1)
+                throw new Exception("El usuario no edito correctamente");
+        
         }
         
     }
-    
-    
+
     
     public void conmutarEstadoUsuario (  int idUsuario  ) throws Exception {
     
@@ -349,11 +400,97 @@ public class ServicioUsuarios {
         return respuestaConsulta;
     }
     
+    
+    
+    
+    /*
+    Metodo para validar si los datos que se desean cambiar de un usuario
+    no los tiene otro usuario, por lo tanto se excluye los datos propios
+    del mismo usuario a validar
+    */
+    private void validarDatosUnicosExcluyendoIdUsuario( ModeloUsuario usuario ) throws Exception{
+        Connection conexionBD = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT \n" +
+                "    alias_usuario, correo_usuario, telefono_usuario \n" +
+                "FROM usuarios \n" +
+                "WHERE \n" +
+                "    (alias_usuario = ? OR correo_usuario = ? OR telefono_usuario = ?)\n" +
+                "    AND id_usuario != ?";
+
+        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
+              
+            consulta.setString(1, usuario.getAliasUsuario());
+            consulta.setString(2, usuario.getCorreoUsuario());
+            consulta.setString(3, usuario.getTelefonoUsuario());
+            
+            consulta.setInt(4, usuario.getIdUsuario());
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                
+                HashMap<String, String> erroresBD = new HashMap<>();
+                
+                while(respuesta.next()){
+                    if(respuesta.getString( "alias_usuario").equals(usuario.getAliasUsuario()))
+                       erroresBD.put("alias", "El alias ya está en uso");
+                    if(respuesta.getString("correo_usuario").equals(usuario.getCorreoUsuario()))
+                        erroresBD.put("correo", "Este correo ya esta registrado");
+                    if(respuesta.getString("telefono_usuario").equals(usuario.getTelefonoUsuario()))
+                        erroresBD.put("telefono", "Este telefono ya esta registrado");
+                }
+                
+                if(!erroresBD.isEmpty())
+                    throw new ExcepcionValidacionBD(erroresBD);
+            }
+        } 
+    }
+    
+    
+    
     /*
     ============================================================================
                                METODOS ESTATICOS
     ============================================================================
+    */ 
+    
+    /*
+    Metodo para validar si los datos de la base de datos determinados como unicos
+    no los tiene un usuario ya almacenado en la base de datos
     */
+    private static void validarDatosUnicosUsuario( ModeloUsuario usuario ) throws Exception{
+        Connection conexionBD = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT alias_usuario, correo_usuario, telefono_usuario \n" +
+                "FROM usuarios \n" +
+                "WHERE alias_usuario = ? OR correo_usuario = ? OR telefono_usuario = ?";
+
+        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
+              
+            consulta.setString(1, usuario.getAliasUsuario());
+            consulta.setString(2, usuario.getCorreoUsuario());
+            consulta.setString(3, usuario.getTelefonoUsuario());
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                
+                HashMap<String, String> erroresBD = new HashMap<>();
+                
+                while(respuesta.next()){
+                    if(respuesta.getString( "alias_usuario").equals(usuario.getAliasUsuario()))
+                       erroresBD.put("alias", "El alias ya está en uso");
+                    if(respuesta.getString("correo_usuario").equals(usuario.getCorreoUsuario()))
+                        erroresBD.put("correo", "Este correo ya esta registrado");
+                    if(respuesta.getString("telefono_usuario").equals(usuario.getTelefonoUsuario()))
+                        erroresBD.put("telefono", "Este telefono ya esta registrado");
+                }
+                
+                if(!erroresBD.isEmpty())
+                    throw new ExcepcionValidacionBD(erroresBD);
+            }
+        } 
+    }
+    
     
     /*
     Registrar usuario funciona para el registro desde ServicioRegistro y tambien
@@ -412,40 +549,6 @@ public class ServicioUsuarios {
         }
     
     }
-    
-    private static void validarDatosUnicosUsuario( ModeloUsuario usuario ) throws Exception{
-        Connection conexionBD = ConexionDB.getConnection();
-        
-        String sentenciaSQL = 
-                "SELECT alias_usuario, correo_usuario, telefono_usuario \n" +
-                "FROM usuarios \n" +
-                "WHERE alias_usuario = ? OR correo_usuario = ? OR telefono_usuario = ?";
-
-        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
-              
-            consulta.setString(1, usuario.getAliasUsuario());
-            consulta.setString(2, usuario.getCorreoUsuario());
-            consulta.setString(3, usuario.getTelefonoUsuario());
-            
-            try( ResultSet respuesta = consulta.executeQuery() ){
-                
-                HashMap<String, String> erroresBD = new HashMap<>();
-                
-                while(respuesta.next()){
-                    if(respuesta.getString( "alias_usuario").equals(usuario.getAliasUsuario()))
-                       erroresBD.put("alias", "El alias ya está en uso");
-                    if(respuesta.getString("correo_usuario").equals(usuario.getCorreoUsuario()))
-                        erroresBD.put("correo", "Este correo ya esta registrado");
-                    if(respuesta.getString("telefono_usuario").equals(usuario.getTelefonoUsuario()))
-                        erroresBD.put("telefono", "Este telefono ya esta registrado");
-                }
-                
-                if(!erroresBD.isEmpty())
-                    throw new ExcepcionValidacionBD(erroresBD);
-            }
-        } 
-    }
-    
-
+ 
     
 }

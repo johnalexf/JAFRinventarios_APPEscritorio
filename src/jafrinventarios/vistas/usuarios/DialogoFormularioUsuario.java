@@ -1041,6 +1041,10 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         DialogoAlerta.mostrarError( this, "Error", mensaje );
     }
     
+    public void mostrarAlertaErroresValidacion(HashMap<String, String> erroresFormulario){
+        DialogoAlerta.mostrarErroresValidacion( this, erroresFormulario );
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;

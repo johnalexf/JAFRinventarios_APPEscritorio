@@ -341,10 +341,10 @@ public class ControladorDialogoUsuarios {
                     editarPerfil(usuarioAProcesar);
                     resultadoDialogo = ResultadoDialogo.ACTUALIZADO;
                 }catch( ExcepcionValidacionBD e ){ 
-                    //dialogoUsuario.mostrarErroresValidacionCampos( e.getErrores() );
+                    mostrarErroresValidacion(e.getErrores());
                     return;
                 }catch (Exception e) {
-                    //dialogoUsuario.mostrarAlertaError(e.getMessage());
+                    dialogoUsuario.mostrarAlertaError(e.getMessage());
                     return;
                 }
                 
@@ -352,10 +352,19 @@ public class ControladorDialogoUsuarios {
             case EDITAR_OTRO_USUARIO:
                                 
                 try {
-                    //TODO: Si se conmuta de usuario administrador entre vendedor
-                    // seria ideal avisarle al usuario del programa lo que implica estos
-                    // cambios, puesto que un administrador podria ver todos los modulos
-                    // y tiene derechos para editar y eliminar cualquier item de cualquier modulo
+                    if(usuarioAProcesar.getIdRolUsuario() != modeloUsuario.getIdRolUsuario() ){
+                        boolean deseaContinuar = 
+                        dialogoUsuario.mostrarAlertaAdvertencia(
+                                "Editar el rol del usuario implica quitarle o darle permisos: \n"
+                                + "Rol administrador: Tiene todos los permisos, para crear, editar y hasta de eliminar en todos los modulos \n"
+                                + "Rol vendedor: Tiene permisos restringidos, solo puede crear y tiene acceso limitado a los modulos\n\n"
+                                + "Esta seguro de realizar este cambio\n"
+                        );
+                        
+                        if(!deseaContinuar)
+                            return;
+                    
+                    }
                     editarOtroUsuario(usuarioAProcesar);
                     resultadoDialogo = ResultadoDialogo.ACTUALIZADO;
                 }catch( ExcepcionValidacionBD e ){ 
@@ -475,6 +484,12 @@ public class ControladorDialogoUsuarios {
                 dialogoUsuario.mostrarAlertaError( e.getMessage() );
             }
         }
+    }
+    
+    
+    private void mostrarErroresValidacion( HashMap<String, String> errores){
+        dialogoUsuario.mostrarErroresValidacionCampos( errores );
+        dialogoUsuario.mostrarAlertaErroresValidacion(errores);
     }
     
     
