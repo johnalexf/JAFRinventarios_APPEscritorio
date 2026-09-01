@@ -4,6 +4,7 @@ package jafrinventarios.controladores.acceso;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.acceso.ServicioAutenticacion;
 import jafrinventarios.servicios.acceso.ServicioSeguridad;
+import jafrinventarios.servicios.correo.ServicioCorreos;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
@@ -134,7 +135,7 @@ public class ControladorContrasena {
     }
     
     private void enviarCodigoCorreo( String correo, String codigo) throws Exception{
-        servicioAutenticacion.enviarCodigoCorreo(correo, codigo);
+        ServicioCorreos.enviarCodigoRecuperacion(correo, codigo);
     }
     
     private boolean validarContrasenaAntigua( int idUsuario, String contrasenaAntigua) throws Exception{
@@ -207,10 +208,10 @@ public class ControladorContrasena {
         if ( codigoRecuperacion.equals(codigo) ) {
             avanzarSiguienteTarjeta(NombresTarjetasContrasena.CONTRASENA_NUEVA);
         } else {
-            HashMap<String, String> erroresBackend = new HashMap<>();
-            erroresBackend.put("codigo", "El codigo no coincide.");
+            HashMap<String, String> errores = new HashMap<>();
+            errores.put("codigo", "El codigo no coincide.");
             
-            mostrarErroresValidacionCampos(NombresTarjetasContrasena.CODIGO, erroresBackend);
+            mostrarErroresValidacionCampos(NombresTarjetasContrasena.CODIGO, errores);
         }
         
     }
@@ -223,10 +224,10 @@ public class ControladorContrasena {
             if ( validarContrasenaAntigua(idUsuario, contrasena) ) {
                 avanzarSiguienteTarjeta(NombresTarjetasContrasena.CONTRASENA_NUEVA);
             } else {
-                HashMap<String, String> erroresBackend = new HashMap<>();
-                erroresBackend.put("contrasenaAntigua", "La contraseña no coincide");
+                HashMap<String, String> errores = new HashMap<>();
+                errores.put("contrasenaAntigua", "La contraseña no coincide");
 
-                mostrarErroresValidacionCampos(NombresTarjetasContrasena.CONTRASENA_ANTIGUA, erroresBackend);
+                mostrarErroresValidacionCampos(NombresTarjetasContrasena.CONTRASENA_ANTIGUA, errores);
             }
         } catch (Exception e) {
             // Errores en el servicio

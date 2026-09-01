@@ -1,3 +1,10 @@
+/**
+ * Este servicio utiliza dos driver jakarta.mail y jakarta.activation.
+ * jakarta.mail permite enviar correos electronicos pero depende de
+ * jakarta.activation para procesar el texto y los datos del cuerpo 
+ * del mensaje.
+ */
+
 package jafrinventarios.servicios.correo;
 
 import java.util.Properties;

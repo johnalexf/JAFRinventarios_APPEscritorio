@@ -65,20 +65,6 @@ public class ServicioAutenticacion {
     }
     
     
-    public void enviarCodigoCorreo ( String correo, String codigo ) throws Exception{
-        
-        /*
-            TODO    
-        Enviar el correo con el codigo, para ello existira una funcion en este 
-        servicio que pueda enviar correos, dependiendo de la configuracion
-        si es muy extensa, se hara un servicio aparte que sea destinado solo
-        para enviar codigos.
-        */
-        //throw new RuntimeException("Correo no se pudo enviar");
-    
-    }
-    
-    
     // Metodo para verificar si la contraseña es la misma almacenada para el idUsuario
     public boolean validarContrasena( int idUsuario, String contrasena ) throws Exception{
     
