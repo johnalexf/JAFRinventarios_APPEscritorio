@@ -78,18 +78,50 @@ public class ServicioUsuarios {
     // Este metodo entrega un usuario tipo DTOUsuarioTabla y esta destinado solo para mostrar los datos en una tabla o una tarjeta de perfil
     public DTOUsuarioTabla obtenerDatosDTOUsuario( int idUsuario ) throws Exception{
     
-        //Por el momento no se va usar hasta que se conecte con la base de datos
-        // pero se deja listo para que el controlador quede lo mayor posible terminado
-        // Simulacion de la consulta y creacion del usuario con el id especifico
+        Connection conexionDB = ConexionDB.getConnection();
         
-        /*
-        si la consulta no devuelve un usuario entonces lanzamos el error
-        throw new Exception("No se encontró la información del perfil en la base de datos.");
-        */
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    us.alias_usuario AS 'alias',\n" +
+                "    us.telefono_usuario AS 'telefono',\n" +
+                "    us.correo_usuario AS 'correo',\n" +
+                "    CONCAT(\n" +
+                "        us.primer_nombre_usuario, \" \",\n" +
+                "        us.segundo_nombre_usuario, \" \",\n" +
+                "        us.primer_apellido_usuario, \" \",\n" +
+                "        us.segundo_apellido_usuario\n" +
+                "    ) AS 'nombreCompleto',\n" +
+                "    rol.nombre_rol AS 'rol',\n" +
+                "    us.habilitado AS 'habilitado'\n" +
+                "FROM\n" +
+                "    usuarios us\n" +
+                "INNER JOIN\n" +
+                "    roles rol\n" +
+                "ON us.id_rol_usuario = rol.id_rol\n" +
+                "WHERE\n" +
+                "    us.id_usuario = ?";
         
-        DTOUsuarioTabla usuarioConsultado = new DTOUsuarioTabla(10, "pnavarro", "3017778899", "pnavarro@empresa.com", "Patricia Navarro Pérez", "Vendedor", true);
-
-        return usuarioConsultado;
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+        
+            consulta.setInt(1, idUsuario);
+            
+            try(ResultSet respuesta = consulta.executeQuery()){
+            
+                if( respuesta.next() ){
+                    return new DTOUsuarioTabla(
+                            idUsuario,
+                            respuesta.getString("alias"),
+                            respuesta.getString("telefono"),
+                            respuesta.getString("correo"),
+                            respuesta.getString("nombreCompleto"),
+                            respuesta.getString("rol"),
+                            respuesta.getBoolean("habilitado")
+                    );  
+                }else
+                    throw new Exception("No existe un usuario con id : " + idUsuario);
+            }
+        }
+        
     }
     
     //Este metodo devuelve un usuario del tipo ModeloUsuario que servira de base para poder editarlo y devolverlo para guardar los cambios
