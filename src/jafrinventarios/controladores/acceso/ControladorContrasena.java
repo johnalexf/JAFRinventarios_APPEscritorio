@@ -8,6 +8,7 @@ import jafrinventarios.servicios.correo.ServicioCorreos;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import java.util.HashMap;
 
 /**
@@ -185,7 +186,11 @@ public class ControladorContrasena {
             idUsuario = obtenerIdUsuarioConCorreo(correo);
         
             codigoRecuperacion = generarCodigo();
-            enviarCodigoCorreo(correo, codigoRecuperacion);
+            ventanaContrasena.mostrarAlertaCargando(
+                    "Enviando correo con codigo de recuperacion", 
+                    ()->{ enviarCodigoCorreo(correo, codigoRecuperacion); }
+            );
+            
             //Linea de prueba para ver el codigo de recuperacion
             System.out.println(" codigo de recuperacion : " + codigoRecuperacion );
             avanzarSiguienteTarjeta(NombresTarjetasContrasena.CODIGO);

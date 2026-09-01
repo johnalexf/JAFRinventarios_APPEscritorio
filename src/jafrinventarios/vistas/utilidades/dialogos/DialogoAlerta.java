@@ -5,7 +5,7 @@
 
      Ademas para globalizar los iconos a utilizar se crea un enum dentro del paquete
      jafrinventarios.vistas.utilidades.iconos
-     Llamada IconosDialogosMensajePersonalizado
+     Llamada IconoDialogo
      Desde alli se puede acceder a cada uno de los iconos ya convertidos 
      en el formato necesario para incrustarlo en este JDialog
 
@@ -13,7 +13,7 @@
 package jafrinventarios.vistas.utilidades.dialogos;
 
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
-import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.iconos.IconoDialogo;
 import java.awt.Window;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,13 +42,16 @@ public class DialogoAlerta extends DialogoBaseConSombra {
                                     Window parent, 
                                     String titulo, 
                                     String mensaje, 
-                                    IconosDialogosMensajePersonalizado tipoIcono, 
+                                    IconoDialogo tipoIcono, 
                                     boolean mostrarBotones) {
         super(parent);
 
         initComponents();
         
-        btnCerrar.setIcon(IconosBotones.CERRAR_DIALOGO.getIcono());
+        if (tipoIcono == IconoDialogo.CARGANDO) 
+            btnCerrar.setVisible(false);
+        else
+            btnCerrar.setIcon(IconosBotones.CERRAR_DIALOGO.getIcono());
 
         configurarContenidoDialogo(titulo, mensaje, tipoIcono);
         
@@ -211,7 +214,7 @@ public class DialogoAlerta extends DialogoBaseConSombra {
                                     Window ventanaPadre, 
                                     String titulo, 
                                     String mensaje, 
-                                    IconosDialogosMensajePersonalizado tipoIcono, 
+                                    IconoDialogo tipoIcono, 
                                     boolean mostrarBotones) {
         
         DialogoAlerta dialogo =
@@ -236,11 +239,10 @@ public class DialogoAlerta extends DialogoBaseConSombra {
                                     String titulo, 
                                     String mensaje){
     
-        mostrar(
-                    ventanaPadre,
+        mostrar(ventanaPadre,
                     titulo, 
                     mensaje,
-                    IconosDialogosMensajePersonalizado.ERROR, 
+                    IconoDialogo.ERROR, 
                     false
             );
     
@@ -305,11 +307,10 @@ public class DialogoAlerta extends DialogoBaseConSombra {
                                     String titulo, 
                                     String mensaje){
     
-        mostrar(
-                    ventanaPadre,
+        mostrar(ventanaPadre,
                     titulo, 
                     mensaje,
-                    IconosDialogosMensajePersonalizado.EXITO, 
+                    IconoDialogo.EXITO, 
                     false
             );
     
@@ -327,11 +328,10 @@ public class DialogoAlerta extends DialogoBaseConSombra {
                                     String titulo, 
                                     String mensaje){
     
-       return mostrar(
-                        ventanaPadre,
+       return mostrar(ventanaPadre,
                         titulo, 
                         mensaje,
-                        IconosDialogosMensajePersonalizado.ADVERTENCIA, 
+                        IconoDialogo.ADVERTENCIA, 
                         true
                 );
     
@@ -348,11 +348,10 @@ public class DialogoAlerta extends DialogoBaseConSombra {
                                     String titulo, 
                                     String mensaje){
     
-       mostrar(
-                ventanaPadre,
+       mostrar(ventanaPadre,
                 titulo, 
                 mensaje,
-                IconosDialogosMensajePersonalizado.ADVERTENCIA, 
+                IconoDialogo.ADVERTENCIA, 
                 false
         );
     
@@ -367,7 +366,7 @@ public class DialogoAlerta extends DialogoBaseConSombra {
     private void configurarContenidoDialogo( 
                                 String titulo, 
                                 String mensaje, 
-                                IconosDialogosMensajePersonalizado tipoIcono){
+                                IconoDialogo tipoIcono){
         //Asignar el incono segun el tipo recibido
         iconoDialogo.setIcon( tipoIcono.getIcono()  );  
         
@@ -381,6 +380,77 @@ public class DialogoAlerta extends DialogoBaseConSombra {
     }
     
     
+/*
+    ============================================================================================
+    METODO ESTATICO PARA MOSTRAR UN MENSAJE DE CARGANDO Y EJECUTAR UNA FUNCION EN SEGUNDO PLANO
+    ============================================================================================
+    Este metodo funciona para mostrar un modal de cargando, mientras ejecuta
+    una accion en segundo plano.
+    */
+    public static void mostrarCargando(Window ventanaPadre, 
+                                        String titulo, 
+                                        String mensaje,
+                                        TareaSegundoPlano funcionLambda
+                                        ) throws Exception {
+    
+        DialogoAlerta dialogoCargando = new DialogoAlerta(ventanaPadre, titulo, mensaje, IconoDialogo.CARGANDO, false);
+        
+        /* 
+        Creamos un arreglo de una sola posición para capturar cualquier error del hilo secundario.
+        ¿Por qué un arreglo y no una variable normal? Por una regla estricta de memoria en Java:
+        las variables creadas afuera y usadas adentro de una clase anónima (como este worker) 
+        tienen que ser inmutables (final). Al crear un arreglo (que es un objeto), la "caja" 
+        como tal (su dirección de memoria) se vuelve inmutable y Java nos deja en paz. Sin embargo, 
+        el lenguaje sí nos permite cambiar lo que hay *adentro* de esa caja, en la posición [0].
+        */
+        final Exception[] errorCapturado = new Exception[1]; 
+
+        javax.swing.SwingWorker<Void, Void> worker = new javax.swing.SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() {
+                try {
+                    // Aquí se ejecuta automáticamente lo que esta dentro del Lambda
+                    funcionLambda.ejecutar(); 
+                } catch (Exception e) {
+                    errorCapturado[0] = e; // Guardamos el error real (ej. fallo de internet) en nuestra caja
+                }
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                // Garantiza que la alerta siempre se cierre al finalizar
+                dialogoCargando.dispose();
+            }
+        };
+        
+        worker.execute();
+        dialogoCargando.mostrar(); // Bloquea la pantalla mientras el worker trabaja atrás
+        
+        // Al terminar el worker y cerrarse el modal, revisamos nuestra caja.
+        // Si atrapamos un error en el fondo, se lo lanzamos directamente al controlador.
+        if (errorCapturado[0] != null) {
+            throw errorCapturado[0];
+        }
+    }
+    
+    /*
+    ===========================================================================
+                            INTERFAZ TAREA SEGUNDO PLANO
+    ===========================================================================
+    Esta interfaz actúa como un 'Runnable', pero con permiso para fallar (throws Exception).
+    
+    ¿Por qué funciona con 'ejecutar'? 
+    En Java, cuando enviamos una función flecha (Lambda) como () -> { miCodigo(); } 
+    a un método que requiere esta interfaz, Java automáticamente toma ese código 
+    y lo inyecta dentro de este método abstracto 'ejecutar'. El nombre del método 
+    realmente no importa, lo único que le importa a Java es que esta interfaz tiene 
+    un solo método disponible donde puede meter tu bloque de código.
+    */
+    public interface TareaSegundoPlano {
+        void ejecutar() throws Exception;
+    }
+
     /*
     ===========================================================================
         FUNCION PRIVADA PARA RECIBIR EL MENSAJE Y CONVERTIRLO A HTML

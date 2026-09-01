@@ -738,6 +738,9 @@ public class DialogoCambiarContrasena extends DialogoBaseConSombra {
         DialogoAlerta.mostrarExito( this, "Operacion Exitosa", mensajeExito);
     }
     
+    public void mostrarAlertaCargando ( String mensaje , DialogoAlerta.TareaSegundoPlano funcionLambda) throws Exception{
+        DialogoAlerta.mostrarCargando( this, "Cargando", mensaje, funcionLambda);
+    }
     
     /*
     ==========================================================================

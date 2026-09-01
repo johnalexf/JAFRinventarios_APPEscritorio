@@ -6,7 +6,7 @@ import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import jafrinventarios.vistas.utilidades.componentes.MostrarOcultarContrasena;
 import jafrinventarios.vistas.utilidades.iconos.IconosBotones;
-import jafrinventarios.vistas.utilidades.iconos.IconosDialogosMensajePersonalizado;
+import jafrinventarios.vistas.utilidades.iconos.IconoDialogo;
 import java.awt.Window;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -1088,11 +1088,10 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     
     private void mostrarMensajeAyudaCodigo (){
            
-        DialogoAlerta.mostrar(
-                getVentanaPadre(), 
+        DialogoAlerta.mostrar(getVentanaPadre(), 
                 "Información código de acceso",
                 mensajeAyudaCodigo,
-                IconosDialogosMensajePersonalizado.INFORMACION,
+                IconoDialogo.INFORMACION,
                 false
                 );
         
@@ -1165,13 +1164,12 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
     }
     
     public void mostrarAlertaRegistroExitoso( String alias ){
-        DialogoAlerta.mostrar(
-                    getVentanaPadre(), 
+        DialogoAlerta.mostrar(getVentanaPadre(), 
                     "Registro exitoso", 
                     "El usuario " + alias
                     + "\n ha sido registrado correctamente"
                     + "\n ya puedes iniciar sesion." , 
-                    IconosDialogosMensajePersonalizado.EXITO, 
+                    IconoDialogo.EXITO, 
                     false);
     }
     
