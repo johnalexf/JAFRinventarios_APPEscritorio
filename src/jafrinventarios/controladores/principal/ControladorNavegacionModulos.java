@@ -33,7 +33,7 @@ public class ControladorNavegacionModulos {
     private final HeaderPanel headerPanel;
     private final DialogoMenu dialogoMenu;
     private JPanel moduloActual;
-    private boolean esAdministrador;
+    private boolean isAdministrador;
 
     
     private final Menu menuFlotante;
@@ -47,10 +47,10 @@ public class ControladorNavegacionModulos {
         this.ventanaPrincipal = ventanaPrincipal;
         this.headerPanel = ventanaPrincipal.getHeaderPanel();
         
-        consultarSiEsAdministrador();
+        this.isAdministrador = ModeloSesionUsuario.getInstancia().isAdministrador();
         
-        this.menuFlotante = new Menu(esAdministrador);
-        this.menuFijoPerfil = new Menu(esAdministrador);
+        this.menuFlotante = new Menu(isAdministrador);
+        this.menuFijoPerfil = new Menu(isAdministrador);
         
         this.dialogoMenu = new DialogoMenu(
                                     ventanaPrincipal, 
@@ -61,10 +61,6 @@ public class ControladorNavegacionModulos {
         cambiarSeccion(IconosSecciones.INICIO);
         
         inicializarEventos();
-    }
-    
-    private void consultarSiEsAdministrador(){
-        this.esAdministrador = ModeloSesionUsuario.getInstancia().isAdministrador();
     }
     
     
@@ -99,7 +95,7 @@ public class ControladorNavegacionModulos {
         menuPanel.getBtnLinkSeccionVentas().addActionListener( e -> cambiarSeccion(IconosSecciones.VENTAS));
         menuPanel.getBtnLinkSeccionInventario().addActionListener( e -> cambiarSeccion(IconosSecciones.INVENTARIO));
         
-        if(esAdministrador){
+        if(isAdministrador){
             menuPanel.getBtnLinkSeccionUsuarios().addActionListener( e -> cambiarSeccion(IconosSecciones.USUARIOS));           
             menuPanel.getBtnLinkSeccionProveedores().addActionListener( e -> cambiarSeccion(IconosSecciones.PROVEEDORES));
             menuPanel.getBtnLinkSeccionCompras().addActionListener( e -> cambiarSeccion(IconosSecciones.COMPRAS));
@@ -123,7 +119,7 @@ public class ControladorNavegacionModulos {
         //TODO: Pendiente switch para crear el controlador de cada jpanel de la seccion seleccionada
         switch(seccionAsignada){
             case INICIO:
-                moduloActual =  new PerfilPanel(menuFijoPerfil, esAdministrador);
+                moduloActual =  new PerfilPanel(menuFijoPerfil, isAdministrador);
                 new ControladorPerfil( (PerfilPanel) moduloActual, new ServicioUsuarios() );
                 break;
             case USUARIOS:
