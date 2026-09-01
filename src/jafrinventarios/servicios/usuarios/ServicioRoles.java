@@ -1,10 +1,11 @@
 
 package jafrinventarios.servicios.usuarios;
 
-import jafrinventarios.modelos.usuarios.ModeloRol;
-import java.util.ArrayList;
+import jafrinventarios.servicios.ConexionDB;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  *
@@ -19,22 +20,32 @@ public class ServicioRoles {
      */
     public static LinkedHashMap<Integer, String> obtenerDiccionarioRoles() throws Exception{
         
-        // Simulamos lo que respondería la base de datos creando los modelos
-        List<ModeloRol> rolesBD = new ArrayList<>();
-        rolesBD.add(new ModeloRol(1, "Administrador"));
-        rolesBD.add(new ModeloRol(2, "Vendedor"));
+        Connection conexionDB = ConexionDB.getConnection();
         
         // Armamos el diccionario exacto que necesita la vista (ID -> Nombre)
         LinkedHashMap<Integer, String> diccionarioRoles = new LinkedHashMap<>();
         
-        rolesBD.forEach(rol -> {
-            diccionarioRoles.put(rol.getIdRol(), rol.getNombreRol());
-        });
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_rol AS id,\n" +
+                "    nombre_rol AS nombreRol\n" +
+                "FROM\n" +
+                "    roles";
         
-        //si hay error crear el error segun sea el caso
-        //    throw new RuntimeException("No se pudo obtener la lista de roles");
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
         
-        return diccionarioRoles;
+            try( ResultSet respuesta = consulta.executeQuery()){
+                while( respuesta.next() ){
+                    diccionarioRoles.put( respuesta.getInt("id"), respuesta.getString("nombreRol") );
+                }
+                return diccionarioRoles;
+            }
+        
+        }catch(Exception e){
+            throw new Exception("No se pudo obtener la lista de roles \n" + e.getMessage());
+        }
+
+        
     }
     
 }
