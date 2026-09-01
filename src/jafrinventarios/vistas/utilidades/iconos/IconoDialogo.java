@@ -12,7 +12,7 @@ public enum IconoDialogo {
     ADVERTENCIA("noto-v1--warning.png"),
     INFORMACION("mdi--information.png"),
     EXITO("lets-icons--check-fill.png"),
-    CARGANDO("fluent--spinner-ios-16-filled.png");
+    CARGANDO("Spin@1x-1.0s-80px-80px.gif");
     
     private final String nombreArchivo;
     private final String RUTA_ICONOS = "/jafrinventarios/recursos/iconos/dialogos/";
