@@ -1045,6 +1045,11 @@ public class DialogoFormularioUsuario extends DialogoBaseConSombra{
         DialogoAlerta.mostrarErroresValidacion( this, erroresFormulario );
     }
     
+    public void mostrarAlertaCargando(String mensaje, DialogoAlerta.TareaSegundoPlano funcionLambda) throws Exception{
+        DialogoAlerta.mostrarCargando(this, "Cargando", mensaje, funcionLambda);
+    }
+        
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;

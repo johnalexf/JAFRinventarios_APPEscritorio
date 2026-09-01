@@ -5,6 +5,7 @@ import jafrinventarios.DTOs.usuarios.DTOUsuarioTabla;
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
 import jafrinventarios.servicios.ConexionDB;
 import jafrinventarios.servicios.acceso.ServicioSeguridad;
+import jafrinventarios.servicios.correo.ServicioCorreos;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -334,15 +335,18 @@ public class ServicioUsuarios {
         usuario.setContrasenaUsuario( ServicioSeguridad.hashearContrasena(contrasenaAleatoria) );
         int idUsuarioCreado = registrarUsuario(usuario);
         
-        try {    
+        try {
             /*
-            TODO : ServicioCorreo.enviarContrasena(usuario.getCorreoUsuario(),  usuario.getNombreCompletoUsuario(), contrasenaAleatoria)
             Enviar correo con la contrasena, en dado caso que suceda un error
             se elimina el usuario, pues la operacion no se considera completa
             si el correo con la contrasena no se envia, puesto que esto no le garantiza
             al usuario creado que pueda iniciar sesion.
-            throw new Exception("Error al enviar el correo con la contraseña);
-            */
+            */    
+            ServicioCorreos.enviarCredenciales(
+                                usuario.getCorreoUsuario(),  
+                                usuario.getNombreCompletoUsuario(), 
+                                contrasenaAleatoria
+            );
             return idUsuarioCreado;
         } catch (Exception e) {
             eliminarUsuario(idUsuarioCreado);
@@ -541,7 +545,7 @@ public class ServicioUsuarios {
                         //Retornamos el id del usuario creado
                         return ( respuesta.getInt( 1 ) );
                     }else{
-                        throw new Exception( "Error al obtener el id de la empresa" );
+                        throw new Exception( "Error al obtener el id del usuario" );
                     }
                 }
             else

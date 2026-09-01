@@ -191,7 +191,29 @@ public class ControladorDialogoUsuarios {
     }
         
     private int crearUsuario( ModeloUsuario usuario ) throws Exception{
-        return servicioUsuarios.crearUsuario(usuario);
+        /*
+        Ya que la idea es mostrarle al usuario un modal el cual especifica
+        que esta cargando la accion a realizar, en este caso crear un usuario,
+        para ello es necesario utilizar variables inmutables es decir final
+        dentro de la funcion lambda, por ello se desarrolla el codigo como se
+        observa acontinuacion.
+        */
+        
+        // Al recibir usuario como parametro se considera final mientras no se edite,
+        //por tanto la funcion lambda lo acepta.
+        
+        //  Creamos un arreglo de 1 posición (inmutable en su estructura) para atrapar el ID
+        final int[] idCapturado = new int[1];
+        dialogoUsuario.mostrarAlertaCargando(
+                "Creando usuario y enviando correo con credenciales",
+                ()-> {
+                    // Ejecutamos la función y guardamos el resultado ADENTRO de la caja
+                    idCapturado[0] = servicioUsuarios.crearUsuario(usuario);
+                }
+        );
+                    
+        // Cuando el modal se cierra (el hilo terminó), sacamos el ID para usarlo    
+        return idCapturado[0];
     }
     
     private LinkedHashMap<Integer, String> obtenerDiccionarioRoles() throws Exception{
@@ -368,10 +390,10 @@ public class ControladorDialogoUsuarios {
                     editarOtroUsuario(usuarioAProcesar);
                     resultadoDialogo = ResultadoDialogo.ACTUALIZADO;
                 }catch( ExcepcionValidacionBD e ){ 
-                    //dialogoUsuario.mostrarErroresValidacionCampos( e.getErrores() );
+                    mostrarErroresValidacion(e.getErrores());
                     return;
                 }catch (Exception e) {
-                    //dialogoUsuario.mostrarAlertaError(e.getMessage());
+                    dialogoUsuario.mostrarAlertaError(e.getMessage());
                     return;
                 }
                 
@@ -381,14 +403,15 @@ public class ControladorDialogoUsuarios {
                 try {
                     idUsuario = crearUsuario(usuarioAProcesar);
                 }catch( ExcepcionValidacionBD e ){ 
-                    //dialogoUsuario.mostrarErroresValidacionCampos( e.getErrores() );
+                    mostrarErroresValidacion(e.getErrores());
                     return;
                 }catch (Exception e) {
-                    //dialogoUsuario.mostrarAlertaError(e.getMessage());
+                    dialogoUsuario.mostrarAlertaError(e.getMessage());
                     return;
                 }
                 
                 break;
+            
         }
         
         //Si no hubo ningun error se considera que fue una operacion terminada
