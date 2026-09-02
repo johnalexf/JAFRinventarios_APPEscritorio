@@ -54,9 +54,13 @@ public class ControladorProductos {
         new ControladorBusquedaYAccionLibre(
                 panelProductos.getPanelBusquedaYAccionLibre(),
                 funcionesBusquedaYAccionLibre(),
-                "Id, nombre o proveedor",
-                "Agregar Nuevo Producto"
+                "Nombre o proveedor",
+                "Agregar Nuevo Producto",
+                isAdministrador
         );
+        
+        if(!isAdministrador)
+            panelProductos.ocultarTituloEditar();
         
         mostrarTodosLosProductos();
         
@@ -147,7 +151,8 @@ public class ControladorProductos {
     private void estructurarDiccionario ( List<DTOProductoTabla> listaProductos ){
         listaProductos.forEach( producto -> {
             FilaTablaProductos fila = crearNuevaFila( producto );
-            inicializarBotonEditar( producto.getIdProducto(), fila );
+            if(isAdministrador)
+                inicializarBotonEditar( producto.getIdProducto(), fila );
             agregarFilaADiccionario( producto.getIdProducto(), fila );
         } );
     

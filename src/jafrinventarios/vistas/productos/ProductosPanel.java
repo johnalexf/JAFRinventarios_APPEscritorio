@@ -217,6 +217,12 @@ public class ProductosPanel extends javax.swing.JPanel {
                      MÉTODOS PÚBLICOS PARA EL CONTROLADOR
     ============================================================================
     */
+    // Disponible para cuando se muestren los productos a un usuario no administrador
+    public void ocultarTituloEditar(){
+        contenedorTitulosTabla.remove(lblTituloEditar);
+        contenedorTitulosTabla.revalidate(); // Re calcula el diseño GridBagLayout
+        contenedorTitulosTabla.repaint();    // Redibuja el panel en pantalla
+    }
     
     public PanelBusquedaYAccionLibre getPanelBusquedaYAccionLibre(){
         return panelBusquedaYAccionLibre;

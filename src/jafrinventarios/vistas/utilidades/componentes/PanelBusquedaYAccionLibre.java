@@ -192,6 +192,15 @@ public class PanelBusquedaYAccionLibre extends javax.swing.JPanel {
     }
     
     
+    //Metodo disponible para los modulos donde solo se necesita mostrar el buscador pero no el boton
+    //Esto es para los casos donde el usuario no es un administrado
+    public void ocultarBoton(){
+        this.remove( btnAccionLibre );
+        this.revalidate();
+        this.repaint();
+    }
+    
+    
     public void mostrarAlertaErrorBusqueda( String termino ){
     
         DialogoAlerta.mostrarError( 

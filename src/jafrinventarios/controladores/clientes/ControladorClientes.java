@@ -55,8 +55,12 @@ public class ControladorClientes {
                 panelClientes.getPanelBusquedaYAccionLibre(),
                 funcionesBusquedaYAccionLibre(),
                 "Id, Nombre negocio, Nombre contacto, Direccion, Correo o Telefono",
-                "Agregar Nuevo Cliente"
+                "Agregar Nuevo Cliente",
+                isAdministrador
         );
+        
+        if(!isAdministrador)
+            panelClientes.ocultarTituloEditar();
         
         mostrarTodosLosClientes();
         
@@ -146,7 +150,8 @@ public class ControladorClientes {
     private void estructurarDiccionario ( List<DTOClienteTabla> listaClientes ){
         listaClientes.forEach( cliente -> {
             FilaTablaClientes fila = crearNuevaFila( cliente );
-            inicializarBotonEditar( cliente.getIdCliente(), fila );
+            if(isAdministrador)
+                inicializarBotonEditar( cliente.getIdCliente(), fila );
             agregarFilaADiccionario( cliente.getIdCliente(), fila );
         } );
     

@@ -47,7 +47,8 @@ public class ControladorUsuarios {
                 panelUsuarios.getPanelBusquedaYAccionLibre(), 
                 asignarFuncionesBusquedaYAccionLibre(),
                 "Alias, Nombre, Correo, Telefono o Rol ",
-                "Agregar Nuevo Usuario"
+                "Agregar Nuevo Usuario",
+                true
         );
         
         

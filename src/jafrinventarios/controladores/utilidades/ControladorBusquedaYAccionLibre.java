@@ -27,6 +27,7 @@ public class ControladorBusquedaYAccionLibre {
     private final PanelBusquedaYAccionLibre panelBusquedaYAccion;
     private final FuncionesBusquedaYAccionLibre definidorFunciones;
 
+    private final boolean mostrarBoton;
     
     /*
     ============================================================================
@@ -36,11 +37,15 @@ public class ControladorBusquedaYAccionLibre {
     public ControladorBusquedaYAccionLibre( PanelBusquedaYAccionLibre panelBusquedaYAccion, 
                                             FuncionesBusquedaYAccionLibre definidorFunciones,
                                             String opcionesBusqueda,
-                                            String textoBotonAccionLibre
+                                            String textoBotonAccionLibre,
+                                            boolean mostrarBoton
                                             ) {
         
         this.panelBusquedaYAccion = panelBusquedaYAccion;
         this.definidorFunciones = definidorFunciones;
+        this.mostrarBoton = mostrarBoton;
+        
+        if(!mostrarBoton) panelBusquedaYAccion.ocultarBoton();
         
         asignarTextoAComponentes(opcionesBusqueda, textoBotonAccionLibre);
         
@@ -50,7 +55,8 @@ public class ControladorBusquedaYAccionLibre {
     
     private void asignarTextoAComponentes(String opcionesBusqueda, String textoBotonAccionLibre){
         panelBusquedaYAccion.setPlaceholderInputBusqueda( opcionesBusqueda );
-        panelBusquedaYAccion.setTextBtnAccionLibre( textoBotonAccionLibre );
+        if(mostrarBoton)
+            panelBusquedaYAccion.setTextBtnAccionLibre( textoBotonAccionLibre );
     }
 
     
@@ -65,7 +71,8 @@ public class ControladorBusquedaYAccionLibre {
         panelBusquedaYAccion.getBtnLimpiarBusqueda().addActionListener( e -> ejecutarLimpiezaDeBusqueda() );
         
         // Escuchar el clic en el boton de accion libre para una accion destinada desde el controlador principal
-        panelBusquedaYAccion.getBtnAccionLibre().addActionListener(e -> definidorFunciones.ejecutarAccionLibre());
+        if(mostrarBoton)
+            panelBusquedaYAccion.getBtnAccionLibre().addActionListener(e -> definidorFunciones.ejecutarAccionLibre());
     }
 
     

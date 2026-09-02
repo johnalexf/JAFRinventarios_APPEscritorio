@@ -205,6 +205,14 @@ public class ClientesPanel extends javax.swing.JPanel {
     ============================================================================
     */
     
+     // Disponible para cuando se muestren los productos a un usuario no administrador
+    public void ocultarTituloEditar(){
+        contenedorTitulosTabla.remove(lblTituloEditar);
+        contenedorTitulosTabla.revalidate(); // Re calcula el diseño GridBagLayout
+        contenedorTitulosTabla.repaint();    // Redibuja el panel en pantalla
+    }
+    
+    
     public PanelBusquedaYAccionLibre getPanelBusquedaYAccionLibre(){
         return panelBusquedaYAccionLibre;
     }
