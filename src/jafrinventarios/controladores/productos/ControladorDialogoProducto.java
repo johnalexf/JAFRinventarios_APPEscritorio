@@ -172,7 +172,13 @@ public class ControladorDialogoProducto {
     private void inicializarComboBoxProveedores(){
         try {
             LinkedHashMap<Integer, String> diccionarioProveedores = obtenerDiccionarioProveedores();
-            dialogoProducto.inicializarComboBoxProveedores(diccionarioProveedores);        
+            if( diccionarioProveedores.isEmpty() )
+                dialogoProducto.mostrarAlertaAdvertenciaSinRespuesta(
+                        "Para poder crear un producto, debe existir por lo menos un proveedor\n"
+                        + "Por favor dirigete a la seccion de proveedores y crea uno."
+                );
+            else
+                dialogoProducto.inicializarComboBoxProveedores(diccionarioProveedores);        
         } catch (Exception e) {
             dialogoProducto.mostrarAlertaError(e.getMessage());
         }
@@ -330,7 +336,7 @@ public class ControladorDialogoProducto {
     
     
     private void conmutarEstadoProducto(){
-        boolean deseaContinuar = dialogoProducto.mostrarAlertaAdvertencia(
+        boolean deseaContinuar = dialogoProducto.mostrarAlertaAdvertenciaConRespuesta(
             ( modeloProducto.isHabilitado()
             ? "Esta a punto de deshabilitar el producto y por tanto ya no podra registrar ventas o compras con el."
             : "Esta a punto de habilitar el producto y ahora lo podra usar en ventas o compras." )
@@ -353,7 +359,7 @@ public class ControladorDialogoProducto {
     }
     
     private void eliminarProducto(){
-        boolean deseaContinuar = dialogoProducto.mostrarAlertaAdvertencia(
+        boolean deseaContinuar = dialogoProducto.mostrarAlertaAdvertenciaConRespuesta(
             "Esta a punto de eliminar el producto, este cambio es irreversible \nEsta seguro?"
         );
         

@@ -754,7 +754,7 @@ public class DialogoFormularioProducto extends DialogoBaseConSombra{
         
     }
     
-    public boolean mostrarAlertaAdvertencia( String mensaje ){
+    public boolean mostrarAlertaAdvertenciaConRespuesta( String mensaje ){
         
        return DialogoAlerta.mostrarAdvertenciaConRespuesta(
                    this,
@@ -764,11 +764,21 @@ public class DialogoFormularioProducto extends DialogoBaseConSombra{
     
     }
     
+    public void mostrarAlertaAdvertenciaSinRespuesta( String mensaje ){
+        
+       DialogoAlerta.mostrarAdvertenciaSinRespuesta(
+            this,
+            "Advertencia", 
+            mensaje
+         );
+    
+    }
+    
     public void mostrarAlertaError( String mensaje ){
         DialogoAlerta.mostrarError( this, "Error", mensaje );
     }
     
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEnviarFormulario;
