@@ -301,8 +301,15 @@ public class ServicioUsuarios {
     }
 
     
-    public void asignarEstadoUsuario (  int idUsuario , boolean habilitado  ) throws Exception {
+    public void asignarEstadoUsuario (  int idUsuario, boolean habilitado  ) throws Exception {
     
+        if( !habilitado && isUltimoAdministrador(idUsuario)){
+                throw new Exception("Este usuario administrador no se puede deshabilitar \n"
+                                  + "Por que quedaria sin un usuario que gestione la aplicacion."
+                );
+        }
+        
+        
         Connection conexionDB = ConexionDB.getConnection();
         
         String sentenciaSQL = "UPDATE usuarios SET habilitado = ? WHERE id_usuario = ?";
@@ -343,8 +350,10 @@ public class ServicioUsuarios {
             );
             return idUsuarioCreado;
         } catch (Exception e) {
-            eliminarUsuario(idUsuarioCreado);
-            throw new Exception("Error al crear el usuario \n"+ e.getMessage());
+            throw new Exception("Error al tratar de enviar el correo con credenciasles \n"+ 
+                    "El usuario se ha creado con el correo "+ usuario.getCorreoUsuario() + 
+                    " para iniciar sesion por favor recuperar la contraseña"
+                    );
         }
         
     }
@@ -352,52 +361,96 @@ public class ServicioUsuarios {
     
     public void eliminarUsuario( int idUsuario ) throws Exception{
         
-        /*
-        Para eliminar un usuario se hara la respectiva consulta, sin embargo
-        la base de datos no debe permitir eliminar un usuario si este
-        es la clave foranea de cualquier tabla, como ventas o productos
+        if( !isUsuarioEliminable(idUsuario) )
+            throw new Exception("Este usuario no se puede eliminar");
         
-        Es importante tambien tener en cuenta en un futuro que el mismo administrador
-        no se pueda eliminar en gestion de usuarios, en su momento se planteara
-        el codigo para evitar esta eventualidad
+        Connection conexionDB = ConexionDB.getConnection();
         
-        //si hay error crear el error segun sea el caso
-        //    throw new RuntimeException("No se pudo completar la operacion o falla en el servicio");
+        String sentenciaSQL = "DELETE FROM usuarios WHERE id_usuario = ?";
         
-        Aqui tambien se va verificar si el idUsuario es clave foranea para
-        evitar eliminarlo si tiene registros asociados en dado caso
-        se devolvera el error con el mensaje 
-        throw new RuntimeException("Usuario con registros asociados no se puede eliminar");
-        
-        tambien existira una regla que un usuario adminsitrador no se puede eliminar
-        aqui para ser mas especifico se puede crear una variable superAdminsitrador
-        que solo sera el primer adminsitrador registrado y este no se podra eliminar
-        dependiendo del tiempo para implementar la solucion se decidira cual opcion
-        realizar
-        */
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            consulta.setInt(1, idUsuario);
+            int filasAfectadas = consulta.executeUpdate();
+            if( filasAfectadas != 1 )
+                throw new Exception("El usuario no se pudo eliminar");
+        }
 
     }
     
     
-    public boolean isUsuarioEliminable ( int idUsuario ) throws Exception{
-    
-        boolean respuestaConsulta = false;
+public boolean isUsuarioEliminable(int idUsuario ) throws Exception {
+                
+        // REGLA 1: Evitar que se elimine al último administrador
+        if(isUltimoAdministrador(idUsuario)) return false; //Si es el ultimo administrador no es eliminable
         
+        
+        // REGLA 2: Validar si tiene registros en otras tablas (Llaves foráneas)
+        // TODO: Descomentar y ajustar los nombres de tablas cuando se creen los módulos de ventas/compras
         /*
-        Esta consulta se encargara de verificar si el usuario es clave foranea
-        de otra tabla, esto permite personalizar el dialogo para mostrar el boton
-        eliminar si no tiene una relacion
-        o deshabilitar si tiene una relacion
-        
-        //si hay error crear el error segun sea el caso
-            //    throw new RuntimeException("No se pudo completar la operacion o falla en el servicio");
-        
+        Connection conexionDB = ConexionDB.getConnection();
+        sentenciaSQL = 
+            "SELECT (" +
+            "   EXISTS(SELECT 1 FROM ventas WHERE id_usuario = ?) OR " +
+            "   EXISTS(SELECT 1 FROM compras WHERE id_usuario = ?) " +
+            ") AS tiene_registros";
+            
+        try (PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)) {
+            consulta.setInt(1, idUsuario);
+            consulta.setInt(2, idUsuario);
+            try (ResultSet respuesta = consulta.executeQuery()) {
+                if (respuesta.next()) {
+                    boolean tieneRegistros = respuesta.getBoolean("tiene_registros");
+                    if (tieneRegistros) {
+                        return false; // Tiene historial, NO es eliminable (pero se puede modificar su estado habilitado)
+                    }
+                }
+            }
+        }
         */
         
-        
-        return respuestaConsulta;
+        // Si pasa las validaciones (o si aún no hay tablas de ventas), se puede eliminar
+        return true;
     }
     
+    /*
+    Metodo para validar si un usuario es administrador y si es el ultimo administrador
+    */
+    private boolean isUltimoAdministrador ( int idUsuario ) throws Exception{
+        
+        Connection conexionDB = ConexionDB.getConnection();
+
+        // PASO 1: Validar si el usuario objetivo es un administrador
+        String sentenciaSQL = "SELECT id_rol_usuario FROM usuarios WHERE id_usuario = ?";
+        try (PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)) {
+            consulta.setInt(1, idUsuario);
+            try (ResultSet respuesta = consulta.executeQuery()) {
+                if (respuesta.next()) {
+                    // Asumimos que 1 es el ID del rol Administrador
+                    if (respuesta.getInt("id_rol_usuario") != 1) {
+                        return false; // No es administrador, no aplica esta regla
+                    }
+                } else {
+                    throw new Exception("El usuario no existe");
+                }
+            }
+        }
+        
+        // PASO 2: Si es administrador, contamos cuántos administradores existen en total
+        sentenciaSQL = "SELECT COUNT(*) FROM usuarios WHERE id_rol_usuario = 1";
+        try (
+            PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
+            ResultSet respuesta = consulta.executeQuery()
+            ) {
+            if ( respuesta.next() ) {
+                return respuesta.getInt(1) <= 1; 
+            }else{
+                //Si no se obtuvo una respuesta de la consulta, para evitar 
+                //eliminar o deshabilitar el ultimo administrador retornamos
+                return true;
+            }
+        }
+        
+    }
     
     
     
