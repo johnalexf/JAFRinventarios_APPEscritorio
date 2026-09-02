@@ -9,6 +9,10 @@ package jafrinventarios.servicios.clientes;
 
 import jafrinventarios.DTOs.clientes.DTOClienteTabla;
 import jafrinventarios.modelos.clientes.ModeloCliente;
+import jafrinventarios.servicios.ConexionDB;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,45 +33,80 @@ public class ServicioClientes {
     */
     public static LinkedHashMap<Integer, String> obtenerDiccionarioClientes() throws Exception{
     
-        //TODO Por el momento se hace la simulacion
-        List<DTOClienteTabla> clientesBD = simulacionConsultaBDTodosClientes();
-        
         LinkedHashMap<Integer, String> diccionarioClientes = new LinkedHashMap<>();
-        clientesBD.forEach( cliente -> {
-            diccionarioClientes.put( cliente.getIdCliente() , cliente.getNombreNegocio());
-        });
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL =
+                "SELECT\n" +
+                "    id_cliente AS 'id',\n" +
+                "    nombre_negocio AS 'nombre'\n" +
+                "FROM\n" +
+                "    clientes\n" +
+                "WHERE\n" +
+                "    habilitado = 1";
+        
+        try(
+            PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
+            ResultSet respuesta = consulta.executeQuery();
+            ){
+        
+            while( respuesta.next() ){
+                diccionarioClientes.put( respuesta.getInt("id"), respuesta.getString("nombre"));
+            }
+        }
         
         return diccionarioClientes;
-        
     }
     
-    //TODO Esta es una simulacion cuando se conecte a la base de datos se eliminara
-    private static List<DTOClienteTabla> simulacionConsultaBDTodosClientes () {
-        List<DTOClienteTabla> listaClientesTablas = new ArrayList<>();
-        
-        listaClientesTablas.add(new DTOClienteTabla(1, "Tienda La Esperanza", "José Antonio Vargas", "3109998877", "Calle 22 # 14-50", "contacto@laesperanza.com", true));
-        listaClientesTablas.add(new DTOClienteTabla(2, "Minimercado El Primo", "Marta Cecilia Rojas", "3201112233", "Carrera 50 # 100-24", "elprimo@minimercado.com", true));
-        listaClientesTablas.add(new DTOClienteTabla(3, "Panadería La Mejor", "Luis Fernando Muñoz", "3156667788", "Avenida 68 # 45-12", "lamejorpanaderia@gmail.com", true));
-        listaClientesTablas.add(new DTOClienteTabla(4, "Cigarrería El Punto", "Blanca Stella Gómez", "3004445566", "Calle 80 # 72-10", "elpuntocigarreria@hotmail.com", true));
-        listaClientesTablas.add(new DTOClienteTabla(5, "Surtimax Las Orquídeas", "Carlos Eduardo López", "3112229988", "Carrera 15 # 120-45", "surtilasorquideas@empresa.com", true));
-        listaClientesTablas.add(new DTOClienteTabla(6, "Tienda Mi Casita", "Ana María Castro", "3148885522", "Calle 13 # 25-60", "micasitatienda@gmail.com", true));
-        listaClientesTablas.add(new DTOClienteTabla(7, "Bodega Mayorista Sur", "Roberto Carlos Díaz", "3173334455", "Autopista Sur # 45-90", "bodegasur@distribucion.com", true));
-        listaClientesTablas.add(new DTOClienteTabla(8, "Minimercado Los Pinos", "Sandra Milena Ruiz", "3012223344", "Transversal 91 # 130-15", "lospinos@minimercado.com", true));
-        listaClientesTablas.add(new DTOClienteTabla(9, "Tienda Escolar San Juan", "Mario Alberto Silva", "3125556677", "Carrera 7 # 45-10", "sanjuanescolar@gmail.com", false));
-        listaClientesTablas.add(new DTOClienteTabla(10, "Cafetería Central", "Diana Patricia Ortiz", "3169990000", "Calle 100 # 15-20", "centralcafeteria@empresa.com", false));
-        
-        return listaClientesTablas;
-    }
-    
-    
+
     public List<DTOClienteTabla> obtenerTodosLosClientes( boolean isAdministrador ) throws Exception{
     
-        /*
-        TODO: Realizar la consulta y el armado de la lista
-        por el momento se simula una lista
-        */
+        List<DTOClienteTabla> listaClientes = new ArrayList<>();
         
-        return simulacionConsultaBDTodosClientes();
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_cliente AS 'id',\n" +
+                "    nombre_negocio AS 'nombreNegocio',\n" +
+                "    CONCAT(\n" +
+                "        primer_nombre_contacto, ' ',\n" +
+                "        segundo_nombre_contacto, ' ',\n" +
+                "        primer_apellido_contacto,  ' ',\n" +
+                "        segundo_apellido_contacto\n" +
+                "    ) AS 'nombreContacto',\n" +
+                "    telefono_contacto AS 'telefono',\n" +
+                "    direccion_cliente AS 'direccion',\n" +
+                "    correo_cliente AS 'correo',\n" +
+                "    habilitado\n" +
+                "FROM\n" +
+                "    clientes";
+        
+        if(!isAdministrador)
+            sentenciaSQL +=  "\n WHERE habilitado = 1" ;
+        
+        try(
+            PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
+            ResultSet respuesta = consulta.executeQuery();
+            ){
+
+            while( respuesta.next() ){
+                listaClientes.add(
+                        new DTOClienteTabla(
+                                respuesta.getInt("id"), 
+                                respuesta.getString("nombreNegocio"), 
+                                respuesta.getString("nombreContacto"), 
+                                respuesta.getString("telefono"), 
+                                respuesta.getString("direccion"), 
+                                respuesta.getString("correo"), 
+                                respuesta.getBoolean("habilitado")
+                        )
+                );
+            }
+        }
+        
+        return listaClientes;
     
     }
     
@@ -75,13 +114,66 @@ public class ServicioClientes {
     public List<DTOClienteTabla> obtenerListaClientesPorFiltro ( String filtro , boolean isAdministrador ) throws Exception {
     
         List<DTOClienteTabla> listaClientes = new ArrayList<>();
-        /*
-        TODO:
-        Hacer la consulta a la base de datos, si no se encuentra algun resultado
-        la lista se manda vacia, si llega a presentarse algun error manejarlo con
-        try catch y crear el throw new Excepcion para globalizar si es alguna
-        falla de conexion a la base de datos
-        */
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_cliente AS 'id',\n" +
+                "    nombre_negocio AS 'nombreNegocio',\n" +
+                "    CONCAT(\n" +
+                "        primer_nombre_contacto, ' ',\n" +
+                "        segundo_nombre_contacto, ' ',\n" +
+                "        primer_apellido_contacto,  ' ',\n" +
+                "        segundo_apellido_contacto\n" +
+                "    ) AS 'nombreContacto',\n" +
+                "    telefono_contacto AS 'telefono',\n" +
+                "    direccion_cliente AS 'direccion',\n" +
+                "    correo_cliente AS 'correo',\n" +
+                "    habilitado\n" +
+                "FROM\n" +
+                "    clientes\n" +
+                "WHERE\n" +
+                "    (\n" +
+                "        nombre_negocio LIKE ? OR\n" +
+                "        CONCAT(\n" +
+                "        primer_nombre_contacto, ' ',\n" +
+                "        segundo_nombre_contacto, ' ',\n" +
+                "        primer_apellido_contacto,  ' ',\n" +
+                "        segundo_apellido_contacto\n" +
+                "        ) LIKE ? OR\n" +
+                "        telefono_contacto LIKE ? OR\n" +
+                "        direccion_cliente LIKE ? OR\n" +
+                "        correo_cliente LIKE ? \n" +
+                "    )\n";
+        
+        if(!isAdministrador)
+            sentenciaSQL +=  "AND habilitado = 1 " ;
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+            
+            consulta.setString(1, filtro);
+            consulta.setString(2, filtro);
+            consulta.setString(3, filtro);
+            consulta.setString(4, filtro);
+            consulta.setString(5, filtro);
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                while( respuesta.next() ){
+                    listaClientes.add(
+                            new DTOClienteTabla(
+                                    respuesta.getInt("id"), 
+                                    respuesta.getString("nombreNegocio"), 
+                                    respuesta.getString("nombreContacto"), 
+                                    respuesta.getString("telefono"), 
+                                    respuesta.getString("direccion"), 
+                                    respuesta.getString("correo"), 
+                                    respuesta.getBoolean("habilitado")
+                            )
+                    );
+                }
+            }
+        }
         
         return listaClientes;
     }
