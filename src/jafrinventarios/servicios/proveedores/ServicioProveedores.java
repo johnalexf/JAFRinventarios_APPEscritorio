@@ -13,6 +13,7 @@ import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -327,28 +328,42 @@ public class ServicioProveedores {
     
     public void editarProveedor ( ModeloProveedor proveedor ) throws Exception{
     
-        /*
-        TODO
+        validarDatosUnicosProveedor(proveedor);
         
-        Para editar se tendra encuenta el id para saber que proveedor es el que hay que modificar
-        y se actualizaran los demas datos que contenga el proveedor
+        Connection conexionDB = ConexionDB.getConnection();
         
-        Manejar try catch para controlar errores de respuesta de la base de datos con
-        catch (SQLIntegrityConstraintViolationException e) {
+        String sentenciaSQL = 
+                "UPDATE\n" +
+                "    proveedores\n" +
+                "SET\n" +
+                "    nombre_comercial = ?,\n" +
+                "    primer_nombre_contacto = ?,\n" +
+                "    segundo_nombre_contacto = ?,\n" +
+                "    primer_apellido_contacto = ?,\n" +
+                "    segundo_apellido_contacto = ?,\n" +
+                "    telefono_contacto = ?,\n" +
+                "    direccion_proveedor = ?,\n" +
+                "    correo_proveedor= ?\n" +
+                "WHERE\n" +
+                "    id_proveedor = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+        
+            consulta.setString(1, proveedor.getNombreComercial());
+            consulta.setString(2, proveedor.getPrimerNombreContacto());
+            consulta.setString(3, proveedor.getSegundoNombreContacto());
+            consulta.setString(4, proveedor.getPrimerApellidoContacto());
+            consulta.setString(5, proveedor.getSegundoApellidoContacto());
+            consulta.setString(6, proveedor.getTelefonoContacto());
+            consulta.setString(7, proveedor.getDireccionProveedor());
+            consulta.setString(8, proveedor.getCorreoProveedor());
             
-            String errorBD = e.getMessage();
-            HashMap<String, String> errores = new HashMap<>();
-
-            // Buscar palabras clave en el error de la base de datos
-            if (errorBD.contains("nombreComercial_UNIQUE")) {
-                errores.put("nombreComercial", "Ya está registrado este nombre.");
-            } 
-
-            // Lanzar la excepción personalizada con el mapa listo para la vista
-            throw new ExcepcionValidacionBD(errores);
+            consulta.setInt(9, proveedor.getIdProveedor() );
+            
+            int filasAfectadas = consulta.executeUpdate();
+            if(filasAfectadas != 1)
+                throw new Exception("El proveedor no se edito correctamente");
         }
-        */
-        
         
     }
     
@@ -356,30 +371,23 @@ public class ServicioProveedores {
     /*
     Metodo para conmutar el estado de habilitado de un proveedor
     */
-    public void conmutarEstadoProveedor( int idProveedor ) throws Exception {
+    public void asignarEstadoProveedor( int idProveedor, boolean habilitado) throws Exception {
     
-    
-        /*
-        TODO
-        con el idProveedor verificamos que valor tiene el parametro habilitado
-        y lo conmutamos
+        Connection conexionDB = ConexionDB.getConnection();
         
-        Manejar los errores 
-        */
-    }
-    
-    
-    /*
-    Metodo para consultar si un proveedor esta habilitado
-    */
-    public boolean isProveedorHabilitado ( int idProveedor ) throws Exception{
-    
-        /*
-        TODO : pendiente la respectiva consulta con manejo de errores
-        por el momento se simula con true;
-        */
+        String sentenciaSQL = "UPDATE proveedores SET habilitado = ? WHERE id_proveedor = ?";
         
-        return true;
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            
+            consulta.setBoolean(1, habilitado);
+            consulta.setInt(2, idProveedor);
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if( filasAfectadas != 1 )
+                throw new Exception("No se pudo modificar el estado del proveedor");
+            
+        }
     }
     
     
@@ -390,19 +398,53 @@ public class ServicioProveedores {
     */
     public int crearProveedor ( ModeloProveedor proveedor ) throws Exception{
     
-        /*
-        TODO:
-
-        Manejo de errores con 
-        catch (SQLIntegrityConstraintViolationException e) {
-        si hay datos duplicados en la base de datos o que no correspondan
+        validarDatosUnicosProveedor(proveedor);
         
-        y con catch (Exception e) { para otros errores
+        Connection conexionDB = ConexionDB.getConnection();
         
-        por el momento retornamos -1 para indicar que no se creo el usuario
-        sin embargo la idea es manejarlo con los errores throw new
-        */
-        return -1;
+        String sentenciaSQL = 
+                "INSERT INTO\n" +
+                "    proveedores(\n" +
+                "        nombre_comercial,\n" +
+                "        primer_nombre_contacto,\n" +
+                "        segundo_nombre_contacto,\n" +
+                "        primer_apellido_contacto,\n" +
+                "        segundo_apellido_contacto,\n" +
+                "        telefono_contacto,\n" +
+                "        direccion_proveedor,\n" +
+                "        correo_proveedor,\n" +
+                "        habilitado\n" +
+                "    )\n" +
+                "VALUES\n" +
+                "    ( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)){
+        
+            consulta.setString(1, proveedor.getNombreComercial());
+            consulta.setString(2, proveedor.getPrimerNombreContacto());
+            consulta.setString(3, proveedor.getSegundoNombreContacto());
+            consulta.setString(4, proveedor.getPrimerApellidoContacto());
+            consulta.setString(5, proveedor.getSegundoApellidoContacto());
+            consulta.setString(6, proveedor.getTelefonoContacto());
+            consulta.setString(7, proveedor.getDireccionProveedor());
+            consulta.setString(8, proveedor.getCorreoProveedor());
+            consulta.setBoolean( 9, true );
+            
+            int filasAfectadas = consulta.executeUpdate();
+            if(filasAfectadas == 1)
+                try( ResultSet respuesta = consulta.getGeneratedKeys() ){ 
+                    if( respuesta.next() ){
+                        //Retornamos el id del proveedor creado
+                        return ( respuesta.getInt( 1 ) );
+                    }else{
+                        throw new Exception( "Error al obtener el id del proveedor" );
+                    }
+                }
+            else
+                throw new Exception("No se pudo crear el proveedor");
+            
+        }
+        
     }
     
     
@@ -410,12 +452,21 @@ public class ServicioProveedores {
     Metodo para eliminar un proveedor.
     Pero si este tiene alguna relacion con otra tabla no se puede eliminar
     */
-    public void eliminarProveedor ( int idProveedor ) throws Exception{
+    public void eliminarProveedor ( int idProveedor  ) throws Exception{
         
-        /*
-        TODO:
-        Hacer la respectiva consulta y envio de errores segun el caso.
-        */
+        if( !isProveedorEliminable(idProveedor) )
+            throw new Exception("Este proveedor no se puede eliminar");
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = "DELETE FROM proveedores WHERE id_proveedor = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            consulta.setInt(1, idProveedor);
+            int filasAfectadas = consulta.executeUpdate();
+            if( filasAfectadas != 1 )
+                throw new Exception("El proveedor no se pudo eliminar");
+        }
     }
     
     
@@ -425,14 +476,37 @@ public class ServicioProveedores {
     public boolean isProveedorEliminable ( int idProveedor ) throws Exception{
     
         /*
-        TODO
-        Hacer la consulta y manejo de errores para enviarlos personalizados
-        segun corresponda
-        
-        Por el momento se simula que no tiene registros asociados
+        Segun la solucion del proyecto un proveedor esta destinado a asignarse
+        a los productos, y cuando se vaya a registrar una compra al seleccionar el
+        proveedor se le mostraran al usuario los productos que corresponde a dicho
+        proveedor, por tanto solo es necesario validar si el proveedor tiene productos relacionados
+        y no es necesario validar si tiene compras registradas
         */
         
-        return false;
+        Connection conexionDB = ConexionDB.getConnection();
+        String sentenciaSQL = 
+            "SELECT(\n" +
+            "    EXISTS(\n" +
+            "        SELECT 1 FROM productos WHERE id_proveedor = ? \n" +
+            "        ) \n" +
+            "   )  AS tieneRegistros";
+            
+        try (PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)) {
+            consulta.setInt(1, idProveedor);
+            try (ResultSet respuesta = consulta.executeQuery()) {
+                if (respuesta.next()) {
+                    boolean tieneRegistros = respuesta.getBoolean("tieneRegistros");
+                    return !tieneRegistros; // Si tiene registros no es eliminable
+                }else{
+                    //En dado caso que no se reciba una respuesta, para proteger
+                    //la integridad de los datos, retornamos un falsa, para que no se 
+                    //pueda eliminar
+                    return false;
+                }
+            }
+        }
     }
+    
+    
     
 }
