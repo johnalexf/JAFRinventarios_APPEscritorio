@@ -81,7 +81,7 @@ public class ControladorDialogoUsuarios {
             try {
                 this.modeloUsuario = obtenerModeloUsuario( idUsuario );
             }catch (Exception e) {
-                //dialogoUsuario.mostrarAlertaError(e.getMessage());
+                dialogoUsuario.mostrarAlertaError(e.getMessage());
                 return;
             }
             
@@ -319,8 +319,6 @@ public class ControladorDialogoUsuarios {
         
         // Extracción y construcción del Modelo
         HashMap<String, String> datosFormulario = dialogoUsuario.recolectarDatosFormulario();
-        //TODO pendiente eliminar luego de que se guarde en la base de datos
-        imprimirEnConsolaFormulario( datosFormulario );
 
         ModeloUsuario usuarioAProcesar = 
                 ( tipoDialogo != TipoDialogo.CREAR_NUEVO_USUARIO ) 
@@ -328,11 +326,6 @@ public class ControladorDialogoUsuarios {
                 : new ModeloUsuario();
 
         usuarioAProcesar = asignarDatosAModeloUsuario( usuarioAProcesar, datosFormulario );
-         //TODO pendiente eliminar luego de que se guarde en la base de datos
-        if( tipoDialogo != TipoDialogo.CREAR_NUEVO_USUARIO ){
-            System.out.println( modeloUsuario.toString() );
-        }
-        System.out.println( usuarioAProcesar.toString());
         
         // Auditoría de Cambios si es editar usuario o perfil
         if( tipoDialogo != TipoDialogo.CREAR_NUEVO_USUARIO ){
@@ -449,14 +442,6 @@ public class ControladorDialogoUsuarios {
             usuario.setCorreoUsuario(datosFormulario.get("correo") );
         
         return usuario;
-    }
-    
-    //TODO eliminar despues de conectar la base de datos.
-    // Funcion para verificar la recoleccion de datos del formulario
-    private void imprimirEnConsolaFormulario( HashMap<String, String> datosFormulario ){
-        datosFormulario.forEach(    (clave, valor) ->
-            System.out.println(clave + " -> " + valor)
-        );
     }
     
     
