@@ -7,7 +7,6 @@ import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -129,6 +128,10 @@ public class ServicioAutenticacion {
                                     tipo de rol, por el momento lo comprobamos de esta manera, sin embargo se 
                                     puede pensar en una variable que especifique si es administrador, e incluso si
                                     es superAdministrador, que seria el primer administrador registrado
+                            TODO: Existe un punto de mejora, pues para evaluar si un usuario es administrador
+                            en este servicio se tiene en cuenta una comparacion con string, y en el servicio de 
+                            usuarios se evalua con el id_rol asumiendo que es igual a 1, por el momento se deja tal cual como esta
+                            pero un mejora seria crear la variable booleana isAdministrador, asi no se depende de asumir por texto o id_rol
                                     */
                                     respuesta.getString("nombreRol").toLowerCase().equals("administrador"),
                                     respuesta.getInt("idEmpresa"),

@@ -3,9 +3,7 @@ package jafrinventarios.servicios.acceso;
 
 
 import jafrinventarios.modelos.usuarios.ModeloUsuario;
-import jafrinventarios.servicios.ConexionDB;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
-import java.sql.Connection;
 
 /**
  *
@@ -19,7 +17,6 @@ public class ServicioRegistro {
     por correo al usuario creado, en cambio desde esta clase el registro pide la clave
     y un codigo de acceso
     */
-    
     public boolean isValidoCodigo( String codigo, boolean isRegistroAdminsitrador ) throws Exception {
         
         int idEmpresa = ServicioEmpresa.obtenerIdEmpresa();
