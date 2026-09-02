@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -182,16 +183,47 @@ public class ServicioProveedores {
     */
     public DTOProveedorTabla obtenerDatosDTOProveedor ( int idProveedor ) throws Exception{
     
-        /*
-        TODO
-        Si no se encuentra un usuario con el id, devolver el error con throw new
-        de igual manera si pasa algun error en la conexion
-        Por el momento se simula un resultado
-        */
+        Connection conexionDB = ConexionDB.getConnection();
         
-        DTOProveedorTabla proveedorConsultado = new DTOProveedorTabla(10, "Abarrotes El Mayorista", "Pedro Pablo Sánchez", "3015674321", "Zona Industrial Bodega 15", "contacto@elmayorista.com", false);
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_proveedor AS 'id',\n" +
+                "    nombre_comercial AS 'nombreComercial',\n" +
+                "    CONCAT(\n" +
+                "        primer_nombre_contacto, ' ',\n" +
+                "        segundo_nombre_contacto, ' ',\n" +
+                "        primer_apellido_contacto,  ' ',\n" +
+                "        segundo_apellido_contacto\n" +
+                "    ) AS 'nombreContacto',\n" +
+                "    telefono_contacto AS 'telefono',\n" +
+                "    direccion_proveedor AS 'direccion',\n" +
+                "    correo_proveedor AS 'correo',\n" +
+                "    habilitado\n" +
+                "FROM\n" +
+                "    proveedores\n"+
+                "WHERE\n" +
+                "    id_proveedor = ?";
         
-        return proveedorConsultado;
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+            
+            consulta.setInt(1, idProveedor);
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                if( respuesta.next() ){
+                    return new DTOProveedorTabla(
+                                    respuesta.getInt("id"), 
+                                    respuesta.getString("nombreComercial"), 
+                                    respuesta.getString("nombreContacto"), 
+                                    respuesta.getString("telefono"), 
+                                    respuesta.getString("direccion"), 
+                                    respuesta.getString("correo"), 
+                                    respuesta.getBoolean("habilitado")
+                            );
+                }else{
+                    throw new Exception("No existe un proveedor con id : " + idProveedor );
+                }
+            }
+        }
         
     }
     
@@ -202,21 +234,95 @@ public class ServicioProveedores {
     */
     public ModeloProveedor obtenerModeloProveedor ( int idProveedor ) throws Exception{
     
-        /*
-        TODO
-        hacer la consulta, si no se encuentra devolver un error
-        si pasa algun error de conexion se devuelve un error diferente
-        Por el momento se hace una simulacion de resultado
-        */
+        Connection conexionDB = ConexionDB.getConnection();
         
-        ModeloProveedor proveedorConsultado = 
-                new ModeloProveedor (
-                        10, "Abarrotes El Mayorista", "Pedro", "Pablo", "Sánchez", "", "3015674321", "Zona Industrial Bodega 15", "contacto@elmayorista.com", true);
-        
-        return proveedorConsultado;
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_proveedor AS 'id',\n" +
+                "    nombre_comercial AS 'nombreComercial',\n" +
+                "    primer_nombre_contacto AS 'primerNombre',\n" +
+                "    segundo_nombre_contacto AS 'segundoNombre',\n" +
+                "    primer_apellido_contacto AS 'primerApellido',\n" +
+                "    segundo_apellido_contacto AS 'segundoApellido',\n" +
+                "    telefono_contacto AS 'telefono',\n" +
+                "    direccion_proveedor AS 'direccion',\n" +
+                "    correo_proveedor AS 'correo',\n" +
+                "    habilitado\n" +
+                "FROM\n" +
+                "    proveedores\n" +
+                "WHERE\n" +
+                "    id_proveedor = ?";
+           
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+            
+            consulta.setInt(1, idProveedor);
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                if( respuesta.next() ){
+                    return new ModeloProveedor(
+                                    respuesta.getInt("id"), 
+                                    respuesta.getString("nombreComercial"), 
+                                    respuesta.getString("primerNombre"), 
+                                    respuesta.getString("segundoNombre"), 
+                                    respuesta.getString("primerApellido"), 
+                                    respuesta.getString("segundoApellido"), 
+                                    respuesta.getString("telefono"), 
+                                    respuesta.getString("direccion"), 
+                                    respuesta.getString("correo"), 
+                                    respuesta.getBoolean("habilitado")
+                            );
+                }else{
+                    throw new Exception("No existe un proveedor con id : " + idProveedor );
+                }
+            }
+        }
         
     }
     
+    
+    private void validarDatosUnicosProveedor( ModeloProveedor proveedor ) throws Exception{
+         
+        Connection conexionBD = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+            "SELECT\n" +
+            "    nombre_comercial , telefono_contacto, correo_proveedor\n" +
+            "FROM\n" +
+            "    proveedores\n" +
+            "WHERE\n" +
+            "    (nombre_comercial = ? OR telefono_contacto = ? OR correo_proveedor = ?)";
+        
+        //Si es un usuario nuevo se espera que no este asignado el ID
+        if( proveedor.getIdProveedor() != null )
+            sentenciaSQL += " AND id_proveedor != ?";
+        
+        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
+              
+            consulta.setString(1, proveedor.getNombreComercial());
+            consulta.setString(2, proveedor.getTelefonoContacto());
+            consulta.setString(3, proveedor.getCorreoProveedor());
+            
+            if( proveedor.getIdProveedor() != null )
+                consulta.setInt(4, proveedor.getIdProveedor());
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                
+                HashMap<String, String> erroresBD = new HashMap<>();
+                
+                while(respuesta.next()){
+                    if(respuesta.getString( "nombre_comercial").equals(proveedor.getNombreComercial()))
+                       erroresBD.put("nombreComercial", "Este nombre ya esta registrado");
+                    if(respuesta.getString("telefono_contacto").equals(proveedor.getTelefonoContacto()))
+                        erroresBD.put("telefonoContacto", "Este telefono ya esta registrado");
+                    if(respuesta.getString("correo_proveedor").equals(proveedor.getCorreoProveedor()))
+                        erroresBD.put("correoProveedor", "Este correo ya esta registrado");
+                }
+                
+                if(!erroresBD.isEmpty())
+                    throw new ExcepcionValidacionBD(erroresBD);
+            }
+        } 
+    }
     
     
     public void editarProveedor ( ModeloProveedor proveedor ) throws Exception{
