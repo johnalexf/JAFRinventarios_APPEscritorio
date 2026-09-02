@@ -322,6 +322,12 @@ public class ServicioUsuarios {
     
     public void editarOtroUsuario( ModeloUsuario usuario ) throws Exception{
     
+        if( isUltimoAdministrador( usuario.getIdUsuario() ) && usuario.getIdRolUsuario() != 1  ){
+            throw new Exception("Este usuario administrador no puede cambiar su rol \n"
+                              + "Por que quedaria sin un usuario que gestione la aplicacion."
+            );
+        }
+        
         validarDatosUnicosExcluyendoIdUsuario(usuario);
         
         Connection conexionDB = ConexionDB.getConnection();
@@ -337,7 +343,7 @@ public class ServicioUsuarios {
                 "    segundo_nombre_usuario = ?,\n" +
                 "    primer_apellido_usuario = ?,\n" +
                 "    segundo_apellido_usuario = ?,\n" +
-                "    id_rol_usuario = ?"+
+                "    id_rol_usuario = ?\n"+
                 "WHERE\n" +
                 "    id_usuario = ?";
         

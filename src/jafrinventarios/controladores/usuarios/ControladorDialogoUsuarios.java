@@ -391,6 +391,7 @@ public class ControladorDialogoUsuarios {
             case CREAR_NUEVO_USUARIO:
                 
                 try {
+                    usuarioAProcesar.setIdEmpresa( ModeloSesionUsuario.getInstancia().getIdEmpresa() );
                     idUsuario = crearUsuario(usuarioAProcesar);
                 }catch( ExcepcionValidacionBD e ){ 
                     mostrarErroresValidacion(e.getErrores());

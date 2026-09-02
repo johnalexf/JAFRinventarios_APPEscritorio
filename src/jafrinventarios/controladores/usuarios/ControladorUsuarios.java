@@ -188,8 +188,6 @@ public class ControladorUsuarios {
                         panelUsuarios.getVentanaPadre() , 
                         servicioUsuarios);
         
-        //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
-        idUsuarioCreado = -1;
         
         if(idUsuarioCreado != -1){
             
@@ -213,9 +211,6 @@ public class ControladorUsuarios {
                 ControladorDialogoUsuarios.editarOtroUsuario(
                     panelUsuarios.getVentanaPadre() , idUsuario, servicioUsuarios
                 );
-        
-        //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea
-        resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
         
         if( resultadoOperacion == ResultadoDialogo.ACTUALIZADO ){
             
