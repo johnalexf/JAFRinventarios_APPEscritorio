@@ -7,6 +7,11 @@ package jafrinventarios.servicios.productos;
 
 import jafrinventarios.DTOs.productos.DTOProductoTabla;
 import jafrinventarios.modelos.productos.ModeloProducto;
+import jafrinventarios.servicios.ConexionDB;
+import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,73 +22,158 @@ import java.util.List;
  */
 public class ServicioProductos {
 
+    
     public ServicioProductos() {
     }
     
-        /*
+    
+    /*
     Metodo estatico para no instanciar el servicio para los controladores que 
     solo necesitan de esta funcion
     */
     public static LinkedHashMap<Integer, String> obtenerDiccionarioProductos() throws Exception{
     
-        //TODO Por el momento se hace la simulacion
-        List<DTOProductoTabla> productosBD = simulacionConsultaBDTodosProductos();
-        
         LinkedHashMap<Integer, String> diccionarioProductos = new LinkedHashMap<>();
-        productosBD.forEach( producto -> {
-            diccionarioProductos.put( producto.getIdProducto(), producto.getNombreProducto());
-        });
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_producto,\n" +
+                "    nombre_producto\n" +
+                "FROM\n" +
+                "    productos\n" +
+                "WHERE\n" +
+                "    habilitado = 1;";
+        
+        try(
+            PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
+            ResultSet respuesta = consulta.executeQuery();
+            ){
+        
+            while( respuesta.next() ){
+                diccionarioProductos.put( respuesta.getInt("id_producto"), respuesta.getString("nombre_producto"));
+            }
+        }
         
         return diccionarioProductos;
         
     }
     
-    //TODO Esta es una simulacion cuando se conecte a la base de datos se eliminara
-    private static List<DTOProductoTabla> simulacionConsultaBDTodosProductos () {
-        List<DTOProductoTabla> listaProductosTablas = new ArrayList<>();
-        
-        listaProductosTablas.add(new DTOProductoTabla(1, "Pan Tajado Blanco (Bolsa)", 2500.0, 3500.0, 20, 50, true, "Panificadora El Trigo"));
-        listaProductosTablas.add(new DTOProductoTabla(2, "Tostadas de Ajo (Paquete)", 1800.0, 2500.0, 15, 30, true, "Panificadora El Trigo"));
-        listaProductosTablas.add(new DTOProductoTabla(3, "Pastelito de Guayaba (Unidad)", 800.0, 1200.0, 50, 120, true, "Pastelería Delicias"));
-        listaProductosTablas.add(new DTOProductoTabla(4, "Croissant de Queso", 1200.0, 2000.0, 30, 80, true, "Panificadora El Trigo"));
-        listaProductosTablas.add(new DTOProductoTabla(5, "Chupetas de Fresa (Paquete x50)", 6000.0, 8500.0, 10, 25, true, "Dulcería La Alegría"));
-        listaProductosTablas.add(new DTOProductoTabla(6, "Gomas de Oso (Caja x24)", 12000.0, 18000.0, 5, 18, true, "Dulcería La Alegría"));
-        listaProductosTablas.add(new DTOProductoTabla(7, "Salchichón Cervecero (Unidad)", 7000.0, 10000.0, 15, 40, true, "Embutidos San Jorge"));
-        listaProductosTablas.add(new DTOProductoTabla(8, "Salchichón Tradicional (Mitad)", 4000.0, 5500.0, 20, 0, false, "Embutidos San Jorge"));
-        listaProductosTablas.add(new DTOProductoTabla(9, "Torta de Vainilla (Porción)", 1500.0, 2500.0, 10, 5, true, "Pastelería Delicias"));
-        listaProductosTablas.add(new DTOProductoTabla(10, "Galletas de Mantequilla (Caja)", 3500.0, 5000.0, 15, 2, false, "Pastelería Delicias"));
-        
-        return listaProductosTablas;
-    }
-    
     
     public List<DTOProductoTabla> obtenerTodosLosProductos( boolean isAdministrador ) throws Exception{
     
-        /*
-        TODO: Realizar la consulta y el armado de la lista
-        por el momento se simula una lista
+        List<DTOProductoTabla> listaProductosTablas = new ArrayList<>();
         
-        si no es administrador se devuelven todos los habilitados
-        ya que a este tipo de usuarios esos productos no es necesario mostrarlos
-        */
+        Connection conexionDB = ConexionDB.getConnection();
         
-        return simulacionConsultaBDTodosProductos();
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    pd.id_producto AS 'id',\n" +
+                "    pd.nombre_producto AS 'nombreProducto',\n" +
+                "    pd.precio_compra AS 'precioCompra',\n" +
+                "    pd.precio_venta AS 'precioVenta',\n" +
+                "    pd.cantidad_minima_stock AS 'cantidadMin',\n" +
+                "    pd.cantidad_disponible AS 'cantidadDisponible',\n" +
+                "    pd.habilitado AS 'habilitado',\n" +
+                "    pv.nombre_comercial AS 'nombreProveedor'\n" +
+                "FROM\n" +
+                "    productos pd\n" +
+                "INNER JOIN\n" +
+                "    proveedores pv\n" +
+                "ON\n" +
+                "    pd.id_proveedor = pv.id_proveedor\n";
+        
+        if(!isAdministrador)
+            sentenciaSQL +=  "WHERE  pd.habilitado = 1" ;
+        
+        try(
+            PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
+            ResultSet respuesta = consulta.executeQuery();
+            ){
+
+            while( respuesta.next() ){
+                listaProductosTablas.add(
+                        new DTOProductoTabla(
+                                respuesta.getInt("id"), 
+                                respuesta.getString("nombreProducto"), 
+                                respuesta.getDouble("precioCompra"), 
+                                respuesta.getDouble("precioVenta"), 
+                                respuesta.getInt("cantidadMin"), 
+                                respuesta.getInt("cantidadDisponible"), 
+                                respuesta.getBoolean("habilitado"), 
+                                respuesta.getString("nombreProveedor")
+                        )
+                );
+            }
+        }
+        
+        return listaProductosTablas;
     
     }
     
     
     public List<DTOProductoTabla> obtenerListaProductosPorFiltro ( String filtro , boolean isAdministrador ) throws Exception {
     
-        List<DTOProductoTabla> listaProductos = new ArrayList<>();
-        /*
-        TODO:
-        Hacer la consulta a la base de datos, si no se encuentra algun resultado
-        la lista se manda vacia, si llega a presentarse algun error manejarlo con
-        try catch y crear el throw new Excepcion para globalizar si es alguna
-        falla de conexion a la base de datos
-        */
+                List<DTOProductoTabla> listaProductosTablas = new ArrayList<>();
         
-        return listaProductos;
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    pd.id_producto AS 'id',\n" +
+                "    pd.nombre_producto AS 'nombreProducto',\n" +
+                "    pd.precio_compra AS 'precioCompra',\n" +
+                "    pd.precio_venta AS 'precioVenta',\n" +
+                "    pd.cantidad_minima_stock AS 'cantidadMin',\n" +
+                "    pd.cantidad_disponible AS 'cantidadDisponible',\n" +
+                "    pd.habilitado AS 'habilitado',\n" +
+                "    pv.nombre_comercial AS 'nombreProveedor'\n" +
+                "FROM\n" +
+                "    productos pd\n" +
+                "INNER JOIN\n" +
+                "    proveedores pv\n" +
+                "ON\n" +
+                "    pd.id_proveedor = pv.id_proveedor\n" +
+                "WHERE ";
+        
+        if(!isAdministrador)
+            sentenciaSQL +=  " pd.habilitado = 1 AND" ;
+        
+        sentenciaSQL += 
+                "    (\n" +
+                "        pd.nombre_producto LIKE ? OR\n" +
+                "        pv.nombre_comercial LIKE ?\n" +
+                "    )";
+        
+        filtro = "%" + filtro + "%";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+            
+            consulta.setString(1, filtro);
+            consulta.setString(2, filtro);
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                while( respuesta.next() ){
+                    listaProductosTablas.add(
+                            new DTOProductoTabla(
+                                    respuesta.getInt("id"), 
+                                    respuesta.getString("nombreProducto"), 
+                                    respuesta.getDouble("precioCompra"), 
+                                    respuesta.getDouble("precioVenta"), 
+                                    respuesta.getInt("cantidadMin"), 
+                                    respuesta.getInt("cantidadDisponible"), 
+                                    respuesta.getBoolean("habilitado"), 
+                                    respuesta.getString("nombreProveedor")
+                            )
+                    );
+                }
+            }
+            
+        }
+        
+        return listaProductosTablas;
+    
     }
     
     
