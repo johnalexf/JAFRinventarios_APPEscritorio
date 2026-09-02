@@ -8,6 +8,11 @@ package jafrinventarios.servicios.proveedores;
 
 import jafrinventarios.DTOs.proveedores.DTOProveedorTabla;
 import jafrinventarios.modelos.proveedores.ModeloProveedor;
+import jafrinventarios.servicios.ConexionDB;
+import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,45 +33,77 @@ public class ServicioProveedores {
     */
     public static LinkedHashMap<Integer, String> obtenerDiccionarioProveedores() throws Exception{
     
-        //TODO Por el momento se hace la simulacion
-        List<DTOProveedorTabla> proveedoresBD = simulacionConsultaBDTodosProveedores();
-        
         LinkedHashMap<Integer, String> diccionarioProveedores = new LinkedHashMap<>();
-        proveedoresBD.forEach( proveedor -> {
-            diccionarioProveedores.put( proveedor.getIdProveedor() , proveedor.getNombreComercial() );
-        });
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL =
+                "SELECT\n" +
+                "    id_proveedor AS 'id',\n" +
+                "    nombre_comercial AS 'nombre'\n" +
+                "FROM\n" +
+                "    proveedores\n" +
+                "WHERE\n" +
+                "    habilitado = 1;";
+        
+        try(
+            PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
+            ResultSet respuesta = consulta.executeQuery();
+            ){
+        
+            while( respuesta.next() ){
+                diccionarioProveedores.put( respuesta.getInt("id"), respuesta.getString("nombre"));
+            }
+        }
         
         return diccionarioProveedores;
         
     }
     
-    //TODO Esta es una simulacion cuando se conecte a la base de datos se eliminara
-    private static List<DTOProveedorTabla> simulacionConsultaBDTodosProveedores () {
-        List<DTOProveedorTabla> listaProveedoresTablas = new ArrayList<>();
-        
-        listaProveedoresTablas.add(new DTOProveedorTabla(1, "Panificadora El Trigo", "Carlos Alberto Ruiz", "3101234567", "Calle 45 # 12-34", "contacto@eltrigo.com", true));
-        listaProveedoresTablas.add(new DTOProveedorTabla(2, "Pastelería Delicias", "María Fernanda Gómez", "3209876543", "Carrera 15 # 80-21", "ventas@delicias.com", true));
-        listaProveedoresTablas.add(new DTOProveedorTabla(3, "Dulcería La Alegría", "Jorge Enrique Silva", "3154567890", "Calle 13 # 65-10", "pedidos@laalegria.com", true));
-        listaProveedoresTablas.add(new DTOProveedorTabla(4, "Embutidos San Jorge", "Luis Ernesto Castro", "3003216549", "Avenida Boyacá # 72-15", "distribucion@sanjorge.com", true));
-        listaProveedoresTablas.add(new DTOProveedorTabla(5, "Lácteos La Sabana", "Ana Lucía Martínez", "3112223344", "Autopista Norte # 150-20", "logistica@lacteossabana.com", true));
-        listaProveedoresTablas.add(new DTOProveedorTabla(6, "Bebidas y Refrescos S.A.", "Andrés Felipe Rojas", "3145556677", "Carrera 30 # 45-67", "pedidos@bebidas.com", true));
-        listaProveedoresTablas.add(new DTOProveedorTabla(7, "Snacks El Dorado", "Carmen Rosa Pérez", "3167778899", "Calle 80 # 68-14", "ventas@eldorado.com", true));
-        listaProveedoresTablas.add(new DTOProveedorTabla(8, "Plásticos y Empaques", "Javier Alfonso López", "3189990011", "Calle 19 # 22-10", "ventas@empaques.com", true));
-        listaProveedoresTablas.add(new DTOProveedorTabla(9, "Salsas La Casera", "Diana Carolina Toro", "3123459876", "Carrera 68 # 12-45", "distribucion@lacasera.com", false));
-        listaProveedoresTablas.add(new DTOProveedorTabla(10, "Abarrotes El Mayorista", "Pedro Pablo Sánchez", "3015674321", "Zona Industrial Bodega 15", "contacto@elmayorista.com", false));
-
-        return listaProveedoresTablas;
-    }
-    
-    
     public List<DTOProveedorTabla> obtenerTodosLosProveedores( ) throws Exception{
     
-        /*
-        TODO: Realizar la consulta y el armado de la lista
-        por el momento se simula una lista
-        */
+        List<DTOProveedorTabla> listaProveedores = new ArrayList<>();
         
-        return simulacionConsultaBDTodosProveedores();
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_proveedor AS 'id',\n" +
+                "    nombre_comercial AS 'nombreComercial',\n" +
+                "    CONCAT(\n" +
+                "        primer_nombre_contacto, ' ',\n" +
+                "        segundo_nombre_contacto, ' ',\n" +
+                "        primer_apellido_contacto,  ' ',\n" +
+                "        segundo_apellido_contacto\n" +
+                "    ) AS 'nombreContacto',\n" +
+                "    telefono_contacto AS 'telefono',\n" +
+                "    direccion_proveedor AS 'direccion',\n" +
+                "    correo_proveedor AS 'correo',\n" +
+                "    habilitado\n" +
+                "FROM\n" +
+                "    proveedores";
+        
+        try(
+            PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
+            ResultSet respuesta = consulta.executeQuery();
+            ){
+
+            while( respuesta.next() ){
+                listaProveedores.add(
+                        new DTOProveedorTabla(
+                                respuesta.getInt("id"), 
+                                respuesta.getString("nombreComercial"), 
+                                respuesta.getString("nombreContacto"), 
+                                respuesta.getString("telefono"), 
+                                respuesta.getString("direccion"), 
+                                respuesta.getString("correo"), 
+                                respuesta.getBoolean("habilitado")
+                        )
+                );
+            }
+        }
+        
+        return listaProveedores;
     
     }
     
@@ -74,13 +111,65 @@ public class ServicioProveedores {
     public List<DTOProveedorTabla> obtenerListaProveedoresPorFiltro ( String filtro ) throws Exception {
     
         List<DTOProveedorTabla> listaProveedores = new ArrayList<>();
-        /*
-        TODO:
-        Hacer la consulta a la base de datos, si no se encuentra algun resultado
-        la lista se manda vacia, si llega a presentarse algun error manejarlo con
-        try catch y crear el throw new Excepcion para globalizar si es alguna
-        falla de conexion a la base de datos
-        */
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_proveedor AS 'id',\n" +
+                "    nombre_comercial AS 'nombreComercial',\n" +
+                "    CONCAT(\n" +
+                "        primer_nombre_contacto, ' ',\n" +
+                "        segundo_nombre_contacto, ' ',\n" +
+                "        primer_apellido_contacto,  ' ',\n" +
+                "        segundo_apellido_contacto\n" +
+                "    ) AS 'nombreContacto',\n" +
+                "    telefono_contacto AS 'telefono',\n" +
+                "    direccion_proveedor AS 'direccion',\n" +
+                "    correo_proveedor AS 'correo',\n" +
+                "    habilitado\n" +
+                "FROM\n" +
+                "    proveedores\n"+
+                "WHERE\n" +
+                "    (\n" +
+                "        nombre_comercial LIKE ? OR\n" +
+                "        CONCAT(\n" +
+                "        primer_nombre_contacto, ' ',\n" +
+                "        segundo_nombre_contacto, ' ',\n" +
+                "        primer_apellido_contacto,  ' ',\n" +
+                "        segundo_apellido_contacto\n" +
+                "        ) LIKE ? OR\n" +
+                "        telefono_contacto LIKE ? OR\n" +
+                "        direccion_proveedor LIKE ? OR\n" +
+                "        correo_proveedor LIKE ? \n" +
+                "    )";
+        
+        filtro = "%" + filtro + "%";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+            
+            consulta.setString(1, filtro);
+            consulta.setString(2, filtro);
+            consulta.setString(3, filtro);
+            consulta.setString(4, filtro);
+            consulta.setString(5, filtro);
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                while( respuesta.next() ){
+                    listaProveedores.add(
+                            new DTOProveedorTabla(
+                                    respuesta.getInt("id"), 
+                                    respuesta.getString("nombreComercial"), 
+                                    respuesta.getString("nombreContacto"), 
+                                    respuesta.getString("telefono"), 
+                                    respuesta.getString("direccion"), 
+                                    respuesta.getString("correo"), 
+                                    respuesta.getBoolean("habilitado")
+                            )
+                    );
+                }
+            }
+        }
         
         return listaProveedores;
     }
