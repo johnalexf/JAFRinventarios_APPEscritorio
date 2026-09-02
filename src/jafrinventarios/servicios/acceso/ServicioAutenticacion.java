@@ -35,6 +35,9 @@ public class ServicioAutenticacion {
             );
         }
         
+        if( !isUsuarioHabilitado(idUsuario) )
+            throw new Exception("Este usuario no esta autorizado para iniciar sesion, comuniquese con el administrador del negocio");
+        
         return obtenerDTOCredenciales(idUsuario);
             
     }
@@ -88,6 +91,24 @@ public class ServicioAutenticacion {
         
         }
 
+    }
+    
+    
+    private boolean isUsuarioHabilitado( int idUsuario ) throws Exception{
+    
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = "SELECT habilitado FROM usuarios WHERE  id_usuario = ?";
+    
+        try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            consulta.setInt(1, idUsuario);
+            try( ResultSet respuesta = consulta.executeQuery()){
+                if(respuesta.next())
+                    return respuesta.getBoolean("habilitado");
+                else
+                    throw new Exception("No se pudo comprobar si el usuario esta habilitado");
+            }
+        }
     }
     
     
