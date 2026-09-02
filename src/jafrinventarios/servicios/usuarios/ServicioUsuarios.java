@@ -241,7 +241,7 @@ public class ServicioUsuarios {
     
     public void editarPerfil( ModeloUsuario usuario , boolean isAdministrador ) throws Exception{
     
-        validarDatosUnicosExcluyendoIdUsuario(usuario);
+        validarDatosUnicosUsuario(usuario);
         
         if(isAdministrador)
             editarPerfilAdministrador(usuario);
@@ -328,7 +328,7 @@ public class ServicioUsuarios {
             );
         }
         
-        validarDatosUnicosExcluyendoIdUsuario(usuario);
+        validarDatosUnicosUsuario(usuario);
         
         Connection conexionDB = ConexionDB.getConnection();
         
@@ -522,52 +522,6 @@ public boolean isUsuarioEliminable(int idUsuario ) throws Exception {
     }
     
     
-    
-    /*
-    Metodo para validar si los datos que se desean cambiar de un usuario
-    no los tiene otro usuario, por lo tanto se excluye los datos propios
-    del mismo usuario a validar
-    */
-    private void validarDatosUnicosExcluyendoIdUsuario( ModeloUsuario usuario ) throws Exception{
-        Connection conexionBD = ConexionDB.getConnection();
-        
-        String sentenciaSQL = 
-                "SELECT \n" +
-                "    alias_usuario, correo_usuario, telefono_usuario \n" +
-                "FROM usuarios \n" +
-                "WHERE \n" +
-                "    (alias_usuario = ? OR correo_usuario = ? OR telefono_usuario = ?)\n" +
-                "    AND id_usuario != ?";
-
-        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
-              
-            consulta.setString(1, usuario.getAliasUsuario());
-            consulta.setString(2, usuario.getCorreoUsuario());
-            consulta.setString(3, usuario.getTelefonoUsuario());
-            
-            consulta.setInt(4, usuario.getIdUsuario());
-            
-            try( ResultSet respuesta = consulta.executeQuery() ){
-                
-                HashMap<String, String> erroresBD = new HashMap<>();
-                
-                while(respuesta.next()){
-                    if(respuesta.getString( "alias_usuario").equals(usuario.getAliasUsuario()))
-                       erroresBD.put("alias", "El alias ya está en uso");
-                    if(respuesta.getString("correo_usuario").equals(usuario.getCorreoUsuario()))
-                        erroresBD.put("correo", "Este correo ya esta registrado");
-                    if(respuesta.getString("telefono_usuario").equals(usuario.getTelefonoUsuario()))
-                        erroresBD.put("telefono", "Este telefono ya esta registrado");
-                }
-                
-                if(!erroresBD.isEmpty())
-                    throw new ExcepcionValidacionBD(erroresBD);
-            }
-        } 
-    }
-    
-    
-    
     /*
     ============================================================================
                                METODOS ESTATICOS
@@ -576,15 +530,20 @@ public boolean isUsuarioEliminable(int idUsuario ) throws Exception {
     
     /*
     Metodo para validar si los datos de la base de datos determinados como unicos
-    no los tiene un usuario ya almacenado en la base de datos
+    no los tiene un usuario ya almacenado en la base de datos, si el modelo
+    tiene un id asignado entonces no se compara con los datos de el mismo
     */
     private static void validarDatosUnicosUsuario( ModeloUsuario usuario ) throws Exception{
+       
         Connection conexionBD = ConexionDB.getConnection();
         
         String sentenciaSQL = 
                 "SELECT alias_usuario, correo_usuario, telefono_usuario \n" +
                 "FROM usuarios \n" +
-                "WHERE alias_usuario = ? OR correo_usuario = ? OR telefono_usuario = ?";
+                "WHERE ( alias_usuario = ? OR correo_usuario = ? OR telefono_usuario = ? )";
+        
+        if(usuario.getIdUsuario() != null)
+            sentenciaSQL += "\n AND id_usuario != ?";
 
         try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
               
@@ -592,14 +551,17 @@ public boolean isUsuarioEliminable(int idUsuario ) throws Exception {
             consulta.setString(2, usuario.getCorreoUsuario());
             consulta.setString(3, usuario.getTelefonoUsuario());
             
+            if(usuario.getIdUsuario() != null)
+                consulta.setInt(4, usuario.getIdUsuario());
+            
             try( ResultSet respuesta = consulta.executeQuery() ){
                 
                 HashMap<String, String> erroresBD = new HashMap<>();
                 
                 while(respuesta.next()){
-                    if(respuesta.getString( "alias_usuario").equals(usuario.getAliasUsuario()))
+                    if(respuesta.getString( "alias_usuario").toLowerCase().equals(usuario.getAliasUsuario().toLowerCase()))
                        erroresBD.put("alias", "El alias ya está en uso");
-                    if(respuesta.getString("correo_usuario").equals(usuario.getCorreoUsuario()))
+                    if(respuesta.getString("correo_usuario").toLowerCase().equals(usuario.getCorreoUsuario().toLowerCase()))
                         erroresBD.put("correo", "Este correo ya esta registrado");
                     if(respuesta.getString("telefono_usuario").equals(usuario.getTelefonoUsuario()))
                         erroresBD.put("telefono", "Este telefono ya esta registrado");

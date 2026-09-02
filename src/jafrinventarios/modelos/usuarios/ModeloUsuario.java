@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public class ModeloUsuario {
     
-    private int idUsuario;
+    private Integer idUsuario;
     private int idEmpresa;
     private String aliasUsuario;
     private String telefonoUsuario;
@@ -39,7 +39,7 @@ public class ModeloUsuario {
 
     public ModeloUsuario(){}
     
-    public ModeloUsuario(   int idUsuario, 
+    public ModeloUsuario(   Integer idUsuario, 
                             int idEmpresa, 
                             String aliasUsuario, 
                             String telefonoUsuario, 
@@ -73,7 +73,7 @@ public class ModeloUsuario {
     ============================================================================
     */
 
-    public int getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
