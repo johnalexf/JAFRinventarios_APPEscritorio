@@ -311,11 +311,11 @@ public class ServicioProveedores {
                 HashMap<String, String> erroresBD = new HashMap<>();
                 
                 while(respuesta.next()){
-                    if(respuesta.getString( "nombre_comercial").equals(proveedor.getNombreComercial()))
+                    if(respuesta.getString( "nombre_comercial").toLowerCase().equals(proveedor.getNombreComercial().toLowerCase()))
                        erroresBD.put("nombreComercial", "Este nombre ya esta registrado");
                     if(respuesta.getString("telefono_contacto").equals(proveedor.getTelefonoContacto()))
                         erroresBD.put("telefonoContacto", "Este telefono ya esta registrado");
-                    if(respuesta.getString("correo_proveedor").equals(proveedor.getCorreoProveedor()))
+                    if(respuesta.getString("correo_proveedor").toLowerCase().equals(proveedor.getCorreoProveedor().toLowerCase()))
                         erroresBD.put("correoProveedor", "Este correo ya esta registrado");
                 }
                 
