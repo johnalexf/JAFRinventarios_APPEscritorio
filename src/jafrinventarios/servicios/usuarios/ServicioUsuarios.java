@@ -301,30 +301,24 @@ public class ServicioUsuarios {
     }
 
     
-    public void conmutarEstadoUsuario (  int idUsuario  ) throws Exception {
+    public void asignarEstadoUsuario (  int idUsuario , boolean habilitado  ) throws Exception {
     
-  
-        /*
-            idUsuario Este es la clave para saber que usuario editar
+        Connection conexionDB = ConexionDB.getConnection();
         
-            consultamos su estado y lo conmutamos
+        String sentenciaSQL = "UPDATE usuarios SET habilitado = ? WHERE id_usuario = ?";
         
-        //si hay error crear el error segun sea el caso
-        //    throw new RuntimeException("No se pudo editar el estado del usuario");
-        */
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            
+            consulta.setBoolean(1, habilitado);
+            consulta.setInt(2, idUsuario);
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if( filasAfectadas != 1 )
+                throw new Exception("No se pudo modificar el estado del usuario");
+            
+        }
         
-    }
-    
-    
-    public boolean isUsuarioHabilitado( int idUsuario ) throws Exception {
-    
-        //Por el momento retornamos true, pero aca se hara la consulta y se 
-        // devolvera su respectivo estado
-        
-        //si hay error crear el error segun sea el caso
-        //    throw new RuntimeException("No se pudo obtener el valor del usuario");
-        
-        return true;
     }
     
     

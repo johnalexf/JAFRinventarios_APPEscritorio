@@ -182,13 +182,10 @@ public class ControladorDialogoUsuarios {
         servicioUsuarios.editarOtroUsuario(usuario);
     }
     
-    private void conmutarEstadoUsuario (  int idUsuario  ) throws Exception{
-        servicioUsuarios.conmutarEstadoUsuario(idUsuario);
+    private void asignarEstadoUsuario (  int idUsuario , boolean habilitado ) throws Exception{
+        servicioUsuarios.asignarEstadoUsuario(idUsuario, habilitado);
     }
     
-    private boolean isUsuarioHabilitado( int idUsuario ) throws Exception {
-        return servicioUsuarios.isUsuarioHabilitado(idUsuario);
-    }
         
     private int crearUsuario( ModeloUsuario usuario ) throws Exception{
         /*
@@ -294,7 +291,7 @@ public class ControladorDialogoUsuarios {
             if( isUsuarioEliminable ){
                dialogoUsuario.getBtnLinkEliminarUsuario().addActionListener( e -> eliminarUsuario() );
             }else{
-               dialogoUsuario.getBtnLinkEditarEstadoUsuario().addActionListener( e -> conmutarEstadoUsuario() ); 
+               dialogoUsuario.getBtnLinkEditarEstadoUsuario().addActionListener( e -> asignarEstadoHabilitadoUsuario() ); 
             }
             
         }
@@ -450,7 +447,7 @@ public class ControladorDialogoUsuarios {
     }
     
     
-    private void conmutarEstadoUsuario(){
+    private void asignarEstadoHabilitadoUsuario(){
     
         boolean deseaContinuar = 
                 dialogoUsuario.mostrarAlertaAdvertencia(
@@ -462,8 +459,8 @@ public class ControladorDialogoUsuarios {
         if( !deseaContinuar )  return;
         
         try {
-            conmutarEstadoUsuario( idUsuario );
-            modeloUsuario.setHabilitado(  isUsuarioHabilitado( idUsuario )  );
+            asignarEstadoUsuario( idUsuario, !modeloUsuario.isHabilitado() );
+            modeloUsuario.setHabilitado(  !modeloUsuario.isHabilitado()  );
             dialogoUsuario.asignarIntencionBtnEditarEstadoUsuario( modeloUsuario.isHabilitado() );
             resultadoDialogo = ResultadoDialogo.ACTUALIZADO;
         } catch (Exception e) {
