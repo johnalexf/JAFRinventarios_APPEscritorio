@@ -184,8 +184,6 @@ public class ControladorProveedores {
                         servicioProveedores
         );
         
-        //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
-        idProveedorCreado = -1;
         
         if(idProveedorCreado != -1){
             
@@ -219,10 +217,7 @@ public class ControladorProveedores {
                 ControladorDialogoProveedor.editarProveedor(
                     panelProveedores.getVentanaPadre() , idProveedor, servicioProveedores
                 );
-        
-        //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea
-        resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
-        
+            
         if( resultadoOperacion == ResultadoDialogo.ACTUALIZADO ){  
             try {
                 DTOProveedorTabla proveedor = obtenerDatosProveedor( idProveedor );

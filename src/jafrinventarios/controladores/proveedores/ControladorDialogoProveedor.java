@@ -2,7 +2,6 @@
 package jafrinventarios.controladores.proveedores;
 
 import jafrinventarios.controladores.utilidades.ResultadoDialogo;
-import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.modelos.proveedores.ModeloProveedor;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.servicios.proveedores.ServicioProveedores;
@@ -129,10 +128,6 @@ public class ControladorDialogoProveedor {
         return servicioProveedores.obtenerModeloProveedor(idProveedor);
     }
     
-    private boolean isProveedorHabilitado (int idProveedor) throws Exception{
-        return servicioProveedores.isProveedorHabilitado(idProveedor);
-    }
-    
     private int crearProveedor( ModeloProveedor proveedor ) throws Exception {
         return servicioProveedores.crearProveedor( proveedor);
     }
@@ -141,8 +136,8 @@ public class ControladorDialogoProveedor {
         servicioProveedores.editarProveedor(proveedor);
     }
     
-    private void conmutarEstadoProveedor( int idProveedor ) throws Exception{
-        servicioProveedores.conmutarEstadoProveedor(idProveedor);
+    private void asignarEstadoProveedor( int idProveedor , boolean habilitado) throws Exception{
+        servicioProveedores.asignarEstadoProveedor(idProveedor, habilitado);
     }
     
     private boolean isProveedorEliminable ( int idProveedor ) throws Exception{
@@ -196,7 +191,7 @@ public class ControladorDialogoProveedor {
             if( isProveedorEliminable )
                 dialogoProveedor.getBtnLinkEliminarProveedor().addActionListener(e -> eliminarProveedor() );
             else
-                dialogoProveedor.getBtnLinkEditarEstadoProveedor().addActionListener( e -> conmutarEstadoProveedor() );
+                dialogoProveedor.getBtnLinkEditarEstadoProveedor().addActionListener( e -> asignarEstadoProveedor() );
         }
         
         dialogoProveedor.getBtnEnviarFormulario().addActionListener( e -> procesarFormulario() );
@@ -262,7 +257,7 @@ public class ControladorDialogoProveedor {
                     resultadoEdicion = ResultadoDialogo.ACTUALIZADO;
                     dialogoProveedor.dispose();
                 }catch (ExcepcionValidacionBD e) {
-                    dialogoProveedor.mostrarErroresValidacionCampos( e.getErrores() );
+                    mostrarErroresValidacion(e.getErrores());
                 }catch (Exception e) {
                     dialogoProveedor.mostrarAlertaError(e.getMessage());
                 }
@@ -273,7 +268,7 @@ public class ControladorDialogoProveedor {
                     dialogoProveedor.mostrarAlertaExitosa("Proveedor creado correctamente");
                     dialogoProveedor.dispose();
                 }catch (ExcepcionValidacionBD e) {
-                    dialogoProveedor.mostrarErroresValidacionCampos( e.getErrores() );
+                    mostrarErroresValidacion(e.getErrores());
                 }catch (Exception e) {
                     dialogoProveedor.mostrarAlertaError(e.getMessage());
                 }
@@ -305,7 +300,7 @@ public class ControladorDialogoProveedor {
     }
     
     
-    private void conmutarEstadoProveedor(){
+    private void asignarEstadoProveedor(){
         boolean deseaContinuar = dialogoProveedor.mostrarAlertaAdvertencia(
             ( modeloProveedor.isHabilitado()
             ? "Esta a punto de deshabilitar el proveedor y por tanto ya no podra registrar productos o compras con el."
@@ -315,8 +310,8 @@ public class ControladorDialogoProveedor {
         
         if(deseaContinuar){
             try {
-                conmutarEstadoProveedor( idProveedor );
-                modeloProveedor.setHabilitado( isProveedorHabilitado(idProveedor) );
+                asignarEstadoProveedor( idProveedor , !modeloProveedor.isHabilitado() );
+                modeloProveedor.setHabilitado( !modeloProveedor.isHabilitado() );
                 dialogoProveedor.asignarIntencionBtnEditarEstadoProveedor(
                                             modeloProveedor.isHabilitado()
                 );
@@ -343,6 +338,12 @@ public class ControladorDialogoProveedor {
                 dialogoProveedor.mostrarAlertaError( e.getMessage() );
             }   
         }
+    }
+    
+    
+    private void mostrarErroresValidacion( HashMap<String, String> errores ) {
+        dialogoProveedor.mostrarErroresValidacionCampos( errores );
+        dialogoProveedor.mostrarAlertaErroresValidacion(errores);
     }
     
     /*
