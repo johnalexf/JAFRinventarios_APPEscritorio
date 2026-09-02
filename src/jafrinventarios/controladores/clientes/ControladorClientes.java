@@ -54,7 +54,7 @@ public class ControladorClientes {
         new ControladorBusquedaYAccionLibre(
                 panelClientes.getPanelBusquedaYAccionLibre(),
                 funcionesBusquedaYAccionLibre(),
-                "Id, Nombre negocio, Nombre contacto, Direccion, Correo o Telefono",
+                "Nombre negocio, Nombre contacto, Direccion, Correo o Telefono",
                 "Agregar Nuevo Cliente",
                 isAdministrador
         );
