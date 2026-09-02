@@ -25,52 +25,115 @@ public class ServicioUsuarios {
     }
 
     
-    private List<DTOUsuarioTabla> simulacionConsultaBDTodosUsuarios () {
-        List<DTOUsuarioTabla> listaUsuarios = new ArrayList<>();
-        
-        listaUsuarios.add(new DTOUsuarioTabla(1, "john1", "3202173409", "john1@gmail.com", "John Forero", "Administrador", true));
-        listaUsuarios.add(new DTOUsuarioTabla(2, "amartinez", "3101234567", "amartinez@empresa.com", "Ana María Martínez López", "Vendedor", true));
-        listaUsuarios.add(new DTOUsuarioTabla(3, "cramirez", "3119876543", "cramirez@empresa.com", "Carlos Andrés Ramírez Gómez", "Vendedor", true));
-        listaUsuarios.add(new DTOUsuarioTabla(4, "dcastro", "3004567890", "dcastro@empresa.com", "Diana Castro Vega", "Administrador", true));
-        listaUsuarios.add(new DTOUsuarioTabla(5, "lherrera", "3205554433", "lherrera@empresa.com", "Luis Fernando Herrera Díaz", "Vendedor", false)); 
-        listaUsuarios.add(new DTOUsuarioTabla(6, "mrojas", "3156667788", "mrojas@empresa.com", "Marta Lucía Rojas Silva", "Vendedor", true));
-        listaUsuarios.add(new DTOUsuarioTabla(7, "jospina", "3129998877", "jospina@empresa.com", "Jorge Iván Ospina Cruz", "Vendedor", true));
-        listaUsuarios.add(new DTOUsuarioTabla(8, "vquintero", "3182223344", "vquintero@empresa.com", "Valentina Quintero Ríos", "Administrador", true));
-        listaUsuarios.add(new DTOUsuarioTabla(9, "sgalvis", "3194445566", "sgalvis@empresa.com", "Sergio Esteban Galvis Mora", "Vendedor", false));
-        listaUsuarios.add(new DTOUsuarioTabla(10, "pnavarro", "3017778899", "pnavarro@empresa.com", "Patricia Navarro Pérez", "Vendedor", true));
-        
-        return listaUsuarios;
-    }
-
-    
     public List<DTOUsuarioTabla> obtenerTodosLosUsuarios() throws Exception{
         
-        //TODO: Aqui se hara la consulta a la base de datos y se armara
-        //la lista de todos los usuarios, por el momento se simula tanto la consulta
-        // como el empaquetado con la siguiente funcion.
-        List<DTOUsuarioTabla> listaUsuarios = simulacionConsultaBDTodosUsuarios();
+        List<DTOUsuarioTabla> listaUsuarios = new ArrayList<>();
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    us.id_usuario AS 'id',"+
+                "    us.alias_usuario AS 'alias',\n" +
+                "    us.telefono_usuario AS 'telefono',\n" +
+                "    us.correo_usuario AS 'correo',\n" +
+                "    CONCAT(\n" +
+                "        us.primer_nombre_usuario, \" \",\n" +
+                "        us.segundo_nombre_usuario, \" \",\n" +
+                "        us.primer_apellido_usuario, \" \",\n" +
+                "        us.segundo_apellido_usuario\n" +
+                "    ) AS 'nombreCompleto',\n" +
+                "    rol.nombre_rol AS 'rol',\n" +
+                "    us.habilitado AS 'habilitado'\n" +
+                "FROM\n" +
+                "    usuarios us\n" +
+                "INNER JOIN\n" +
+                "    roles rol\n" +
+                "ON us.id_rol_usuario = rol.id_rol\n";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
+             ResultSet respuesta = consulta.executeQuery();
+            ){
+
+            while( respuesta.next() ){
+                listaUsuarios.add( 
+                        new DTOUsuarioTabla(
+                            respuesta.getInt("id"),
+                            respuesta.getString("alias"),
+                            respuesta.getString("telefono"),
+                            respuesta.getString("correo"),
+                            respuesta.getString("nombreCompleto"),
+                            respuesta.getString("rol"),
+                            respuesta.getBoolean("habilitado")
+                        )
+                );
+            }
+            
+        }
         
         return listaUsuarios;
     }
     
     
     public List<DTOUsuarioTabla> obtenerListaUsuariosPorFiltro( String filtro ) throws Exception {
-        System.out.println("Buscando en la BD de Usuarios el término: " + filtro);
         
-        //TODO: Aqui se hara la consulta a la base de datos y se armara
-        //la lista de todos los usuarios que cumplan el filtro, por el momento se simula que no hay coincidencias
         List<DTOUsuarioTabla> listaUsuarios = new ArrayList<>();
         
-        try {
+        filtro = "%" + filtro + "%";
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    us.id_usuario AS 'id',\n" +
+                "    us.alias_usuario AS 'alias',\n" +
+                "    us.telefono_usuario AS 'telefono',\n" +
+                "    us.correo_usuario AS 'correo',\n" +
+                "    CONCAT(\n" +
+                "        us.primer_nombre_usuario, \" \",\n" +
+                "        us.segundo_nombre_usuario, \" \",\n" +
+                "        us.primer_apellido_usuario, \" \",\n" +
+                "        us.segundo_apellido_usuario\n" +
+                "    ) AS 'nombreCompleto',\n" +
+                "    rol.nombre_rol AS 'rol',\n" +
+                "    us.habilitado AS 'habilitado'\n" +
+                "FROM\n" +
+                "    usuarios us\n" +
+                "INNER JOIN\n" +
+                "    roles rol\n" +
+                "ON us.id_rol_usuario = rol.id_rol\n" +
+                "WHERE\n" +
+                "    us.alias_usuario LIKE ? OR\n" +
+                "    us.telefono_usuario LIKE ? OR\n" +
+                "    us.correo_usuario LIKE ? OR\n" +
+                "    CONCAT(us.primer_nombre_usuario, ' ', us.segundo_nombre_usuario, ' ', us.primer_apellido_usuario, ' ', us.segundo_apellido_usuario) LIKE ? OR\n" +
+                "    rol.nombre_rol LIKE ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+
+            consulta.setString(1, filtro);
+            consulta.setString(2, filtro);
+            consulta.setString(3, filtro);
+            consulta.setString(4, filtro);
+            consulta.setString(5, filtro);
             
-            //Si el resultado no arroja ningun valor, entonces mandamos la lista vacia
-        } catch (Exception e) {
-            // Si se puede determinar si el error es por base de datos
-            //Entonces crear el error
-            //throw new Exception("Error de conexion");
+            try( ResultSet respuesta = consulta.executeQuery()){
+                while( respuesta.next() ){
+                    listaUsuarios.add( 
+                            new DTOUsuarioTabla(
+                                respuesta.getInt("id"),
+                                respuesta.getString("alias"),
+                                respuesta.getString("telefono"),
+                                respuesta.getString("correo"),
+                                respuesta.getString("nombreCompleto"),
+                                respuesta.getString("rol"),
+                                respuesta.getBoolean("habilitado")
+                            )
+                    );
+                }
+            }
             
         }
-        
         
         return listaUsuarios;
     }
