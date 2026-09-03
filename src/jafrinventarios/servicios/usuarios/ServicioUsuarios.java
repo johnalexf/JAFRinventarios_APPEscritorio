@@ -455,9 +455,9 @@ public boolean isUsuarioEliminable(int idUsuario ) throws Exception {
         
         // REGLA 2: Validar si tiene registros en otras tablas (Llaves foráneas)
         // TODO: Descomentar y ajustar los nombres de tablas cuando se creen los módulos de ventas/compras
-        /*
+        
         Connection conexionDB = ConexionDB.getConnection();
-        sentenciaSQL = 
+        String sentenciaSQL = 
             "SELECT (" +
             "   EXISTS(SELECT 1 FROM ventas WHERE id_usuario = ?) OR " +
             "   EXISTS(SELECT 1 FROM compras WHERE id_usuario = ?) " +
@@ -475,9 +475,9 @@ public boolean isUsuarioEliminable(int idUsuario ) throws Exception {
                 }
             }
         }
-        */
         
-        // Si pasa las validaciones (o si aún no hay tablas de ventas), se puede eliminar
+        
+        // Si pasa las validaciones  se puede eliminar
         return true;
     }
     

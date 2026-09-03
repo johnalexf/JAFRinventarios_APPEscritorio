@@ -497,7 +497,7 @@ public class ServicioClientes {
         se consulta si tiene algun registro en ventas
     */
     public boolean isClienteEliminable ( int idCliente ) throws Exception{
-    /*  TODO descomentar cuando este la tabla de ventas
+    
         Connection conexionDB = ConexionDB.getConnection();
         String sentenciaSQL = 
             "SELECT(\n" +
@@ -520,8 +520,5 @@ public class ServicioClientes {
                 }
             }
         }
-    */
-    //Para pruebas de eliminacion devolvemos true
-    return true;
     }
 }
