@@ -42,7 +42,7 @@ public class ControladorDialogoCliente {
     */
     private ResultadoDialogo resultadoEdicion = ResultadoDialogo.SIN_CAMBIOS;
     
-    private boolean usuarioAdministrador;
+    private boolean isAdministrador;
     
     
     /*
@@ -59,7 +59,7 @@ public class ControladorDialogoCliente {
         this.idCliente = idCliente;
         this.servicioClientes = servicioClientes;
         
-        this.usuarioAdministrador = ModeloSesionUsuario.getInstancia().isAdministrador();
+        this.isAdministrador = ModeloSesionUsuario.getInstancia().isAdministrador();
         
         
         if ( tipoDialogo == TipoDialogo.EDITAR_CLIENTE) {
@@ -132,20 +132,16 @@ public class ControladorDialogoCliente {
         return servicioClientes.obtenerModeloCliente(idCliente);
     }
     
-    private boolean isClienteHabilitado (int idCliente) throws Exception{
-        return servicioClientes.isClienteHabilitado(idCliente);
-    }
-    
     private int crearCliente( ModeloCliente cliente ) throws Exception {
-        return servicioClientes.crearCliente( cliente, usuarioAdministrador );
+        return servicioClientes.crearCliente( cliente, isAdministrador );
     }
     
     private void editarCliente( ModeloCliente cliente ) throws Exception {
-        servicioClientes.editarCliente(cliente, usuarioAdministrador);
+        servicioClientes.editarCliente(cliente, isAdministrador);
     }
     
-    private void conmutarEstadoCliente( int idCliente ) throws Exception{
-        servicioClientes.conmutarEstadoCliente(idCliente, usuarioAdministrador);
+    private void asignarEstadoCliente( int idCliente , boolean habilitado ) throws Exception{
+        servicioClientes.asignarEstadoCliente(idCliente, habilitado, isAdministrador);
     }
     
     private boolean isClienteEliminable ( int idCliente ) throws Exception{
@@ -153,7 +149,7 @@ public class ControladorDialogoCliente {
     }
     
     private void eliminarCliente ( int idCliente ) throws Exception {
-        servicioClientes.eliminarCliente( idCliente, usuarioAdministrador );
+        servicioClientes.eliminarCliente( idCliente, isAdministrador );
     }
     
     
@@ -224,7 +220,6 @@ public class ControladorDialogoCliente {
         //Extraer los datos del formulario
         HashMap<String, String> datosFormulario = dialogoCliente.recolectarDatosFormulario();
         
-        
         /*
         Asignar datos a modelo, 
         clonamos si es para editar con el fin de comprobar si hubieron cambios, 
@@ -265,7 +260,7 @@ public class ControladorDialogoCliente {
                     resultadoEdicion = ResultadoDialogo.ACTUALIZADO;
                     dialogoCliente.dispose();
                 }catch (ExcepcionValidacionBD e) {
-                    dialogoCliente.mostrarErroresValidacionCampos( e.getErrores() );
+                    mostrarErroresValidacion(  e.getErrores() );
                 }catch (Exception e) {
                     dialogoCliente.mostrarAlertaError(e.getMessage());
                 }
@@ -276,7 +271,7 @@ public class ControladorDialogoCliente {
                     dialogoCliente.mostrarAlertaExitosa("Cliente creado correctamente");
                     dialogoCliente.dispose();
                 }catch (ExcepcionValidacionBD e) {
-                    dialogoCliente.mostrarErroresValidacionCampos( e.getErrores() );
+                    mostrarErroresValidacion(  e.getErrores() );
                 }catch (Exception e) {
                     dialogoCliente.mostrarAlertaError(e.getMessage());
                 }
@@ -320,8 +315,8 @@ public class ControladorDialogoCliente {
         
         if(deseaContinuar){
             try {
-                conmutarEstadoCliente( idCliente );
-                modeloCliente.setHabilitado( isClienteHabilitado(idCliente) );
+                asignarEstadoCliente(idCliente, !modeloCliente.isHabilitado());
+                modeloCliente.setHabilitado( !modeloCliente.isHabilitado() );
                 dialogoCliente.asignarIntencionBtnEditarEstadoCliente(
                                             modeloCliente.isHabilitado()
                 );
@@ -349,6 +344,12 @@ public class ControladorDialogoCliente {
             }   
         }
     }
+    
+    private void mostrarErroresValidacion( HashMap<String, String> errores ) {
+        dialogoCliente.mostrarErroresValidacionCampos( errores );
+        dialogoCliente.mostrarAlertaErroresValidacion(errores);
+    }
+    
     
     /*
     ============================================================================

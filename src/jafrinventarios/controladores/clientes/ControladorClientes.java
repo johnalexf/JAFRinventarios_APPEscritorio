@@ -198,8 +198,6 @@ public class ControladorClientes {
                         servicioClientes
         );
         
-        //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
-        idClienteCreado = -1;
         
         if(idClienteCreado != -1){
             
@@ -233,9 +231,6 @@ public class ControladorClientes {
                 ControladorDialogoCliente.editarCliente(
                     panelClientes.getVentanaPadre() , idCliente, servicioClientes
                 );
-        
-        //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea
-        resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
         
         if( resultadoOperacion == ResultadoDialogo.ACTUALIZADO ){  
             try {
