@@ -32,8 +32,8 @@ public class ServicioProductos {
     /*
     Metodo estatico para no instanciar el servicio para los controladores que 
     solo necesitan de esta funcion
-    */
-    public static LinkedHashMap<Integer, String> obtenerDiccionarioProductos() throws Exception{
+    */ 
+    public static LinkedHashMap<Integer, String> obtenerDiccionarioProductos(boolean soloHabilitados) throws Exception{
     
         LinkedHashMap<Integer, String> diccionarioProductos = new LinkedHashMap<>();
         
@@ -44,9 +44,9 @@ public class ServicioProductos {
                 "    id_producto,\n" +
                 "    nombre_producto\n" +
                 "FROM\n" +
-                "    productos\n" +
-                "WHERE\n" +
-                "    habilitado = 1;";
+                "    productos\n";
+        if(soloHabilitados)
+            sentenciaSQL +=  "WHERE  habilitado = 1";
         
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);

@@ -34,7 +34,7 @@ public class ServicioClientes {
     Metodo estatico para no instanciar el servicio para los controladores que 
     solo necesitan de esta funcion
     */
-    public static LinkedHashMap<Integer, String> obtenerDiccionarioClientes() throws Exception{
+    public static LinkedHashMap<Integer, String> obtenerDiccionarioClientes(boolean soloHabilitados) throws Exception{
     
         LinkedHashMap<Integer, String> diccionarioClientes = new LinkedHashMap<>();
         
@@ -45,9 +45,10 @@ public class ServicioClientes {
                 "    id_cliente AS 'id',\n" +
                 "    nombre_negocio AS 'nombre'\n" +
                 "FROM\n" +
-                "    clientes\n" +
-                "WHERE\n" +
-                "    habilitado = 1";
+                "    clientes\n";
+        
+        if(soloHabilitados)
+            sentenciaSQL +=  "WHERE  habilitado = 1";
         
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);

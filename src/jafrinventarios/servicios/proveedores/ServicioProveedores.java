@@ -33,23 +33,8 @@ public class ServicioProveedores {
     Metodo estatico para no instanciar el servicio para los controladores que 
     solo necesitan de esta funcion
     */
-    /*
-    TODO: 
-    Este metodo del servicio lo consume por el momento el controlador del
-    dialogo de productos, en el caso de editar un producto donde su proveedor
-    este deshabilitado, la vista no podra mostrar su proveedor y por ende
-    no se podra modificar solo los precios del mismo, en un caso hipotetico,
-    se podria decir que si se deshabilita un proveedor se deberia deshabilitar sus 
-    productos?, ahora si pasamos a una venta donde se desee editar solo la cantidad
-    de productos, entonces el diccionario de proveedores y el diccionario de productos tiene
-    que diferenciar en dos aspectos, uno que entregue todos sin importar si estan habilitados
-    este seria ideal para cuando se necesite editar un registro, pero cuando se cree uno nuevo
-    solo mostrar los que estan habilitados, seria una solucion para este problema,
-    sin embargo para no alargar mas el codigo se ignora que cuando se edite una venta
-    se pueda asociar a un registro que no este habilitado, esta seria una mejora a futuro,
-    despues de terminar la app.
-    */
-    public static LinkedHashMap<Integer, String> obtenerDiccionarioProveedores() throws Exception{
+
+    public static LinkedHashMap<Integer, String> obtenerDiccionarioProveedores(boolean soloHabilitados) throws Exception{
     
         LinkedHashMap<Integer, String> diccionarioProveedores = new LinkedHashMap<>();
         
@@ -60,9 +45,9 @@ public class ServicioProveedores {
                 "    id_proveedor AS 'id',\n" +
                 "    nombre_comercial AS 'nombre'\n" +
                 "FROM\n" +
-                "    proveedores\n" +
-                "WHERE\n" +
-                "    habilitado = 1;";
+                "    proveedores\n";
+        if(soloHabilitados)
+            sentenciaSQL +=  "WHERE  habilitado = 1";
         
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
