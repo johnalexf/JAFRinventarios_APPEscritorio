@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class ModeloCliente {
     
-    private int idCliente;
+    private Integer idCliente;
     private String nombreNegocio;
     private String primerNombreContacto;
     private String segundoNombreContacto;
@@ -30,7 +30,7 @@ public class ModeloCliente {
     public ModeloCliente() {
     }
     
-    public ModeloCliente(int idCliente, String nombreNegocio, String primerNombreContacto, String segundoNombreContacto, String primerApellidoContacto, String segundoApellidoContacto, String telefonoContacto, String direccionCliente, String correoCliente, boolean habilitado) {
+    public ModeloCliente(Integer idCliente, String nombreNegocio, String primerNombreContacto, String segundoNombreContacto, String primerApellidoContacto, String segundoApellidoContacto, String telefonoContacto, String direccionCliente, String correoCliente, boolean habilitado) {
         this.idCliente = idCliente;
         this.nombreNegocio = nombreNegocio;
         this.primerNombreContacto = primerNombreContacto;
@@ -50,7 +50,7 @@ public class ModeloCliente {
     ============================================================================
     */
     
-    public int getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
 
