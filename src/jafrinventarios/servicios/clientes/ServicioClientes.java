@@ -10,10 +10,13 @@ package jafrinventarios.servicios.clientes;
 import jafrinventarios.DTOs.clientes.DTOClienteTabla;
 import jafrinventarios.modelos.clientes.ModeloCliente;
 import jafrinventarios.servicios.ConexionDB;
+import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -186,16 +189,48 @@ public class ServicioClientes {
     */
     public DTOClienteTabla obtenerDatosDTOCliente ( int idCliente ) throws Exception{
     
-        /*
-        TODO
-        Si no se encuentra un usuario con el id, devolver el error con throw new
-        de igual manera si pasa algun error en la conexion
-        Por el momento se simula un resultado
-        */
+        Connection conexionDB = ConexionDB.getConnection();
         
-        DTOClienteTabla clienteConsultado = new DTOClienteTabla(10, "Cafetería Central", "Diana Patricia Ortiz", "3169990000", "Calle 100 # 15-20", "centralcafeteria@empresa.com", true);
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_cliente AS 'id',\n" +
+                "    nombre_negocio AS 'nombreNegocio',\n" +
+                "    CONCAT(\n" +
+                "        primer_nombre_contacto, ' ',\n" +
+                "        segundo_nombre_contacto, ' ',\n" +
+                "        primer_apellido_contacto,  ' ',\n" +
+                "        segundo_apellido_contacto\n" +
+                "    ) AS 'nombreContacto',\n" +
+                "    telefono_contacto AS 'telefono',\n" +
+                "    direccion_cliente AS 'direccion',\n" +
+                "    correo_cliente AS 'correo',\n" +
+                "    habilitado\n" +
+                "FROM\n" +
+                "    clientes\n" +
+                "WHERE\n" +
+                "    id_cliente = ?";
+                ;
         
-        return clienteConsultado;
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+            
+            consulta.setInt(1, idCliente);
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                if( respuesta.next() ){
+                    return new DTOClienteTabla(
+                                    respuesta.getInt("id"), 
+                                    respuesta.getString("nombreNegocio"), 
+                                    respuesta.getString("nombreContacto"), 
+                                    respuesta.getString("telefono"), 
+                                    respuesta.getString("direccion"), 
+                                    respuesta.getString("correo"), 
+                                    respuesta.getBoolean("habilitado")
+                            );
+                }else{
+                    throw new Exception("No existe un cliente con id : " + idCliente );
+                }
+            }
+        }
         
     }
     
@@ -206,78 +241,165 @@ public class ServicioClientes {
     */
     public ModeloCliente obtenerModeloCliente ( int idCliente ) throws Exception{
     
-        /*
-        TODO
-        hacer la consulta, si no se encuentra devolver un error
-        si pasa algun error de conexion se devuelve un error diferente
-        Por el momento se hace una simulacion de resultado
-        */
+        Connection conexionDB = ConexionDB.getConnection();
         
-        ModeloCliente clienteConsultado = 
-                new ModeloCliente(
-                   10, "Cafetería Central", "Diana", "Patricia", "Ortiz", "", "3169990000", "Calle 100 # 15-20", "centralcafeteria@empresa.com", true);
-        
-        return clienteConsultado;
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_cliente AS 'id',\n" +
+                "    nombre_negocio AS 'nombreNegocio',\n" +
+                "    primer_nombre_contacto AS 'primerNombre',\n" +
+                "    segundo_nombre_contacto AS 'segundoNombre',\n" +
+                "    primer_apellido_contacto AS 'primerApellido',\n" +
+                "    segundo_apellido_contacto AS 'segundoApellido',\n" +
+                "    telefono_contacto AS 'telefono',\n" +
+                "    direccion_cliente AS 'direccion',\n" +
+                "    correo_cliente AS 'correo',\n" +
+                "    habilitado\n" +
+                "FROM\n" +
+                "    clientes\n" +
+                "WHERE\n" +
+                "    id_cliente = ?";
+           
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+            
+            consulta.setInt(1, idCliente);
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                if( respuesta.next() ){
+                    return new ModeloCliente(
+                                    respuesta.getInt("id"), 
+                                    respuesta.getString("nombreNegocio"), 
+                                    respuesta.getString("primerNombre"), 
+                                    respuesta.getString("segundoNombre"), 
+                                    respuesta.getString("primerApellido"), 
+                                    respuesta.getString("segundoApellido"), 
+                                    respuesta.getString("telefono"), 
+                                    respuesta.getString("direccion"), 
+                                    respuesta.getString("correo"), 
+                                    respuesta.getBoolean("habilitado")
+                            );
+                }else{
+                    throw new Exception("No existe un cliente con id : " + idCliente );
+                }
+            }
+        }
         
     }
     
+    
+    private void validarDatosUnicosCliente( ModeloCliente cliente ) throws Exception{
+         
+        Connection conexionBD = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+            "SELECT\n" +
+            "    nombre_negocio , telefono_contacto, correo_cliente\n" +
+            "FROM\n" +
+            "    clientes\n" +
+            "WHERE\n" +
+            "    (nombre_negocio = ? OR telefono_contacto = ? OR correo_cliente = ?)\n" ;
+        
+        //Si es un cliente nuevo se espera que no este asignado el ID
+        if( cliente.getIdCliente() != null )
+            sentenciaSQL += "    AND id_cliente != ?";
+        
+        try (PreparedStatement consulta = conexionBD.prepareStatement( sentenciaSQL ) ) {
+              
+            consulta.setString(1, cliente.getNombreNegocio());
+            consulta.setString(2, cliente.getTelefonoContacto());
+            consulta.setString(3, cliente.getCorreoCliente());
+            
+            if( cliente.getIdCliente() != null )
+                consulta.setInt(4, cliente.getIdCliente());
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                
+                HashMap<String, String> erroresBD = new HashMap<>();
+                
+                while(respuesta.next()){
+                    if(respuesta.getString( "nombre_negocio").toLowerCase().equals(cliente.getNombreNegocio().toLowerCase()))
+                       erroresBD.put("nombreNegocio", "Este nombre ya esta registrado");
+                    if(respuesta.getString("telefono_contacto").equals(cliente.getTelefonoContacto()))
+                        erroresBD.put("telefonoContacto", "Este telefono ya esta registrado");
+                    if(respuesta.getString("correo_cliente").toLowerCase().equals(cliente.getCorreoCliente().toLowerCase()))
+                        erroresBD.put("correoCliente", "Este correo ya esta registrado");
+                }
+                
+                if(!erroresBD.isEmpty())
+                    throw new ExcepcionValidacionBD(erroresBD);
+            }
+        } 
+    }
     
     
     public void editarCliente ( ModeloCliente cliente , boolean isAdministrador ) throws Exception{
     
-        /*
-        TODO
+        if(!isAdministrador)
+            throw new Exception("Solo el usuario administrador puede editar un cliente");
         
-        Para editar se tendra encuenta el id para saber que cliente es el que hay que modificar
-        y se actualizaran los demas datos que contenga el cliente
+        validarDatosUnicosCliente(cliente);
         
-        Manejar try catch para controlar errores de respuesta de la base de datos con
-        catch (SQLIntegrityConstraintViolationException e) {
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "UPDATE\n" +
+                "    clientes\n" +
+                "SET\n" +
+                "    nombre_negocio = ? ,\n" +
+                "    primer_nombre_contacto = ? ,\n" +
+                "    segundo_nombre_contacto = ? ,\n" +
+                "    primer_apellido_contacto = ? ,\n" +
+                "    segundo_apellido_contacto = ? ,\n" +
+                "    telefono_contacto = ? ,\n" +
+                "    direccion_cliente = ? ,\n" +
+                "    correo_cliente = ? \n" +
+                "WHERE\n" +
+                "    id_cliente = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+        
+            consulta.setString(1, cliente.getNombreNegocio());
+            consulta.setString(2, cliente.getPrimerNombreContacto());
+            consulta.setString(3, cliente.getSegundoNombreContacto());
+            consulta.setString(4, cliente.getPrimerApellidoContacto());
+            consulta.setString(5, cliente.getSegundoApellidoContacto());
+            consulta.setString(6, cliente.getTelefonoContacto());
+            consulta.setString(7, cliente.getDireccionCliente());
+            consulta.setString(8, cliente.getCorreoCliente());
             
-            String errorBD = e.getMessage();
-            HashMap<String, String> errores = new HashMap<>();
-
-            // Buscar palabras clave en el error de la base de datos
-            if (errorBD.contains("nombreNegocio_UNIQUE")) {
-                errores.put("nombreNegocio", "Ya está registrado este nombre.");
-            } 
-
-            // Lanzar la excepción personalizada con el mapa listo para la vista
-            throw new ExcepcionValidacionBD(errores);
+            consulta.setInt(9, cliente.getIdCliente());
+            
+            int filasAfectadas = consulta.executeUpdate();
+            if(filasAfectadas != 1)
+                throw new Exception("El cliente no se edito correctamente");
         }
-        */
-        
         
     }
     
     
     /*
-    Metodo para conmutar el estado de habilitado de un cliente
+    Metodo para asignar el estado de habilitado a un cliente
     */
-    public void conmutarEstadoCliente( int idCliente, boolean isAdministrador ) throws Exception {
+    public void asignarEstadoCliente( int idCliente, boolean habilitado, boolean isAdministrador) throws Exception {
     
-    
-        /*
-        TODO
-        con el idCliente verificamos que valor tiene el parametro habilitado
-        y lo conmutamos
+        if(!isAdministrador)
+            throw new Exception("Solo el usuario administrador puede modificar el estado de un cliente");
         
-        Manejar los errores 
-        */
-    }
-    
-    
-    /*
-    Metodo para consultar si un cliente esta habilitado
-    */
-    public boolean isClienteHabilitado ( int idCliente ) throws Exception{
-    
-        /*
-        TODO : pendiente la respectiva consulta con manejo de errores
-        por el momento se simula con true;
-        */
+        Connection conexionDB = ConexionDB.getConnection();
         
-        return true;
+        String sentenciaSQL = "UPDATE clientes SET habilitado = ? WHERE id_cliente = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            
+            consulta.setBoolean(1, habilitado);
+            consulta.setInt(2, idCliente);
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if( filasAfectadas != 1 )
+                throw new Exception("No se pudo modificar el estado del cliente");
+            
+        }
     }
     
     
@@ -288,20 +410,55 @@ public class ServicioClientes {
     */
     public int crearCliente ( ModeloCliente cliente , boolean isAdministrador) throws Exception{
     
-        /*
-        TODO:
-        Se tiene en cuenta si es administrador para permitirle ejecutar la accion
+        if(!isAdministrador)
+            throw new Exception("Solo el usuario administrador puede crear un cliente");
         
-        Manejo de errores con 
-        catch (SQLIntegrityConstraintViolationException e) {
-        si hay datos duplicados en la base de datos o que no correspondan
+        validarDatosUnicosCliente(cliente);
+                
+        Connection conexionDB = ConexionDB.getConnection();
         
-        y con catch (Exception e) { para otros errores
+        String sentenciaSQL = 
+                "INSERT INTO\n" +
+                "    clientes(\n" +
+                "        nombre_negocio,\n" +
+                "        primer_nombre_contacto,\n" +
+                "        segundo_nombre_contacto,\n" +
+                "        primer_apellido_contacto,\n" +
+                "        segundo_apellido_contacto,\n" +
+                "        telefono_contacto,\n" +
+                "        direccion_cliente,\n" +
+                "        correo_cliente,\n" +
+                "        habilitado\n" +
+                "    )\n" +
+                "VALUES\n" +
+                "    ( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
         
-        por el momento retornamos -1 para indicar que no se creo el usuario
-        sin embargo la idea es manejarlo con los errores throw new
-        */
-        return -1;
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)){
+        
+            consulta.setString(1, cliente.getNombreNegocio());
+            consulta.setString(2, cliente.getPrimerNombreContacto());
+            consulta.setString(3, cliente.getSegundoNombreContacto());
+            consulta.setString(4, cliente.getPrimerApellidoContacto());
+            consulta.setString(5, cliente.getSegundoApellidoContacto());
+            consulta.setString(6, cliente.getTelefonoContacto());
+            consulta.setString(7, cliente.getDireccionCliente());
+            consulta.setString(8, cliente.getCorreoCliente());
+            consulta.setBoolean( 9, true );
+            
+            int filasAfectadas = consulta.executeUpdate();
+            if(filasAfectadas == 1)
+                try( ResultSet respuesta = consulta.getGeneratedKeys() ){ 
+                    if( respuesta.next() ){
+                        //Retornamos el id del cliente creado
+                        return ( respuesta.getInt( 1 ) );
+                    }else{
+                        throw new Exception( "Error al obtener el id del cliente" );
+                    }
+                }
+            else
+                throw new Exception("No se pudo crear el cliente");
+            
+        }
     }
     
     
@@ -311,26 +468,60 @@ public class ServicioClientes {
     */
     public void eliminarCliente ( int idCliente, boolean isAdministrador ) throws Exception{
         
-        /*
-        TODO:
-        Hacer la respectiva consulta y envio de errores segun el caso.
-        */
+        if(!isAdministrador)
+            throw new Exception("Solo el usuario administrador puede eliminar un cliente");
+        
+        if(!isClienteEliminable(idCliente))
+            throw new Exception("Este cliente no se puede eliminar");
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = "DELETE FROM clientes WHERE id_cliente = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            
+            consulta.setInt(1, idCliente);
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if( filasAfectadas != 1 )
+                throw new Exception("No se pudo eliminar el cliente");
+            
+        }
     }
     
     
     /*
     Metodo para consultar si un cliente hace parte del registro de otra tabla
+        la unica relacion que va tener un cliente es con ventas, por ende
+        se consulta si tiene algun registro en ventas
     */
     public boolean isClienteEliminable ( int idCliente ) throws Exception{
-    
-        /*
-        TODO
-        Hacer la consulta y manejo de errores para enviarlos personalizados
-        segun corresponda
-        
-        Por el momento se simula que no tiene registros asociados
-        */
-        
-        return false;
+    /*  TODO descomentar cuando este la tabla de ventas
+        Connection conexionDB = ConexionDB.getConnection();
+        String sentenciaSQL = 
+            "SELECT(\n" +
+            "    EXISTS(\n" +
+            "        SELECT 1 FROM ventas WHERE id_cliente = ? \n" +
+            "        ) \n" +
+            "   )  AS tieneRegistros";
+            
+        try (PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)) {
+            consulta.setInt(1, idCliente);
+            try (ResultSet respuesta = consulta.executeQuery()) {
+                if (respuesta.next()) {
+                    boolean tieneRegistros = respuesta.getBoolean("tieneRegistros");
+                    return !tieneRegistros; // Si tiene registros no es eliminable
+                }else{
+                    //En dado caso que no se reciba una respuesta, para proteger
+                    //la integridad de los datos, retornamos un false, para que no se 
+                    //pueda eliminar
+                    return false;
+                }
+            }
+        }
+    */
+    //Para pruebas de eliminacion devolvemos true
+    return true;
     }
 }
