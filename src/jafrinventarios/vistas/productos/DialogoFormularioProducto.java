@@ -778,6 +778,10 @@ public class DialogoFormularioProducto extends DialogoBaseConSombra{
         DialogoAlerta.mostrarError( this, "Error", mensaje );
     }
     
+    public void mostrarAlertaErroresValidacion( HashMap<String, String> errores ){
+        DialogoAlerta.mostrarErroresValidacion(this, errores );
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;

@@ -138,10 +138,6 @@ public class ControladorDialogoProducto {
         return servicioProductos.obtenerModeloProducto(idProducto);
     }
     
-    private boolean isProductoHabilitado (int idProducto) throws Exception{
-        return servicioProductos.isProductoHabilitado(idProducto);
-    }
-    
     private int crearProducto( ModeloProducto producto ) throws Exception {
         return servicioProductos.crearProducto( producto, usuarioAdministrador );
     }
@@ -150,8 +146,8 @@ public class ControladorDialogoProducto {
         servicioProductos.editarProducto(producto, usuarioAdministrador);
     }
     
-    private void conmutarEstadoProducto( int idProducto ) throws Exception{
-        servicioProductos.conmutarEstadoProducto(idProducto, usuarioAdministrador);
+    private void asignarEstadoProducto( int idProducto, boolean habilitado) throws Exception{
+        servicioProductos.asignarEstadoProducto(idProducto, habilitado, usuarioAdministrador);
     }
     
     private boolean isProductoEliminable ( int idProducto ) throws Exception{
@@ -218,7 +214,7 @@ public class ControladorDialogoProducto {
             if( isProductoEliminable )
                 dialogoProducto.getBtnLinkEliminarProducto().addActionListener(e -> eliminarProducto() );
             else
-                dialogoProducto.getBtnLinkEditarEstadoProducto().addActionListener( e -> conmutarEstadoProducto() );
+                dialogoProducto.getBtnLinkEditarEstadoProducto().addActionListener( e -> asignarEstadoProducto() );
         }
         
         dialogoProducto.getBtnEnviarFormulario().addActionListener( e -> procesarFormulario() );
@@ -289,7 +285,7 @@ public class ControladorDialogoProducto {
                     resultadoEdicion = ResultadoDialogo.ACTUALIZADO;
                     dialogoProducto.dispose();
                 }catch (ExcepcionValidacionBD e) {
-                    dialogoProducto.mostrarErroresValidacionCampos( e.getErrores() );
+                    mostrarErroresValidacion(  e.getErrores() );
                 }catch (Exception e) {
                     dialogoProducto.mostrarAlertaError(e.getMessage());
                 }
@@ -300,7 +296,7 @@ public class ControladorDialogoProducto {
                     dialogoProducto.mostrarAlertaExitosa("Producto creado correctamente");
                     dialogoProducto.dispose();
                 }catch (ExcepcionValidacionBD e) {
-                    dialogoProducto.mostrarErroresValidacionCampos( e.getErrores() );
+                    mostrarErroresValidacion(  e.getErrores() );
                 }catch (Exception e) {
                     dialogoProducto.mostrarAlertaError(e.getMessage());
                 }
@@ -335,7 +331,7 @@ public class ControladorDialogoProducto {
     }
     
     
-    private void conmutarEstadoProducto(){
+    private void asignarEstadoProducto(){
         boolean deseaContinuar = dialogoProducto.mostrarAlertaAdvertenciaConRespuesta(
             ( modeloProducto.isHabilitado()
             ? "Esta a punto de deshabilitar el producto y por tanto ya no podra registrar ventas o compras con el."
@@ -345,8 +341,8 @@ public class ControladorDialogoProducto {
         
         if(deseaContinuar){
             try {
-                conmutarEstadoProducto( idProducto );
-                modeloProducto.setHabilitado( isProductoHabilitado(idProducto) );
+                asignarEstadoProducto( idProducto, !modeloProducto.isHabilitado() );
+                modeloProducto.setHabilitado( !modeloProducto.isHabilitado() );
                 dialogoProducto.asignarIntencionBtnEditarEstadoProducto(
                                             modeloProducto.isHabilitado()
                 );
@@ -357,6 +353,7 @@ public class ControladorDialogoProducto {
         }
     
     }
+    
     
     private void eliminarProducto(){
         boolean deseaContinuar = dialogoProducto.mostrarAlertaAdvertenciaConRespuesta(
@@ -374,6 +371,14 @@ public class ControladorDialogoProducto {
             }   
         }
     }
+    
+    
+    private void mostrarErroresValidacion( HashMap<String, String> errores ) {
+        dialogoProducto.mostrarErroresValidacionCampos( errores );
+        dialogoProducto.mostrarAlertaErroresValidacion(errores);
+    }
+    
+    
     
     /*
     ============================================================================

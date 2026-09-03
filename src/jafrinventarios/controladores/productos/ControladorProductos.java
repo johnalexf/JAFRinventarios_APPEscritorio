@@ -204,9 +204,6 @@ public class ControladorProductos {
                         servicioProductos
         );
         
-        //TODO hasta no tener la conexion a la base de datos esta linea la mantenemos 
-        idProductoCreado = -1;
-        
         if(idProductoCreado != -1){
             
             try {
@@ -239,9 +236,6 @@ public class ControladorProductos {
                 ControladorDialogoProducto.editarProducto(
                     panelProductos.getVentanaPadre() , idProducto, servicioProductos
                 );
-        
-        //TODO hasta que se tenga la conexion a la base de datos mantenenmos esta linea
-        resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
         
         if( resultadoOperacion == ResultadoDialogo.ACTUALIZADO ){  
             try {
