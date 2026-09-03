@@ -50,6 +50,8 @@ public class ServicioClientes {
         if(soloHabilitados)
             sentenciaSQL +=  "WHERE  habilitado = 1";
         
+         sentenciaSQL +=  "\n ORDER BY 2" ;
+        
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
             ResultSet respuesta = consulta.executeQuery();
@@ -89,6 +91,8 @@ public class ServicioClientes {
         
         if(!isAdministrador)
             sentenciaSQL +=  "\n WHERE habilitado = 1" ;
+        
+        sentenciaSQL +=  "\n ORDER BY 1" ;
         
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
@@ -153,6 +157,8 @@ public class ServicioClientes {
         
         if(!isAdministrador)
             sentenciaSQL +=  "AND habilitado = 1 " ;
+        
+        sentenciaSQL +=  "\n ORDER BY 1" ;
         
         filtro = "%" + filtro + "%";
         

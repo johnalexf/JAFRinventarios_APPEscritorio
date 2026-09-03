@@ -49,6 +49,8 @@ public class ServicioProveedores {
         if(soloHabilitados)
             sentenciaSQL +=  "WHERE  habilitado = 1";
         
+         sentenciaSQL +=  "\n ORDER BY 2" ;
+        
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
             ResultSet respuesta = consulta.executeQuery();
@@ -84,7 +86,8 @@ public class ServicioProveedores {
                 "    correo_proveedor AS 'correo',\n" +
                 "    habilitado\n" +
                 "FROM\n" +
-                "    proveedores";
+                "    proveedores"+
+                "\n ORDER BY 1";
         
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
@@ -145,7 +148,8 @@ public class ServicioProveedores {
                 "        telefono_contacto LIKE ? OR\n" +
                 "        direccion_proveedor LIKE ? OR\n" +
                 "        correo_proveedor LIKE ? \n" +
-                "    )";
+                "    )"+
+                "\n ORDER BY 1";
         
         filtro = "%" + filtro + "%";
         

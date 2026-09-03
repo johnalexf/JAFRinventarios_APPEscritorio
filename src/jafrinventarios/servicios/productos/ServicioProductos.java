@@ -48,6 +48,8 @@ public class ServicioProductos {
         if(soloHabilitados)
             sentenciaSQL +=  "WHERE  habilitado = 1";
         
+        sentenciaSQL +=  "\n ORDER BY 2" ;
+        
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
             ResultSet respuesta = consulta.executeQuery();
@@ -88,6 +90,8 @@ public class ServicioProductos {
         
         if(!isAdministrador)
             sentenciaSQL +=  "WHERE  pd.habilitado = 1" ;
+        
+        sentenciaSQL +=  "\n ORDER BY 1" ;
         
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
@@ -147,6 +151,8 @@ public class ServicioProductos {
                 "        pd.nombre_producto LIKE ? OR\n" +
                 "        pv.nombre_comercial LIKE ?\n" +
                 "    )";
+        
+        sentenciaSQL +=  "\n ORDER BY 1" ;
         
         filtro = "%" + filtro + "%";
         
