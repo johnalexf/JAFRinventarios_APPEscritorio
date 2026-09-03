@@ -63,9 +63,9 @@ public class ControladorDialogoProducto {
         
         this.usuarioAdministrador = ModeloSesionUsuario.getInstancia().isAdministrador();
         
-        inicializarComboBoxProveedores();
+        inicializarComboBoxProveedores( tipoDialogo == TipoDialogo.CREAR_NUEVO_PRODUCTO );
         
-        if ( tipoDialogo == TipoDialogo.EDITAR_PRODUCTO) {
+        if ( tipoDialogo == TipoDialogo.EDITAR_PRODUCTO ) {
             try {
                 modeloProducto = obtenerModeloProducto( idProducto );
                 isProductoEliminable = isProductoEliminable( idProducto );
@@ -130,8 +130,8 @@ public class ControladorDialogoProducto {
     ============================================================================
     */
     
-    private LinkedHashMap<Integer, String> obtenerDiccionarioProveedores() throws Exception{
-        return ServicioProveedores.obtenerDiccionarioProveedores();
+    private LinkedHashMap<Integer, String> obtenerDiccionarioProveedores(boolean soloHabilitados) throws Exception{
+        return ServicioProveedores.obtenerDiccionarioProveedores(soloHabilitados);
     }
     
     private ModeloProducto obtenerModeloProducto (int idProducto) throws Exception{
@@ -165,9 +165,9 @@ public class ControladorDialogoProducto {
     ============================================================================
     */
     
-    private void inicializarComboBoxProveedores(){
+    private void inicializarComboBoxProveedores(boolean soloHabilitados){
         try {
-            LinkedHashMap<Integer, String> diccionarioProveedores = obtenerDiccionarioProveedores();
+            LinkedHashMap<Integer, String> diccionarioProveedores = obtenerDiccionarioProveedores(soloHabilitados);
             if( diccionarioProveedores.isEmpty() )
                 dialogoProducto.mostrarAlertaAdvertenciaSinRespuesta(
                         "Para poder crear un producto, debe existir por lo menos un proveedor\n"
