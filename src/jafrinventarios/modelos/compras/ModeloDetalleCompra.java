@@ -5,6 +5,8 @@
  */
 package jafrinventarios.modelos.compras;
 
+import java.util.Objects;
+
 /**
  *
  * @author JOHN FORERO
@@ -123,9 +125,107 @@ public class ModeloDetalleCompra {
     }
 
     
+    /*
+    ============================================================================
+                                EQUALS Y HASCHCODE
+    ============================================================================
+    */
     
+    /*
+    El hashCode() es la huella digital numérica del objeto creado
+    Si dos objetos son iguales según el método .equals(), entonces 
+    obligatoriamente deben devolver el mismo número en .hashCode()
+    */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.idDetalleCompra);
+        hash = 67 * hash + Objects.hashCode(this.idCompra);
+        hash = 67 * hash + Objects.hashCode(this.idProducto);
+        hash = 67 * hash + this.cantidadProducto;
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.precioUnitarioProducto) ^ (Double.doubleToLongBits(this.precioUnitarioProducto) >>> 32));
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.precioTotalProducto) ^ (Double.doubleToLongBits(this.precioTotalProducto) >>> 32));
+        return hash;
+    }
+
     
+    /*
+    equals se encarga de comparar el objeto creado con otro objeto, se espera
+    que se comparen dos del tipo ModeloDetalleCompra para verificar si hubo un cambio
+    en sus campos, antes de guardar por medio del servicio los cambios.
+    */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ModeloDetalleCompra other = (ModeloDetalleCompra) obj;
+        if (this.cantidadProducto != other.cantidadProducto) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.precioUnitarioProducto) != Double.doubleToLongBits(other.precioUnitarioProducto)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.precioTotalProducto) != Double.doubleToLongBits(other.precioTotalProducto)) {
+            return false;
+        }
+        if (!Objects.equals(this.idDetalleCompra, other.idDetalleCompra)) {
+            return false;
+        }
+        if (!Objects.equals(this.idCompra, other.idCompra)) {
+            return false;
+        }
+        if (!Objects.equals(this.idProducto, other.idProducto)) {
+            return false;
+        }
+        return true;
+    }
+
     
+    /*
+    ============================================================================
+                             MÉTODO PARA CLONAR 
+    ============================================================================
+    */
+    
+    public ModeloDetalleCompra clonar(){
+    
+        return new ModeloDetalleCompra(
+                this.idDetalleCompra,
+                this.idCompra,
+                this.idProducto,
+                this.cantidadProducto,
+                this.precioUnitarioProducto,
+                this.precioTotalProducto
+        );
+    }
+
+    
+    /*
+    ============================================================================
+                MÉTODO OBTENER UN STRING CON TODOS LOS DATOS
+    ============================================================================
+    Se usara para cuando se necesite imprimir en consola y verificar que 
+    los datos almacenados corresponden a los esperados.
+    */
+    
+    @Override
+    public String toString() {
+        return "ModeloDetalleCompra" + 
+                "\nidDetalleCompra=" + idDetalleCompra + 
+                "\nidCompra=" + idCompra + 
+                "\nidProducto=" + idProducto + 
+                "\ncantidadProducto=" + cantidadProducto + 
+                "\nprecioUnitarioProducto=" + precioUnitarioProducto + 
+                "\nprecioTotalProducto=" + precioTotalProducto +
+                '\n';
+    }
     
     
 }
