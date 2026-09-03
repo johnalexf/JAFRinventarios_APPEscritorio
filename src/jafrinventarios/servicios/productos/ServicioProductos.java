@@ -12,7 +12,9 @@ import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -184,16 +186,48 @@ public class ServicioProductos {
     */
     public DTOProductoTabla obtenerDatosDTOProducto ( int idProducto ) throws Exception{
     
-        /*
-        TODO
-        Si no se encuentra un usuario con el id, devolver el error con throw new
-        de igual manera si pasa algun error en la conexion
-        Por el momento se simula un resultado
-        */
+        Connection conexionDB = ConexionDB.getConnection();
         
-        DTOProductoTabla productoConsultado = new DTOProductoTabla(10, "Galletas de Mantequilla (Caja)", 3500.0, 5000.0, 15, 2, false, "Pastelería Delicias");
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    pd.id_producto AS 'id',\n" +
+                "    pd.nombre_producto AS 'nombreProducto',\n" +
+                "    pd.precio_compra AS 'precioCompra',\n" +
+                "    pd.precio_venta AS 'precioVenta',\n" +
+                "    pd.cantidad_minima_stock AS 'cantidadMin',\n" +
+                "    pd.cantidad_disponible AS 'cantidadDisponible',\n" +
+                "    pd.habilitado AS 'habilitado',\n" +
+                "    pv.nombre_comercial AS 'nombreProveedor'\n" +
+                "FROM\n" +
+                "    productos pd\n" +
+                "INNER JOIN\n" +
+                "    proveedores pv\n" +
+                "ON\n" +
+                "    pd.id_proveedor = pv.id_proveedor\n" +
+                "WHERE\n" +
+                "    pd.id_producto = ?";
         
-        return productoConsultado;
+        try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+        
+            consulta.setInt(1, idProducto);
+            
+            try(ResultSet respuesta = consulta.executeQuery()){
+                if(respuesta.next()){
+                    return new DTOProductoTabla(
+                            respuesta.getInt("id"),
+                            respuesta.getString("nombreProducto"),
+                            respuesta.getDouble("precioCompra"),
+                            respuesta.getDouble("precioVenta"),
+                            respuesta.getInt("cantidadMin"),
+                            respuesta.getInt("cantidadDisponible"),
+                            respuesta.getBoolean("habilitado"),
+                            respuesta.getString("nombreProveedor")
+                    );
+                }else{
+                    throw new Exception("No existe un producto con id : " + idProducto);
+                }
+            }
+        }
         
     }
     
@@ -204,58 +238,124 @@ public class ServicioProductos {
     */
     public ModeloProducto obtenerModeloProducto ( int idProducto ) throws Exception{
     
-        /*
-        TODO
-        hacer la consulta, si no se encuentra devolver un error
-        si pasa algun error de conexion se devuelve un error diferente
-        Por el momento se hace una simulacion de resultado
-        */
-        
-        ModeloProducto productoConsultado = 
-                new ModeloProducto(
-                    10, 1, "Galletas de Mantequilla (Caja)", 3500.0, 5000.0, 15, 2, true
-                );
-        
-        return productoConsultado;
+       Connection conexionDB = ConexionDB.getConnection();
+       
+       String sentenciaSQL = 
+               "SELECT\n" +
+                "    id_producto AS 'idProducto',\n" +
+                "    id_proveedor AS 'idProveedor',\n" +
+                "    nombre_producto AS 'nombreProducto',\n" +
+                "    precio_compra AS 'precioCompra',\n" +
+                "    precio_venta AS 'precioVenta',\n" +
+                "    cantidad_minima_stock AS 'cantidadMin',\n" +
+                "    cantidad_disponible AS 'cantidadDisponible',\n" +
+                "    habilitado\n" +
+                "FROM\n" +
+                "    productos\n" +
+                "WHERE\n" +
+                "    id_producto = ?";
+       
+       try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+       
+           consulta.setInt(1, idProducto);
+           
+           try( ResultSet respuesta = consulta.executeQuery()){
+               if(respuesta.next()){
+                   return new ModeloProducto(
+                           respuesta.getInt("idProducto"),
+                           respuesta.getInt("idProveedor"),
+                           respuesta.getString("nombreProducto"),
+                           respuesta.getDouble("precioCompra"),
+                           respuesta.getDouble("precioVenta"),
+                           respuesta.getInt("cantidadMin"),
+                           respuesta.getInt("cantidadDisponible"),
+                           respuesta.getBoolean("habilitado")
+                   );
+               }else{
+                   throw new Exception("No existe un producto con id : " + idProducto);
+               }
+           }
+       
+       }
         
     }
     
     
+    private void validarDatosUnicoProducto ( ModeloProducto producto ) throws Exception{
+    
+        Connection conexionDB = ConexionDB.getConnection();
+
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    EXISTS (\n" +
+                "        SELECT 1 FROM productos WHERE (nombre_producto = ?) \n";
+        
+        if(producto.getIdProducto() != null)
+                sentenciaSQL += "   AND id_producto != ?\n";
+        
+        sentenciaSQL +="    ) AS nombreDuplicado";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            
+            consulta.setString(1, producto.getNombreProducto());
+            
+            if(producto.getIdProducto() != null)
+                consulta.setInt(2, producto.getIdProducto());
+            
+            try(ResultSet respuesta = consulta.executeQuery()){
+                if(respuesta.next()){
+                
+                    if(respuesta.getBoolean("nombreDuplicado")){
+                        HashMap<String, String> error = new HashMap<>();
+                        error.put("nombreProducto", "Este nombre ya esta registrado");
+                        throw new ExcepcionValidacionBD( error );
+                    }
+                }
+            }
+        }
+    
+    }
+    
     
     public void editarProducto ( ModeloProducto producto, boolean isAdministrador ) throws Exception{
     
-        /*
-        TODO
-        La seccion productos se le puede mostrar a cualquier usuario
-        pero solo el administrador puede crear y editar usuario
-        Por seguridad para blindar en dado caso que el boton de crear y editar
-        se le muestren a todos los usuarios, se solicita en los argumentos
-        si es un usuario administrado, si no se devuelve 
-        un error : Permisos denegados para este usuario, solo el adminsitrador puede editar
+        if(!isAdministrador)
+            throw new Exception("Solo el usuario administrador puede editar un producto");
         
-        Para editar se tendra encuenta el id para saber que producto es el que hay que modificar
-        y se actualizaran los demas datos que contenga el producto
+        validarDatosUnicoProducto(producto);
         
-        Manejar try catch para controlar errores de respuesta de la base de datos con
-        catch (SQLIntegrityConstraintViolationException e) {
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "UPDATE\n" +
+                "    productos\n" +
+                "SET\n" +
+                "    id_proveedor = ?,\n" +
+                "    nombre_producto = ?,\n" +
+                "    precio_compra = ?,\n" +
+                "    precio_venta = ?,\n" +
+                "    cantidad_minima_stock = ?,\n" +
+                "    cantidad_disponible = ?\n" +
+                "WHERE\n" +
+                "    id_producto = ?";
+        
+        try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+        
+            consulta.setInt(1, producto.getIdProveedor());
+            consulta.setString(2, producto.getNombreProducto());
+            consulta.setDouble(3, producto.getPrecioCompra());
+            consulta.setDouble(4, producto.getPrecioVenta());
+            consulta.setInt(5, producto.getCantidadMinimaStock());
+            consulta.setInt(6, producto.getCantidadDisponible());
             
-            String errorBD = e.getMessage();
-            HashMap<String, String> errores = new HashMap<>();
-
-            // Buscar palabras clave en el error de la base de datos
-            if (errorBD.contains("nombreProducto_UNIQUE")) {
-                errores.put("nombreProducto", "Ya está registrado este nombre.");
-            } 
+            consulta.setInt(7, producto.getIdProducto());
             
-            si es que llega un valor negativo en las cantidades, verificar, de
-            igual manera se va configurar tanto la base de datos como la vista
-            para que no permita capturar numeros negativos
-
-            // Lanzar la excepción personalizada con el mapa listo para la vista
-            throw new ExcepcionValidacionBD(errores);
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if(filasAfectadas != 1){
+                throw new Exception("El producto no se edito correctamente");
+            }
         }
-        */
-        
         
     }
     
@@ -263,30 +363,26 @@ public class ServicioProductos {
     /*
     Metodo para conmutar el estado de habilitado de un producto
     */
-    public void conmutarEstadoProducto( int idProducto, boolean isAdministrador ) throws Exception {
+    public void asignarEstadoProducto ( int idProducto, boolean habilitado, boolean isAdministrador ) throws Exception {
     
-    
-        /*
-        TODO
-        con el idProducto verificamos que valor tiene el parametro habilitado
-        y lo conmutamos
+        if(!isAdministrador)
+                throw new Exception("Solo el usuario administrador puede modificar el estado de un producto");
         
-        Manejar los errores 
-        */
-    }
-    
-    
-    /*
-    Metodo para consultar si un producto esta habilitado
-    */
-    public boolean isProductoHabilitado ( int idProducto ) throws Exception{
-    
-        /*
-        TODO : pendiente la respectiva consulta con manejo de errores
-        por el momento se simula con true;
-        */
+        Connection conexionDB = ConexionDB.getConnection();
         
-        return true;
+        String sentenciaSQL = "UPDATE productos SET habilitado = ? WHERE id_producto = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            
+            consulta.setBoolean(1, habilitado);
+            consulta.setInt(2, idProducto);
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if( filasAfectadas != 1 )
+                throw new Exception("No se pudo modificar el estado del producto");
+            
+        }
     }
     
     
@@ -297,20 +393,52 @@ public class ServicioProductos {
     */
     public int crearProducto ( ModeloProducto producto, boolean isAdministrador ) throws Exception{
     
-        /*
-        TODO:
-        Se tiene en cuenta si es administrador para permitirle ejecutar la accion
+        if(!isAdministrador)
+            throw new Exception("Solo el usuario administrador puede crear un producto");
+       
+        validarDatosUnicoProducto(producto);
         
-        Manejo de errores con 
-        catch (SQLIntegrityConstraintViolationException e) {
-        si hay datos duplicados en la base de datos o que no correspondan
+        Connection conexionDB = ConexionDB.getConnection();
         
-        y con catch (Exception e) { para otros errores
+        String sentenciaSQL = 
+                "INSERT INTO\n" +
+                "    productos(\n" +
+                "        id_proveedor,\n" +
+                "        nombre_producto,\n" +
+                "        precio_compra,\n" +
+                "        precio_venta,\n" +
+                "        cantidad_minima_stock,\n" +
+                "        cantidad_disponible,\n" +
+                "        habilitado\n" +
+                "    )\n" +
+                "VALUES\n" +
+                "    ( ? , ? , ? , ? , ? , ? , ? )";
         
-        por el momento retornamos -1 para indicar que no se creo el usuario
-        sin embargo la idea es manejarlo con los errores throw new
-        */
-        return -1;
+        try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)){
+        
+            consulta.setInt(1, producto.getIdProveedor());
+            consulta.setString(2, producto.getNombreProducto());
+            consulta.setDouble(3, producto.getPrecioCompra());
+            consulta.setDouble(4, producto.getPrecioVenta());
+            consulta.setInt(5, producto.getCantidadMinimaStock());
+            consulta.setInt(6, producto.getCantidadDisponible());
+            consulta.setBoolean(7, true);
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if(filasAfectadas == 1){
+               try(ResultSet respuesta = consulta.getGeneratedKeys()){
+                   if( respuesta.next() ){
+                        //Retornamos el id del cliente creado
+                        return ( respuesta.getInt( 1 ) );
+                    }else{
+                        throw new Exception( "Error al obtener el id del producto" );
+                    }
+               }
+            }else
+                throw new Exception("El producto no se creo correctamente");
+        }
+        
     }
     
     
@@ -320,10 +448,26 @@ public class ServicioProductos {
     */
     public void eliminarProducto ( int idProducto , boolean isAdministrador ) throws Exception{
         
-        /*
-        TODO:
-        Hacer la respectiva consulta y envio de errores segun el caso.
-        */
+        if(!isAdministrador)
+            throw new Exception("Solo el usuario administrador puede eliminar un producto");
+       
+        if(!isProductoEliminable(idProducto))
+            throw new Exception("Este producto no se puede eliminar");
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = "DELETE FROM productos WHERE id_producto = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+            
+            consulta.setInt(1, idProducto);
+            
+            int filasAfectadas = consulta.executeUpdate();
+            
+            if( filasAfectadas != 1 )
+                throw new Exception("No se pudo eliminar el cliente");
+            
+        }
     }
     
     
@@ -332,15 +476,29 @@ public class ServicioProductos {
     */
     public boolean isProductoEliminable ( int idProducto ) throws Exception{
     
-        /*
-        TODO
-        Hacer la consulta y manejo de errores para enviarlos personalizados
-        segun corresponda
+        Connection conexionDB = ConexionDB.getConnection();
+        String sentenciaSQL = 
+            "SELECT(\n" +
+            "    EXISTS( SELECT 1 FROM detalle_de_ventas WHERE id_producto = ?) OR\n" +
+            "    EXISTS( SELECT 1 FROM detalle_de_compras WHERE id_producto = ?)\n" +
+            ") AS tieneRegistros";
+            
+        try (PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)) {
+            consulta.setInt(1, idProducto);
+            consulta.setInt(2, idProducto);
+            try (ResultSet respuesta = consulta.executeQuery()) {
+                if (respuesta.next()) {
+                    boolean tieneRegistros = respuesta.getBoolean("tieneRegistros");
+                    return !tieneRegistros; // Si tiene registros no es eliminable
+                }else{
+                    //En dado caso que no se reciba una respuesta, para proteger
+                    //la integridad de los datos, retornamos un false, para que no se 
+                    //pueda eliminar
+                    return false;
+                }
+            }
+        }
         
-        Por el momento se simula que no tiene registros asociados
-        */
-        
-        return false;
     }
     
 }

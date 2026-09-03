@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class ModeloProducto {
     
-    private int idProducto;
+    private Integer idProducto;
     private int idProveedor;
     private String nombreProducto;
     private double precioCompra;
@@ -34,7 +34,7 @@ public class ModeloProducto {
     }
 
     
-    public ModeloProducto(  int idProducto, 
+    public ModeloProducto(  Integer idProducto, 
                             int idProveedor, 
                             String nombreProducto, 
                             double precioCompra, 
@@ -59,7 +59,7 @@ public class ModeloProducto {
     ============================================================================
     */
 
-    public int getIdProducto() {
+    public Integer getIdProducto() {
         return idProducto;
     }
 
