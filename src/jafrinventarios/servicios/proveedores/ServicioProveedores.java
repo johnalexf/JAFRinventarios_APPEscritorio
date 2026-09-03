@@ -293,7 +293,7 @@ public class ServicioProveedores {
             "WHERE\n" +
             "    (nombre_comercial = ? OR telefono_contacto = ? OR correo_proveedor = ?)";
         
-        //Si es un usuario nuevo se espera que no este asignado el ID
+        //Si es un proveedor nuevo se espera que no este asignado el ID
         if( proveedor.getIdProveedor() != null )
             sentenciaSQL += " AND id_proveedor != ?";
         
