@@ -154,6 +154,8 @@ public class ServicioClientes {
         if(!isAdministrador)
             sentenciaSQL +=  "AND habilitado = 1 " ;
         
+        filtro = "%" + filtro + "%";
+        
         try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
             
             consulta.setString(1, filtro);
