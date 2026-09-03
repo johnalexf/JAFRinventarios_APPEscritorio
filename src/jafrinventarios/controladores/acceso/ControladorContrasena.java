@@ -8,7 +8,6 @@ import jafrinventarios.servicios.correo.ServicioCorreos;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import jafrinventarios.vistas.acceso.contrasena.DialogoCambiarContrasena;
 import jafrinventarios.vistas.acceso.contrasena.NombresTarjetasContrasena;
-import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import java.util.HashMap;
 
 /**
@@ -22,7 +21,6 @@ public class ControladorContrasena {
     private final ServicioAutenticacion servicioAutenticacion;
     
     private int idUsuario = -1;
-    private String correoRecuperacion;
     private String codigoRecuperacion;
     
     
