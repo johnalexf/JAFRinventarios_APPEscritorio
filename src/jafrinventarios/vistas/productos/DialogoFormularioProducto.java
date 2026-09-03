@@ -518,7 +518,7 @@ public class DialogoFormularioProducto extends DialogoBaseConSombra{
 
         inputCantidadDisponible.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCantidadDisponible.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputCantidadDisponible.setName("cantidadMinimaStock"); // NOI18N
+        inputCantidadDisponible.setName("cantidadDisponible"); // NOI18N
         inputCantidadDisponible.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorCantidadDisponible.add(inputCantidadDisponible, java.awt.BorderLayout.NORTH);
 
@@ -561,7 +561,7 @@ public class DialogoFormularioProducto extends DialogoBaseConSombra{
 
         inputCantidadMinStock.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputCantidadMinStock.setMargin(new java.awt.Insets(4, 10, 4, 10));
-        inputCantidadMinStock.setName("cantidadDisponible"); // NOI18N
+        inputCantidadMinStock.setName("cantidadMinimaStock"); // NOI18N
         inputCantidadMinStock.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorCantidadMinStock.add(inputCantidadMinStock, java.awt.BorderLayout.NORTH);
 
