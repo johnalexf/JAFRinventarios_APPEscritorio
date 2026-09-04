@@ -323,4 +323,105 @@ public class ServicioCompras {
         
     }
     
+    
+    public int crearCompra ( ModeloCompra compra ) throws Exception{
+        
+        List<ModeloDetalleCompra> detalles = compra.getDetalles();
+        if(detalles.isEmpty())
+            throw new Exception("La compra no se puede crear sin detalles");
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        try{
+ 
+            // 1. Apagar el autoguardado para iniciar la transacción
+            /*
+            Esto nos permite configurar a MySQL en un estado de espera a confirmar
+            que toda la informacion esperada, ya se ha cargado; esto con el fin 
+            de que en dado caso que no se complete, MySQL no guarda ninguno de los registros
+            ya que los tiene listos en un espacio de memoria pero aun no almacenados en 
+            la base de datos.
+            */
+            conexionDB.setAutoCommit(false);
+            
+            String sentenciaSQL =
+                    "INSERT INTO\n" +
+                    "    compras(\n" +
+                    "        fecha_hora_compra,\n" +
+                    "        total_compra,\n" +
+                    "        id_proveedor,\n" +
+                    "        id_usuario \n" +
+                    "    )\n" +
+                    "VALUES\n" +
+                    "    ( ? , ? , ? , ? )";
+
+            try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL , Statement.RETURN_GENERATED_KEYS)){
+
+                java.sql.Timestamp fecha = new java.sql.Timestamp( compra.getFechaHoraCompra().getTime());
+                consulta.setTimestamp(1, fecha);
+                consulta.setDouble(2, compra.getTotalCompra());
+                consulta.setInt(3, compra.getIdProveedor());
+                consulta.setInt(4, compra.getIdUsuario());
+
+                int filasAfectadas = consulta.executeUpdate();
+                if( filasAfectadas == 1 ){
+                    try( ResultSet respuesta = consulta.getGeneratedKeys() ){ 
+                        if( respuesta.next() ){
+                            compra.setIdCompra( respuesta.getInt( 1 ) );
+                        }else{
+                            throw new Exception( "Error al obtener el id de la compra" );
+                        }
+                    }
+                }else
+                    throw new Exception("No se pudo crear la compra");
+
+            }
+
+            sentenciaSQL = "INSERT INTO\n" +
+                            "    detalle_de_compras(\n" +
+                            "        id_compra,\n" +
+                            "        id_producto,\n" +
+                            "        cantidad_producto,\n" +
+                            "        precio_unitario_producto,\n" +
+                            "        precio_total_producto\n" +
+                            "    )\n" +
+                            "VALUES \n";
+
+            for( int i=0; i<detalles.size()-1 ; i++){
+                sentenciaSQL += "( ? , ? , ? , ? , ?), \n";
+            }
+            sentenciaSQL += "( ? , ? , ? , ? , ? )";
+
+            try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+
+                int indiceValor = 0;
+                for(ModeloDetalleCompra detalle: detalles){
+                    consulta.setInt( ++indiceValor, compra.getIdCompra() );
+                    consulta.setInt( ++indiceValor, detalle.getIdProducto() );
+                    consulta.setInt( ++indiceValor, detalle.getCantidadProducto() );
+                    consulta.setDouble(++indiceValor, detalle.getPrecioUnitarioProducto() );
+                    consulta.setDouble(++indiceValor, detalle.getPrecioTotalProducto() );
+                }
+
+                int filasAfectadas = consulta.executeUpdate();
+                if( filasAfectadas != detalles.size()){
+                    throw new Exception("No se pudieron crear los detalles de la compra");
+                }
+            }
+
+            // 2. Si las dos inserciones fueron exitosas, guardamos los cambios definitivamente
+            conexionDB.commit();
+            return compra.getIdCompra();
+            
+        } catch (Exception e) {
+            // 3. Si hubo cualquier error, revertimos absolutamente todo
+            conexionDB.rollback();
+            throw e; 
+        } finally {
+            // 4. Restauramos el comportamiento por defecto de la conexión para no afectar otros módulos
+            conexionDB.setAutoCommit(true);
+        }
+           
+    }
+    
 }

@@ -80,7 +80,10 @@ public class ModeloCompra {
     ============================================================================
     */
 
-
+    public void setIdCompra(Integer idCompra) {
+        this.idCompra = idCompra;
+    }
+    
     public void setFechaHoraCompra(Date fechaHoraCompra) {
         this.fechaHoraCompra = fechaHoraCompra;
     }
