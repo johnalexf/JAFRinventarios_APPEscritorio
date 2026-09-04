@@ -10,7 +10,6 @@ import java.util.Objects;
 public class ModeloDetalleCompra {
     
     private Integer idDetalleCompra;
-    private Integer idCompra;
     private Integer idProducto;
     private int cantidadProducto = 0;
     private double precioUnitarioProducto = 0;
@@ -30,14 +29,12 @@ public class ModeloDetalleCompra {
     //El constructor con los atributos completos, esta exclusivamente destinado
     //para cuando se desee editar un registro
     public ModeloDetalleCompra( 
-                        Integer idDetalleCompra, 
-                        Integer idCompra, 
+                        Integer idDetalleCompra,
                         Integer idProducto, 
                         int cantidadProducto, 
                         double precioUnitarioProducto,
                         double precioTotalProducto) {
         this.idDetalleCompra = idDetalleCompra;
-        this.idCompra = idCompra;
         this.idProducto = idProducto;
         this.cantidadProducto = cantidadProducto;
         this.precioUnitarioProducto = precioUnitarioProducto;
@@ -53,10 +50,6 @@ public class ModeloDetalleCompra {
 
     public Integer getIdDetalleCompra() {
         return idDetalleCompra;
-    }
-
-    public Integer getIdCompra() {
-        return idCompra;
     }
 
     public Integer getIdProducto() {
@@ -87,9 +80,6 @@ public class ModeloDetalleCompra {
     la base de datos al crearlo y de igual manera el totalProducto.
     */
 
-    public void setIdCompra(Integer idCompra) {
-        this.idCompra = idCompra;
-    }
     
     public void setIdProducto(Integer idProducto) {
         this.idProducto = idProducto;
@@ -123,7 +113,6 @@ public class ModeloDetalleCompra {
     public int hashCode() {
         int hash = 3;
         hash = 67 * hash + Objects.hashCode(this.idDetalleCompra);
-        hash = 67 * hash + Objects.hashCode(this.idCompra);
         hash = 67 * hash + Objects.hashCode(this.idProducto);
         hash = 67 * hash + this.cantidadProducto;
         hash = 67 * hash + (int) (Double.doubleToLongBits(this.precioUnitarioProducto) ^ (Double.doubleToLongBits(this.precioUnitarioProducto) >>> 32));
@@ -161,9 +150,6 @@ public class ModeloDetalleCompra {
         if (!Objects.equals(this.idDetalleCompra, other.idDetalleCompra)) {
             return false;
         }
-        if (!Objects.equals(this.idCompra, other.idCompra)) {
-            return false;
-        }
         if (!Objects.equals(this.idProducto, other.idProducto)) {
             return false;
         }
@@ -181,7 +167,6 @@ public class ModeloDetalleCompra {
     
         return new ModeloDetalleCompra(
                 this.idDetalleCompra,
-                this.idCompra,
                 this.idProducto,
                 this.cantidadProducto,
                 this.precioUnitarioProducto,
@@ -202,7 +187,6 @@ public class ModeloDetalleCompra {
     public String toString() {
         return "ModeloDetalleCompra" + 
                 "\nidDetalleCompra=" + idDetalleCompra + 
-                "\nidCompra=" + idCompra + 
                 "\nidProducto=" + idProducto + 
                 "\ncantidadProducto=" + cantidadProducto + 
                 "\nprecioUnitarioProducto=" + precioUnitarioProducto + 

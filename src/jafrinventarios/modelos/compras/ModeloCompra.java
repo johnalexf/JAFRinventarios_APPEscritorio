@@ -17,7 +17,7 @@ public class ModeloCompra {
     private Integer idProveedor;
     private Integer idUsuario;
     
-    private ArrayList<ModeloDetalleCompra> detalles;
+    private ArrayList<ModeloDetalleCompra> detalles = new ArrayList<>();
 
     /*
     ============================================================================
@@ -27,7 +27,6 @@ public class ModeloCompra {
     
     //Constructor para crear una nueva compra
     public ModeloCompra() {
-        detalles = new ArrayList<>();
     }
 
     //Constructor para recolectar la consulta a la base de datos y poder editar el registro
@@ -36,14 +35,12 @@ public class ModeloCompra {
                     Date fechaHoraCompra, 
                     double totalCompra, 
                     Integer idProveedor, 
-                    Integer idUsuario, 
-                    ArrayList<ModeloDetalleCompra> detalles) {
+                    Integer idUsuario) {
         this.idCompra = idCompra;
         this.fechaHoraCompra = fechaHoraCompra;
         this.totalCompra = totalCompra;
         this.idProveedor = idProveedor;
         this.idUsuario = idUsuario;
-        this.detalles = new ArrayList<>(detalles);
     }
 
     
@@ -104,6 +101,9 @@ public class ModeloCompra {
         this.detalles = new ArrayList<>(detalles);
     }
 
+    public void agregarDetalle( ModeloDetalleCompra detalle ){
+        this.detalles.add( detalle.clonar() );
+    }
     
     /*
     ============================================================================
@@ -180,14 +180,17 @@ public class ModeloCompra {
             detallesClonados.add(detalle.clonar());
         }
     
-        return new ModeloCompra(
-                this.idCompra,
-                this.fechaHoraCompra,
-                this.totalCompra,
-                this.idProveedor,
-                this.idUsuario,
-                detallesClonados
-        );
+        ModeloCompra clonCompra =  new ModeloCompra(
+                                            this.idCompra,
+                                            this.fechaHoraCompra,
+                                            this.totalCompra,
+                                            this.idProveedor,
+                                            this.idUsuario
+                                    );
+        
+        clonCompra.setDetalles(detallesClonados);
+        
+        return clonCompra;
         
     }
 

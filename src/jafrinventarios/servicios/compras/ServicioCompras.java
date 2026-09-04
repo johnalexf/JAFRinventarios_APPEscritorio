@@ -4,6 +4,7 @@ package jafrinventarios.servicios.compras;
 import jafrinventarios.DTOs.compras.DTOCompraTabla;
 import jafrinventarios.DTOs.compras.DTODetalleCompraTabla;
 import jafrinventarios.modelos.compras.ModeloCompra;
+import jafrinventarios.modelos.compras.ModeloDetalleCompra;
 import jafrinventarios.servicios.ConexionDB;
 import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import java.sql.Connection;
@@ -192,5 +193,134 @@ public class ServicioCompras {
         
     }
     
+    /*
+        Consultar una compra para armar un DTOCompraTabla con el fin de 
+        actualizar la tabla si se edito una compra o se creo una nueva
+    */
+    public DTOCompraTabla obtenerDatosDTOCompra ( Integer idCompra ) throws Exception{
+    
+        DTOCompraTabla compra;
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    comp.id_compra AS 'idCompra',\n" +
+                "    comp.fecha_hora_compra AS 'fecha',\n" +
+                "    comp.total_compra AS 'totalCompra',\n" +
+                "    pv.nombre_comercial AS 'nombreProveedor',\n" +
+                "    us.alias_usuario AS 'aliasUsuario',\n" +
+                "\n" +
+                "    prod.nombre_producto AS 'nombreProducto',\n" +
+                "    det.cantidad_producto AS 'cantidad',\n" +
+                "    det.precio_unitario_producto AS 'precio',\n" +
+                "    det.precio_total_producto AS 'totalDetalle'\n" +
+                "FROM    compras comp\n" +
+                "INNER JOIN proveedores pv         ON comp.id_proveedor = pv.id_proveedor\n" +
+                "INNER JOIN usuarios us            ON comp.id_usuario = us.id_usuario\n" +
+                "INNER JOIN detalle_de_compras det ON comp.id_compra = det.id_compra\n" +
+                "INNER JOIN productos prod         ON det.id_producto = prod.id_producto\n" +
+                "WHERE\n" +
+                "    comp.id_compra = ?";
+        
+        try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+        
+            consulta.setInt(1, idCompra);
+
+            try(ResultSet respuesta = consulta.executeQuery()){
+            
+                if ( respuesta.next() ) { 
+                    compra = new DTOCompraTabla(
+                            respuesta.getInt("idCompra"),
+                            respuesta.getTimestamp("fecha"),
+                            respuesta.getDouble("totalCompra"),
+                            respuesta.getString("nombreProveedor"),
+                            respuesta.getString("aliasUsuario")
+                        );       
+                    do{
+                        compra.agregarDetalle(
+                                new DTODetalleCompraTabla(
+                                        respuesta.getString("nombreProducto"),
+                                        respuesta.getInt("cantidad"),
+                                        respuesta.getDouble("precio"),
+                                        respuesta.getDouble("totalDetalle")
+                              )
+                        );
+                    }while(respuesta.next());
+                }else
+                    throw new Exception("No existe una compra con el id : " + idCompra );
+                
+            }
+        
+        }
+        
+        return compra;
+        
+    }
+    
+    
+    /*
+        Consultar una compra para armar un ModeloCompraTabla con el fin de 
+        poder editarlo
+    */
+    public ModeloCompra obtenerModeloCompra ( Integer idCompra ) throws Exception{
+    
+        ModeloCompra compra;
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    comp.id_compra AS 'idCompra',\n" +
+                "    comp.fecha_hora_compra AS 'fecha',\n" +
+                "    comp.total_compra AS 'totalCompra',\n" +
+                "    comp.id_proveedor AS 'idProveedor',\n" +
+                "    comp.id_usuario AS 'idUsuario',\n" +
+                "\n" +
+                "    det.id_detalle_compra AS 'idDetalle',\n" +
+                "    det.id_producto AS 'idProducto',\n" +
+                "    det.cantidad_producto AS 'cantidadProducto',\n" +
+                "    det.precio_unitario_producto AS 'precioProducto',\n" +
+                "    det.precio_total_producto AS 'totalDetalle'\n" +
+                "FROM    compras comp\n" +
+                "INNER JOIN detalle_de_compras det ON comp.id_compra = det.id_compra\n" +
+                "WHERE\n" +
+                "    comp.id_compra = ?";
+        
+        try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+        
+            consulta.setInt(1, idCompra);
+
+            try(ResultSet respuesta = consulta.executeQuery()){
+            
+                if ( respuesta.next() ) { 
+                    compra = new ModeloCompra(
+                            respuesta.getInt("idCompra"),
+                            respuesta.getTimestamp("fecha"),
+                            respuesta.getDouble("totalCompra"),
+                            respuesta.getInt("idProveedor"),
+                            respuesta.getInt("idUsuario")
+                        );       
+                    do{
+                        compra.agregarDetalle(
+                                new ModeloDetalleCompra(
+                                        respuesta.getInt("idDetalle"),
+                                        respuesta.getInt("idProducto"),
+                                        respuesta.getInt("cantidadProducto"),
+                                        respuesta.getDouble("precioProducto"),
+                                        respuesta.getDouble("totalDetalle")
+                              )
+                        );
+                    }while(respuesta.next());
+                }else
+                    throw new Exception("No existe una compra con el id : " + idCompra );
+                
+            }
+        
+        }
+        
+        return compra;
+        
+    }
     
 }
