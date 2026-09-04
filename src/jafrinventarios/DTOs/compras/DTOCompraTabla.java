@@ -29,14 +29,13 @@ public class DTOCompraTabla {
                             Date fechaHoraCompra,
                             double totalCompra, 
                             String nombreComercialProveedor, 
-                            String aliasUsuario, 
-                            ArrayList<DTODetalleCompraTabla> detalles) {
+                            String aliasUsuario) {
         this.idCompra = idCompra;
         this.fechaHoraCompra = fechaHoraCompra;
         this.totalCompra = totalCompra;
         this.nombreComercialProveedor = nombreComercialProveedor;
         this.aliasUsuario = aliasUsuario;
-        this.detalles = new ArrayList<>(detalles);
+        this.detalles = new ArrayList<>();
     }
 
     
@@ -76,6 +75,10 @@ public class DTOCompraTabla {
     para obtener la informacion de forma que sea consistente a lo que espera 
     ver el usuario, para editar una compra se usara como tal ModeloCompra
     */
+    
+    public void agregarDetalle( DTODetalleCompraTabla detalle ) {
+        detalles.add( detalle );
+    }
     
     
 }

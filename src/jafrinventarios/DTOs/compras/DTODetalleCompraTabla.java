@@ -7,8 +7,6 @@ package jafrinventarios.DTOs.compras;
  */
 public class DTODetalleCompraTabla {
     
-    private final Integer idDetalleCompra;
-    private final Integer idCompra;
     private final String nombreProducto;
     private final int cantidadProducto;
     private final double precioUnitarioProducto;
@@ -20,15 +18,11 @@ public class DTODetalleCompraTabla {
     ============================================================================
     */
 
-    public DTODetalleCompraTabla(
-                        Integer idDetalleCompra, 
-                        Integer idCompra, 
+    public DTODetalleCompraTabla( 
                         String nombreProducto, 
                         int cantidadProducto, 
                         double precioUnitarioProducto, 
                         double precioTotalProducto) {
-        this.idDetalleCompra = idDetalleCompra;
-        this.idCompra = idCompra;
         this.nombreProducto = nombreProducto;
         this.cantidadProducto = cantidadProducto;
         this.precioUnitarioProducto = precioUnitarioProducto;
@@ -41,14 +35,6 @@ public class DTODetalleCompraTabla {
                                   GETTERS
     ============================================================================
     */
-
-    public Integer getIdDetalleCompra() {
-        return idDetalleCompra;
-    }
-
-    public Integer getIdCompra() {
-        return idCompra;
-    }
 
     public String getNombreProducto() {
         return nombreProducto;
@@ -71,7 +57,6 @@ public class DTODetalleCompraTabla {
     Este modelo no necesita setters puesta esta destinado exclusivamente 
     para obtener la informacion de forma que sea consistente a lo que espera 
     ver el usuario, para editar un detalle se usara como tal ModeloDetallleCompra
-    */
-    
+    */ 
     
 }
