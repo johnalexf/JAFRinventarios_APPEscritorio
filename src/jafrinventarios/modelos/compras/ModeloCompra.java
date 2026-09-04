@@ -3,6 +3,7 @@ package jafrinventarios.modelos.compras;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -31,7 +32,7 @@ public class ModeloCompra {
 
     //Constructor para recolectar la consulta a la base de datos y poder editar el registro
     public ModeloCompra(    
-                    Integer idCompra, 
+                    Integer idCompra,
                     Date fechaHoraCompra, 
                     double totalCompra, 
                     Integer idProveedor, 
@@ -42,7 +43,7 @@ public class ModeloCompra {
         this.totalCompra = totalCompra;
         this.idProveedor = idProveedor;
         this.idUsuario = idUsuario;
-        this.detalles = detalles;
+        this.detalles = new ArrayList<>(detalles);
     }
 
     
@@ -103,6 +104,123 @@ public class ModeloCompra {
         this.detalles = new ArrayList<>(detalles);
     }
 
+    
+    /*
+    ============================================================================
+                                EQUALS Y HASCHCODE
+    ============================================================================
+    */
+    
+    /*
+    El hashCode() es la huella digital numérica del objeto creado
+    Si dos objetos son iguales según el método .equals(), entonces 
+    obligatoriamente deben devolver el mismo número en .hashCode()
+    */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.idCompra);
+        hash = 79 * hash + Objects.hashCode(this.fechaHoraCompra);
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.totalCompra) ^ (Double.doubleToLongBits(this.totalCompra) >>> 32));
+        hash = 79 * hash + Objects.hashCode(this.idProveedor);
+        hash = 79 * hash + Objects.hashCode(this.idUsuario);
+        hash = 79 * hash + Objects.hashCode(this.detalles);
+        return hash;
+    }
+
+    /*
+    equals se encarga de comparar el objeto creado con otro objeto, se espera
+    que se comparen dos del tipo ModeloCompra para verificar si hubo un cambio
+    en sus campos, antes de guardar por medio del servicio los cambios.
+    */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ModeloCompra other = (ModeloCompra) obj;
+        if (Double.doubleToLongBits(this.totalCompra) != Double.doubleToLongBits(other.totalCompra)) {
+            return false;
+        }
+        if (!Objects.equals(this.idCompra, other.idCompra)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaHoraCompra, other.fechaHoraCompra)) {
+            return false;
+        }
+        if (!Objects.equals(this.idProveedor, other.idProveedor)) {
+            return false;
+        }
+        if (!Objects.equals(this.idUsuario, other.idUsuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.detalles, other.detalles)) {
+            return false;
+        }
+        return true;
+    }
+
    
+    /*
+    ============================================================================
+                             MÉTODO PARA CLONAR 
+    ============================================================================
+    */
+    
+    public ModeloCompra clonar(){
+        
+        ArrayList<ModeloDetalleCompra> detallesClonados = new ArrayList<>();
+        for (ModeloDetalleCompra detalle : this.detalles) {
+            detallesClonados.add(detalle.clonar());
+        }
+    
+        return new ModeloCompra(
+                this.idCompra,
+                this.fechaHoraCompra,
+                this.totalCompra,
+                this.idProveedor,
+                this.idUsuario,
+                detallesClonados
+        );
+        
+    }
+
+    /*
+    ============================================================================
+                MÉTODO OBTENER UN STRING CON TODOS LOS DATOS
+    ============================================================================
+    Se usara para cuando se necesite imprimir en consola y verificar que 
+    los datos almacenados corresponden a los esperados.
+    */
+    @Override
+    public String toString() {
+        
+        String compraString;
+        
+        compraString =
+                "ModeloCompra\n" + 
+                "\nidCompra=" + idCompra + 
+                "\nfechaHoraCompra=" + fechaHoraCompra + 
+                "\ntotalCompra=" + totalCompra + 
+                "\nidProveedor=" + idProveedor + 
+                "\nidUsuario=" + idUsuario + 
+                "\ndetalles=" + '\n';
+        
+        for(ModeloDetalleCompra detalle : detalles){
+            compraString+= detalle.toString();
+        }
+        
+        return compraString;
+    }
+    
+    
+    
+    
     
 }
