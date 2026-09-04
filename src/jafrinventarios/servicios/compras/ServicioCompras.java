@@ -373,7 +373,7 @@ public class ServicioCompras {
                         }
                     }
                 }else
-                    throw new Exception("No se pudo crear la compra");
+                    throw new Exception("No se pudo crear el registro base de la compra");
 
             }
 
@@ -408,7 +408,35 @@ public class ServicioCompras {
                     throw new Exception("No se pudieron crear los detalles de la compra");
                 }
             }
+            
+            sentenciaSQL = " UPDATE\n" +
+                            "    productos\n" +
+                            "SET\n" +
+                            "    cantidad_disponible = cantidad_disponible + ?\n" +
+                            "WHERE\n" +
+                            "    id_producto = ?";
+            
+            try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
 
+                for(ModeloDetalleCompra detalle: detalles){
+                    consulta.setInt( 1, detalle.getCantidadProducto() );
+                    consulta.setInt( 2, detalle.getIdProducto() );
+                    
+                    //Usamos addBatch() para generar un paquete que despues se enviara en lote
+                    consulta.addBatch();
+                }
+                
+                // Ejecutar todo el lote de un solo golpe en la base de datos
+                int[] resultados = consulta.executeBatch();
+
+                for (int filasAfectadas: resultados ){
+                    if( filasAfectadas != 1 )
+                        throw new Exception("No se pudieron actualizar todos los productos");
+                }
+
+                
+            }
+            
             // 2. Si las dos inserciones fueron exitosas, guardamos los cambios definitivamente
             conexionDB.commit();
             return compra.getIdCompra();
@@ -416,7 +444,7 @@ public class ServicioCompras {
         } catch (Exception e) {
             // 3. Si hubo cualquier error, revertimos absolutamente todo
             conexionDB.rollback();
-            throw e; 
+            throw new Exception("La compra no se registro debido a : \n" + e.getMessage());
         } finally {
             // 4. Restauramos el comportamiento por defecto de la conexión para no afectar otros módulos
             conexionDB.setAutoCommit(true);
