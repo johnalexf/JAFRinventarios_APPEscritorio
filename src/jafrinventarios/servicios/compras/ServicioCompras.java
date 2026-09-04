@@ -117,4 +117,80 @@ public class ServicioCompras {
     }
     
     
+    public List<DTOCompraTabla> obtenerListaComprasPorFiltro ( String filtro ) throws Exception{
+    
+        LinkedHashMap<Integer, DTOCompraTabla> diccionarioCompras = new LinkedHashMap<>();
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    comp.id_compra AS 'idCompra',\n" +
+                "    comp.fecha_hora_compra AS 'fecha',\n" +
+                "    comp.total_compra AS 'totalCompra',\n" +
+                "    pv.nombre_comercial AS 'nombreProveedor',\n" +
+                "    us.alias_usuario AS 'aliasUsuario',\n" +
+                "\n" +
+                "    prod.nombre_producto AS 'nombreProducto',\n" +
+                "    det.cantidad_producto AS 'cantidad',\n" +
+                "    det.precio_unitario_producto AS 'precio',\n" +
+                "    det.precio_total_producto AS 'totalDetalle'\n" +
+                "FROM    compras comp\n" +
+                "INNER JOIN proveedores pv         ON comp.id_proveedor = pv.id_proveedor\n" +
+                "INNER JOIN usuarios us            ON comp.id_usuario = us.id_usuario\n" +
+                "INNER JOIN detalle_de_compras det ON comp.id_compra = det.id_compra\n" +
+                "INNER JOIN productos prod         ON det.id_producto = prod.id_producto\n" +
+                "WHERE\n" +
+                "    (   pv.nombre_comercial LIKE ? OR\n" +
+                "        us.alias_usuario LIKE ? OR\n" +
+                "        prod.nombre_producto LIKE ?\n" +
+                "      )" +
+                "\n ORDER BY 1";
+        
+        filtro = "%" + filtro + "%";
+        
+        try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+        
+            consulta.setString(1, filtro);
+            consulta.setString(2, filtro);
+            consulta.setString(3, filtro);
+
+            try(ResultSet respuesta = consulta.executeQuery()){
+            
+                while ( respuesta.next() ) { 
+                    
+                    if( !diccionarioCompras.containsKey( respuesta.getInt("idCompra") )){
+                        diccionarioCompras.put(
+                                respuesta.getInt("idCompra"), 
+                                new DTOCompraTabla(
+                                    respuesta.getInt("idCompra"),
+                                    respuesta.getTimestamp("fecha"),
+                                    respuesta.getDouble("totalCompra"),
+                                    respuesta.getString("nombreProveedor"),
+                                    respuesta.getString("aliasUsuario")
+                                )
+                        );
+                    
+                    }
+                    
+                    DTOCompraTabla compra = diccionarioCompras.get(respuesta.getInt("idCompra"));
+                    compra.agregarDetalle(
+                            new DTODetalleCompraTabla(
+                                    respuesta.getString("nombreProducto"),
+                                    respuesta.getInt("cantidad"),
+                                    respuesta.getDouble("precio"),
+                                    respuesta.getDouble("totalDetalle")
+                          )
+                    );
+                }
+
+            }
+        
+        }
+        
+        return new ArrayList<>(diccionarioCompras.values());
+        
+    }
+    
+    
 }
