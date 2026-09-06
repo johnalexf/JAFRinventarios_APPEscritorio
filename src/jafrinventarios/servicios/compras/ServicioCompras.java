@@ -427,6 +427,41 @@ public class ServicioCompras {
     }
     
     
+    public void eliminarCompra ( int idCompra ) throws Exception{
+    
+        ModeloCompra compra = obtenerModeloCompra(idCompra);
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        try {
+
+            conexionDB.setAutoCommit(false);
+            
+            actualizarCantidadDisponible(conexionDB, compra.getDetalles(), false);
+            
+            eliminarDetalles(conexionDB, idCompra, compra.getDetalles().size());
+            
+            String sentenciaSQL = "DELETE FROM compras WHERE id_compra = ?";
+            
+            try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+                consulta.setInt(1, idCompra);
+                int filasAfectadas = consulta.executeUpdate();
+                if(filasAfectadas != 1)
+                    throw new Exception("No se pudo eliminar los datos generales de la compra");
+            }
+            
+           conexionDB.commit();
+            
+        } catch (Exception e) {
+            conexionDB.rollback();
+            throw new Exception("La compra no se pudo eliminar debido a que : \n" + e.getMessage());
+        } finally {
+            conexionDB.setAutoCommit(true);
+        }
+    
+    }
+    
+    
     private int crearDatosGenerales( Connection conexionDB, ModeloCompra compra) throws Exception{
         
         String sentenciaSQL =
