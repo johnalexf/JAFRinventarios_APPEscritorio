@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -451,5 +452,177 @@ public class ServicioCompras {
         }
            
     }
+    
+    
+    public void editarCompra( ModeloCompra compra ) throws Exception{
+        
+        List<ModeloDetalleCompra> detalles = compra.getDetalles();
+        if(detalles.isEmpty())
+            throw new Exception("La compra no se puede editar sin detalles");
+        
+        ModeloCompra compraOriginal = obtenerModeloCompra(compra.getIdCompra());
+        
+        if(compraOriginal.equals(compra))
+            throw new Exception("No hay cambios en la compra para guardar");
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        try{
+            conexionDB.setAutoCommit(false);
+            
+            if( !compraOriginal.sonIgualesDatosGenerales(compra) ){
+                
+                String sentenciaSQL =
+                    "UPDATE\n" +
+                    "    compras\n" +
+                    "SET\n" +
+                    "    fecha_hora_compra = ?,\n" +
+                    "    total_compra = ?,\n" +
+                    "    id_proveedor = ?,\n" +
+                    "    id_usuario = ?\n" +
+                    "WHERE\n" +
+                    "    id_compra = ?";
+
+                try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+
+                    java.sql.Timestamp fecha = new java.sql.Timestamp( compra.getFechaHoraCompra().getTime());
+                    consulta.setTimestamp(1, fecha);
+                    consulta.setDouble(2, compra.getTotalCompra());
+                    consulta.setInt(3, compra.getIdProveedor());
+                    consulta.setInt(4, compra.getIdUsuario());
+                    
+                    consulta.setInt(5, compra.getIdCompra());
+
+                    int filasAfectadas = consulta.executeUpdate();
+                    if( filasAfectadas != 1 )
+                        throw new Exception("No se pudo editar el registro base de la compra");
+
+                }
+            }
+            
+            
+            if( !compraOriginal.sonIgualesDetalles(compra) ){
+            
+                /*Si no son iguales las lista de detalles, entonces eliminamos
+                todos los detalles, no sin antes restar las cantidades a los
+                productos disponibles y despues creamos los nuevos detalles
+                agregando las cantidades a el stock disponible*/
+                
+                /*
+                Descontar la cantidad de producto de cada detalle original antes de eliminarlos
+                */
+                String sentenciaSQL =
+                            " UPDATE\n" +
+                            "    productos\n" +
+                            "SET\n" +
+                            "    cantidad_disponible = cantidad_disponible - ?\n" +
+                            "WHERE\n" +
+                            "    id_producto = ?";
+            
+                try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+
+                    for(ModeloDetalleCompra detalle: compraOriginal.getDetalles()){
+                        consulta.setInt( 1, detalle.getCantidadProducto() );
+                        consulta.setInt( 2, detalle.getIdProducto() );
+                        consulta.addBatch();
+                    }
+
+                    int[] resultados = consulta.executeBatch();
+
+                    for (int filasAfectadas: resultados ){
+                        if( filasAfectadas != 1 )
+                            throw new Exception("No se pudieron actualizar todos los productos");
+                    }
+  
+                }
+                
+                /*
+                Eliminar los detalles de la compra original
+                */
+                sentenciaSQL = "DELETE FROM detalle_de_compras WHERE id_compra = ?";
+                
+                try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+                    consulta.setInt(1, compraOriginal.getIdCompra());
+                    int filasAfectadas = consulta.executeUpdate();
+                    if(filasAfectadas != compraOriginal.getDetalles().size())
+                        throw new Exception("No se pudieron actualizar correctamente los detalles de la compra");
+                }
+                
+                /*
+                Crear los nuevos detalles
+                */
+                sentenciaSQL = "INSERT INTO\n" +
+                            "    detalle_de_compras(\n" +
+                            "        id_compra,\n" +
+                            "        id_producto,\n" +
+                            "        cantidad_producto,\n" +
+                            "        precio_unitario_producto,\n" +
+                            "        precio_total_producto\n" +
+                            "    )\n" +
+                            "VALUES \n" +
+                            "( ? , ? , ? , ? , ?)";
+
+                try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+
+                    for(ModeloDetalleCompra detalle: detalles){
+                        consulta.setInt( 1, compra.getIdCompra() );
+                        consulta.setInt( 2, detalle.getIdProducto() );
+                        consulta.setInt( 3, detalle.getCantidadProducto() );
+                        consulta.setDouble( 4, detalle.getPrecioUnitarioProducto() );
+                        consulta.setDouble( 5, detalle.getPrecioTotalProducto() );
+                        consulta.addBatch();
+                    }
+
+                    int[] resultados = consulta.executeBatch();
+
+                    for (int filasAfectadas: resultados ){
+                        if( filasAfectadas != 1 )
+                            throw new Exception("No se pudieron crear los detalles de la compra");
+                    }
+
+                }
+
+                /*
+                Actualizar la cantidad de producto disponible
+                */
+                sentenciaSQL = " UPDATE\n" +
+                                "    productos\n" +
+                                "SET\n" +
+                                "    cantidad_disponible = cantidad_disponible + ?\n" +
+                                "WHERE\n" +
+                                "    id_producto = ?";
+
+                try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+
+                    for(ModeloDetalleCompra detalle: detalles){
+                        consulta.setInt( 1, detalle.getCantidadProducto() );
+                        consulta.setInt( 2, detalle.getIdProducto() );
+                        consulta.addBatch();
+                    }
+
+                    int[] resultados = consulta.executeBatch();
+
+                    for (int filasAfectadas: resultados ){
+                        if( filasAfectadas != 1 )
+                            throw new Exception("No se pudieron actualizar todos los productos");
+                    }
+
+
+                }
+                        
+            }
+            
+            conexionDB.commit();
+            
+        } catch (Exception e) {
+            conexionDB.rollback();
+            throw new Exception("La compra no se registro debido a : \n" + e.getMessage());
+        } finally {
+            conexionDB.setAutoCommit(true);
+        }
+    
+    }
+    
+
     
 }

@@ -168,6 +168,32 @@ public class ModeloCompra {
         }
         return true;
     }
+    
+    
+    
+    public boolean sonIgualesDatosGenerales( ModeloCompra compraAVerificar){
+    
+        if( !Objects.equals(this.fechaHoraCompra, compraAVerificar.fechaHoraCompra )  )
+           return false;
+        
+        if( !Objects.equals( this.idProveedor, compraAVerificar.idProveedor) )
+           return false;
+        
+        if( !Objects.equals( this.idUsuario, compraAVerificar.idUsuario ) )
+           return false;
+        
+        if (Double.doubleToLongBits(this.totalCompra) != Double.doubleToLongBits(compraAVerificar.totalCompra)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public boolean sonIgualesDetalles( ModeloCompra compraAVerificar){
+    
+        return (Objects.equals(this.detalles, compraAVerificar.detalles));
+       
+    }
 
    
     /*
