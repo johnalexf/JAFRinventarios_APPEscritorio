@@ -6,22 +6,23 @@ import jafrinventarios.DTOs.compras.DTODetalleCompraTabla;
 import jafrinventarios.modelos.compras.ModeloCompra;
 import jafrinventarios.modelos.compras.ModeloDetalleCompra;
 import jafrinventarios.servicios.ConexionDB;
-import jafrinventarios.servicios.excepciones.ExcepcionValidacionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
  * @author JOHN FORERO
  */
 public class ServicioCompras {
+
+    
+    public ServicioCompras() {
+    }
     
     
     public List<DTOCompraTabla> obtenerTodasLasCompras () throws Exception{
