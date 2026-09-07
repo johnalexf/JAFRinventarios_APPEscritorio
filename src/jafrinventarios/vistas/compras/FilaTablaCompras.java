@@ -344,7 +344,7 @@ public class FilaTablaCompras extends javax.swing.JPanel {
     }
     
     
-    public void inyectarFilas( ArrayList<FilaTablaDetalleCompra> filasDetallesCompra ){
+    public void inyectarFilasDetalles( ArrayList<FilaTablaDetalleCompra> filasDetallesCompra ){
         contenedorDetallesCompra.removeAll();
         
         filasDetallesCompra.forEach(fila -> {
