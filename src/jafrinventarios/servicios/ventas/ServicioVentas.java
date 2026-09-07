@@ -4,6 +4,7 @@ package jafrinventarios.servicios.ventas;
 
 import jafrinventarios.DTOs.ventas.DTODetalleVentaTabla;
 import jafrinventarios.DTOs.ventas.DTOVentaTabla;
+import jafrinventarios.modelos.productos.ModeloProducto;
 import jafrinventarios.modelos.ventas.ModeloDetalleVenta;
 import jafrinventarios.modelos.ventas.ModeloVenta;
 import jafrinventarios.servicios.ConexionDB;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -334,6 +336,8 @@ public class ServicioVentas {
         
         Connection conexionDB = ConexionDB.getConnection();
         
+        comprobarDisponibilidadProductos(conexionDB, venta.getDetalles());
+        
         try{
 
             // 1. Apagar el autoguardado para iniciar la transacción
@@ -396,6 +400,9 @@ public class ServicioVentas {
                 Eliminar los detalles de la venta original
                 */
                 eliminarDetalles(conexionDB, ventaOriginal.getIdVenta(), ventaOriginal.getDetalles().size());
+                
+                
+                comprobarDisponibilidadProductos(conexionDB, ventaAEditar.getDetalles());
                
                 /*
                 Crear los nuevos detalles
@@ -418,6 +425,68 @@ public class ServicioVentas {
             conexionDB.setAutoCommit(true);
         }
     
+    }
+    
+    
+    public void comprobarDisponibilidadProductos ( Connection conexionDB, ArrayList<ModeloDetalleVenta> detalles ) throws Exception{
+    
+        String sentenciaSQL = 
+                    "SELECT\n" +
+                    "    id_producto AS 'id',\n" +
+                    "    nombre_producto AS 'nombreProducto',\n" +
+                    "    cantidad_disponible AS 'cantidadDisponible'\n" +
+                    "FROM\n" +
+                    "    productos\n" +
+                    "WHERE\n" +
+                    "    id_producto IN ( ";
+        for ( int i=0; i< detalles.size()-1; i++) {
+            sentenciaSQL += " ? ,"; 
+        }
+        sentenciaSQL += " ? )";
+        
+        HashMap<Integer, ModeloProducto> diccionarioProductos = new HashMap<>();
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+        
+            int indiceConsulta=0;
+            for( ModeloDetalleVenta detalle : detalles){
+                consulta.setInt( ++indiceConsulta , detalle.getIdProducto());
+            }
+            
+            try(ResultSet respuesta = consulta.executeQuery() ){
+                while( respuesta.next() ){
+                    ModeloProducto producto = new ModeloProducto();
+                    producto.setNombreProducto( respuesta.getString("nombreProducto"));
+                    producto.setCantidadDisponible(respuesta.getInt("cantidadDisponible"));
+                    diccionarioProductos.put(
+                                respuesta.getInt("id"), 
+                                producto
+                    );
+                }
+            }
+        }
+        
+        StringBuilder errores = new StringBuilder();
+        
+        for( ModeloDetalleVenta detalle : detalles){
+            if( !diccionarioProductos.containsKey( detalle.getIdProducto() )  )
+                throw new Exception("Error al verificar las cantidades disponibles");
+            ModeloProducto producto = diccionarioProductos.get(detalle.getIdProducto());
+            if( producto.getCantidadDisponible() < detalle.getCantidadProducto() ){
+                errores.append("\n ")
+                       .append(producto.getNombreProducto())
+                       .append(" disponibles ").append(producto.getCantidadDisponible())
+                       .append(" solicitadas ").append(detalle.getCantidadProducto());
+            }
+        }
+        
+        if( errores.length() != 0){
+            throw new Exception(
+                    "Los siguientes productos no tienen suficientes cantidades disponibles para la venta"+
+                     errores.toString()
+            );
+        }
+
     }
     
     
