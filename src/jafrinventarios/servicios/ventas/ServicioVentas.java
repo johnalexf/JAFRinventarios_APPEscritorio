@@ -10,6 +10,7 @@ import jafrinventarios.servicios.ConexionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -325,6 +326,289 @@ public class ServicioVentas {
         
     }
     
+    
+    public int crearVenta ( ModeloVenta venta ) throws Exception{
+        
+        if(venta.getDetalles().isEmpty())
+            throw new Exception("La venta no se puede crear sin detalles");
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        try{
+
+            // 1. Apagar el autoguardado para iniciar la transacción
+            conexionDB.setAutoCommit(false);
+            
+            venta.setIdVenta( crearDatosGenerales(conexionDB, venta) );
+
+            crearDetalles(conexionDB, venta.getDetalles(), venta.getIdVenta());
+            
+            actualizarCantidadDisponible(conexionDB, venta.getDetalles(), false);
+            
+            // 2. Si las dos inserciones fueron exitosas, guardamos los cambios definitivamente
+            conexionDB.commit();
+            return venta.getIdVenta();
+            
+        } catch (Exception e) {
+            // 3. Si hubo cualquier error, revertimos absolutamente todo
+            conexionDB.rollback();
+            throw new Exception("La venta no se registro debido a : \n" + e.getMessage());
+        } finally {
+            // 4. Restauramos el comportamiento por defecto de la conexión para no afectar otros módulos
+            conexionDB.setAutoCommit(true);
+        }
+           
+    }
+    
+    
+    public void editarVenta( ModeloVenta ventaAEditar ) throws Exception{
+        
+        if(ventaAEditar.getDetalles().isEmpty())
+            throw new Exception("La venta no se puede editar sin detalles");
+        
+        ModeloVenta ventaOriginal = obtenerModeloVenta(ventaAEditar.getIdVenta());
+        
+        if(ventaOriginal.equals(ventaAEditar))
+            throw new Exception("No hay cambios en la venta para guardar");
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        try{
+            conexionDB.setAutoCommit(false);
+            
+            if( !ventaOriginal.sonIgualesDatosGenerales(ventaAEditar) ){
+                actualizarDatosGenerales(conexionDB, ventaAEditar);
+            }
+            
+            if( !ventaOriginal.sonIgualesDetalles(ventaAEditar) ){
+            
+                /*Si no son iguales las lista de detalles, entonces eliminamos
+                todos los detalles, no sin antes sumar las cantidades a los
+                productos disponibles y despues creamos los nuevos detalles
+                disminuyendo las cantidades a el stock disponible*/
+                
+                /*
+                Sumar la cantidad de producto de cada detalle original antes de eliminarlos
+                */
+                actualizarCantidadDisponible(conexionDB, ventaOriginal.getDetalles(), true);
+                
+                /*
+                Eliminar los detalles de la venta original
+                */
+                eliminarDetalles(conexionDB, ventaOriginal.getIdVenta(), ventaOriginal.getDetalles().size());
+               
+                /*
+                Crear los nuevos detalles
+                */
+                crearDetalles(conexionDB, ventaAEditar.getDetalles(), ventaAEditar.getIdVenta());
+
+                /*
+                Actualizar la cantidad de producto disponible
+                */
+                actualizarCantidadDisponible(conexionDB, ventaAEditar.getDetalles(), false);
+                        
+            }
+            
+            conexionDB.commit();
+            
+        } catch (Exception e) {
+            conexionDB.rollback();
+            throw new Exception("La venta no se edito debido a : \n" + e.getMessage());
+        } finally {
+            conexionDB.setAutoCommit(true);
+        }
+    
+    }
+    
+    
+    public void eliminarVenta ( int idVenta ) throws Exception{
+    
+        ModeloVenta venta = obtenerModeloVenta(idVenta);
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        try {
+
+            conexionDB.setAutoCommit(false);
+            
+            actualizarCantidadDisponible(conexionDB, venta.getDetalles(), true);
+            
+            eliminarDetalles(conexionDB, idVenta, venta.getDetalles().size());
+            
+            String sentenciaSQL = "DELETE FROM ventas WHERE id_venta = ?";
+            
+            try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+                consulta.setInt(1, idVenta);
+                int filasAfectadas = consulta.executeUpdate();
+                if(filasAfectadas != 1)
+                    throw new Exception("No se pudo eliminar los datos generales de la venta");
+            }
+            
+           conexionDB.commit();
+            
+        } catch (Exception e) {
+            conexionDB.rollback();
+            throw new Exception("La venta no se pudo eliminar debido a que : \n" + e.getMessage());
+        } finally {
+            conexionDB.setAutoCommit(true);
+        }
+    
+    }
+    
+    
+    
+    private int crearDatosGenerales( Connection conexionDB, ModeloVenta venta) throws Exception{
+        
+        String sentenciaSQL =
+                "INSERT INTO\n" +
+                "    ventas(\n" +
+                "        fecha_hora_venta,\n" +
+                "        total_venta,\n" +
+                "        id_cliente,\n" +
+                "        id_usuario \n" +
+                "    )\n" +
+                "VALUES\n" +
+                "    ( ? , ? , ? , ? )";
+
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL , Statement.RETURN_GENERATED_KEYS)){
+
+            java.sql.Timestamp fecha = new java.sql.Timestamp( venta.getFechaHoraVenta().getTime());
+            consulta.setTimestamp(1, fecha);
+            consulta.setDouble(2, venta.getTotalVenta());
+            consulta.setInt(3, venta.getIdCliente());
+            consulta.setInt(4, venta.getIdUsuario());
+
+            int filasAfectadas = consulta.executeUpdate();
+            if( filasAfectadas == 1 ){
+                try( ResultSet respuesta = consulta.getGeneratedKeys() ){ 
+                    if( respuesta.next() ){
+                        return ( respuesta.getInt( 1 ) );
+                    }else{
+                        throw new Exception( "Error al obtener el id de la venta" );
+                    }
+                }
+            }else
+                throw new Exception("No se pudo crear el registro base de la venta");
+
+        }
+    }
+    
+    
+    private void crearDetalles(Connection conexionDB, ArrayList<ModeloDetalleVenta> detalles, Integer idVenta) throws Exception{
+        
+        String sentenciaSQL = 
+                    "INSERT INTO\n" +
+                    "    detalle_de_ventas(\n" +
+                    "        id_venta,\n" +
+                    "        id_producto,\n" +
+                    "        cantidad_producto,\n" +
+                    "        precio_unitario_producto,\n" +
+                    "        precio_total_producto\n" +
+                    "    )\n" +
+                    "VALUES\n" +
+                    "    ( ? , ? , ? , ? , ?)";
+
+        try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+
+            for(ModeloDetalleVenta detalle: detalles){
+                consulta.setInt( 1, idVenta );
+                consulta.setInt( 2, detalle.getIdProducto() );
+                consulta.setInt( 3, detalle.getCantidadProducto() );
+                consulta.setDouble( 4, detalle.getPrecioUnitarioProducto() );
+                consulta.setDouble( 5, detalle.getPrecioTotalProducto() );
+                consulta.addBatch();
+            }
+
+            int[] resultados = consulta.executeBatch();
+
+            for (int filasAfectadas: resultados ){
+                if( filasAfectadas != 1 )
+                    throw new Exception("No se pudieron crear los detalles de la venta");
+            }
+
+        }
+    
+    }
+    
+    
+    private void actualizarCantidadDisponible(Connection conexionDB,  ArrayList<ModeloDetalleVenta> detalles, boolean sumar) throws Exception{
+        
+        String operador = (sumar)? "+":"-";
+        
+        String sentenciaSQL = 
+                        " UPDATE\n" +
+                        "    productos\n" +
+                        "SET\n" +
+                        "    cantidad_disponible = cantidad_disponible " + operador + " ? \n" +
+                        "WHERE\n" +
+                        "    id_producto = ?";
+
+        try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+
+            for(ModeloDetalleVenta detalle: detalles){
+                consulta.setInt( 1, detalle.getCantidadProducto() );
+                consulta.setInt( 2, detalle.getIdProducto() );
+
+                //Usamos addBatch() para generar un paquete que despues se enviara en lote
+                consulta.addBatch();
+            }
+
+            // Ejecutar todo el lote de un solo golpe en la base de datos
+            int[] resultados = consulta.executeBatch();
+
+            for (int filasAfectadas: resultados ){
+                if( filasAfectadas != 1 )
+                    throw new Exception("No se pudieron actualizar todos los productos");
+            }
+
+
+        }
+    }
+  
+    
+    private void actualizarDatosGenerales(Connection conexionDB, ModeloVenta venta) throws Exception{
+        String sentenciaSQL =
+                "UPDATE\n" +
+                "    ventas\n" +
+                "SET\n" +
+                "    fecha_hora_venta = ?,\n" +
+                "    total_venta = ?,\n" +
+                "    id_cliente = ?,\n" +
+                "    id_usuario = ?\n" +
+                "WHERE\n" +
+                "    id_venta = ?";
+
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+
+            java.sql.Timestamp fecha = new java.sql.Timestamp( venta.getFechaHoraVenta().getTime());
+            consulta.setTimestamp(1, fecha);
+            consulta.setDouble(2, venta.getTotalVenta());
+            consulta.setInt(3, venta.getIdCliente());
+            consulta.setInt(4, venta.getIdUsuario());
+
+            consulta.setInt(5, venta.getIdVenta());
+
+            int filasAfectadas = consulta.executeUpdate();
+            if( filasAfectadas != 1 )
+                throw new Exception("No se pudo editar el registro base de la venta");
+
+        } 
+    
+    }
+        
+    
+    private void eliminarDetalles(Connection conexionDB, int idVenta, int numeroDetalles) throws Exception{
+        
+        String sentenciaSQL = "DELETE FROM detalle_de_ventas WHERE id_venta = ?";
+
+        try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            consulta.setInt( 1, idVenta );
+            int filasAfectadas = consulta.executeUpdate();
+            if(filasAfectadas != numeroDetalles)
+                throw new Exception("No se pudieron actualizar correctamente los detalles de la venta");
+        }
+    
+    }
     
     
 }
