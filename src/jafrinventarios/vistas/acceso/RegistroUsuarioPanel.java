@@ -227,7 +227,7 @@ public class RegistroUsuarioPanel extends javax.swing.JPanel {
         contenedorComboBox.setOpaque(false);
 
         comboBoxRolUsuario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        comboBoxRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tipo de Usuario", "Administrador", "Vendedor" }));
+        comboBoxRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tipo de Usuario" }));
         comboBoxRolUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comboBoxRolUsuario.setMinimumSize(new java.awt.Dimension(250, 27));
         comboBoxRolUsuario.setName("rol"); // NOI18N
