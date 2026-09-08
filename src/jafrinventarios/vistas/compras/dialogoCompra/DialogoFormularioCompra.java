@@ -1,12 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package jafrinventarios.vistas.compras.dialogoCompra;
 
+import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
+import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import java.awt.Window;
+import javax.swing.JButton;
 
 /**
  *
@@ -14,12 +13,44 @@ import java.awt.Window;
  */
 public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
-    /**
-     * Creates new form DialogoFormularioCompra
-     */
-    public DialogoFormularioCompra( Window parent, boolean modal) {
+    /*
+      Objeto enum auxiliar para mejorar la legibilidad del codigo
+    */
+    public static enum TipoDialogo {
+        EDITAR_COMPRA,
+        CREAR_NUEVA_COMPRA
+    }
+    
+    private GestorFormulario formularioDatosCompra;
+    
+    /*
+    ============================================================================
+                            CONSTRUCTOR PUBLICO
+    ============================================================================
+    El controlador ofrece metodos estaticos para poder establecer con el mismo
+    cuales son los paremetros que sean acorde a la intencion del metodo estatico.
+    */
+    public DialogoFormularioCompra( Window parent, TipoDialogo tipoDialogo) {
         super(parent);
         initComponents();
+        
+        if(tipoDialogo == TipoDialogo.CREAR_NUEVA_COMPRA){
+            tituloFormulario.setText("Crear compra");
+            btnEnviarFormulario.setText("Crear Compra");
+            /*
+            Para el dialogo crear nuevo registro se ocultan algunos elementos y
+            para mantener un diseño uniforme se realizan los siguientes ajustes.
+            */
+            contenedorIDComprayUsuario.setVisible(false);
+            contenedorDatosGenerales.setPreferredSize(new java.awt.Dimension(600, 45));
+            btnLinkEliminarRegistro.setVisible(false);
+            
+        }
+        
+        if(tipoDialogo == TipoDialogo.EDITAR_COMPRA){
+            DinamismoLink.aplicarEfecto(btnLinkEliminarRegistro);
+        }
+        
     }
 
     /**
@@ -90,13 +121,13 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorTituloFormulario.setLayout(new java.awt.BorderLayout());
         contenedorTituloFormulario.add(margin_left, java.awt.BorderLayout.WEST);
 
-        tituloFormulario.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
-        tituloFormulario.setForeground(new java.awt.Color(17, 35, 85));
         tituloFormulario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloFormulario.setText("Editar Compra");
         tituloFormulario.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         tituloFormulario.setAlignmentX(0.5F);
         tituloFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 10, 0));
+        tituloFormulario.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        tituloFormulario.setForeground(new java.awt.Color(17, 35, 85));
         tituloFormulario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tituloFormulario.setVerifyInputWhenFocusTarget(false);
         contenedorTituloFormulario.add(tituloFormulario, java.awt.BorderLayout.CENTER);
@@ -144,16 +175,16 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorDatosGenerales.setLayout(new java.awt.GridLayout(2, 1));
 
         contenedorIDComprayUsuario.setMinimumSize(new java.awt.Dimension(0, 0));
-        contenedorIDComprayUsuario.setOpaque(false);
         contenedorIDComprayUsuario.setPreferredSize(new java.awt.Dimension(0, 0));
+        contenedorIDComprayUsuario.setOpaque(false);
         contenedorIDComprayUsuario.setLayout(new java.awt.GridBagLayout());
 
         contenedorIDCompra.setOpaque(false);
         contenedorIDCompra.setLayout(new java.awt.GridBagLayout());
 
-        lblTituloId.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloId.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblTituloId.setText("Id :");
+        lblTituloId.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloId.setMaximumSize(new java.awt.Dimension(0, 0));
         lblTituloId.setMinimumSize(new java.awt.Dimension(0, 0));
         lblTituloId.setPreferredSize(new java.awt.Dimension(0, 0));
@@ -167,10 +198,11 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorIDCompra.add(lblTituloId, gridBagConstraints);
 
-        lblDatoId.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         lblDatoId.setText("001");
+        lblDatoId.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         lblDatoId.setMaximumSize(new java.awt.Dimension(0, 0));
         lblDatoId.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblDatoId.setName(""); // NOI18N
         lblDatoId.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -533,10 +565,35 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarcerrarDialogo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarcerrarDialogo
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCerrarcerrarDialogo
 
+    
+    /*
+    ============================================================================
+                      MÉTODOS PÚBLICOS PARA EL CONTROLADOR
+    ============================================================================
+    */
+    
+    public void setIdCompra( Integer id ){
+        lblDatoId.setText( Integer.toString(id) );
+    }
+    
+    public void setAliasUsuario( String aliasUsuario ){
+        lblDatoUsuario.setText( aliasUsuario );
+    }
+    
+    
+    //Exponer botones
+    public JButton getBtnAgregarProducto(){
+        return btnAgregarProducto;
+    }
+    public JButton getBtnEnviarFormulario(){
+        return btnEnviarFormulario;
+    }
+    public JButton getBtnLinkEliminarRegistro(){
+        return btnLinkEliminarRegistro;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
