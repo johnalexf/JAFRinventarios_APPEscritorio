@@ -74,7 +74,7 @@ public class ControladorCompras {
     /* 
     Metodo para crear la instancia de la interfaz FuncionesBusquedaYAccionLibre
     que contiene el metodo para poder buscar segun un filtro
-    y para ejecutar la accion libre (crear producto).   
+    y para ejecutar la accion libre (crear compra).   
     */
     private FuncionesBusquedaYAccionLibre funcionesBusquedaYAccionLibre(){
         return new FuncionesBusquedaYAccionLibre() {
@@ -191,7 +191,7 @@ public class ControladorCompras {
     
     /*
     ======================================================================================
-     METODO PARA ASIGNAR EL LISTENER AL BOTON DE EDITAR PRODUCTO DE UNA FilaTablaCompras
+     METODO PARA ASIGNAR EL LISTENER AL BOTON DE EDITAR COMPRA DE UNA FilaTablaCompras
     ======================================================================================
     */
         
@@ -209,7 +209,7 @@ public class ControladorCompras {
        
     private void crearCompra(){
 
-//        int idCompraCreada = ControladorDialogoCompras.crearProducto( 
+//        int idCompraCreada = ControladorDialogoCompras.crearCompra( 
 //                        panelCompras.getVentanaPadre() , 
 //                        servicioCompras
 //        );
