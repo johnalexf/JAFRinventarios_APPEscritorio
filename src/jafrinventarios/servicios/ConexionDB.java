@@ -17,16 +17,16 @@ public class ConexionDB {
     private static Connection conexionDB = null;
     
     
-    public static Connection getConnection()
-    {
+    public static Connection getConnection() throws Exception{
+            
         if (conexionDB != null) 
-            return conexionDB;
-        
+                return conexionDB;
+            
         setConnection();
         return conexionDB;
     }
 
-    private static void setConnection() {
+    private static void setConnection() throws Exception{
         try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -38,6 +38,7 @@ public class ConexionDB {
         catch(Exception e)
         {
             e.printStackTrace();
+            throw new Exception("No se pudo establecer la conexion con la base de datos : " + DB_NAME);
         }  
     }
 
