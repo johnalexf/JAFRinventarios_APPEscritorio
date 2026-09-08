@@ -59,7 +59,7 @@ public class ControladorVentas {
                 funcionesBusquedaYAccionLibre(),
                 "Nombre cliente, alias de usuario o nombre producto",
                 "Agregar Nueva Venta",
-                isAdministrador
+                true
         );
         
         if(!isAdministrador)
