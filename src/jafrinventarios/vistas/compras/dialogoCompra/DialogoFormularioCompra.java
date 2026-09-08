@@ -41,8 +41,9 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
             Para el dialogo crear nuevo registro se ocultan algunos elementos y
             para mantener un diseño uniforme se realizan los siguientes ajustes.
             */
-            contenedorIDComprayUsuario.setVisible(false);
-            contenedorDatosGenerales.setPreferredSize(new java.awt.Dimension(600, 45));
+            contenedorDatosGenerales.remove(contenedorIDComprayUsuario);
+            contenedorDatosGenerales.setPreferredSize(new java.awt.Dimension(37200, 45));
+            contenedorDatosGenerales.setLayout(new java.awt.GridLayout(1, 1));
             btnLinkEliminarRegistro.setVisible(false);
             
         }
@@ -109,7 +110,10 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(950, 700));
         setName("dialogoCompra"); // NOI18N
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(950, 700));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         contenedorFormulario.setBackground(new java.awt.Color(255, 255, 255));
@@ -239,8 +243,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorUsuario.add(lblTituloUsuario, gridBagConstraints);
 
-        lblDatoUsuario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         lblDatoUsuario.setText("John Forero");
+        lblDatoUsuario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         lblDatoUsuario.setMaximumSize(new java.awt.Dimension(0, 0));
         lblDatoUsuario.setMinimumSize(new java.awt.Dimension(0, 0));
         lblDatoUsuario.setPreferredSize(new java.awt.Dimension(0, 34));
@@ -262,13 +266,13 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
         contenedorDatosGenerales.add(contenedorIDComprayUsuario);
 
-        contenedorProveedorYFecha.setOpaque(false);
         contenedorProveedorYFecha.setPreferredSize(new java.awt.Dimension(0, 0));
+        contenedorProveedorYFecha.setOpaque(false);
         contenedorProveedorYFecha.setLayout(new java.awt.GridBagLayout());
 
         contenedorProveedor.setMinimumSize(new java.awt.Dimension(0, 0));
-        contenedorProveedor.setOpaque(false);
         contenedorProveedor.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorProveedor.setOpaque(false);
         contenedorProveedor.setLayout(new java.awt.GridBagLayout());
 
         lblTituloProveedor.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -287,9 +291,9 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorProveedor.add(lblTituloProveedor, gridBagConstraints);
 
-        comboBoxProveedores.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         comboBoxProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Proveedor" }));
         comboBoxProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboBoxProveedores.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         comboBoxProveedores.setMinimumSize(new java.awt.Dimension(0, 0));
         comboBoxProveedores.setName("proveedor"); // NOI18N
         comboBoxProveedores.setPreferredSize(new java.awt.Dimension(0, 34));
@@ -310,8 +314,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorProveedorYFecha.add(contenedorProveedor, gridBagConstraints);
 
         contenedorFecha.setMinimumSize(new java.awt.Dimension(0, 0));
-        contenedorFecha.setOpaque(false);
         contenedorFecha.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorFecha.setOpaque(false);
         contenedorFecha.setLayout(new java.awt.GridBagLayout());
 
         lblTituloFecha.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -465,11 +469,11 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorDetalles.setLayout(contenedorDetallesLayout);
         contenedorDetallesLayout.setHorizontalGroup(
             contenedorDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 817, Short.MAX_VALUE)
+            .addGap(0, 848, Short.MAX_VALUE)
         );
         contenedorDetallesLayout.setVerticalGroup(
             contenedorDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 206, Short.MAX_VALUE)
+            .addGap(0, 228, Short.MAX_VALUE)
         );
 
         panelScrollDetalles.setViewportView(contenedorDetalles);
@@ -483,16 +487,16 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorBtnAgregarProducto.setOpaque(false);
         contenedorBtnAgregarProducto.setLayout(new javax.swing.BoxLayout(contenedorBtnAgregarProducto, javax.swing.BoxLayout.LINE_AXIS));
 
+        btnAgregarProducto.setText("Agregar Producto");
         btnAgregarProducto.setBackground(new java.awt.Color(30, 166, 177));
+        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarProducto.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         btnAgregarProducto.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarProducto.setText("Actualizar");
-        btnAgregarProducto.setToolTipText("");
-        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarProducto.setMargin(new java.awt.Insets(6, 12, 6, 12));
         btnAgregarProducto.setMaximumSize(new java.awt.Dimension(180, 38));
         btnAgregarProducto.setMinimumSize(new java.awt.Dimension(180, 38));
         btnAgregarProducto.setPreferredSize(new java.awt.Dimension(180, 38));
+        btnAgregarProducto.setToolTipText("");
         contenedorBtnAgregarProducto.add(btnAgregarProducto);
 
         contenedorGlobalDetalles.add(contenedorBtnAgregarProducto, java.awt.BorderLayout.PAGE_END);
