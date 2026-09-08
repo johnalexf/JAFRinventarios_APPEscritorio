@@ -55,10 +55,24 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         lblTituloFecha = new javax.swing.JLabel();
         selectorFechaYHora = new com.github.lgooddatepicker.components.DateTimePicker();
         contenedorGlobalDetalles = new javax.swing.JPanel();
+        contenedorHeaderDetalles = new javax.swing.JPanel();
+        lblTituloDetalles = new javax.swing.JLabel();
+        contenedorCuerpoDetalles = new javax.swing.JPanel();
+        contenedorTitulosTabla = new javax.swing.JPanel();
+        lblTituloItem = new javax.swing.JLabel();
+        lblTituloProducto = new javax.swing.JLabel();
+        lblTituloCantidad = new javax.swing.JLabel();
+        lblTituloPrecioUnitario = new javax.swing.JLabel();
+        lblTituloPrecioTotal = new javax.swing.JLabel();
+        lblTituloEliminar = new javax.swing.JLabel();
+        panelScrollDetalles = new javax.swing.JScrollPane();
+        contenedorDetalles = new javax.swing.JPanel();
+        contenedorBtnAgregarProducto = new javax.swing.JPanel();
+        btnAgregarProducto = new javax.swing.JButton();
         contenedorTotal = new javax.swing.JPanel();
         lblTituloTotal = new javax.swing.JLabel();
         lblDatoTotal = new javax.swing.JLabel();
-        contenedorBotones = new javax.swing.JPanel();
+        contenedorBotonesCRUD = new javax.swing.JPanel();
         btnEnviarFormulario = new javax.swing.JButton();
         btnLinkEliminarRegistro = new javax.swing.JButton();
 
@@ -71,8 +85,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorFormulario.setLayout(new java.awt.BorderLayout());
 
         contenedorTituloFormulario.setMinimumSize(new java.awt.Dimension(500, 80));
-        contenedorTituloFormulario.setOpaque(false);
         contenedorTituloFormulario.setPreferredSize(new java.awt.Dimension(500, 80));
+        contenedorTituloFormulario.setOpaque(false);
         contenedorTituloFormulario.setLayout(new java.awt.BorderLayout());
         contenedorTituloFormulario.add(margin_left, java.awt.BorderLayout.WEST);
 
@@ -120,7 +134,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorFormulario.add(contenedorTituloFormulario, java.awt.BorderLayout.PAGE_START);
 
         contenedorCuerpoFormulario.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorCuerpoFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 50, 0, 50));
+        contenedorCuerpoFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 50, 0, 50));
         contenedorCuerpoFormulario.setPreferredSize(new java.awt.Dimension(600, 439));
         contenedorCuerpoFormulario.setLayout(new java.awt.BorderLayout());
 
@@ -307,16 +321,149 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
         contenedorCuerpoFormulario.add(contenedorDatosGenerales, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout contenedorGlobalDetallesLayout = new javax.swing.GroupLayout(contenedorGlobalDetalles);
-        contenedorGlobalDetalles.setLayout(contenedorGlobalDetallesLayout);
-        contenedorGlobalDetallesLayout.setHorizontalGroup(
-            contenedorGlobalDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 808, Short.MAX_VALUE)
+        contenedorGlobalDetalles.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorGlobalDetalles.setLayout(new java.awt.BorderLayout());
+
+        contenedorHeaderDetalles.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorHeaderDetalles.setPreferredSize(new java.awt.Dimension(600, 40));
+        contenedorHeaderDetalles.setOpaque(false);
+        contenedorHeaderDetalles.setLayout(new javax.swing.BoxLayout(contenedorHeaderDetalles, javax.swing.BoxLayout.LINE_AXIS));
+
+        lblTituloDetalles.setText("Detalles");
+        lblTituloDetalles.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        lblTituloDetalles.setAlignmentX(0.5F);
+        lblTituloDetalles.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloDetalles.setMaximumSize(new java.awt.Dimension(37270, 36));
+        lblTituloDetalles.setMinimumSize(new java.awt.Dimension(400, 36));
+        lblTituloDetalles.setPreferredSize(new java.awt.Dimension(400, 36));
+        contenedorHeaderDetalles.add(lblTituloDetalles);
+
+        contenedorGlobalDetalles.add(contenedorHeaderDetalles, java.awt.BorderLayout.PAGE_START);
+
+        contenedorCuerpoDetalles.setLayout(new java.awt.BorderLayout());
+
+        contenedorTitulosTabla.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorTitulosTabla.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        contenedorTitulosTabla.setMaximumSize(new java.awt.Dimension(32767, 50));
+        contenedorTitulosTabla.setMinimumSize(new java.awt.Dimension(41, 50));
+        contenedorTitulosTabla.setPreferredSize(new java.awt.Dimension(0, 50));
+        contenedorTitulosTabla.setLayout(new java.awt.GridBagLayout());
+
+        lblTituloItem.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloItem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloItem.setText("Item");
+        lblTituloItem.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloItem.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloItem.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloItem, gridBagConstraints);
+
+        lblTituloProducto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloProducto.setText("Producto");
+        lblTituloProducto.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloProducto.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloProducto.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloProducto.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloProducto, gridBagConstraints);
+
+        lblTituloCantidad.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloCantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloCantidad.setText("Cantidad");
+        lblTituloCantidad.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloCantidad.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloCantidad.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloCantidad, gridBagConstraints);
+
+        lblTituloPrecioUnitario.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloPrecioUnitario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPrecioUnitario.setText("Precio Unitario");
+        lblTituloPrecioUnitario.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloPrecioUnitario.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloPrecioUnitario.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloPrecioUnitario, gridBagConstraints);
+
+        lblTituloPrecioTotal.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloPrecioTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPrecioTotal.setText("Total");
+        lblTituloPrecioTotal.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloPrecioTotal.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloPrecioTotal.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorTitulosTabla.add(lblTituloPrecioTotal, gridBagConstraints);
+
+        lblTituloEliminar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTituloEliminar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloEliminar.setText("Eliminar");
+        lblTituloEliminar.setMaximumSize(new java.awt.Dimension(0, 0));
+        lblTituloEliminar.setMinimumSize(new java.awt.Dimension(0, 0));
+        lblTituloEliminar.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        contenedorTitulosTabla.add(lblTituloEliminar, gridBagConstraints);
+
+        contenedorCuerpoDetalles.add(contenedorTitulosTabla, java.awt.BorderLayout.PAGE_START);
+
+        panelScrollDetalles.setBackground(new java.awt.Color(255, 255, 255));
+        panelScrollDetalles.setColumnHeaderView(contenedorTitulosTabla);
+
+        contenedorDetalles.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout contenedorDetallesLayout = new javax.swing.GroupLayout(contenedorDetalles);
+        contenedorDetalles.setLayout(contenedorDetallesLayout);
+        contenedorDetallesLayout.setHorizontalGroup(
+            contenedorDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 817, Short.MAX_VALUE)
         );
-        contenedorGlobalDetallesLayout.setVerticalGroup(
-            contenedorGlobalDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 339, Short.MAX_VALUE)
+        contenedorDetallesLayout.setVerticalGroup(
+            contenedorDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 206, Short.MAX_VALUE)
         );
+
+        panelScrollDetalles.setViewportView(contenedorDetalles);
+
+        contenedorCuerpoDetalles.add(panelScrollDetalles, java.awt.BorderLayout.CENTER);
+
+        contenedorGlobalDetalles.add(contenedorCuerpoDetalles, java.awt.BorderLayout.CENTER);
+
+        contenedorBtnAgregarProducto.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        contenedorBtnAgregarProducto.setPreferredSize(new java.awt.Dimension(0, 50));
+        contenedorBtnAgregarProducto.setOpaque(false);
+        contenedorBtnAgregarProducto.setLayout(new javax.swing.BoxLayout(contenedorBtnAgregarProducto, javax.swing.BoxLayout.LINE_AXIS));
+
+        btnAgregarProducto.setBackground(new java.awt.Color(30, 166, 177));
+        btnAgregarProducto.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        btnAgregarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarProducto.setText("Actualizar");
+        btnAgregarProducto.setToolTipText("");
+        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarProducto.setMargin(new java.awt.Insets(6, 12, 6, 12));
+        btnAgregarProducto.setMaximumSize(new java.awt.Dimension(180, 38));
+        btnAgregarProducto.setMinimumSize(new java.awt.Dimension(180, 38));
+        btnAgregarProducto.setPreferredSize(new java.awt.Dimension(180, 38));
+        contenedorBtnAgregarProducto.add(btnAgregarProducto);
+
+        contenedorGlobalDetalles.add(contenedorBtnAgregarProducto, java.awt.BorderLayout.PAGE_END);
 
         contenedorCuerpoFormulario.add(contenedorGlobalDetalles, java.awt.BorderLayout.CENTER);
 
@@ -340,34 +487,34 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
         contenedorFormulario.add(contenedorCuerpoFormulario, java.awt.BorderLayout.CENTER);
 
-        contenedorBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 10, 40));
-        contenedorBotones.setMinimumSize(new java.awt.Dimension(287, 60));
-        contenedorBotones.setOpaque(false);
-        contenedorBotones.setPreferredSize(new java.awt.Dimension(500, 130));
-        contenedorBotones.setLayout(new java.awt.GridBagLayout());
+        contenedorBotonesCRUD.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 10, 40));
+        contenedorBotonesCRUD.setMinimumSize(new java.awt.Dimension(287, 60));
+        contenedorBotonesCRUD.setPreferredSize(new java.awt.Dimension(500, 90));
+        contenedorBotonesCRUD.setOpaque(false);
+        contenedorBotonesCRUD.setLayout(new java.awt.GridBagLayout());
 
+        btnEnviarFormulario.setText("Actualizar");
         btnEnviarFormulario.setBackground(new java.awt.Color(30, 166, 177));
+        btnEnviarFormulario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEnviarFormulario.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         btnEnviarFormulario.setForeground(new java.awt.Color(255, 255, 255));
-        btnEnviarFormulario.setText("Actualizar");
-        btnEnviarFormulario.setToolTipText("");
-        btnEnviarFormulario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEnviarFormulario.setMargin(new java.awt.Insets(6, 12, 6, 12));
         btnEnviarFormulario.setMaximumSize(new java.awt.Dimension(200, 40));
         btnEnviarFormulario.setMinimumSize(new java.awt.Dimension(200, 40));
         btnEnviarFormulario.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnEnviarFormulario.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        contenedorBotones.add(btnEnviarFormulario, gridBagConstraints);
+        contenedorBotonesCRUD.add(btnEnviarFormulario, gridBagConstraints);
 
-        btnLinkEliminarRegistro.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        btnLinkEliminarRegistro.setForeground(new java.awt.Color(200, 0, 0));
         btnLinkEliminarRegistro.setText("Eliminar Compra");
         btnLinkEliminarRegistro.setAlignmentX(0.5F);
+        btnLinkEliminarRegistro.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnLinkEliminarRegistro.setForeground(new java.awt.Color(200, 0, 0));
         btnLinkEliminarRegistro.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -375,9 +522,9 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        contenedorBotones.add(btnLinkEliminarRegistro, gridBagConstraints);
+        contenedorBotonesCRUD.add(btnLinkEliminarRegistro, gridBagConstraints);
 
-        contenedorFormulario.add(contenedorBotones, java.awt.BorderLayout.PAGE_END);
+        contenedorFormulario.add(contenedorBotonesCRUD, java.awt.BorderLayout.PAGE_END);
 
         getContentPane().add(contenedorFormulario);
 
@@ -393,33 +540,47 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEnviarFormulario;
     private javax.swing.JButton btnLinkEliminarRegistro;
     private javax.swing.JComboBox<String> comboBoxProveedores;
-    private javax.swing.JPanel contenedorBotones;
+    private javax.swing.JPanel contenedorBotonesCRUD;
+    private javax.swing.JPanel contenedorBtnAgregarProducto;
     private javax.swing.JPanel contenedorBtnCerrar;
+    private javax.swing.JPanel contenedorCuerpoDetalles;
     private javax.swing.JPanel contenedorCuerpoFormulario;
     private javax.swing.JPanel contenedorDatosGenerales;
+    private javax.swing.JPanel contenedorDetalles;
     private javax.swing.JPanel contenedorFecha;
     private javax.swing.JPanel contenedorFormulario;
     private javax.swing.JPanel contenedorGlobalDetalles;
+    private javax.swing.JPanel contenedorHeaderDetalles;
     private javax.swing.JPanel contenedorIDCompra;
     private javax.swing.JPanel contenedorIDComprayUsuario;
     private javax.swing.JPanel contenedorProveedor;
     private javax.swing.JPanel contenedorProveedorYFecha;
     private javax.swing.JPanel contenedorTituloFormulario;
+    private javax.swing.JPanel contenedorTitulosTabla;
     private javax.swing.JPanel contenedorTotal;
     private javax.swing.JPanel contenedorUsuario;
     private javax.swing.JLabel lblDatoId;
     private javax.swing.JLabel lblDatoTotal;
     private javax.swing.JLabel lblDatoUsuario;
+    private javax.swing.JLabel lblTituloCantidad;
+    private javax.swing.JLabel lblTituloDetalles;
+    private javax.swing.JLabel lblTituloEliminar;
     private javax.swing.JLabel lblTituloFecha;
     private javax.swing.JLabel lblTituloId;
+    private javax.swing.JLabel lblTituloItem;
+    private javax.swing.JLabel lblTituloPrecioTotal;
+    private javax.swing.JLabel lblTituloPrecioUnitario;
+    private javax.swing.JLabel lblTituloProducto;
     private javax.swing.JLabel lblTituloProveedor;
     private javax.swing.JLabel lblTituloTotal;
     private javax.swing.JLabel lblTituloUsuario;
     private javax.swing.Box.Filler margin_left;
+    private javax.swing.JScrollPane panelScrollDetalles;
     private com.github.lgooddatepicker.components.DateTimePicker selectorFechaYHora;
     private javax.swing.JLabel tituloFormulario;
     // End of variables declaration//GEN-END:variables
