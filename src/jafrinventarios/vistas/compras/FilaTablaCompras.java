@@ -19,6 +19,7 @@ public class FilaTablaCompras extends javax.swing.JPanel {
         initComponents();
         
         EfectoHoverPanel.aplicarEfecto(contenedorDatosGenerales);
+        contenedorGlobalDetallesCompra.setVisible(false);
         
     }
 
@@ -52,14 +53,11 @@ public class FilaTablaCompras extends javax.swing.JPanel {
         lblTituloTotal = new javax.swing.JLabel();
         contenedorDetallesCompra = new javax.swing.JPanel();
 
-        setMinimumSize(new java.awt.Dimension(0, 60));
-        setPreferredSize(new java.awt.Dimension(0, 60));
+        setBackground(new java.awt.Color(205, 205, 205));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 10, 0));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         contenedorFila.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorFila.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 10, 0));
-        contenedorFila.setMinimumSize(new java.awt.Dimension(41, 60));
-        contenedorFila.setPreferredSize(new java.awt.Dimension(100, 60));
         contenedorFila.setLayout(new java.awt.BorderLayout());
 
         contenedorDatosGenerales.setBackground(new java.awt.Color(255, 255, 255));
@@ -162,6 +160,11 @@ public class FilaTablaCompras extends javax.swing.JPanel {
         btnVerDetalles.setMaximumSize(new java.awt.Dimension(0, 0));
         btnVerDetalles.setMinimumSize(new java.awt.Dimension(0, 0));
         btnVerDetalles.setPreferredSize(new java.awt.Dimension(0, 0));
+        btnVerDetalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerDetallesActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
@@ -171,11 +174,8 @@ public class FilaTablaCompras extends javax.swing.JPanel {
 
         contenedorFila.add(contenedorDatosGenerales, java.awt.BorderLayout.PAGE_START);
 
-        contenedorGlobalDetallesCompra.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 50, 5, 50));
-        contenedorGlobalDetallesCompra.setMaximumSize(new java.awt.Dimension(0, 0));
-        contenedorGlobalDetallesCompra.setMinimumSize(new java.awt.Dimension(0, 90));
+        contenedorGlobalDetallesCompra.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 50, 20, 50));
         contenedorGlobalDetallesCompra.setOpaque(false);
-        contenedorGlobalDetallesCompra.setPreferredSize(new java.awt.Dimension(0, 100));
         contenedorGlobalDetallesCompra.setLayout(new java.awt.BorderLayout());
 
         contenedorTituloDetallesCompra.setBackground(new java.awt.Color(255, 255, 255));
@@ -261,10 +261,7 @@ public class FilaTablaCompras extends javax.swing.JPanel {
 
         contenedorGlobalDetallesCompra.add(contenedorTituloDetallesCompra, java.awt.BorderLayout.PAGE_START);
 
-        contenedorDetallesCompra.setMaximumSize(new java.awt.Dimension(0, 0));
-        contenedorDetallesCompra.setMinimumSize(new java.awt.Dimension(0, 0));
         contenedorDetallesCompra.setOpaque(false);
-        contenedorDetallesCompra.setPreferredSize(new java.awt.Dimension(0, 0));
         contenedorDetallesCompra.setLayout(new javax.swing.BoxLayout(contenedorDetallesCompra, javax.swing.BoxLayout.Y_AXIS));
         contenedorGlobalDetallesCompra.add(contenedorDetallesCompra, java.awt.BorderLayout.CENTER);
 
@@ -272,6 +269,12 @@ public class FilaTablaCompras extends javax.swing.JPanel {
 
         add(contenedorFila);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
+        boolean isVisibleDetalles = contenedorGlobalDetallesCompra.isVisible();
+        contenedorGlobalDetallesCompra.setVisible(!isVisibleDetalles);
+        redibujarPanel();
+    }//GEN-LAST:event_btnVerDetallesActionPerformed
 
     /*
     ============================================================================
@@ -351,12 +354,11 @@ public class FilaTablaCompras extends javax.swing.JPanel {
             contenedorDetallesCompra.add(fila);
         });
         
-        redibujarPanel();
     }
     
     private void redibujarPanel(){
-        contenedorGlobalDetallesCompra.revalidate();
-        contenedorGlobalDetallesCompra.repaint();
+        this.revalidate();
+        this.repaint();
     }
     
     
