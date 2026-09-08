@@ -33,21 +33,27 @@ public class ServicioCompras {
         
         String sentenciaSQL = 
                 "SELECT\n" +
-        "    comp.id_compra AS 'id',\n" +
-        "    comp.fecha_hora_compra AS 'fecha',\n" +
-        "    comp.total_compra AS 'total',\n" +
-        "    pv.nombre_comercial AS 'nombreProveedor',\n" +
-        "    us.alias_usuario AS 'aliasUsuario'\n" +
-        "FROM\n" +
-        "    compras comp\n" +
-        "INNER JOIN \n" +
-        "    proveedores pv\n" +
-        "ON comp.id_proveedor = pv.id_proveedor\n" +
-        "INNER JOIN\n" +
-        "    usuarios us\n" +
-        "ON\n" +
-        "    comp.id_usuario = us.id_usuario\n" +
-        "ORDER BY 1 ASC;";
+                "    comp.id_compra AS 'id',\n" +
+                "    comp.fecha_hora_compra AS 'fecha',\n" +
+                "    comp.total_compra AS 'total',\n" +
+                "    pv.nombre_comercial AS 'nombreProveedor',\n" +
+                "    us.alias_usuario AS 'aliasUsuario'\n" +
+                "FROM\n" +
+                "    compras comp\n" +
+                "INNER JOIN \n" +
+                "    proveedores pv\n" +
+                "ON comp.id_proveedor = pv.id_proveedor\n" +
+                "INNER JOIN\n" +
+                "    usuarios us\n" +
+                "ON\n" +
+                "    comp.id_usuario = us.id_usuario\n" +
+                "ORDER BY comp.id_compra DESC";
+        /*
+        TODO: Se ordena de forma descendente con respecto al id de la compra,
+        asumiendo que la fecha corresponde a ese orden, en dado caso que el usuario
+        necesite registrar una compra con una fecha anterior a las ultimas registradas
+        se deberia pensar en ordenar por fecha.
+        */
         
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
@@ -88,7 +94,7 @@ public class ServicioCompras {
         for(int i=0; i<diccionarioCompras.size()-1; i++){
             sentenciaSQL+= "? ," ;
         }
-            sentenciaSQL+= "? )\n ORDER BY 1";
+            sentenciaSQL+= "? )\n ORDER BY det.id_compra DESC, det.id_detalle_compra ASC";
         
         try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
         
@@ -148,7 +154,7 @@ public class ServicioCompras {
                 "        us.alias_usuario LIKE ? OR\n" +
                 "        prod.nombre_producto LIKE ?\n" +
                 "      )" +
-                "\n ORDER BY 1";
+                "\n ORDER BY comp.id_compra DESC, det.id_detalle_compra ASC";
         
         filtro = "%" + filtro + "%";
         
@@ -223,7 +229,8 @@ public class ServicioCompras {
                 "INNER JOIN detalle_de_compras det ON comp.id_compra = det.id_compra\n" +
                 "INNER JOIN productos prod         ON det.id_producto = prod.id_producto\n" +
                 "WHERE\n" +
-                "    comp.id_compra = ?";
+                "    comp.id_compra = ? "+
+                "ORDER BY det.id_detalle_compra ASC";
         
         try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
         
@@ -287,7 +294,8 @@ public class ServicioCompras {
                 "FROM    compras comp\n" +
                 "INNER JOIN detalle_de_compras det ON comp.id_compra = det.id_compra\n" +
                 "WHERE\n" +
-                "    comp.id_compra = ?";
+                "    comp.id_compra = ? "+
+                "ORDER BY det.id_detalle_compra ASC";
         
         try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
         

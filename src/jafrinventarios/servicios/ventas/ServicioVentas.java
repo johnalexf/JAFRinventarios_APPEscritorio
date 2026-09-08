@@ -48,7 +48,7 @@ public class ServicioVentas {
                 "    usuarios us\n" +
                 "ON\n" +
                 "    ven.id_usuario = us.id_usuario\n" +
-                "ORDER BY 1 ASC";
+                "ORDER BY ven.id_venta DESC";
         
         try(
             PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
@@ -89,7 +89,7 @@ public class ServicioVentas {
         for(int i=0; i<diccionarioVentas.size()-1; i++){
             sentenciaSQL+= "? ," ;
         }
-            sentenciaSQL+= "? )\n ORDER BY 1";
+            sentenciaSQL+= "? )\n ORDER BY det.id_venta DESC, det.id_detalle_venta ASC";
         
         try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
         
@@ -150,7 +150,7 @@ public class ServicioVentas {
                 "        us.alias_usuario LIKE ? OR\n" +
                 "        prod.nombre_producto LIKE ?\n" +
                 "      )\n" +
-                "ORDER BY 1";
+                "ORDER BY ven.id_venta DESC, det.id_detalle_venta ASC";
         
         filtro = "%" + filtro + "%";
         
@@ -226,7 +226,8 @@ public class ServicioVentas {
                 "INNER JOIN detalle_de_ventas det  ON ven.id_venta = det.id_venta\n" +
                 "INNER JOIN productos prod         ON det.id_producto = prod.id_producto\n" +
                 "WHERE\n" +
-                "    ven.id_venta = ?";
+                "    ven.id_venta = ? "+
+                "ORDER BY det.id_detalle_venta ASC";
         
         try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
         
@@ -290,7 +291,8 @@ public class ServicioVentas {
                 "FROM    ventas ven\n" +
                 "INNER JOIN detalle_de_ventas det  ON ven.id_venta = det.id_venta\n" +
                 "WHERE\n" +
-                "    ven.id_venta = ?";
+                "    ven.id_venta = ? "+
+                "ORDER BY det.id_detalle_venta ASC";
         
         try(PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
         
