@@ -2,6 +2,7 @@
 package jafrinventarios.vistas.compras.dialogoCompra;
 
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
+import jafrinventarios.vistas.utilidades.componentes.SelectorFechaHora;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import java.awt.Window;
@@ -33,6 +34,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     public DialogoFormularioCompra( Window parent, TipoDialogo tipoDialogo) {
         super(parent);
         initComponents();
+        
+        new SelectorFechaHora(inputFechaYHora);
         
         if(tipoDialogo == TipoDialogo.CREAR_NUEVA_COMPRA){
             tituloFormulario.setText("Crear compra");
@@ -85,6 +88,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         comboBoxProveedores = new javax.swing.JComboBox<>();
         contenedorFecha = new javax.swing.JPanel();
         lblTituloFecha = new javax.swing.JLabel();
+        inputFechaYHora = new javax.swing.JTextField();
         contenedorGlobalDetalles = new javax.swing.JPanel();
         contenedorHeaderDetalles = new javax.swing.JPanel();
         lblTituloDetalles = new javax.swing.JLabel();
@@ -242,8 +246,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorUsuario.add(lblTituloUsuario, gridBagConstraints);
 
-        lblDatoUsuario.setText("John Forero");
         lblDatoUsuario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblDatoUsuario.setText("John Forero");
         lblDatoUsuario.setMaximumSize(new java.awt.Dimension(0, 0));
         lblDatoUsuario.setMinimumSize(new java.awt.Dimension(0, 0));
         lblDatoUsuario.setPreferredSize(new java.awt.Dimension(0, 34));
@@ -259,7 +263,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.5;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         contenedorIDComprayUsuario.add(contenedorUsuario, gridBagConstraints);
 
@@ -270,8 +274,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorProveedorYFecha.setLayout(new java.awt.GridBagLayout());
 
         contenedorProveedor.setMinimumSize(new java.awt.Dimension(0, 0));
-        contenedorProveedor.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorProveedor.setOpaque(false);
+        contenedorProveedor.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorProveedor.setLayout(new java.awt.GridBagLayout());
 
         lblTituloProveedor.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -313,8 +317,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorProveedorYFecha.add(contenedorProveedor, gridBagConstraints);
 
         contenedorFecha.setMinimumSize(new java.awt.Dimension(0, 0));
-        contenedorFecha.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorFecha.setOpaque(false);
+        contenedorFecha.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorFecha.setLayout(new java.awt.GridBagLayout());
 
         lblTituloFecha.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -333,11 +337,25 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorFecha.add(lblTituloFecha, gridBagConstraints);
 
+        inputFechaYHora.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputFechaYHora.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inputFechaYHora.setToolTipText("");
+        inputFechaYHora.setMaximumSize(new java.awt.Dimension(0, 0));
+        inputFechaYHora.setMinimumSize(new java.awt.Dimension(0, 0));
+        inputFechaYHora.setPreferredSize(new java.awt.Dimension(0, 34));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorFecha.add(inputFechaYHora, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.5;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         contenedorProveedorYFecha.add(contenedorFecha, gridBagConstraints);
 
@@ -475,16 +493,16 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorBtnAgregarProducto.setOpaque(false);
         contenedorBtnAgregarProducto.setLayout(new javax.swing.BoxLayout(contenedorBtnAgregarProducto, javax.swing.BoxLayout.LINE_AXIS));
 
-        btnAgregarProducto.setText("Agregar Producto");
         btnAgregarProducto.setBackground(new java.awt.Color(30, 166, 177));
-        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarProducto.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         btnAgregarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarProducto.setText("Agregar Producto");
+        btnAgregarProducto.setToolTipText("");
+        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarProducto.setMargin(new java.awt.Insets(6, 12, 6, 12));
         btnAgregarProducto.setMaximumSize(new java.awt.Dimension(180, 38));
         btnAgregarProducto.setMinimumSize(new java.awt.Dimension(180, 38));
         btnAgregarProducto.setPreferredSize(new java.awt.Dimension(180, 38));
-        btnAgregarProducto.setToolTipText("");
         contenedorBtnAgregarProducto.add(btnAgregarProducto);
 
         contenedorGlobalDetalles.add(contenedorBtnAgregarProducto, java.awt.BorderLayout.PAGE_END);
@@ -517,16 +535,16 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorBotonesCRUD.setOpaque(false);
         contenedorBotonesCRUD.setLayout(new java.awt.GridBagLayout());
 
-        btnEnviarFormulario.setText("Actualizar");
         btnEnviarFormulario.setBackground(new java.awt.Color(30, 166, 177));
-        btnEnviarFormulario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEnviarFormulario.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         btnEnviarFormulario.setForeground(new java.awt.Color(255, 255, 255));
+        btnEnviarFormulario.setText("Actualizar");
+        btnEnviarFormulario.setToolTipText("");
+        btnEnviarFormulario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEnviarFormulario.setMargin(new java.awt.Insets(6, 12, 6, 12));
         btnEnviarFormulario.setMaximumSize(new java.awt.Dimension(200, 40));
         btnEnviarFormulario.setMinimumSize(new java.awt.Dimension(200, 40));
         btnEnviarFormulario.setPreferredSize(new java.awt.Dimension(200, 40));
-        btnEnviarFormulario.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -613,6 +631,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     private javax.swing.JPanel contenedorTitulosTabla;
     private javax.swing.JPanel contenedorTotal;
     private javax.swing.JPanel contenedorUsuario;
+    private javax.swing.JTextField inputFechaYHora;
     private javax.swing.JLabel lblDatoId;
     private javax.swing.JLabel lblDatoTotal;
     private javax.swing.JLabel lblDatoUsuario;
