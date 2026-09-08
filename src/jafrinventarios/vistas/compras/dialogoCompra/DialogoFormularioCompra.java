@@ -85,7 +85,6 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         comboBoxProveedores = new javax.swing.JComboBox<>();
         contenedorFecha = new javax.swing.JPanel();
         lblTituloFecha = new javax.swing.JLabel();
-        selectorFechaYHora = new com.github.lgooddatepicker.components.DateTimePicker();
         contenedorGlobalDetalles = new javax.swing.JPanel();
         contenedorHeaderDetalles = new javax.swing.JPanel();
         lblTituloDetalles = new javax.swing.JLabel();
@@ -291,9 +290,9 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorProveedor.add(lblTituloProveedor, gridBagConstraints);
 
+        comboBoxProveedores.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         comboBoxProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Proveedor" }));
         comboBoxProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        comboBoxProveedores.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         comboBoxProveedores.setMinimumSize(new java.awt.Dimension(0, 0));
         comboBoxProveedores.setName("proveedor"); // NOI18N
         comboBoxProveedores.setPreferredSize(new java.awt.Dimension(0, 34));
@@ -333,17 +332,6 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorFecha.add(lblTituloFecha, gridBagConstraints);
-
-        selectorFechaYHora.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        selectorFechaYHora.setMinimumSize(new java.awt.Dimension(0, 0));
-        selectorFechaYHora.setPreferredSize(new java.awt.Dimension(0, 34));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 3.0;
-        gridBagConstraints.weighty = 1.0;
-        contenedorFecha.add(selectorFechaYHora, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -642,7 +630,6 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     private javax.swing.JLabel lblTituloUsuario;
     private javax.swing.Box.Filler margin_left;
     private javax.swing.JScrollPane panelScrollDetalles;
-    private com.github.lgooddatepicker.components.DateTimePicker selectorFechaYHora;
     private javax.swing.JLabel tituloFormulario;
     // End of variables declaration//GEN-END:variables
 }
