@@ -3,7 +3,6 @@ package jafrinventarios.vistas.compras;
 
 import jafrinventarios.vistas.utilidades.componentes.EfectoHoverPanel;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import javax.swing.JButton;
 
 /**
@@ -20,6 +19,7 @@ public class FilaTablaCompras extends javax.swing.JPanel {
         
         EfectoHoverPanel.aplicarEfecto(contenedorDatosGenerales);
         contenedorGlobalDetallesCompra.setVisible(false);
+        redibujarPanel(false);
         
     }
 
@@ -273,7 +273,7 @@ public class FilaTablaCompras extends javax.swing.JPanel {
     private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
         boolean isVisibleDetalles = contenedorGlobalDetallesCompra.isVisible();
         contenedorGlobalDetallesCompra.setVisible(!isVisibleDetalles);
-        redibujarPanel();
+        redibujarPanel( contenedorGlobalDetallesCompra.isVisible() );
     }//GEN-LAST:event_btnVerDetallesActionPerformed
 
     /*
@@ -356,7 +356,13 @@ public class FilaTablaCompras extends javax.swing.JPanel {
         
     }
     
-    private void redibujarPanel(){
+    private void redibujarPanel( boolean isVisibleDetalles ){
+        if(isVisibleDetalles)
+            setMaximumSize(null);
+        else
+            //Solucion para que cuando se muestran poquitas compras mantenga su altura de 60 y no se expandan a lo alto
+            setMaximumSize(new java.awt.Dimension(32767, 60)); 
+        
         this.revalidate();
         this.repaint();
     }
