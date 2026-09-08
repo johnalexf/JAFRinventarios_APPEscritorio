@@ -209,12 +209,10 @@ public class ControladorCompras {
        
     private void crearCompra(){
 
-//        int idCompraCreada = ControladorDialogoCompras.crearCompra( 
-//                        panelCompras.getVentanaPadre() , 
-//                        servicioCompras
-//        );
-        //TODO: Eliminar hasta que se cree el controladorDialogoCompras
-        int idCompraCreada = -1;
+        int idCompraCreada = ControladorDialogoCompra.crearCompra( 
+                        panelCompras.getVentanaPadre() , 
+                        servicioCompras
+        );
         
         if(idCompraCreada != -1){
             
@@ -244,11 +242,10 @@ public class ControladorCompras {
         
     private void editarCompra( Integer idCompra ){
         
-        ResultadoDialogo resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
-//                ControladorDialogoCompra.editarCompra(
-//                    panelCompras.getVentanaPadre() , idCompra, servicioCompras
-//                );
-// TODO: Adecuar cuando se construya el controladorDialogoCompra
+        ResultadoDialogo resultadoOperacion = 
+                ControladorDialogoCompra.editarCompra(
+                    panelCompras.getVentanaPadre() , idCompra, servicioCompras
+                );
         
         if( resultadoOperacion == ResultadoDialogo.ACTUALIZADO ){  
             try {
