@@ -240,7 +240,7 @@ public class ComprasPanel extends javax.swing.JPanel {
     una nueva compra
     */
     public void inyectarNuevaFila( FilaTablaCompras fila ){
-        contenedorContenidoTabla.add(fila);
+        contenedorContenidoTabla.add(fila, 0);
         redibujarPanel();
     }
     
@@ -262,7 +262,7 @@ public class ComprasPanel extends javax.swing.JPanel {
         Metodos para dialogos de mensajes de Alertas
     */
      
-    // Metodo para optener cual es el frame padre de la vista JPanel modulo de productos
+    // Metodo para optener cual es el frame padre de la vista JPanel modulo de compras
     public java.awt.Window getVentanaPadre(){
         return javax.swing.SwingUtilities.getWindowAncestor( this );
     }
