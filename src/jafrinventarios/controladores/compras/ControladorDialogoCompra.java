@@ -24,6 +24,9 @@ public class ControladorDialogoCompra {
     
     private ModeloCompra modeloCompra;
     
+    private LinkedHashMap<Integer, DTOProductoPrecio> diccionarioProductosPrecio;
+    private LinkedHashMap< Integer, String > diccionarioProductosId;
+    
     /*
     Variable que en el caso de editar tendra el id del registro a modificar
     pero en el case de crear guardara el id de la compra creada.
@@ -52,9 +55,19 @@ public class ControladorDialogoCompra {
         this.tipoDialogo = tipoDialogo;
         this.idCompra = idCompra;
         
+        this.diccionarioProductosPrecio = new LinkedHashMap<>();
+        this.diccionarioProductosId = new LinkedHashMap<>();
+        
+        configuracionInicial();
+        
         this.dialogoCompra.mostrar();
     }
     
+    private void configuracionInicial(){
+    
+        inicializarComboBoxProveedores( tipoDialogo == TipoDialogo.CREAR_NUEVA_COMPRA );
+        
+    }
     
     /*
     ============================================================================
@@ -130,5 +143,47 @@ public class ControladorDialogoCompra {
     }
     
   
+    /*
+    ============================================================================
+        METODOS PARA RECOLECTAR LA INFORMACION QUE ENTREGA LOS SERVICIOS
+    ============================================================================
+    */
+    private void inicializarComboBoxProveedores( boolean soloHabilitados ){
+        try {
+            LinkedHashMap<Integer, String> diccionarioProveedores = obtenerDiccionarioProveedores(soloHabilitados);
+            if( diccionarioProveedores.isEmpty() )
+                dialogoCompra.mostrarAlertaAdvertenciaSinRespuesta(
+                        "Para poder crear una compra, debe existir por lo menos un proveedor\n"
+                        + "Por favor dirigete a la seccion de proveedores y crea uno."
+                );
+            else
+                dialogoCompra.inicializarComboBoxProveedores(diccionarioProveedores);        
+        } catch (Exception e) {
+            dialogoCompra.mostrarAlertaError(e.getMessage());
+        }
+    }
     
+    
+    private void inicializarDiccionariosProductos( int idProveedor ){
+        
+        try {
+            diccionarioProductosPrecio = obtenerDTOProductosPrecio(
+                                            tipoDialogo == TipoDialogo.CREAR_NUEVA_COMPRA, 
+                                            idProveedor);
+            if( diccionarioProductosPrecio.isEmpty() )
+                dialogoCompra.mostrarAlertaAdvertenciaSinRespuesta(
+                        "Aun no hay productos relacionados al proveedor seleccionado\n"
+                        + "Por favor dirigete a la seccion de productos y cree los productos relacionandolo con el proveedor."
+                );
+            else
+                diccionarioProductosPrecio.forEach(
+                        (idProducto, producto) -> {
+                            diccionarioProductosId.put(idProducto, producto.getNombreProducto());
+                        }
+                );
+        } catch (Exception e) {
+            dialogoCompra.mostrarAlertaError(e.getMessage());
+        }
+    
+    }
 }

@@ -93,6 +93,8 @@ public class ServicioProductos {
                 "    productos\n";
         if(soloHabilitados)
             sentenciaSQL +=  "WHERE  habilitado = 1 AND id_proveedor = ?";
+        else
+            sentenciaSQL +=  "WHERE id_proveedor = ? ";
         
         sentenciaSQL +=  "\n ORDER BY 2" ;
         
