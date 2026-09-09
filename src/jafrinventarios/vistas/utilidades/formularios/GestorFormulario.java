@@ -83,6 +83,24 @@ public class GestorFormulario {
         );
     }
     
+    
+    /*
+    Metodo para agregar un input de texto, que sea destinado para validar
+    formato de fecha y que esta no sea futura
+    */
+    public void agregarCampoFechaHora(
+                                javax.swing.JTextField inputFechaHora, 
+                                JLabel lblError,
+                                boolean esObligatorio ){
+        validarNombreEnComponente( inputFechaHora );
+        
+        listaCamposFormulario.put(
+                inputFechaHora.getName(), 
+                new CampoFechaHora(inputFechaHora, lblError, esObligatorio)
+        );
+    }
+    
+    
     //Metodo para eliminar cualquier campo guardado por medio de el atributo name
     public void eliminarCualquierCampo(JComponent campo){
         
