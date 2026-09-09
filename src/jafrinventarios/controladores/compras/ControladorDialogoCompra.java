@@ -1,11 +1,15 @@
 
 package jafrinventarios.controladores.compras;
 
+import jafrinventarios.DTOs.productos.DTOProductoPrecio;
 import jafrinventarios.controladores.utilidades.ResultadoDialogo;
 import jafrinventarios.modelos.compras.ModeloCompra;
 import jafrinventarios.servicios.compras.ServicioCompras;
+import jafrinventarios.servicios.productos.ServicioProductos;
+import jafrinventarios.servicios.proveedores.ServicioProveedores;
 import jafrinventarios.vistas.compras.dialogoCompra.DialogoFormularioCompra;
 import jafrinventarios.vistas.compras.dialogoCompra.DialogoFormularioCompra.TipoDialogo;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -94,5 +98,37 @@ public class ControladorDialogoCompra {
         return controlador.idCompra;
     
     }
+    
+    /*
+    ============================================================================
+                METODOS PARA CONSULTAR A LOS SERVICIOS
+    ============================================================================
+    */
+    
+    private LinkedHashMap<Integer, String> obtenerDiccionarioProveedores(boolean soloHabilitados) throws Exception{
+        return ServicioProveedores.obtenerDiccionarioProveedores(soloHabilitados);
+    }
+    
+    private LinkedHashMap<Integer, DTOProductoPrecio> obtenerDTOProductosPrecio(boolean soloHabilitados, int idProveedor) throws Exception{
+        return ServicioProductos.obtenerProductosConPrecioCompra(soloHabilitados, idProveedor);
+    }
+    
+    private ModeloCompra obtenerModeloCompra( Integer idCompra ) throws Exception{
+        return servicioCompras.obtenerModeloCompra(idCompra);
+    }
+    
+    private int crearCompra( ModeloCompra compra ) throws Exception{
+        return servicioCompras.crearCompra(compra);
+    }
+    
+    private void editarCompra( ModeloCompra compra ) throws Exception{
+        servicioCompras.editarCompra(compra);
+    }
+    
+    private void eliminarCompra( int idCompra )throws Exception{
+        servicioCompras.eliminarCompra(idCompra);
+    }
+    
+  
     
 }
