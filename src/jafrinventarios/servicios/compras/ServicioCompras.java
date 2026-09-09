@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -65,7 +66,7 @@ public class ServicioCompras {
                         respuesta.getInt("id"), 
                         new DTOCompraTabla(
                                 respuesta.getInt("id"),
-                                respuesta.getTimestamp("fecha"),
+                                respuesta.getObject("fecha", LocalDateTime.class),
                                 respuesta.getDouble("total"),
                                 respuesta.getString("nombreProveedor"),
                                 respuesta.getString("aliasUsuario")
@@ -173,7 +174,7 @@ public class ServicioCompras {
                                 respuesta.getInt("idCompra"), 
                                 new DTOCompraTabla(
                                     respuesta.getInt("idCompra"),
-                                    respuesta.getTimestamp("fecha"),
+                                    respuesta.getObject("fecha", LocalDateTime.class),
                                     respuesta.getDouble("totalCompra"),
                                     respuesta.getString("nombreProveedor"),
                                     respuesta.getString("aliasUsuario")
@@ -241,7 +242,7 @@ public class ServicioCompras {
                 if ( respuesta.next() ) { 
                     compra = new DTOCompraTabla(
                             respuesta.getInt("idCompra"),
-                            respuesta.getTimestamp("fecha"),
+                            respuesta.getObject("fecha", LocalDateTime.class),
                             respuesta.getDouble("totalCompra"),
                             respuesta.getString("nombreProveedor"),
                             respuesta.getString("aliasUsuario")
@@ -306,7 +307,7 @@ public class ServicioCompras {
                 if ( respuesta.next() ) { 
                     compra = new ModeloCompra(
                             respuesta.getInt("idCompra"),
-                            respuesta.getTimestamp("fecha"),
+                            respuesta.getObject("fecha", LocalDateTime.class),
                             respuesta.getDouble("totalCompra"),
                             respuesta.getInt("idProveedor"),
                             respuesta.getInt("idUsuario")
@@ -486,8 +487,7 @@ public class ServicioCompras {
 
         try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL , Statement.RETURN_GENERATED_KEYS)){
 
-            java.sql.Timestamp fecha = new java.sql.Timestamp( compra.getFechaHoraCompra().getTime());
-            consulta.setTimestamp(1, fecha);
+            consulta.setObject(1, compra.getFechaHoraCompra());
             consulta.setDouble(2, compra.getTotalCompra());
             consulta.setInt(3, compra.getIdProveedor());
             consulta.setInt(4, compra.getIdUsuario());
@@ -593,8 +593,7 @@ public class ServicioCompras {
 
         try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
 
-            java.sql.Timestamp fecha = new java.sql.Timestamp( compra.getFechaHoraCompra().getTime());
-            consulta.setTimestamp(1, fecha);
+            consulta.setObject(1, compra.getFechaHoraCompra());
             consulta.setDouble(2, compra.getTotalCompra());
             consulta.setInt(3, compra.getIdProveedor());
             consulta.setInt(4, compra.getIdUsuario());

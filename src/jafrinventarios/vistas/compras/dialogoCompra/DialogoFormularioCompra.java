@@ -619,6 +619,13 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         this.dispose();
     }//GEN-LAST:event_btnCerrarcerrarDialogo
 
+        /*
+    Metodo para estandarizar la conversion de un precio con su simbolo
+    */
+    private String precioAString ( double precio ){
+        return String.format("$%.2f", precio);
+    }
+    
     
     /*
     ============================================================================
@@ -633,6 +640,10 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     
     public void setAliasUsuario( String aliasUsuario ){
         lblDatoUsuario.setText( aliasUsuario );
+    }
+    
+    public void setTotalCompra( double total){
+        lblDatoTotal.setText( precioAString(total) );
     }
     
     

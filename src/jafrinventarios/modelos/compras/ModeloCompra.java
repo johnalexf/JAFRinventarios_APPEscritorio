@@ -1,6 +1,7 @@
 
 package jafrinventarios.modelos.compras;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class ModeloCompra {
     
     private Integer idCompra;
-    private Date fechaHoraCompra;
+    private LocalDateTime fechaHoraCompra;
     private double totalCompra;
     private Integer idProveedor;
     private Integer idUsuario;
@@ -32,7 +33,7 @@ public class ModeloCompra {
     //Constructor para recolectar la consulta a la base de datos y poder editar el registro
     public ModeloCompra(    
                     Integer idCompra,
-                    Date fechaHoraCompra, 
+                    LocalDateTime fechaHoraCompra, 
                     double totalCompra, 
                     Integer idProveedor, 
                     Integer idUsuario) {
@@ -54,7 +55,7 @@ public class ModeloCompra {
         return idCompra;
     }
 
-    public Date getFechaHoraCompra() {
+    public LocalDateTime getFechaHoraCompra() {
         return fechaHoraCompra;
     }
 
@@ -84,7 +85,7 @@ public class ModeloCompra {
         this.idCompra = idCompra;
     }
     
-    public void setFechaHoraCompra(Date fechaHoraCompra) {
+    public void setFechaHoraCompra(LocalDateTime fechaHoraCompra) {
         this.fechaHoraCompra = fechaHoraCompra;
     }
 

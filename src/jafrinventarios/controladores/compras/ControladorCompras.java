@@ -12,6 +12,7 @@ import jafrinventarios.vistas.compras.ComprasPanel;
 import jafrinventarios.vistas.compras.FilaTablaCompras;
 import jafrinventarios.vistas.compras.FilaTablaDetalleCompra;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -123,11 +124,11 @@ public class ControladorCompras {
     ============================================================================
     */
     private FilaTablaCompras asignarDatosAFilaCompra ( FilaTablaCompras filaCompra, DTOCompraTabla datosCompra ){
-        SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
         filaCompra.setDatos(
             datosCompra.getIdCompra(),
             datosCompra.getNombreComercialProveedor(),
-            formateador.format( datosCompra.getFechaHoraCompra()),
+            datosCompra.getFechaHoraCompra().format(formateador),
             datosCompra.getTotalCompra(),
             datosCompra.getAliasUsuario()            
         );

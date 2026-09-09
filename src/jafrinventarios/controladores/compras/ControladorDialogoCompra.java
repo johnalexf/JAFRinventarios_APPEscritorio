@@ -11,6 +11,7 @@ import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.compras.dialogoCompra.DialogoFormularioCompra;
 import jafrinventarios.vistas.compras.dialogoCompra.DialogoFormularioCompra.TipoDialogo;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -66,33 +67,46 @@ public class ControladorDialogoCompra {
         this.dialogoCompra.mostrar();
     }
     
+    
     private void configuracionInicial(){
     
         inicializarComboBoxProveedores( tipoDialogo == TipoDialogo.CREAR_NUEVA_COMPRA );
         
         if( tipoDialogo == TipoDialogo.EDITAR_COMPRA ){
             try {
+                
                 modeloCompra = obtenerModeloCompra(idCompra);
                 
-                dialogoCompra.setIdCompra(idCompra);
-                
-                String aliasUsuario = obtenerAliasUsuario(modeloCompra.getIdUsuario());
-                dialogoCompra.setAliasUsuario(aliasUsuario);
-                
-                DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
-                
-// Pendiente adecuar la fecha en el ModeloCompra para habilitar esta seccion
-//                dialogoCompra.asignarDatosEnFormulario(
-//                        Map.of("proveedor", String.valueOf(modeloCompra.getIdProveedor()), 
-//                                "fechaHora", modeloCompra.getFechaHoraCompra().format(formatoFecha))
-//                        )
-//                );
+                cargarDatosAVista();
                 
             } catch (Exception e) {
                 dialogoCompra.mostrarAlertaError(e.getMessage());
             }
         }
         
+        dialogoCompra.inicializarSelectorFechaHora();
+        
+    }
+    
+    
+    private void cargarDatosAVista() throws Exception{
+        
+        dialogoCompra.setIdCompra(idCompra);
+
+        String aliasUsuario = obtenerAliasUsuario(modeloCompra.getIdUsuario());
+        dialogoCompra.setAliasUsuario(aliasUsuario);
+
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
+
+        dialogoCompra.asignarDatosEnFormulario(
+                new HashMap<>(
+                    Map.of("proveedor", String.valueOf(modeloCompra.getIdProveedor()), 
+                            "fechaHora", modeloCompra.getFechaHoraCompra().format(formateador)
+                    )
+                )
+        );
+
+        dialogoCompra.setTotalCompra( modeloCompra.getTotalCompra());
     }
     
     /*
