@@ -19,8 +19,8 @@ import raven.datetime.TimePicker;
 public class SelectorFechaHora {
     
     // Variables internas para llevar el rastro de los valores elegidos
-    private LocalDate fechaSeleccionada = LocalDate.now();
-    private LocalTime horaSeleccionada = LocalTime.now();
+    private LocalDate fechaSeleccionada;
+    private LocalTime horaSeleccionada;
     private final JTextField campoTextoDestino;
 
     /**
@@ -29,14 +29,19 @@ public class SelectorFechaHora {
      */
     public SelectorFechaHora(JTextField campoTexto) {
         this.campoTextoDestino = campoTexto;
-        this.campoTextoDestino.setEditable(false); // Evita que escriban letras a mano
-        this.campoTextoDestino.setBackground(Color.WHITE);
+
+        configurarEstilosCampoTexto();
         
-        // Inicializar el campo con la fecha y hora de este momento
-        actualizarTextoCampo();
+        // Inicializar el campo con la fecha y hora
+        asignarFechaInicial();
         
         // Configurar e iniciar los componentes flotantes
         configurarSelectorFlotante();
+    }
+    
+    public void configurarEstilosCampoTexto(){
+        campoTextoDestino.setEditable(false); // Evita que escriban letras a mano
+        campoTextoDestino.setBackground(Color.WHITE);
     }
 
     private void configurarSelectorFlotante() {
@@ -49,6 +54,9 @@ public class SelectorFechaHora {
         
         // Configurar el reloj para use formato de 12 horas (AM/PM)
         timePicker.set24HourView(false); // Desactiva las 24 horas para un diseño más limpio
+        
+        datePicker.setSelectedDate(fechaSeleccionada);
+        timePicker.setSelectedTime(horaSeleccionada);
 
         // 2. Colocar lado a lado: 1 fila, 2 columnas, con 10px de espacio entre ellos
         JPanel panelContenedor = new JPanel(new GridLayout(1, 2, 10, 0));
@@ -88,10 +96,10 @@ public class SelectorFechaHora {
                 // Calcular la posición X para que quede centrado respecto al campo de texto
                 int campoAncho = campoTextoDestino.getWidth();
                 int popupAncho = panelContenedor.getWidth();
-                int posXCentrada = (campoAncho / 2) - (popupAncho / 2);
+                int posXInicial = (campoAncho / 2) - (popupAncho / 2);
                 
                 // Muestra el popup centrado horizontalmente justo debajo del campo
-                popupFlotante.show(campoTextoDestino, posXCentrada, campoTextoDestino.getHeight());
+                popupFlotante.show(campoTextoDestino, posXInicial, campoTextoDestino.getHeight());
             }
         });
     }
@@ -101,5 +109,31 @@ public class SelectorFechaHora {
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("hh:mm a");
         campoTextoDestino.setText(fechaSeleccionada.format(formatoFecha) + " " + horaSeleccionada.format(formatoHora));
+    }
+    
+    private void asignarFechaInicial() {
+        String textoActual = campoTextoDestino.getText().trim();
+        
+        if (!textoActual.isEmpty()) {
+            try {
+                // Si hay texto lo parseamos
+                DateTimeFormatter formatoGlobal = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
+                java.time.LocalDateTime dt = java.time.LocalDateTime.parse(textoActual, formatoGlobal);
+                this.fechaSeleccionada = dt.toLocalDate();
+                this.horaSeleccionada = dt.toLocalTime();
+            } catch (Exception e) {
+                // Si el formato es erróneo, asignamos fecha de hoy.
+                asignarFechaHoy();
+            }
+        } else {
+            // Si está vacío asignamos fecha de hoy
+            asignarFechaHoy();
+        }
+    }
+    
+    private void asignarFechaHoy(){
+        this.fechaSeleccionada = LocalDate.now();
+        this.horaSeleccionada = LocalTime.now();
+        actualizarTextoCampo();
     }
 }
