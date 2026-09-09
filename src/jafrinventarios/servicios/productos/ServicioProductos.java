@@ -5,6 +5,7 @@
  */
 package jafrinventarios.servicios.productos;
 
+import jafrinventarios.DTOs.productos.DTOProductoPrecio;
 import jafrinventarios.DTOs.productos.DTOProductoTabla;
 import jafrinventarios.modelos.productos.ModeloProducto;
 import jafrinventarios.servicios.ConexionDB;
@@ -33,16 +34,17 @@ public class ServicioProductos {
     Metodo estatico para no instanciar el servicio para los controladores que 
     solo necesitan de esta funcion
     */ 
-    public static LinkedHashMap<Integer, String> obtenerDiccionarioProductos(boolean soloHabilitados) throws Exception{
+    public static LinkedHashMap<Integer, DTOProductoPrecio> obtenerProductosConPrecioVenta(boolean soloHabilitados) throws Exception{
     
-        LinkedHashMap<Integer, String> diccionarioProductos = new LinkedHashMap<>();
+        LinkedHashMap<Integer, DTOProductoPrecio> diccionarioProductos = new LinkedHashMap<>();
         
         Connection conexionDB = ConexionDB.getConnection();
         
         String sentenciaSQL = 
                 "SELECT\n" +
                 "    id_producto,\n" +
-                "    nombre_producto\n" +
+                "    nombre_producto,\n" +
+                "    precio_venta\n" +
                 "FROM\n" +
                 "    productos\n";
         if(soloHabilitados)
@@ -56,7 +58,60 @@ public class ServicioProductos {
             ){
         
             while( respuesta.next() ){
-                diccionarioProductos.put( respuesta.getInt("id_producto"), respuesta.getString("nombre_producto"));
+                DTOProductoPrecio producto = 
+                        new DTOProductoPrecio(
+                                respuesta.getString("nombre_producto"),
+                                respuesta.getDouble("precio_venta")
+                        );
+                diccionarioProductos.put( respuesta.getInt("id_producto"), 
+                                          producto
+                );
+            }
+        }
+        
+        return diccionarioProductos;
+        
+    }
+    
+    
+        /*
+    Metodo estatico para no instanciar el servicio para los controladores que 
+    solo necesitan de esta funcion
+    */ 
+    public static LinkedHashMap<Integer, DTOProductoPrecio> obtenerProductosConPrecioCompra(boolean soloHabilitados, int idProveedor) throws Exception{
+    
+        LinkedHashMap<Integer, DTOProductoPrecio> diccionarioProductos = new LinkedHashMap<>();
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_producto,\n" +
+                "    nombre_producto,\n" +
+                "    precio_compra\n" +
+                "FROM\n" +
+                "    productos\n";
+        if(soloHabilitados)
+            sentenciaSQL +=  "WHERE  habilitado = 1 AND id_proveedor = ?";
+        
+        sentenciaSQL +=  "\n ORDER BY 2" ;
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+            
+            consulta.setInt(1, idProveedor);
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                
+                while( respuesta.next() ){
+                    DTOProductoPrecio producto = 
+                        new DTOProductoPrecio(
+                                respuesta.getString("nombre_producto"),
+                                respuesta.getDouble("precio_compra")
+                        );
+                    diccionarioProductos.put( respuesta.getInt("id_producto"), 
+                                              producto
+                    );
+                }
             }
         }
         
