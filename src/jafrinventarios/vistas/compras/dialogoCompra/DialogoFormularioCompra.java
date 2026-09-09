@@ -421,7 +421,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorCuerpoDetalles.setLayout(new java.awt.BorderLayout());
 
         contenedorTitulosTabla.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorTitulosTabla.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        contenedorTitulosTabla.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(222, 226, 230)), javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10)));
         contenedorTitulosTabla.setMaximumSize(new java.awt.Dimension(32767, 50));
         contenedorTitulosTabla.setMinimumSize(new java.awt.Dimension(41, 50));
         contenedorTitulosTabla.setPreferredSize(new java.awt.Dimension(0, 50));
@@ -449,6 +449,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 3.0;
         gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         contenedorTitulosTabla.add(lblTituloProducto, gridBagConstraints);
 
         lblTituloCantidad.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -461,6 +462,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 2.0;
         gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         contenedorTitulosTabla.add(lblTituloCantidad, gridBagConstraints);
 
         lblTituloPrecioUnitario.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -507,18 +509,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         panelScrollDetalles.setColumnHeaderView(contenedorTitulosTabla);
 
         contenedorDetalles.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout contenedorDetallesLayout = new javax.swing.GroupLayout(contenedorDetalles);
-        contenedorDetalles.setLayout(contenedorDetallesLayout);
-        contenedorDetallesLayout.setHorizontalGroup(
-            contenedorDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
-        );
-        contenedorDetallesLayout.setVerticalGroup(
-            contenedorDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 228, Short.MAX_VALUE)
-        );
-
+        contenedorDetalles.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        contenedorDetalles.setLayout(new javax.swing.BoxLayout(contenedorDetalles, javax.swing.BoxLayout.Y_AXIS));
         panelScrollDetalles.setViewportView(contenedorDetalles);
 
         contenedorCuerpoDetalles.add(panelScrollDetalles, java.awt.BorderLayout.CENTER);
@@ -526,8 +518,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorGlobalDetalles.add(contenedorCuerpoDetalles, java.awt.BorderLayout.CENTER);
 
         contenedorBtnAgregarProducto.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
-        contenedorBtnAgregarProducto.setPreferredSize(new java.awt.Dimension(0, 50));
         contenedorBtnAgregarProducto.setOpaque(false);
+        contenedorBtnAgregarProducto.setPreferredSize(new java.awt.Dimension(0, 50));
         contenedorBtnAgregarProducto.setLayout(new javax.swing.BoxLayout(contenedorBtnAgregarProducto, javax.swing.BoxLayout.LINE_AXIS));
 
         btnAgregarProducto.setBackground(new java.awt.Color(30, 166, 177));
@@ -552,7 +544,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
         lblTituloTotal.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloTotal.setText("Total :");
-        lblTituloTotal.setPreferredSize(new java.awt.Dimension(48, 50));
+        lblTituloTotal.setPreferredSize(new java.awt.Dimension(50, 50));
         contenedorTotal.add(lblTituloTotal);
 
         lblDatoTotal.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -590,10 +582,10 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.weighty = 1.0;
         contenedorBotonesCRUD.add(btnEnviarFormulario, gridBagConstraints);
 
-        btnLinkEliminarRegistro.setText("Eliminar Compra");
-        btnLinkEliminarRegistro.setAlignmentX(0.5F);
         btnLinkEliminarRegistro.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         btnLinkEliminarRegistro.setForeground(new java.awt.Color(200, 0, 0));
+        btnLinkEliminarRegistro.setText("Eliminar Compra");
+        btnLinkEliminarRegistro.setAlignmentX(0.5F);
         btnLinkEliminarRegistro.setIconTextGap(10);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
