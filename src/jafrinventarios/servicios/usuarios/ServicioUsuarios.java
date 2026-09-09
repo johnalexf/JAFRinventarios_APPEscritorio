@@ -23,6 +23,25 @@ public class ServicioUsuarios {
     
     public ServicioUsuarios() {
     }
+    
+    
+    public static String obtenerAliasUsuario( int idUsuario ) throws Exception{
+    
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = "SELECT alias_usuario FROM usuarios WHERE id_usuario = ?";
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
+            consulta.setInt(1, idUsuario);
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                if(respuesta.next()){
+                    return respuesta.getString("alias_usuario");
+                }else{
+                    throw new Exception("No existe ningun usuario con id : " + idUsuario);
+                }
+            }
+        }
+    }
 
     
     public List<DTOUsuarioTabla> obtenerTodosLosUsuarios() throws Exception{

@@ -62,8 +62,6 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
             contenedorDatosGenerales.setLayout(new java.awt.GridLayout(1, 1));
             btnLinkEliminarRegistro.setVisible(false);
             
-            inicializarSelectorFechaHora();
-            
         }
         
         if(tipoDialogo == TipoDialogo.EDITAR_COMPRA){
@@ -673,9 +671,9 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         comboBoxProveedores.setEnabled(habilitar);
     }
     
-    //Metodo public para cuando el tipo de dialogo es Editar poder inicializar el
-    //Selector de fecha y hora despues de asignar la fecha y hora en el inputFechaHora
-    //Esto permite que el selector se configura con la fecha que tenga el input
+    //Metodo public para que el controlador sea quien inicialice el selector
+    //En dado caso que sea para editar el controlador antes abra asignado la
+    //fecha en el input para que el selector se configure con la misma
     public void inicializarSelectorFechaHora( ){
         new SelectorFechaHora(inputFechaYHora);
     }

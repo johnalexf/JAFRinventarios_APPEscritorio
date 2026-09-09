@@ -7,9 +7,12 @@ import jafrinventarios.modelos.compras.ModeloCompra;
 import jafrinventarios.servicios.compras.ServicioCompras;
 import jafrinventarios.servicios.productos.ServicioProductos;
 import jafrinventarios.servicios.proveedores.ServicioProveedores;
+import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.compras.dialogoCompra.DialogoFormularioCompra;
 import jafrinventarios.vistas.compras.dialogoCompra.DialogoFormularioCompra.TipoDialogo;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  *
@@ -66,6 +69,29 @@ public class ControladorDialogoCompra {
     private void configuracionInicial(){
     
         inicializarComboBoxProveedores( tipoDialogo == TipoDialogo.CREAR_NUEVA_COMPRA );
+        
+        if( tipoDialogo == TipoDialogo.EDITAR_COMPRA ){
+            try {
+                modeloCompra = obtenerModeloCompra(idCompra);
+                
+                dialogoCompra.setIdCompra(idCompra);
+                
+                String aliasUsuario = obtenerAliasUsuario(modeloCompra.getIdUsuario());
+                dialogoCompra.setAliasUsuario(aliasUsuario);
+                
+                DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
+                
+// Pendiente adecuar la fecha en el ModeloCompra para habilitar esta seccion
+//                dialogoCompra.asignarDatosEnFormulario(
+//                        Map.of("proveedor", String.valueOf(modeloCompra.getIdProveedor()), 
+//                                "fechaHora", modeloCompra.getFechaHoraCompra().format(formatoFecha))
+//                        )
+//                );
+                
+            } catch (Exception e) {
+                dialogoCompra.mostrarAlertaError(e.getMessage());
+            }
+        }
         
     }
     
@@ -124,6 +150,10 @@ public class ControladorDialogoCompra {
     
     private LinkedHashMap<Integer, DTOProductoPrecio> obtenerDTOProductosPrecio(boolean soloHabilitados, int idProveedor) throws Exception{
         return ServicioProductos.obtenerProductosConPrecioCompra(soloHabilitados, idProveedor);
+    }
+    
+    private String obtenerAliasUsuario ( int idUsuario ) throws Exception{
+        return ServicioUsuarios.obtenerAliasUsuario(idUsuario);
     }
     
     private ModeloCompra obtenerModeloCompra( Integer idCompra ) throws Exception{
