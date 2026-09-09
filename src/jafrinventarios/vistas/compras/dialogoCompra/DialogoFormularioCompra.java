@@ -3,9 +3,12 @@ package jafrinventarios.vistas.compras.dialogoCompra;
 
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.componentes.SelectorFechaHora;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import java.awt.Window;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.swing.JButton;
 
 /**
@@ -24,6 +27,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     
     private GestorFormulario formularioDatosCompra;
     
+    private TipoDialogo tipoDialogo;
+    
     /*
     ============================================================================
                             CONSTRUCTOR PUBLICO
@@ -34,8 +39,16 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     public DialogoFormularioCompra( Window parent, TipoDialogo tipoDialogo) {
         super(parent);
         initComponents();
+        this.formularioDatosCompra = new GestorFormulario();
+        this.tipoDialogo = tipoDialogo;
         
-        new SelectorFechaHora(inputFechaYHora);
+        configuracionInicial();
+        
+    }
+    
+    private void configuracionInicial(){
+        
+        formularioDatosCompra.agregarCampoFechaHora( inputFechaYHora, lblErrorInputFechaHora, true );
         
         if(tipoDialogo == TipoDialogo.CREAR_NUEVA_COMPRA){
             tituloFormulario.setText("Crear compra");
@@ -49,12 +62,13 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
             contenedorDatosGenerales.setLayout(new java.awt.GridLayout(1, 1));
             btnLinkEliminarRegistro.setVisible(false);
             
+            inicializarSelectorFechaHora();
+            
         }
         
         if(tipoDialogo == TipoDialogo.EDITAR_COMPRA){
             DinamismoLink.aplicarEfecto(btnLinkEliminarRegistro);
         }
-        
     }
 
     /**
@@ -87,7 +101,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         lblTituloProveedor = new javax.swing.JLabel();
         contenedorInputYErrorProveedores = new javax.swing.JPanel();
         comboBoxProveedores = new javax.swing.JComboBox<>();
-        lblErrorInputProveedores = new javax.swing.JLabel();
+        lblErrorComboBoxProveedores = new javax.swing.JLabel();
         contenedorFecha = new javax.swing.JPanel();
         lblTituloFecha = new javax.swing.JLabel();
         contenedorInputYErrorFechaHora = new javax.swing.JPanel();
@@ -311,13 +325,13 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         comboBoxProveedores.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorProveedores.add(comboBoxProveedores, java.awt.BorderLayout.NORTH);
 
-        lblErrorInputProveedores.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        lblErrorInputProveedores.setForeground(new java.awt.Color(179, 38, 30));
-        lblErrorInputProveedores.setAlignmentX(0.5F);
-        lblErrorInputProveedores.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
-        lblErrorInputProveedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblErrorInputProveedores.setPreferredSize(new java.awt.Dimension(0, 17));
-        contenedorInputYErrorProveedores.add(lblErrorInputProveedores, java.awt.BorderLayout.SOUTH);
+        lblErrorComboBoxProveedores.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorComboBoxProveedores.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorComboBoxProveedores.setAlignmentX(0.5F);
+        lblErrorComboBoxProveedores.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorComboBoxProveedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorComboBoxProveedores.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorProveedores.add(lblErrorComboBoxProveedores, java.awt.BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -614,6 +628,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     ============================================================================
     */
     
+    
     public void setIdCompra( Integer id ){
         lblDatoId.setText( Integer.toString(id) );
     }
@@ -633,6 +648,108 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     public JButton getBtnLinkEliminarRegistro(){
         return btnLinkEliminarRegistro;
     }
+    
+    
+    //Exponer inicializar el combo box esperando la lista de proveedores a asignar
+    public void inicializarComboBoxProveedores ( LinkedHashMap<Integer, String> diccionarioProveedores ) {
+        
+        formularioDatosCompra.agregarCampoComboBox(
+                                                comboBoxProveedores,
+                                                "Proveedor",
+                                                diccionarioProveedores, 
+                                                lblErrorComboBoxProveedores, 
+                                                true);
+        
+    }
+    
+    /*
+    Metodo para que despues de el usuario haya seleccionado un proveedor y
+    halla agregado la primera fila de productos, se deshabilido el combobox
+    ya que los productos que se muestren depende del proveedor que seleccione
+    esto evita que el usuario llegue a seleccionar otro proveedor cuando ya
+    tiene productos seleccionados
+    */
+    public void setEnableComboBoxProveedores (boolean habilitar){
+        comboBoxProveedores.setEnabled(habilitar);
+    }
+    
+    //Metodo public para cuando el tipo de dialogo es Editar poder inicializar el
+    //Selector de fecha y hora despues de asignar la fecha y hora en el inputFechaHora
+    //Esto permite que el selector se configura con la fecha que tenga el input
+    public void inicializarSelectorFechaHora( ){
+        new SelectorFechaHora(inputFechaYHora);
+    }
+    
+    /*
+    ============================================================================
+                Exponer metodos para gestionar el formulario
+    ============================================================================
+    */
+    
+    public boolean validarFormulario(){
+        return formularioDatosCompra.validar();
+    }
+    
+    public HashMap<String, String> recolectarDatosFormulario(){
+        return formularioDatosCompra.recolectarDatos();
+    }
+    
+    public void mostrarErroresValidacionCampos( HashMap<String, String> errores ){
+        formularioDatosCompra.mostrarErroresExternos(errores);
+    }
+    
+    public void asignarDatosEnFormulario( HashMap<String, String> datos ){
+        formularioDatosCompra.asignarDatos(datos);
+    }
+    
+    
+    /* 
+    ============================================================================
+           Metodos para mostrar dialogos de mensajes de Alertas
+    ============================================================================
+    */
+    public void mostrarAlertaErrorFormatoCampos(){
+        DialogoAlerta.mostrarErrorFormatoCampos( this );
+    }
+      
+    public void mostrarAlertaExitosa(String mensajeExitoso ){
+        
+        DialogoAlerta.mostrarExito(
+                    this, 
+                    "Operacion Exitosa", 
+                    mensajeExitoso
+            );
+        
+    }
+    
+    public boolean mostrarAlertaAdvertenciaConRespuesta( String mensaje ){
+        
+       return DialogoAlerta.mostrarAdvertenciaConRespuesta(
+                   this,
+                   "Advertencia", 
+                   mensaje
+                );
+    
+    }
+    
+    public void mostrarAlertaAdvertenciaSinRespuesta( String mensaje ){
+        
+       DialogoAlerta.mostrarAdvertenciaSinRespuesta(
+            this,
+            "Advertencia", 
+            mensaje
+         );
+    
+    }
+    
+    public void mostrarAlertaError( String mensaje ){
+        DialogoAlerta.mostrarError( this, "Error", mensaje );
+    }
+    
+    public void mostrarAlertaErroresValidacion( HashMap<String, String> errores ){
+        DialogoAlerta.mostrarErroresValidacion(this, errores );
+    }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -666,8 +783,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     private javax.swing.JLabel lblDatoId;
     private javax.swing.JLabel lblDatoTotal;
     private javax.swing.JLabel lblDatoUsuario;
+    private javax.swing.JLabel lblErrorComboBoxProveedores;
     private javax.swing.JLabel lblErrorInputFechaHora;
-    private javax.swing.JLabel lblErrorInputProveedores;
     private javax.swing.JLabel lblTituloCantidad;
     private javax.swing.JLabel lblTituloDetalles;
     private javax.swing.JLabel lblTituloEliminar;

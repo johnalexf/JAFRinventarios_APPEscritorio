@@ -236,7 +236,7 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
     public void inicializarComboBoxProductos ( LinkedHashMap<Integer, String> diccionarioProductos ) {
         
         formularioDetalles.agregarCampoComboBox(comboBoxProductos,
-                                                "Proveedor",
+                                                "Productos",
                                                 diccionarioProductos, 
                                                 lblErrorComboBoxProductos, 
                                                 true);
