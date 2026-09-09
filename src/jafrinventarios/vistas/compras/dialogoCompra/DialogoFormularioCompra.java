@@ -45,7 +45,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
             para mantener un diseño uniforme se realizan los siguientes ajustes.
             */
             contenedorDatosGenerales.remove(contenedorIDComprayUsuario);
-            contenedorDatosGenerales.setPreferredSize(new java.awt.Dimension(37200, 45));
+            contenedorDatosGenerales.setPreferredSize(new java.awt.Dimension(37200, 55));
             contenedorDatosGenerales.setLayout(new java.awt.GridLayout(1, 1));
             btnLinkEliminarRegistro.setVisible(false);
             
@@ -85,10 +85,14 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorProveedorYFecha = new javax.swing.JPanel();
         contenedorProveedor = new javax.swing.JPanel();
         lblTituloProveedor = new javax.swing.JLabel();
+        contenedorInputYErrorProveedores = new javax.swing.JPanel();
         comboBoxProveedores = new javax.swing.JComboBox<>();
+        lblErrorInputProveedores = new javax.swing.JLabel();
         contenedorFecha = new javax.swing.JPanel();
         lblTituloFecha = new javax.swing.JLabel();
+        contenedorInputYErrorFechaHora = new javax.swing.JPanel();
         inputFechaYHora = new javax.swing.JTextField();
+        lblErrorInputFechaHora = new javax.swing.JLabel();
         contenedorGlobalDetalles = new javax.swing.JPanel();
         contenedorHeaderDetalles = new javax.swing.JPanel();
         lblTituloDetalles = new javax.swing.JLabel();
@@ -123,8 +127,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorFormulario.setLayout(new java.awt.BorderLayout());
 
         contenedorTituloFormulario.setMinimumSize(new java.awt.Dimension(500, 80));
-        contenedorTituloFormulario.setPreferredSize(new java.awt.Dimension(500, 80));
         contenedorTituloFormulario.setOpaque(false);
+        contenedorTituloFormulario.setPreferredSize(new java.awt.Dimension(500, 80));
         contenedorTituloFormulario.setLayout(new java.awt.BorderLayout());
         contenedorTituloFormulario.add(margin_left, java.awt.BorderLayout.WEST);
 
@@ -178,7 +182,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
         contenedorDatosGenerales.setBackground(new java.awt.Color(255, 255, 255));
         contenedorDatosGenerales.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 20));
-        contenedorDatosGenerales.setPreferredSize(new java.awt.Dimension(600, 90));
+        contenedorDatosGenerales.setPreferredSize(new java.awt.Dimension(600, 110));
         contenedorDatosGenerales.setLayout(new java.awt.GridLayout(2, 1));
 
         contenedorIDComprayUsuario.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -269,8 +273,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
         contenedorDatosGenerales.add(contenedorIDComprayUsuario);
 
-        contenedorProveedorYFecha.setPreferredSize(new java.awt.Dimension(0, 0));
         contenedorProveedorYFecha.setOpaque(false);
+        contenedorProveedorYFecha.setPreferredSize(new java.awt.Dimension(0, 0));
         contenedorProveedorYFecha.setLayout(new java.awt.GridBagLayout());
 
         contenedorProveedor.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -281,6 +285,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         lblTituloProveedor.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloProveedor.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblTituloProveedor.setText("Proveedor :");
+        lblTituloProveedor.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblTituloProveedor.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         lblTituloProveedor.setMaximumSize(new java.awt.Dimension(0, 0));
         lblTituloProveedor.setMinimumSize(new java.awt.Dimension(0, 0));
         lblTituloProveedor.setPreferredSize(new java.awt.Dimension(0, 0));
@@ -294,19 +300,32 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorProveedor.add(lblTituloProveedor, gridBagConstraints);
 
+        contenedorInputYErrorProveedores.setOpaque(false);
+        contenedorInputYErrorProveedores.setLayout(new java.awt.BorderLayout());
+
         comboBoxProveedores.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         comboBoxProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Proveedor" }));
         comboBoxProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comboBoxProveedores.setMinimumSize(new java.awt.Dimension(0, 0));
         comboBoxProveedores.setName("proveedor"); // NOI18N
         comboBoxProveedores.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorInputYErrorProveedores.add(comboBoxProveedores, java.awt.BorderLayout.NORTH);
+
+        lblErrorInputProveedores.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorInputProveedores.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorInputProveedores.setAlignmentX(0.5F);
+        lblErrorInputProveedores.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorInputProveedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputProveedores.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorProveedores.add(lblErrorInputProveedores, java.awt.BorderLayout.SOUTH);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 3.0;
         gridBagConstraints.weighty = 1.0;
-        contenedorProveedor.add(comboBoxProveedores, gridBagConstraints);
+        contenedorProveedor.add(contenedorInputYErrorProveedores, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -324,6 +343,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         lblTituloFecha.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloFecha.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblTituloFecha.setText("Fecha :");
+        lblTituloFecha.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblTituloFecha.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         lblTituloFecha.setMaximumSize(new java.awt.Dimension(0, 0));
         lblTituloFecha.setMinimumSize(new java.awt.Dimension(0, 0));
         lblTituloFecha.setPreferredSize(new java.awt.Dimension(0, 0));
@@ -337,19 +358,33 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         contenedorFecha.add(lblTituloFecha, gridBagConstraints);
 
+        contenedorInputYErrorFechaHora.setOpaque(false);
+        contenedorInputYErrorFechaHora.setLayout(new java.awt.BorderLayout());
+
         inputFechaYHora.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputFechaYHora.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         inputFechaYHora.setToolTipText("");
         inputFechaYHora.setMaximumSize(new java.awt.Dimension(0, 0));
         inputFechaYHora.setMinimumSize(new java.awt.Dimension(0, 0));
+        inputFechaYHora.setName("fechaHora"); // NOI18N
         inputFechaYHora.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorInputYErrorFechaHora.add(inputFechaYHora, java.awt.BorderLayout.NORTH);
+
+        lblErrorInputFechaHora.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorInputFechaHora.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorInputFechaHora.setAlignmentX(0.5F);
+        lblErrorInputFechaHora.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorInputFechaHora.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputFechaHora.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorFechaHora.add(lblErrorInputFechaHora, java.awt.BorderLayout.SOUTH);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 3.0;
         gridBagConstraints.weighty = 1.0;
-        contenedorFecha.add(inputFechaYHora, gridBagConstraints);
+        contenedorFecha.add(contenedorInputYErrorFechaHora, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -367,17 +402,18 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorGlobalDetalles.setLayout(new java.awt.BorderLayout());
 
         contenedorHeaderDetalles.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorHeaderDetalles.setPreferredSize(new java.awt.Dimension(600, 40));
+        contenedorHeaderDetalles.setMaximumSize(new java.awt.Dimension(37270, 26));
+        contenedorHeaderDetalles.setMinimumSize(new java.awt.Dimension(400, 26));
         contenedorHeaderDetalles.setOpaque(false);
+        contenedorHeaderDetalles.setPreferredSize(new java.awt.Dimension(600, 26));
         contenedorHeaderDetalles.setLayout(new javax.swing.BoxLayout(contenedorHeaderDetalles, javax.swing.BoxLayout.LINE_AXIS));
 
-        lblTituloDetalles.setText("Detalles");
-        lblTituloDetalles.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        lblTituloDetalles.setAlignmentX(0.5F);
         lblTituloDetalles.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        lblTituloDetalles.setMaximumSize(new java.awt.Dimension(37270, 36));
-        lblTituloDetalles.setMinimumSize(new java.awt.Dimension(400, 36));
-        lblTituloDetalles.setPreferredSize(new java.awt.Dimension(400, 36));
+        lblTituloDetalles.setText("Detalles");
+        lblTituloDetalles.setAlignmentX(0.5F);
+        lblTituloDetalles.setMaximumSize(new java.awt.Dimension(37270, 26));
+        lblTituloDetalles.setMinimumSize(new java.awt.Dimension(400, 26));
+        lblTituloDetalles.setPreferredSize(new java.awt.Dimension(400, 26));
         contenedorHeaderDetalles.add(lblTituloDetalles);
 
         contenedorGlobalDetalles.add(contenedorHeaderDetalles, java.awt.BorderLayout.PAGE_START);
@@ -403,9 +439,9 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         gridBagConstraints.weighty = 1.0;
         contenedorTitulosTabla.add(lblTituloItem, gridBagConstraints);
 
+        lblTituloProducto.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloProducto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloProducto.setText("Producto");
-        lblTituloProducto.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloProducto.setMaximumSize(new java.awt.Dimension(0, 0));
         lblTituloProducto.setMinimumSize(new java.awt.Dimension(0, 0));
         lblTituloProducto.setPreferredSize(new java.awt.Dimension(0, 0));
@@ -467,6 +503,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorCuerpoDetalles.add(contenedorTitulosTabla, java.awt.BorderLayout.PAGE_START);
 
         panelScrollDetalles.setBackground(new java.awt.Color(255, 255, 255));
+        panelScrollDetalles.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         panelScrollDetalles.setColumnHeaderView(contenedorTitulosTabla);
 
         contenedorDetalles.setBackground(new java.awt.Color(255, 255, 255));
@@ -531,8 +568,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
         contenedorBotonesCRUD.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 10, 40));
         contenedorBotonesCRUD.setMinimumSize(new java.awt.Dimension(287, 60));
-        contenedorBotonesCRUD.setPreferredSize(new java.awt.Dimension(500, 90));
         contenedorBotonesCRUD.setOpaque(false);
+        contenedorBotonesCRUD.setPreferredSize(new java.awt.Dimension(500, 90));
         contenedorBotonesCRUD.setLayout(new java.awt.GridBagLayout());
 
         btnEnviarFormulario.setBackground(new java.awt.Color(30, 166, 177));
@@ -625,6 +662,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     private javax.swing.JPanel contenedorHeaderDetalles;
     private javax.swing.JPanel contenedorIDCompra;
     private javax.swing.JPanel contenedorIDComprayUsuario;
+    private javax.swing.JPanel contenedorInputYErrorFechaHora;
+    private javax.swing.JPanel contenedorInputYErrorProveedores;
     private javax.swing.JPanel contenedorProveedor;
     private javax.swing.JPanel contenedorProveedorYFecha;
     private javax.swing.JPanel contenedorTituloFormulario;
@@ -635,6 +674,8 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     private javax.swing.JLabel lblDatoId;
     private javax.swing.JLabel lblDatoTotal;
     private javax.swing.JLabel lblDatoUsuario;
+    private javax.swing.JLabel lblErrorInputFechaHora;
+    private javax.swing.JLabel lblErrorInputProveedores;
     private javax.swing.JLabel lblTituloCantidad;
     private javax.swing.JLabel lblTituloDetalles;
     private javax.swing.JLabel lblTituloEliminar;
