@@ -96,7 +96,7 @@ public class ControladorDialogoCompra {
         String aliasUsuario = obtenerAliasUsuario(modeloCompra.getIdUsuario());
         dialogoCompra.setAliasUsuario(aliasUsuario);
 
-        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
 
         dialogoCompra.asignarDatosEnFormulario(
                 new HashMap<>(

@@ -124,7 +124,7 @@ public class ControladorCompras {
     ============================================================================
     */
     private FilaTablaCompras asignarDatosAFilaCompra ( FilaTablaCompras filaCompra, DTOCompraTabla datosCompra ){
-        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
         filaCompra.setDatos(
             datosCompra.getIdCompra(),
             datosCompra.getNombreComercialProveedor(),
