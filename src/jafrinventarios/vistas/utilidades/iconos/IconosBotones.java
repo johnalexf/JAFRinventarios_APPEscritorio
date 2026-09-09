@@ -17,7 +17,8 @@ public enum IconosBotones {
     COPIAR("pixel--copy-solid.png"),
     BUSCAR("iconamoon--search-duotone.png"),
     LIMPIAR_BUSQUEDA("material-symbols--close.png"),
-    VER_MAS("pixel--chevron-down-solid.png");
+    VER_MAS("pixel--chevron-down-solid.png"),
+    ELIMINAR("material-symbols--delete.png");
     
     private final String nombreArchivo;
     private final String RUTA_ICONOS = "/jafrinventarios/recursos/iconos/botones/";
