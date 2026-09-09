@@ -29,6 +29,7 @@ public enum TipoDatoFormulario {
     CODIGO("^.{10}$","Debe tener exactamente 10 caracteres"),
     NUMERO_ENTERO("^[0-9]+$", "Solo se permiten números enteros"),
     NUMERO_DOUBLE("^[0-9]+(?:\\.[0-9]{1,2})?$", "Solo reales de hasta 2 decimales"),
+    FECHA_HORA("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}\\s(0[1-9]|1[0-2]):[0-5][0-9]\\s(?i)(a\\.?\\s?m\\.?|p\\.?\\s?m\\.?)$", "Debe ser dd/mm/aaaa hh:mm a. m. "),
     /*
     REQUERIDO es para aquellos campos que por lo menos deben tener algun caracter
     ya que su contenido no depende de una validacion en la vista, si no que de una
