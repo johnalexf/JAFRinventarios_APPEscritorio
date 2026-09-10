@@ -5,6 +5,7 @@ import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
@@ -258,6 +259,11 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
                                                 lblErrorComboBoxProductos, 
                                                 true);
         
+    }
+    
+    
+    public JButton getBtnEliminar(){
+        return btnEliminar;
     }
     
     

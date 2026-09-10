@@ -335,6 +335,8 @@ public class ControladorDialogoCompra {
         
         inicializarEventoComboBoxProductos(filaDetalle);
         
+        inicializarEventoEliminarFila(filaDetalle);
+        
     }
     
     private void inicializarEventoInputCantidad( FilaFormularioDetalleCompra filaDetalle ){
@@ -420,6 +422,37 @@ public class ControladorDialogoCompra {
         }
         dialogoCompra.setTotalCompra(totalCompra);
     
+    }
+    
+    
+    private void inicializarEventoEliminarFila( FilaFormularioDetalleCompra filaDetalle){
+    
+        filaDetalle.getBtnEliminar().addActionListener( e -> {
+            boolean continuar = dialogoCompra.mostrarAlertaAdvertenciaConRespuesta(
+                    "¿Quieres quitar este producto?\n"
+                    + "Esta acción se aplicará solo en este borrador. No será permanente hasta que guardes los cambios de la compra.");
+            
+            if(continuar){
+                diccionarioDetalles.remove(filaDetalle);
+                actualizarValorItemDetalles();
+                dialogoCompra.removerFilaDetalle(filaDetalle);
+                actualizarTotalCompra();
+                if(diccionarioDetalles.isEmpty()){
+                    dialogoCompra.setEnableComboBoxProveedores(true);
+                }
+            }
+            
+        });
+        
+    }
+    
+    private void actualizarValorItemDetalles (){
+    
+        int item = 0;
+        for( FilaFormularioDetalleCompra filaDetalle : diccionarioDetalles.keySet()){
+            filaDetalle.setItem(++item);
+        }
+ 
     }
     
     
