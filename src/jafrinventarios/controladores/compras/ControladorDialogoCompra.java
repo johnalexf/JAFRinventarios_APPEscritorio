@@ -4,13 +4,16 @@ package jafrinventarios.controladores.compras;
 import jafrinventarios.DTOs.productos.DTOProductoPrecio;
 import jafrinventarios.controladores.utilidades.ResultadoDialogo;
 import jafrinventarios.modelos.compras.ModeloCompra;
+import jafrinventarios.modelos.compras.ModeloDetalleCompra;
 import jafrinventarios.servicios.compras.ServicioCompras;
 import jafrinventarios.servicios.productos.ServicioProductos;
 import jafrinventarios.servicios.proveedores.ServicioProveedores;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.compras.dialogoCompra.DialogoFormularioCompra;
 import jafrinventarios.vistas.compras.dialogoCompra.DialogoFormularioCompra.TipoDialogo;
+import jafrinventarios.vistas.compras.dialogoCompra.FilaFormularioDetalleCompra;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -30,6 +33,14 @@ public class ControladorDialogoCompra {
     
     private LinkedHashMap<Integer, DTOProductoPrecio> diccionarioProductosPrecio;
     private LinkedHashMap< Integer, String > diccionarioProductosId;
+    
+    /*Este diccionario tendra como clave un numero entero que no depende de ningun id
+        esto con el fin de lograr mantener el orden el que son creados, saber exactamente
+        a que fila eliminar, no podemos depender del idDetalle pues este cuando sea uno nuevo
+        su valor asignado sera null, tampoco podemos depender de numero de item, pues lo correcto
+        seria actualizar este numero si se elimina uno que se mantenga la secuencia adecuada.
+    */
+    private LinkedHashMap< Integer, FilaFormularioDetalleCompra > diccionarioFilasDetalles;
     
     /*
     Variable que en el caso de editar tendra el id del registro a modificar
@@ -62,6 +73,8 @@ public class ControladorDialogoCompra {
         this.diccionarioProductosPrecio = new LinkedHashMap<>();
         this.diccionarioProductosId = new LinkedHashMap<>();
         
+        this.diccionarioFilasDetalles = new LinkedHashMap<>();
+        
         configuracionInicial();
         
         this.dialogoCompra.mostrar();
@@ -77,6 +90,9 @@ public class ControladorDialogoCompra {
                 
                 modeloCompra = obtenerModeloCompra(idCompra);
                 
+                inicializarDiccionariosProductos( modeloCompra.getIdProveedor() );
+                poblarDiccionarioFilasDetalles();
+                
                 cargarDatosAVista();
                 
             } catch (Exception e) {
@@ -85,6 +101,25 @@ public class ControladorDialogoCompra {
         }
         
         dialogoCompra.inicializarSelectorFechaHora();
+        
+    }
+    
+    private void poblarDiccionarioFilasDetalles(){
+    
+        int identificador = 0;
+        for(ModeloDetalleCompra detalle : modeloCompra.getDetalles()){
+            
+            diccionarioFilasDetalles.put( 
+                    ++identificador, 
+                    crearNuevaFilaDetalle(  detalle.getIdDetalleCompra(), 
+                                            detalle.getIdProducto(), 
+                                            detalle.getCantidadProducto(), 
+                                            detalle.getPrecioUnitarioProducto(), 
+                                            detalle.getPrecioTotalProducto()
+                    )            
+            );
+                        
+        }
         
     }
     
@@ -107,6 +142,8 @@ public class ControladorDialogoCompra {
         );
 
         dialogoCompra.setTotalCompra( modeloCompra.getTotalCompra());
+        
+        dialogoCompra.inyectarFilasDetalles(new ArrayList<>(diccionarioFilasDetalles.values()));
     }
     
     /*
@@ -230,4 +267,39 @@ public class ControladorDialogoCompra {
         }
     
     }
+    
+    
+    /*
+    ============================================================================
+                METODOS PARA GESTIONAR LAS FILAS DE DETALLES
+    ============================================================================
+    */
+    private FilaFormularioDetalleCompra crearNuevaFilaDetalle(
+                                                        Integer idDetalle,
+                                                        Integer idProducto,
+                                                        int cantidadProducto,
+                                                        double precioUnitarioProducto,
+                                                        double precioTotalProducto
+    ){
+    
+        FilaFormularioDetalleCompra filaDetalle = new FilaFormularioDetalleCompra();
+        
+        filaDetalle.inicializarComboBoxProductos(diccionarioProductosId);
+        filaDetalle.setIdDetalle(idDetalle);
+        filaDetalle.setItem( diccionarioFilasDetalles.size()+ 1 );
+        filaDetalle.asignarDatosEnFormulario(
+            new HashMap<>(
+                Map.of("producto", String.valueOf( idProducto ), 
+                       "cantidadProducto", String.valueOf(cantidadProducto)
+                )
+            )
+        );
+        filaDetalle.setPrecioUnitario( precioUnitarioProducto );
+        filaDetalle.setPrecioTotal( precioTotalProducto );
+    
+        return filaDetalle;
+    }
+    
+    
+    
 }
