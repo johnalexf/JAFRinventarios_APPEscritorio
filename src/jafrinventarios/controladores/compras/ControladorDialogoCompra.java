@@ -3,6 +3,7 @@ package jafrinventarios.controladores.compras;
 
 import jafrinventarios.DTOs.productos.DTOProductoPrecio;
 import jafrinventarios.controladores.utilidades.ResultadoDialogo;
+import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.modelos.compras.ModeloCompra;
 import jafrinventarios.modelos.compras.ModeloDetalleCompra;
 import jafrinventarios.servicios.compras.ServicioCompras;
@@ -12,6 +13,7 @@ import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.compras.dialogoCompra.DialogoFormularioCompra;
 import jafrinventarios.vistas.compras.dialogoCompra.DialogoFormularioCompra.TipoDialogo;
 import jafrinventarios.vistas.compras.dialogoCompra.FilaFormularioDetalleCompra;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +25,8 @@ import java.util.Map;
  * @author JOHN FORERO
  */
 public class ControladorDialogoCompra {
+    
+    private final DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
     
     private DialogoFormularioCompra dialogoCompra;
     private ServicioCompras servicioCompras;
@@ -38,6 +42,7 @@ public class ControladorDialogoCompra {
     respectiva fila en la parte grafica.
     */
     private LinkedHashMap< FilaFormularioDetalleCompra, ModeloDetalleCompra > diccionarioDetalles;
+    private double totalCompra = 0.0;
     
     /*
     Variable que en el caso de editar tendra el id del registro a modificar
@@ -87,6 +92,7 @@ public class ControladorDialogoCompra {
                 dialogoCompra.setEnableComboBoxProveedores(false);
                 
                 modeloCompra = obtenerModeloCompra(idCompra);
+                totalCompra = modeloCompra.getTotalCompra();
                 
                 inicializarDiccionariosProductos( modeloCompra.getIdProveedor() );
                 poblarDiccionarioFilasDetalles();
@@ -130,12 +136,10 @@ public class ControladorDialogoCompra {
         String aliasUsuario = obtenerAliasUsuario(modeloCompra.getIdUsuario());
         dialogoCompra.setAliasUsuario(aliasUsuario);
 
-        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
-
         dialogoCompra.asignarDatosEnFormulario(
                 new HashMap<>(
                     Map.of("proveedor", String.valueOf(modeloCompra.getIdProveedor()), 
-                            "fechaHora", modeloCompra.getFechaHoraCompra().format(formateador)
+                            "fechaHora", modeloCompra.getFechaHoraCompra().format(formatoFecha)
                     )
                 )
         );
@@ -149,7 +153,7 @@ public class ControladorDialogoCompra {
     private void inicializarEventosBotonesPrincipales(){
     
         dialogoCompra.getBtnAgregarProducto().addActionListener( e -> agregarFilaDetalle() );
-    
+        dialogoCompra.getBtnEnviarFormulario().addActionListener( e -> procesarFormulario() );
     }
     
     /*
@@ -420,6 +424,7 @@ public class ControladorDialogoCompra {
                 totalCompra += modeloDetalle.getPrecioTotalProducto();
             }
         }
+        this.totalCompra = totalCompra;
         dialogoCompra.setTotalCompra(totalCompra);
     
     }
@@ -476,5 +481,116 @@ public class ControladorDialogoCompra {
         dialogoCompra.setEnableComboBoxProveedores(false);
     }
     
+    
+    private void procesarFormulario(){
+    
+        /*
+        ========================================================================
+               Verificar si esta correctamente diligenciado el formulario
+        ========================================================================
+        */
+        //Antes de validar, por lo menos debe existir un detalle de compra
+        if( diccionarioDetalles.isEmpty() ){
+            dialogoCompra.mostrarAlertaError("No se puede guardar una compra sin productos, por favor cree por lo menos uno");
+            return;
+        }
+        
+        //Verificar que los campos esten diligenciados con un formato valido
+        //En este caso necesitamos validar tanto en los datos generales de la compra
+        //como en cada uno de los detalles
+        boolean datosValidos = true;
+        if( !dialogoCompra.validarFormulario() ) 
+            datosValidos = false;
+        for( FilaFormularioDetalleCompra filaDetalles : diccionarioDetalles.keySet()){
+            if( !filaDetalles.validarFormulario() )
+                datosValidos = false;
+        }
+        //dejamos que se validen todos, ya que la misma vista mostrara los errores en cada campo
+        
+        if( !datosValidos ){
+            dialogoCompra.mostrarAlertaErrorFormatoCampos();
+            return;
+        }
+        
+        //Extraer los datos generales 
+        HashMap<String, String> datosFormulario = dialogoCompra.recolectarDatosFormulario();
+       
+        
+        /*
+        ========================================================================
+            Validar si hay cambios cuando es editar, 
+            para la creacion solo instanciamos el modelo
+        ========================================================================
+        */
+        ModeloCompra compraAProcesar = 
+                ( tipoDialogo == TipoDialogo.EDITAR_COMPRA)
+                ? modeloCompra.clonar()
+                : new ModeloCompra();
+        
+        try {
+            compraAProcesar = asignarDatosAModelo(compraAProcesar, datosFormulario);
+        } catch (Exception e) {
+            dialogoCompra.mostrarAlertaError( e.getMessage() );
+            return;
+        }
+        
+        //Verificar si los modelos son iguales en dado caso que tipoDialogo sea EDITAR
+        if( tipoDialogo == TipoDialogo.EDITAR_COMPRA ){
+            if ( modeloCompra.equals( compraAProcesar )) {
+                dialogoCompra.mostrarAlertaError("No hay cambios para guardar");
+                return;
+            }
+        }
+        
+        //Si no son iguales las compras asignamos el id del usuario que inicio sesion
+        //de igual manera esta asignacion funciona para una nueva compra
+        compraAProcesar.setIdUsuario(ModeloSesionUsuario.getInstancia().getIdUsuario());
+        
+        
+        /*
+        =======================================================================
+        GUARDAR EN LA BASE DE DATOS solo si cumplio las anteriores validaciones
+        =======================================================================
+        */
+        switch(tipoDialogo){
+            case EDITAR_COMPRA:
+                try {
+                    editarCompra(compraAProcesar);
+                    dialogoCompra.mostrarAlertaExitosa("Compra actualizada correctamente");
+                    resultadoEdicion = ResultadoDialogo.ACTUALIZADO;
+                    dialogoCompra.dispose();
+                }catch (Exception e) {
+                    dialogoCompra.mostrarAlertaError(e.getMessage());
+                }
+                break;
+            case CREAR_NUEVA_COMPRA:
+                try {
+                    idCompra = crearCompra(compraAProcesar);
+                    dialogoCompra.mostrarAlertaExitosa("Compra creada correctamente");
+                    resultadoEdicion = ResultadoDialogo.ACTUALIZADO;
+                    dialogoCompra.dispose();
+                }catch (Exception e) {
+                    dialogoCompra.mostrarAlertaError(e.getMessage());
+                }
+                break;
+        }
+    
+    }
+    
+    
+    private ModeloCompra asignarDatosAModelo ( ModeloCompra modeloCompra, HashMap<String, String> datos ) throws Exception{
+    
+        try {
+            modeloCompra.setIdProveedor(Integer.parseInt( datos.get("proveedor")));
+            modeloCompra.setFechaHoraCompra( LocalDateTime.parse( datos.get("fechaHora"), formatoFecha));
+            modeloCompra.setDetalles( new ArrayList<>(diccionarioDetalles.values()) );
+            modeloCompra.setTotalCompra(totalCompra);
+            return modeloCompra;
+        } catch (Exception e) {
+            throw new Exception( "Error al convertir los datos del diccionario al tipo de variable del modelo" +
+                                "\n" + e.getMessage()
+            );
+        }
+    }
     
 }
