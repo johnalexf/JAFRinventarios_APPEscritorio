@@ -154,6 +154,9 @@ public class ControladorDialogoCompra {
     
         dialogoCompra.getBtnAgregarProducto().addActionListener( e -> agregarFilaDetalle() );
         dialogoCompra.getBtnEnviarFormulario().addActionListener( e -> procesarFormulario() );
+        
+        if(tipoDialogo == TipoDialogo.EDITAR_COMPRA)
+            dialogoCompra.getBtnLinkEliminarRegistro().addActionListener( e -> eliminarCompra());
     }
     
     /*
@@ -591,6 +594,27 @@ public class ControladorDialogoCompra {
                                 "\n" + e.getMessage()
             );
         }
+    }
+    
+    
+    private void eliminarCompra(){
+    
+        boolean deseaContinuar =
+                dialogoCompra.mostrarAlertaAdvertenciaConRespuesta(
+            "Esta a punto de eliminar la compra, este cambio es irreversible \nEsta seguro?"
+        );
+        
+        if(deseaContinuar){
+            try {
+                eliminarCompra( idCompra );
+                resultadoEdicion = ResultadoDialogo.ELIMINADO;
+                dialogoCompra.mostrarAlertaExitosa("Compra eliminada correctamente");
+                dialogoCompra.dispose();
+            } catch (Exception e) {
+                dialogoCompra.mostrarAlertaError(e.getMessage());
+            }
+        }
+    
     }
     
 }
