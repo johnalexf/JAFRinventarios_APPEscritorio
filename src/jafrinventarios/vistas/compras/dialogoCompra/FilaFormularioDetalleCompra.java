@@ -1,7 +1,6 @@
 
 package jafrinventarios.vistas.compras.dialogoCompra;
 
-import jafrinventarios.vistas.utilidades.componentes.EfectoHoverPanel;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import java.util.HashMap;
@@ -22,8 +21,6 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
     public FilaFormularioDetalleCompra() {
         
         initComponents();
-        
-        EfectoHoverPanel.aplicarEfecto(contenedorDatos);
         
         formularioDetalles = new GestorFormulario();
         formularioDetalles.agregarCampoTexto(   inputCantidad, 
@@ -112,7 +109,7 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.weightx = 4.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         contenedorDatos.add(contenedorInputYErrorProductos, gridBagConstraints);

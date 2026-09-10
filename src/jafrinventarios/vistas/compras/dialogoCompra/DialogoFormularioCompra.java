@@ -130,13 +130,14 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(950, 700));
+        setMinimumSize(new java.awt.Dimension(1100, 700));
         setName("dialogoCompra"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(950, 700));
+        setPreferredSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         contenedorFormulario.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorFormulario.setMinimumSize(new java.awt.Dimension(1100, 384));
         contenedorFormulario.setLayout(new java.awt.BorderLayout());
 
         contenedorTituloFormulario.setMinimumSize(new java.awt.Dimension(500, 80));
@@ -145,13 +146,13 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorTituloFormulario.setLayout(new java.awt.BorderLayout());
         contenedorTituloFormulario.add(margin_left, java.awt.BorderLayout.WEST);
 
+        tituloFormulario.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        tituloFormulario.setForeground(new java.awt.Color(17, 35, 85));
         tituloFormulario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloFormulario.setText("Editar Compra");
         tituloFormulario.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         tituloFormulario.setAlignmentX(0.5F);
         tituloFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 10, 0));
-        tituloFormulario.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
-        tituloFormulario.setForeground(new java.awt.Color(17, 35, 85));
         tituloFormulario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tituloFormulario.setVerifyInputWhenFocusTarget(false);
         contenedorTituloFormulario.add(tituloFormulario, java.awt.BorderLayout.CENTER);
@@ -460,7 +461,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         lblTituloProducto.setPreferredSize(new java.awt.Dimension(0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.weightx = 4.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         contenedorTitulosTabla.add(lblTituloProducto, gridBagConstraints);
