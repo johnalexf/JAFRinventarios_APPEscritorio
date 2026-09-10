@@ -84,6 +84,7 @@ public class ControladorDialogoCompra {
         
         if( tipoDialogo == TipoDialogo.EDITAR_COMPRA ){
             try {
+                dialogoCompra.setEnableComboBoxProveedores(false);
                 
                 modeloCompra = obtenerModeloCompra(idCompra);
                 
@@ -95,24 +96,27 @@ public class ControladorDialogoCompra {
             } catch (Exception e) {
                 dialogoCompra.mostrarAlertaError(e.getMessage());
             }
+        }else{
+            dialogoCompra.setEnableBtnAgregarProducto(false);
         }
         
         dialogoCompra.inicializarSelectorFechaHora();
         
+        inicializarEventosBotonesPrincipales();
+        
     }
+    
     
     private void poblarDiccionarioFilasDetalles(){
     
         for(ModeloDetalleCompra modeloDetalle : modeloCompra.getDetalles()){
             
-            diccionarioDetalles.put(  
-                    crearNuevaFilaDetalle(  modeloDetalle.getIdProducto(), 
-                                            modeloDetalle.getCantidadProducto(), 
-                                            modeloDetalle.getPrecioUnitarioProducto(), 
-                                            modeloDetalle.getPrecioTotalProducto()
-                    ),
-                    modeloDetalle.clonar()
-            );
+            FilaFormularioDetalleCompra filaDetalle = crearNuevaFilaDetalle();
+            filaDetalle = asignarDatosFilaDetalle( filaDetalle, modeloDetalle );
+            
+            diccionarioDetalles.put( filaDetalle , modeloDetalle.clonar() );
+  
+            inicializarEventosFilaDetalle(filaDetalle);
                         
         }
         
@@ -139,6 +143,13 @@ public class ControladorDialogoCompra {
         dialogoCompra.setTotalCompra( modeloCompra.getTotalCompra());
         
         dialogoCompra.inyectarFilasDetalles(new ArrayList<>(diccionarioDetalles.keySet()));
+    }
+    
+    
+    private void inicializarEventosBotonesPrincipales(){
+    
+        dialogoCompra.getBtnAgregarProducto().addActionListener( e -> agregarFilaDetalle() );
+    
     }
     
     /*
@@ -233,9 +244,27 @@ public class ControladorDialogoCompra {
                         + "Por favor dirigete a la seccion de proveedores y crea uno."
                 );
             else
-                dialogoCompra.inicializarComboBoxProveedores(diccionarioProveedores);        
+                dialogoCompra.inicializarComboBoxProveedores(diccionarioProveedores);
+                dialogoCompra.getComboBoxProveedores().addActionListener( e -> actualizarDiccionariosProductos() );
         } catch (Exception e) {
             dialogoCompra.mostrarAlertaError(e.getMessage());
+        }
+    }
+    
+    
+    private void actualizarDiccionariosProductos(){
+        try {
+            HashMap<String, String> datosFormulario = dialogoCompra.recolectarDatosFormulario();
+            
+            if(datosFormulario.containsKey("proveedor")){
+                int idProveedor = Integer.parseInt( datosFormulario.get("proveedor"));
+                inicializarDiccionariosProductos(idProveedor);
+                dialogoCompra.setEnableBtnAgregarProducto(true);
+            }
+       
+        } catch (Exception e) {
+            //Si no seleccionaron un proveedor no dejamos que se agregue un producto
+            dialogoCompra.setEnableBtnAgregarProducto(false);
         }
     }
     
@@ -269,55 +298,100 @@ public class ControladorDialogoCompra {
                 METODOS PARA GESTIONAR LAS FILAS DE DETALLES
     ============================================================================
     */
-    private FilaFormularioDetalleCompra crearNuevaFilaDetalle(
-                                                        Integer idProducto,
-                                                        int cantidadProducto,
-                                                        double precioUnitarioProducto,
-                                                        double precioTotalProducto
-    ){
+    private FilaFormularioDetalleCompra crearNuevaFilaDetalle(){
     
         FilaFormularioDetalleCompra filaDetalle = new FilaFormularioDetalleCompra();
         
         filaDetalle.inicializarComboBoxProductos(diccionarioProductosId);
         filaDetalle.setItem( diccionarioDetalles.size()+ 1 );
-        filaDetalle.asignarDatosEnFormulario(
-            new HashMap<>(
-                Map.of("producto", String.valueOf( idProducto ), 
-                       "cantidadProducto", String.valueOf(cantidadProducto)
-                )
-            )
-        );
-        filaDetalle.setPrecioUnitario( precioUnitarioProducto );
-        filaDetalle.setPrecioTotal( precioTotalProducto );
-    
-        inicializarEventoInputCantidad(filaDetalle);
         
         return filaDetalle;
     }
     
+    
+    private FilaFormularioDetalleCompra asignarDatosFilaDetalle ( 
+                                            FilaFormularioDetalleCompra filaDetalle,
+                                            ModeloDetalleCompra datosDetalle
+    ){
+    
+        filaDetalle.asignarDatosEnFormulario(
+            new HashMap<>(
+                Map.of("producto", String.valueOf( datosDetalle.getIdProducto() ), 
+                       "cantidadProducto", String.valueOf( datosDetalle.getCantidadProducto() )
+                )
+            )
+        );
+        filaDetalle.setPrecioUnitario( datosDetalle.getPrecioUnitarioProducto() );
+        filaDetalle.setPrecioTotal( datosDetalle.getPrecioTotalProducto() );
+    
+        
+        return filaDetalle;
+    }
+    
+    
+    private void inicializarEventosFilaDetalle ( FilaFormularioDetalleCompra filaDetalle ){
+        
+        inicializarEventoInputCantidad(filaDetalle);
+        
+        inicializarEventoComboBoxProductos(filaDetalle);
+        
+    }
     
     private void inicializarEventoInputCantidad( FilaFormularioDetalleCompra filaDetalle ){
         
         filaDetalle.getInputCantidad().getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                calcularTotalProducto(filaDetalle);
+                actualizarCantidadProducto(filaDetalle);
             }
 
             @Override
             public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                calcularTotalProducto(filaDetalle);
+                actualizarCantidadProducto(filaDetalle);
             }
 
             @Override
             public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                calcularTotalProducto(filaDetalle);
+                actualizarCantidadProducto(filaDetalle);
             }
         });
         
     }
     
-    private void calcularTotalProducto( FilaFormularioDetalleCompra filaDetalle ){
+    
+    private void inicializarEventoComboBoxProductos( FilaFormularioDetalleCompra filaDetalle ){
+    
+        filaDetalle.getComboBoxProductos().addActionListener( e -> {
+            ModeloDetalleCompra modeloDetalle = diccionarioDetalles.get(filaDetalle);
+            
+            Integer idProducto = null;
+            double precioProducto = 0.0;
+            
+            try {
+                HashMap<String, String> datosFormulario = filaDetalle.recolectarDatosFormulario();
+            
+                if(datosFormulario.containsKey("producto")){
+                    idProducto = Integer.parseInt( datosFormulario.get("producto"));          
+                    precioProducto = diccionarioProductosPrecio.get(idProducto).getPrecioProducto();
+                }
+            } catch (Exception exception) {
+                System.out.println("Error controlado: no se selecciono un producto o el retorno esperado no se puede convertir a numero");
+            }
+            
+            modeloDetalle.setIdProducto(idProducto);
+            modeloDetalle.setPrecioUnitarioProducto( precioProducto );
+
+            filaDetalle.setPrecioUnitario( modeloDetalle.getPrecioUnitarioProducto());
+            filaDetalle.setPrecioTotal( modeloDetalle.getPrecioTotalProducto()  );
+            
+            actualizarTotalCompra();
+            
+        });
+        
+    }
+    
+    
+    private void actualizarCantidadProducto( FilaFormularioDetalleCompra filaDetalle ){
         
         ModeloDetalleCompra detalleCompra = diccionarioDetalles.get(filaDetalle);
         try {
@@ -330,9 +404,44 @@ public class ControladorDialogoCompra {
             detalleCompra.setCantidadProducto(0);
             filaDetalle.setPrecioTotal( 0 );
         }
+        
+        actualizarTotalCompra();
     
     }
     
+    
+    private void actualizarTotalCompra (){
+    
+        double totalCompra = 0.0;
+        if(!diccionarioDetalles.isEmpty()){
+            for( ModeloDetalleCompra modeloDetalle: diccionarioDetalles.values()){
+                totalCompra += modeloDetalle.getPrecioTotalProducto();
+            }
+        }
+        dialogoCompra.setTotalCompra(totalCompra);
+    
+    }
+    
+    
+    
+    /*
+    ============================================================================
+                        METODOS OPERACION DE LOS BOTONES
+    ============================================================================
+    */
+    
+    private void agregarFilaDetalle(){
+        
+        FilaFormularioDetalleCompra filaDetalle = crearNuevaFilaDetalle();
+
+        diccionarioDetalles.put( filaDetalle , new ModeloDetalleCompra() );
+
+        inicializarEventosFilaDetalle(filaDetalle);
+        
+        dialogoCompra.inyectarNuevaFilaDetalle(filaDetalle);
+        
+        dialogoCompra.setEnableComboBoxProveedores(false);
+    }
     
     
 }

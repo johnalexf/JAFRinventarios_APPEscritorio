@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -562,7 +563,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         contenedorTotal.add(lblTituloTotal);
 
         lblDatoTotal.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        lblDatoTotal.setText("$ 000000.00");
+        lblDatoTotal.setText("$ 0,00");
         lblDatoTotal.setToolTipText("");
         lblDatoTotal.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 30, 0, 0));
         lblDatoTotal.setPreferredSize(new java.awt.Dimension(300, 50));
@@ -653,13 +654,23 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     public JButton getBtnAgregarProducto(){
         return btnAgregarProducto;
     }
+    
+    public void setEnableBtnAgregarProducto( boolean habilitar){
+        btnAgregarProducto.setEnabled( habilitar );
+    }
+    
     public JButton getBtnEnviarFormulario(){
         return btnEnviarFormulario;
     }
+    
     public JButton getBtnLinkEliminarRegistro(){
         return btnLinkEliminarRegistro;
     }
     
+    
+    public JComboBox getComboBoxProveedores(){
+        return comboBoxProveedores;
+    }
     
     //Exponer inicializar el combo box esperando la lista de proveedores a asignar
     public void inicializarComboBoxProveedores ( LinkedHashMap<Integer, String> diccionarioProveedores ) {
@@ -683,6 +694,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     public void setEnableComboBoxProveedores (boolean habilitar){
         comboBoxProveedores.setEnabled(habilitar);
     }
+    
     
     //Metodo public para que el controlador sea quien inicialice el selector
     //En dado caso que sea para editar el controlador antes abra asignado la

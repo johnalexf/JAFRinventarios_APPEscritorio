@@ -5,6 +5,7 @@ import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 /**
@@ -25,7 +26,7 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
         formularioDetalles = new GestorFormulario();
         formularioDetalles.agregarCampoTexto(   inputCantidad, 
                                                 lblErrorInputCantidad, 
-                                                TipoDatoFormulario.NUMERO_ENTERO, 
+                                                TipoDatoFormulario.NUMERO_ENTERO_MAYOR_CERO, 
                                                 true    );
         
     }
@@ -144,7 +145,7 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
 
         lblDatoPrecioUnitario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         lblDatoPrecioUnitario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDatoPrecioUnitario.setText("$ 000.00");
+        lblDatoPrecioUnitario.setText("$ 0,00");
         lblDatoPrecioUnitario.setToolTipText("");
         lblDatoPrecioUnitario.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblDatoPrecioUnitario.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
@@ -159,7 +160,7 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
 
         lblDatoTotal.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         lblDatoTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDatoTotal.setText("$000.00");
+        lblDatoTotal.setText("$0,00");
         lblDatoTotal.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblDatoTotal.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         lblDatoTotal.setMaximumSize(new java.awt.Dimension(0, 0));
@@ -227,6 +228,15 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
 
     public void setPrecioTotal( double precio ) {
         this.lblDatoTotal.setText( precioAString(precio) );
+    }
+    
+    /*
+    El gestor formulario valida si se ha seleccionado un producto,
+    el controlador activara un listener para actualizar el preciounitario del 
+    producto y a su vez el total del mismo.
+    */
+    public JComboBox getComboBoxProductos(){
+        return comboBoxProductos;
     }
     
     /*

@@ -28,6 +28,7 @@ public enum TipoDatoFormulario {
     ),
     CODIGO("^.{10}$","Debe tener exactamente 10 caracteres"),
     NUMERO_ENTERO("^[0-9]+$", "Número invalido"),
+    NUMERO_ENTERO_MAYOR_CERO("^[1-9][0-9]*$", "Número invalido"),
     NUMERO_DOUBLE("^[0-9]+(?:\\.[0-9]{1,2})?$", "Solo reales de hasta 2 decimales"),
     FECHA_HORA("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}\\s(0[1-9]|1[0-2]):[0-5][0-9]\\s(?i)(a\\.?\\s?m\\.?|p\\.?\\s?m\\.?)$", "Debe ser dd/mm/aaaa hh:mm a. m. "),
     /*
