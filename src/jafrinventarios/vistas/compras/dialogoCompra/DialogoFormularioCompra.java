@@ -7,6 +7,7 @@ import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoBaseConSombra;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import java.awt.Window;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.JButton;
@@ -673,7 +674,7 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     
     /*
     Metodo para que despues de el usuario haya seleccionado un proveedor y
-    halla agregado la primera fila de productos, se deshabilido el combobox
+    haya agregado la primera fila de productos, se deshabilido el combobox
     ya que los productos que se muestren depende del proveedor que seleccione
     esto evita que el usuario llegue a seleccionar otro proveedor cuando ya
     tiene productos seleccionados
@@ -688,6 +689,46 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
     public void inicializarSelectorFechaHora( ){
         new SelectorFechaHora(inputFechaYHora);
     }
+    
+    
+    /*
+    ============================================================================
+            Exponer metodos para gestionar las filas de detalles
+    ============================================================================
+    */
+    
+    private void redibujarPanel(){
+    
+        contenedorDetalles.revalidate();
+        contenedorDetalles.repaint();
+        
+    }
+    
+    public void inyectarFilasDetalles( ArrayList<FilaFormularioDetalleCompra> filasDetalles ){
+        
+        filasDetalles.forEach(
+            ( filaDetalle )->{
+                contenedorDetalles.add(filaDetalle);
+            }
+        );
+        
+        redibujarPanel();
+        
+    } 
+    
+    public void inyectarNuevaFilaDetalle( FilaFormularioDetalleCompra filaDetalle ){
+        
+        contenedorDetalles.add(filaDetalle);        
+        redibujarPanel();
+        
+    } 
+    
+    public void removerFilaDetalle( FilaFormularioDetalleCompra filaDetalle){
+    
+        contenedorDetalles.remove(filaDetalle);
+        redibujarPanel();
+    }
+    
     
     /*
     ============================================================================

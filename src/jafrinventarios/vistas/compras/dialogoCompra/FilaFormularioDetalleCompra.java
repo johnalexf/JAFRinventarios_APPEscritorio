@@ -14,6 +14,8 @@ import java.util.LinkedHashMap;
 public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
 
     private final GestorFormulario formularioDetalles;
+    
+    private Integer idDetalle;
             
     /**
      * Creates new form FilaTablaUsuarios
@@ -218,6 +220,14 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
                     METODOS PUBLICOS PARA EL CONTROLADOR
     ============================================================================
     */
+    
+    public void setIdDetalle( Integer idDetalle ){
+        this.idDetalle = idDetalle;
+    }
+    
+    public Integer getIdDetalle( ){
+        return this.idDetalle;
+    }
     
     public void setItem( int  item ) {
         this.lblDatoItem.setText( Integer.toString(item) );
