@@ -34,13 +34,10 @@ public class ControladorDialogoCompra {
     private LinkedHashMap<Integer, DTOProductoPrecio> diccionarioProductosPrecio;
     private LinkedHashMap< Integer, String > diccionarioProductosId;
     
-    /*Este diccionario tendra como clave un numero entero que no depende de ningun id
-        esto con el fin de lograr mantener el orden el que son creados, saber exactamente
-        a que fila eliminar, no podemos depender del idDetalle pues este cuando sea uno nuevo
-        su valor asignado sera null, tampoco podemos depender de numero de item, pues lo correcto
-        seria actualizar este numero si se elimina uno que se mantenga la secuencia adecuada.
+    /*Este diccionario mantendra la relacion entre el modeloDetalleCompra, con su 
+    respectiva fila en la parte grafica.
     */
-    private LinkedHashMap< Integer, FilaFormularioDetalleCompra > diccionarioFilasDetalles;
+    private LinkedHashMap< FilaFormularioDetalleCompra, ModeloDetalleCompra > diccionarioDetalles;
     
     /*
     Variable que en el caso de editar tendra el id del registro a modificar
@@ -73,7 +70,7 @@ public class ControladorDialogoCompra {
         this.diccionarioProductosPrecio = new LinkedHashMap<>();
         this.diccionarioProductosId = new LinkedHashMap<>();
         
-        this.diccionarioFilasDetalles = new LinkedHashMap<>();
+        this.diccionarioDetalles = new LinkedHashMap<>();
         
         configuracionInicial();
         
@@ -106,17 +103,15 @@ public class ControladorDialogoCompra {
     
     private void poblarDiccionarioFilasDetalles(){
     
-        int identificador = 0;
-        for(ModeloDetalleCompra detalle : modeloCompra.getDetalles()){
+        for(ModeloDetalleCompra modeloDetalle : modeloCompra.getDetalles()){
             
-            diccionarioFilasDetalles.put( 
-                    ++identificador, 
-                    crearNuevaFilaDetalle(  detalle.getIdDetalleCompra(), 
-                                            detalle.getIdProducto(), 
-                                            detalle.getCantidadProducto(), 
-                                            detalle.getPrecioUnitarioProducto(), 
-                                            detalle.getPrecioTotalProducto()
-                    )            
+            diccionarioDetalles.put(  
+                    crearNuevaFilaDetalle(  modeloDetalle.getIdProducto(), 
+                                            modeloDetalle.getCantidadProducto(), 
+                                            modeloDetalle.getPrecioUnitarioProducto(), 
+                                            modeloDetalle.getPrecioTotalProducto()
+                    ),
+                    modeloDetalle.clonar()
             );
                         
         }
@@ -143,7 +138,7 @@ public class ControladorDialogoCompra {
 
         dialogoCompra.setTotalCompra( modeloCompra.getTotalCompra());
         
-        dialogoCompra.inyectarFilasDetalles(new ArrayList<>(diccionarioFilasDetalles.values()));
+        dialogoCompra.inyectarFilasDetalles(new ArrayList<>(diccionarioDetalles.keySet()));
     }
     
     /*
@@ -275,7 +270,6 @@ public class ControladorDialogoCompra {
     ============================================================================
     */
     private FilaFormularioDetalleCompra crearNuevaFilaDetalle(
-                                                        Integer idDetalle,
                                                         Integer idProducto,
                                                         int cantidadProducto,
                                                         double precioUnitarioProducto,
@@ -285,8 +279,7 @@ public class ControladorDialogoCompra {
         FilaFormularioDetalleCompra filaDetalle = new FilaFormularioDetalleCompra();
         
         filaDetalle.inicializarComboBoxProductos(diccionarioProductosId);
-        filaDetalle.setIdDetalle(idDetalle);
-        filaDetalle.setItem( diccionarioFilasDetalles.size()+ 1 );
+        filaDetalle.setItem( diccionarioDetalles.size()+ 1 );
         filaDetalle.asignarDatosEnFormulario(
             new HashMap<>(
                 Map.of("producto", String.valueOf( idProducto ), 
@@ -297,7 +290,47 @@ public class ControladorDialogoCompra {
         filaDetalle.setPrecioUnitario( precioUnitarioProducto );
         filaDetalle.setPrecioTotal( precioTotalProducto );
     
+        inicializarEventoInputCantidad(filaDetalle);
+        
         return filaDetalle;
+    }
+    
+    
+    private void inicializarEventoInputCantidad( FilaFormularioDetalleCompra filaDetalle ){
+        
+        filaDetalle.getInputCantidad().getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                calcularTotalProducto(filaDetalle);
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                calcularTotalProducto(filaDetalle);
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                calcularTotalProducto(filaDetalle);
+            }
+        });
+        
+    }
+    
+    private void calcularTotalProducto( FilaFormularioDetalleCompra filaDetalle ){
+        
+        ModeloDetalleCompra detalleCompra = diccionarioDetalles.get(filaDetalle);
+        try {
+            int cantidad = Integer.parseInt( filaDetalle.getInputCantidad().getText() );
+            detalleCompra.setCantidadProducto(cantidad);
+
+            filaDetalle.setPrecioTotal( detalleCompra.getPrecioTotalProducto()  );
+
+        } catch (Exception e) {
+            detalleCompra.setCantidadProducto(0);
+            filaDetalle.setPrecioTotal( 0 );
+        }
+    
     }
     
     

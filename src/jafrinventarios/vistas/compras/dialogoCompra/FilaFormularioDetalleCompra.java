@@ -6,6 +6,7 @@ import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
 import jafrinventarios.vistas.utilidades.formularios.TipoDatoFormulario;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import javax.swing.JTextField;
 
 /**
  *
@@ -14,8 +15,6 @@ import java.util.LinkedHashMap;
 public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
 
     private final GestorFormulario formularioDetalles;
-    
-    private Integer idDetalle;
             
     /**
      * Creates new form FilaTablaUsuarios
@@ -221,14 +220,6 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
     ============================================================================
     */
     
-    public void setIdDetalle( Integer idDetalle ){
-        this.idDetalle = idDetalle;
-    }
-    
-    public Integer getIdDetalle( ){
-        return this.idDetalle;
-    }
-    
     public void setItem( int  item ) {
         this.lblDatoItem.setText( Integer.toString(item) );
     }
@@ -239,6 +230,15 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
 
     public void setPrecioTotal( double precio ) {
         this.lblDatoTotal.setText( precioAString(precio) );
+    }
+    
+    /*
+    El gestor formulario se encarga de validar y mostrar si es un numero,
+    pero el controlador activara un listener para actualizar el valor total 
+    del producto.
+    */
+    public JTextField getInputCantidad(){
+        return inputCantidad;
     }
     
     

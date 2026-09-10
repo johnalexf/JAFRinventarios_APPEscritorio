@@ -80,7 +80,7 @@ public class CampoTexto extends CampoGestionable{
         // ¿Está vacío?
         if(textoInput.isEmpty()){
             if( esObligatorio ){
-                mostrarError("Este campo es obligatorio");
+                mostrarError("Campo obligatorio");
                 return false;
             }
             
