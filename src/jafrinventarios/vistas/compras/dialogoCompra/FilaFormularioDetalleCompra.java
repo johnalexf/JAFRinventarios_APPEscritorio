@@ -17,9 +17,6 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
 
     private final GestorFormulario formularioDetalles;
             
-    /**
-     * Creates new form FilaTablaUsuarios
-     */
     public FilaFormularioDetalleCompra() {
         
         initComponents();
@@ -275,10 +272,6 @@ public class FilaFormularioDetalleCompra extends javax.swing.JPanel {
     
     public HashMap<String, String> recolectarDatosFormulario(){
         return formularioDetalles.recolectarDatos();
-    }
-    
-    public void mostrarErroresValidacionCampos( HashMap<String, String> errores ){
-        formularioDetalles.mostrarErroresExternos(errores);
     }
     
     public void asignarDatosEnFormulario( HashMap<String, String> datos ){
