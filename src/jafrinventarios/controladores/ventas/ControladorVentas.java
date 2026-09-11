@@ -11,7 +11,7 @@ import jafrinventarios.servicios.ventas.ServicioVentas;
 import jafrinventarios.vistas.ventas.FilaTablaDetalleVenta;
 import jafrinventarios.vistas.ventas.FilaTablaVentas;
 import jafrinventarios.vistas.ventas.VentasPanel;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -122,11 +122,11 @@ public class ControladorVentas {
     ============================================================================
     */
     private FilaTablaVentas asignarDatosAFilaVenta ( FilaTablaVentas filaVenta, DTOVentaTabla datosVenta ){
-        SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
         filaVenta.setDatos(
             datosVenta.getIdVenta(),
             datosVenta.getNombreNegocioCliente(),
-            formateador.format( datosVenta.getFechaHoraVenta()),
+            datosVenta.getFechaHoraVenta().format(formateador),
             datosVenta.getTotalVenta(),
             datosVenta.getAliasUsuario()            
         );

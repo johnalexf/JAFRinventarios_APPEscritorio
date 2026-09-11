@@ -11,7 +11,6 @@ import jafrinventarios.servicios.compras.ServicioCompras;
 import jafrinventarios.vistas.compras.ComprasPanel;
 import jafrinventarios.vistas.compras.FilaTablaCompras;
 import jafrinventarios.vistas.compras.FilaTablaDetalleCompra;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
