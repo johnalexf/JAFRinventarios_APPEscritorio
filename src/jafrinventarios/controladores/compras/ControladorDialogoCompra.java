@@ -250,9 +250,10 @@ public class ControladorDialogoCompra {
                         "Para poder crear una compra, debe existir por lo menos un proveedor\n"
                         + "Por favor dirigete a la seccion de proveedores y crea uno."
                 );
-            else
+            else{
                 dialogoCompra.inicializarComboBoxProveedores(diccionarioProveedores);
                 dialogoCompra.getComboBoxProveedores().addActionListener( e -> actualizarDiccionariosProductos() );
+            }
         } catch (Exception e) {
             dialogoCompra.mostrarAlertaError(e.getMessage());
         }
