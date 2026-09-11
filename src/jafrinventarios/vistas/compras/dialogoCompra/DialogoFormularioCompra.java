@@ -757,10 +757,6 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         return formularioDatosCompra.recolectarDatos();
     }
     
-    public void mostrarErroresValidacionCampos( HashMap<String, String> errores ){
-        formularioDatosCompra.mostrarErroresExternos(errores);
-    }
-    
     public void asignarDatosEnFormulario( HashMap<String, String> datos ){
         formularioDatosCompra.asignarDatos(datos);
     }
@@ -809,9 +805,6 @@ public class DialogoFormularioCompra extends DialogoBaseConSombra {
         DialogoAlerta.mostrarError( this, "Error", mensaje );
     }
     
-    public void mostrarAlertaErroresValidacion( HashMap<String, String> errores ){
-        DialogoAlerta.mostrarErroresValidacion(this, errores );
-    }
     
 
 
