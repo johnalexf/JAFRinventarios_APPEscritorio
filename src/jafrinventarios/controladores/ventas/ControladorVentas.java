@@ -208,12 +208,10 @@ public class ControladorVentas {
        
     private void crearVenta(){
 
-//        int idVentaCreada = ControladorDialogoVentas.crearVenta( 
-//                        panelVentas.getVentanaPadre() , 
-//                        servicioVentas
-//        );
-        //TODO: Eliminar hasta que se cree el controladorDialogoVentas
-        int idVentaCreada = -1;
+        int idVentaCreada = ControladorDialogoVentas.crearVenta( 
+                        panelVentas.getVentanaPadre() , 
+                        servicioVentas
+        );
         
         if(idVentaCreada != -1){
             
@@ -243,11 +241,10 @@ public class ControladorVentas {
         
     private void editarVenta( Integer idVenta ){
         
-        ResultadoDialogo resultadoOperacion = ResultadoDialogo.SIN_CAMBIOS;
-//                ControladorDialogoVenta.editarVenta(
-//                    panelVentas.getVentanaPadre() , idVenta, servicioVentas
-//                );
-// TODO: Adecuar cuando se construya el controladorDialogoVenta
+        ResultadoDialogo resultadoOperacion = 
+                ControladorDialogoVentas.editarVenta(
+                    panelVentas.getVentanaPadre() , idVenta, servicioVentas
+                );
         
         if( resultadoOperacion == ResultadoDialogo.ACTUALIZADO ){  
             try {
