@@ -79,16 +79,21 @@ public class ModeloDetalleVenta {
 
     public void setCantidadProducto(int cantidadProducto) {
         this.cantidadProducto = cantidadProducto;
+        calcularTotal();
     }
 
     public void setPrecioUnitarioProducto(double precioUnitarioProducto) {
         this.precioUnitarioProducto = precioUnitarioProducto;
+        calcularTotal();
     }
 
     public void setPrecioTotalProducto(double precioTotalProducto) {
         this.precioTotalProducto = precioTotalProducto;
     }
 
+    private void calcularTotal() {
+        precioTotalProducto = Math.round(cantidadProducto * precioUnitarioProducto * 100.0) / 100.0;
+    }
     
     /*
     ============================================================================
