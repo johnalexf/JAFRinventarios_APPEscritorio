@@ -1,8 +1,8 @@
 
 package jafrinventarios.DTOs.ventas;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -11,7 +11,7 @@ import java.util.Date;
 public class DTOVentaTabla {
     
     private final Integer idVenta;
-    private final Date fechaHoraVenta;
+    private final LocalDateTime fechaHoraVenta;
     private final double totalVenta;
     private final String nombreNegocioCliente;
     private final String aliasUsuario;
@@ -25,7 +25,7 @@ public class DTOVentaTabla {
     */
 
     public DTOVentaTabla(   Integer idVenta, 
-                            Date fechaHoraVenta, 
+                            LocalDateTime fechaHoraVenta, 
                             double totalVenta, 
                             String nombreNegocioCliente, 
                             String aliasUsuario) {
@@ -47,7 +47,7 @@ public class DTOVentaTabla {
         return idVenta;
     }
 
-    public Date getFechaHoraVenta() {
+    public LocalDateTime getFechaHoraVenta() {
         return fechaHoraVenta;
     }
 

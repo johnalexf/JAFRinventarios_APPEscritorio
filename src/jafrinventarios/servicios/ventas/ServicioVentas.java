@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -60,7 +61,7 @@ public class ServicioVentas {
                         respuesta.getInt("id"), 
                         new DTOVentaTabla(
                                 respuesta.getInt("id"),
-                                respuesta.getTimestamp("fecha"),
+                                respuesta.getObject("fecha", LocalDateTime.class),
                                 respuesta.getDouble("total"),
                                 respuesta.getString("nombreCliente"),
                                 respuesta.getString("aliasUsuario")
@@ -169,7 +170,7 @@ public class ServicioVentas {
                                 respuesta.getInt("idVenta"), 
                                 new DTOVentaTabla(
                                     respuesta.getInt("idVenta"),
-                                    respuesta.getTimestamp("fecha"),
+                                     respuesta.getObject("fecha", LocalDateTime.class),
                                     respuesta.getDouble("totalVenta"),
                                     respuesta.getString("nombreCliente"),
                                     respuesta.getString("aliasUsuario")
@@ -238,7 +239,7 @@ public class ServicioVentas {
                 if ( respuesta.next() ) { 
                     venta = new DTOVentaTabla(
                             respuesta.getInt("id"),
-                            respuesta.getTimestamp("fecha"),
+                            respuesta.getObject("fecha", LocalDateTime.class),
                             respuesta.getDouble("totalVenta"),
                             respuesta.getString("nombreCliente"),
                             respuesta.getString("aliasUsuario")
@@ -303,7 +304,7 @@ public class ServicioVentas {
                 if ( respuesta.next() ) { 
                     venta = new ModeloVenta(
                             respuesta.getInt("idVenta"),
-                            respuesta.getTimestamp("fecha"),
+                             respuesta.getObject("fecha", LocalDateTime.class),
                             respuesta.getDouble("totalVenta"),
                             respuesta.getInt("idCliente"),
                             respuesta.getInt("idUsuario")
@@ -543,8 +544,7 @@ public class ServicioVentas {
 
         try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL , Statement.RETURN_GENERATED_KEYS)){
 
-            java.sql.Timestamp fecha = new java.sql.Timestamp( venta.getFechaHoraVenta().getTime());
-            consulta.setTimestamp(1, fecha);
+            consulta.setObject(1, venta.getFechaHoraVenta());
             consulta.setDouble(2, venta.getTotalVenta());
             consulta.setInt(3, venta.getIdCliente());
             consulta.setInt(4, venta.getIdUsuario());
@@ -651,8 +651,7 @@ public class ServicioVentas {
 
         try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)){
 
-            java.sql.Timestamp fecha = new java.sql.Timestamp( venta.getFechaHoraVenta().getTime());
-            consulta.setTimestamp(1, fecha);
+            consulta.setObject(1, venta.getFechaHoraVenta());
             consulta.setDouble(2, venta.getTotalVenta());
             consulta.setInt(3, venta.getIdCliente());
             consulta.setInt(4, venta.getIdUsuario());

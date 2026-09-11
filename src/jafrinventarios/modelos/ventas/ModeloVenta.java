@@ -1,8 +1,8 @@
 
 package jafrinventarios.modelos.ventas;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ModeloVenta {
     
     private Integer idVenta;
-    private Date fechaHoraVenta;
+    private LocalDateTime fechaHoraVenta;
     private double totalVenta;
     private Integer idCliente;
     private Integer idUsuario;
@@ -28,7 +28,7 @@ public class ModeloVenta {
     public ModeloVenta() {
     }
 
-    public ModeloVenta(Integer idVenta, Date fechaHoraVenta, double totalVenta, Integer idCliente, Integer idUsuario) {
+    public ModeloVenta(Integer idVenta, LocalDateTime fechaHoraVenta, double totalVenta, Integer idCliente, Integer idUsuario) {
         this.idVenta = idVenta;
         this.fechaHoraVenta = fechaHoraVenta;
         this.totalVenta = totalVenta;
@@ -46,7 +46,7 @@ public class ModeloVenta {
         return idVenta;
     }
 
-    public Date getFechaHoraVenta() {
+    public LocalDateTime getFechaHoraVenta() {
         return fechaHoraVenta;
     }
 
@@ -76,7 +76,7 @@ public class ModeloVenta {
         this.idVenta = idVenta;
     }
 
-    public void setFechaHoraVenta(Date fechaHoraVenta) {
+    public void setFechaHoraVenta(LocalDateTime fechaHoraVenta) {
         this.fechaHoraVenta = fechaHoraVenta;
     }
 
