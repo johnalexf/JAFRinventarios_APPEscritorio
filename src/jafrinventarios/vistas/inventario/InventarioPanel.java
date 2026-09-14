@@ -115,25 +115,27 @@ public class InventarioPanel extends javax.swing.JPanel {
         lblTituloTotal.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloTotal.setText("<html> <p style=\"width:100px; text-align: center;\">Cantidad en stock</p> </html>");
-        lblTituloTotal.setMaximumSize(new java.awt.Dimension(0, 0));
-        lblTituloTotal.setMinimumSize(new java.awt.Dimension(0, 0));
-        lblTituloTotal.setPreferredSize(new java.awt.Dimension(0, 0));
+        lblTituloTotal.setMaximumSize(new java.awt.Dimension(180, 0));
+        lblTituloTotal.setMinimumSize(new java.awt.Dimension(180, 0));
+        lblTituloTotal.setPreferredSize(new java.awt.Dimension(180, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
         gridBagConstraints.weighty = 1.0;
         contenedorTitulosTabla.add(lblTituloTotal, gridBagConstraints);
 
+        contenedorTituloCantidadConfirmada.setMaximumSize(new java.awt.Dimension(180, 0));
+        contenedorTituloCantidadConfirmada.setMinimumSize(new java.awt.Dimension(180, 0));
         contenedorTituloCantidadConfirmada.setOpaque(false);
+        contenedorTituloCantidadConfirmada.setPreferredSize(new java.awt.Dimension(180, 0));
         contenedorTituloCantidadConfirmada.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
         lblTituloCantidadConfirmada.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloCantidadConfirmada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloCantidadConfirmada.setText("<html> <p style=\"width:100px; text-align: center;\">Cantidad confirmada</p> </html>");
+        lblTituloCantidadConfirmada.setText("<html> <p style=\"width:70px; text-align: center;\">Cantidad confirmada</p> </html>");
         lblTituloCantidadConfirmada.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblTituloCantidadConfirmada.setMaximumSize(new java.awt.Dimension(120, 50));
-        lblTituloCantidadConfirmada.setMinimumSize(new java.awt.Dimension(120, 50));
-        lblTituloCantidadConfirmada.setPreferredSize(new java.awt.Dimension(120, 50));
+        lblTituloCantidadConfirmada.setMaximumSize(new java.awt.Dimension(100, 50));
+        lblTituloCantidadConfirmada.setMinimumSize(new java.awt.Dimension(100, 50));
+        lblTituloCantidadConfirmada.setPreferredSize(new java.awt.Dimension(100, 50));
         contenedorTituloCantidadConfirmada.add(lblTituloCantidadConfirmada);
 
         btnAyudaCantidadConfirmada.setBackground(new java.awt.Color(255, 255, 255));
@@ -160,20 +162,22 @@ public class InventarioPanel extends javax.swing.JPanel {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
         gridBagConstraints.weighty = 1.0;
         contenedorTitulosTabla.add(contenedorTituloCantidadConfirmada, gridBagConstraints);
 
+        contenedorTituloConfirmar.setMaximumSize(new java.awt.Dimension(160, 0));
+        contenedorTituloConfirmar.setMinimumSize(new java.awt.Dimension(160, 0));
         contenedorTituloConfirmar.setOpaque(false);
+        contenedorTituloConfirmar.setPreferredSize(new java.awt.Dimension(160, 0));
         contenedorTituloConfirmar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
         lblTituloConfirmar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloConfirmar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloConfirmar.setText("Confirmar");
         lblTituloConfirmar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblTituloConfirmar.setMaximumSize(new java.awt.Dimension(100, 50));
-        lblTituloConfirmar.setMinimumSize(new java.awt.Dimension(100, 50));
-        lblTituloConfirmar.setPreferredSize(new java.awt.Dimension(100, 50));
+        lblTituloConfirmar.setMaximumSize(new java.awt.Dimension(80, 50));
+        lblTituloConfirmar.setMinimumSize(new java.awt.Dimension(80, 50));
+        lblTituloConfirmar.setPreferredSize(new java.awt.Dimension(80, 50));
         contenedorTituloConfirmar.add(lblTituloConfirmar);
 
         btnAyudaConfirmar.setBackground(new java.awt.Color(255, 255, 255));
@@ -200,7 +204,6 @@ public class InventarioPanel extends javax.swing.JPanel {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         contenedorTitulosTabla.add(contenedorTituloConfirmar, gridBagConstraints);
 

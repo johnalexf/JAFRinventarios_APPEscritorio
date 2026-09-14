@@ -118,21 +118,23 @@ public class FilaTablaInventario extends javax.swing.JPanel {
         lblDatoCantidad.setToolTipText("");
         lblDatoCantidad.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblDatoCantidad.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        lblDatoCantidad.setMaximumSize(new java.awt.Dimension(0, 0));
-        lblDatoCantidad.setMinimumSize(new java.awt.Dimension(0, 0));
-        lblDatoCantidad.setPreferredSize(new java.awt.Dimension(0, 0));
+        lblDatoCantidad.setMaximumSize(new java.awt.Dimension(180, 0));
+        lblDatoCantidad.setMinimumSize(new java.awt.Dimension(180, 0));
+        lblDatoCantidad.setPreferredSize(new java.awt.Dimension(180, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
         gridBagConstraints.weighty = 1.0;
         contenedorDatos.add(lblDatoCantidad, gridBagConstraints);
 
+        contenedorInputYErrorNuevaCantidad.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 20));
+        contenedorInputYErrorNuevaCantidad.setMaximumSize(new java.awt.Dimension(180, 0));
+        contenedorInputYErrorNuevaCantidad.setMinimumSize(new java.awt.Dimension(180, 0));
         contenedorInputYErrorNuevaCantidad.setOpaque(false);
+        contenedorInputYErrorNuevaCantidad.setPreferredSize(new java.awt.Dimension(180, 0));
         contenedorInputYErrorNuevaCantidad.setLayout(new java.awt.BorderLayout());
 
         inputNuevaCantidad.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         inputNuevaCantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        inputNuevaCantidad.setText("0");
         inputNuevaCantidad.setToolTipText("");
         inputNuevaCantidad.setMaximumSize(new java.awt.Dimension(0, 0));
         inputNuevaCantidad.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -150,24 +152,22 @@ public class FilaTablaInventario extends javax.swing.JPanel {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 20);
         contenedorDatos.add(contenedorInputYErrorNuevaCantidad, gridBagConstraints);
 
         checkBoxConfirmar.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         checkBoxConfirmar.setAlignmentX(0.5F);
         checkBoxConfirmar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         checkBoxConfirmar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        checkBoxConfirmar.setMaximumSize(new java.awt.Dimension(30, 30));
-        checkBoxConfirmar.setMinimumSize(new java.awt.Dimension(30, 30));
+        checkBoxConfirmar.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        checkBoxConfirmar.setMaximumSize(new java.awt.Dimension(160, 0));
+        checkBoxConfirmar.setMinimumSize(new java.awt.Dimension(160, 0));
         checkBoxConfirmar.setOpaque(false);
-        checkBoxConfirmar.setPreferredSize(new java.awt.Dimension(30, 30));
+        checkBoxConfirmar.setPreferredSize(new java.awt.Dimension(160, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 24, 20);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 24, 0);
         contenedorDatos.add(checkBoxConfirmar, gridBagConstraints);
 
         contenedorFila.add(contenedorDatos, java.awt.BorderLayout.PAGE_START);
