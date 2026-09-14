@@ -27,6 +27,9 @@ public class ControladorInventario {
     
     private ArrayList<DTOProductoCantidad> productosActualizar;
     
+    private ControladorBusquedaYAccionLibre controladorBusquedaYAccionLibre;
+    
+    private boolean modoVerificarInventario;
     
     /*
     ============================================================================
@@ -46,13 +49,17 @@ public class ControladorInventario {
         las funciones correspondientes que necesita ejecutar el controlador de 
         la barra de busqueda.
         */
-        new ControladorBusquedaYAccionLibre(
+        controladorBusquedaYAccionLibre = new ControladorBusquedaYAccionLibre(
                 panelInventario.getPanelBusquedaYAccionLibre(),
                 funcionesBusquedaYAccionLibre(),
                 "Nombre producto o nombre proveedor",
                 "Verificar Inventario",
                 ModeloSesionUsuario.getInstancia().isAdministrador()
         );
+        
+        this.modoVerificarInventario = false;
+        
+        mostrarTodosLosProductos();
         
         configuracionInicial();
     }
@@ -85,7 +92,9 @@ public class ControladorInventario {
     
     
     private void configuracionInicial(){
-    
+        panelInventario.configurarModoVerificacion(modoVerificarInventario);
+        if(diccionarioFilasInventario.isEmpty())
+            controladorBusquedaYAccionLibre.setEnableBotonAccionLibre(false);
     }
     
     
@@ -122,6 +131,8 @@ public class ControladorInventario {
                                  datosInventario.getNombreProducto(),
                                  datosInventario.getCantidadDisponible()
         );
+        
+        filaInventario.configurarModoVerificacion( modoVerificarInventario );
         
         return filaInventario;
     }
@@ -179,7 +190,24 @@ public class ControladorInventario {
     }
     
     public void habilitarVerificarInventario(){
-    
+        if(!modoVerificarInventario){     
+            boolean deseaContinuar = panelInventario.mostrarModalAdvertenciaConRespuesta("¡Cuidado! "
+                    + "Esta a punto de entrar en el modo verificar el inventario, el cual esta diseñado "
+                    + "para ayudar en la confirmación del inventario manual que se realice, allí se podrá "
+                    + "editar la cantidad de los productos y se ira confirmando las cantidades "
+                    + "si concuerdan con las contadas realmente.");
+            
+            if(deseaContinuar){
+                modoVerificarInventario = true;
+                panelInventario.configurarModoVerificacion(modoVerificarInventario);
+                diccionarioFilasInventario.keySet().forEach( filaInventario -> { 
+                    filaInventario.configurarModoVerificacion(modoVerificarInventario);
+                });
+                controladorBusquedaYAccionLibre.setEnableBotonAccionLibre(!modoVerificarInventario);
+                controladorBusquedaYAccionLibre.setEnableBuscador(!modoVerificarInventario);
+            }
+        }
+        
     }
     
     
