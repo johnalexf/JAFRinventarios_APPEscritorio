@@ -310,10 +310,21 @@ public class ControladorDialogoCompra {
     
         FilaFormularioDetalleCompra filaDetalle = new FilaFormularioDetalleCompra();
         
-        filaDetalle.inicializarComboBoxProductos(diccionarioProductosId);
+        filaDetalle.inicializarComboBoxProductos( obtenerProductosDisponibles() );
         filaDetalle.setItem( diccionarioDetalles.size()+ 1 );
         
         return filaDetalle;
+    }
+    
+    private LinkedHashMap< Integer, String > obtenerProductosDisponibles(){
+    
+        LinkedHashMap< Integer, String > productosIdDisponibles = new LinkedHashMap<>(diccionarioProductosId);
+        
+        for(ModeloDetalleCompra detalleCompra: diccionarioDetalles.values()){
+            productosIdDisponibles.remove( detalleCompra.getIdProducto() );
+        }
+        
+        return productosIdDisponibles;
     }
     
     
