@@ -317,6 +317,25 @@ public class DialogoAlerta extends DialogoBaseConSombra {
     }
     
     
+        /*
+    ===========================================================================
+                METODO ESTATICO PARA MOSTRAR UN MENSAJE DE EXITO
+    ===========================================================================
+    */
+    public static void mostrarInformacion(Window ventanaPadre, 
+                                    String titulo, 
+                                    String mensaje){
+    
+        mostrar(ventanaPadre, 
+                titulo,
+                mensaje,
+                IconoDialogo.INFORMACION,
+                false
+                );
+    
+    }
+    
+            
     
     /*
     ===========================================================================

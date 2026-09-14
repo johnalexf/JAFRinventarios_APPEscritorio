@@ -74,7 +74,7 @@ public class CampoTexto extends CampoGestionable{
     }
 
     @Override
-    protected boolean validar() {
+    public boolean validar() {
         String textoInput = obtenerTextoInput();
         
         // ¿Está vacío?
@@ -106,7 +106,7 @@ public class CampoTexto extends CampoGestionable{
     
     
     @Override
-    protected String getValorComponente(){
+    public String getValorComponente(){
         return obtenerTextoInput();
     }
 
