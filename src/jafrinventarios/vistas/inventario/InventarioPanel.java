@@ -3,6 +3,7 @@ package jafrinventarios.vistas.inventario;
 
 import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 
@@ -272,10 +273,10 @@ public class InventarioPanel extends javax.swing.JPanel {
     Metodo para poder agregar toda la lista de productos recibida, por medio de
     LinkedHashMap mantenemos el orden en el cual ha sido enviada.
     */
-    public void inyectarFilas( LinkedHashMap<Integer, FilaTablaInventario> filasTablaInventario ){
+    public void inyectarFilas( ArrayList<FilaTablaInventario> filasTablaInventario ){
         contenedorContenidoTabla.removeAll();
         
-        filasTablaInventario.values().forEach(fila -> {
+        filasTablaInventario.forEach(fila -> {
             contenedorContenidoTabla.add(fila);
         });
         
