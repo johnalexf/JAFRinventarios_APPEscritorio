@@ -4,6 +4,7 @@ package jafrinventarios.vistas.inventario;
 import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import java.util.ArrayList;
+import javax.swing.JButton;
 
 
 /**
@@ -46,6 +47,9 @@ public class InventarioPanel extends javax.swing.JPanel {
         contenedorSinDatos = new javax.swing.JPanel();
         tituloSinDatos = new javax.swing.JLabel();
         labelDescripcionSinDatos = new javax.swing.JLabel();
+        contenedorBotones = new javax.swing.JPanel();
+        btnFinalizarVerificacion = new javax.swing.JButton();
+        btnCancelarVerificacion = new javax.swing.JButton();
 
         setOpaque(false);
         setLayout(new java.awt.BorderLayout());
@@ -240,6 +244,48 @@ public class InventarioPanel extends javax.swing.JPanel {
         contenedorTabla.add(panelScrolleableContenidoTabla, java.awt.BorderLayout.CENTER);
 
         add(contenedorTabla, java.awt.BorderLayout.CENTER);
+
+        contenedorBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 10, 40));
+        contenedorBotones.setMinimumSize(new java.awt.Dimension(500, 50));
+        contenedorBotones.setOpaque(false);
+        contenedorBotones.setPreferredSize(new java.awt.Dimension(500, 60));
+        contenedorBotones.setLayout(new java.awt.GridBagLayout());
+
+        btnFinalizarVerificacion.setBackground(new java.awt.Color(17, 35, 85));
+        btnFinalizarVerificacion.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnFinalizarVerificacion.setForeground(new java.awt.Color(255, 255, 255));
+        btnFinalizarVerificacion.setText("Finalizar Verificacion");
+        btnFinalizarVerificacion.setAlignmentX(0.5F);
+        btnFinalizarVerificacion.setIconTextGap(10);
+        btnFinalizarVerificacion.setMaximumSize(new java.awt.Dimension(200, 40));
+        btnFinalizarVerificacion.setMinimumSize(new java.awt.Dimension(200, 40));
+        btnFinalizarVerificacion.setPreferredSize(new java.awt.Dimension(200, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorBotones.add(btnFinalizarVerificacion, gridBagConstraints);
+
+        btnCancelarVerificacion.setBackground(new java.awt.Color(200, 0, 0));
+        btnCancelarVerificacion.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnCancelarVerificacion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarVerificacion.setText("Cancelar Verificacion");
+        btnCancelarVerificacion.setAlignmentX(0.5F);
+        btnCancelarVerificacion.setIconTextGap(10);
+        btnCancelarVerificacion.setMaximumSize(new java.awt.Dimension(200, 40));
+        btnCancelarVerificacion.setMinimumSize(new java.awt.Dimension(200, 40));
+        btnCancelarVerificacion.setPreferredSize(new java.awt.Dimension(200, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorBotones.add(btnCancelarVerificacion, gridBagConstraints);
+
+        add(contenedorBotones, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAyudaCantidadConfirmadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaCantidadConfirmadaActionPerformed
@@ -262,6 +308,7 @@ public class InventarioPanel extends javax.swing.JPanel {
     public void configurarModoVerificacion( boolean modoVerificar){
         contenedorTituloCantidadConfirmada.setVisible(modoVerificar);
         contenedorTituloConfirmar.setVisible(modoVerificar);
+        contenedorBotones.setVisible(modoVerificar);
         contenedorTitulosTabla.revalidate(); // Re calcula el diseño GridBagLayout
         contenedorTitulosTabla.repaint();    // Redibuja el panel en pantalla
     }
@@ -291,6 +338,17 @@ public class InventarioPanel extends javax.swing.JPanel {
         contenedorContenidoTabla.repaint();
     }
   
+    
+    /*
+    Exponer los botones 
+    */
+    public JButton getBtnCancelarVerificacion(){
+        return btnCancelarVerificacion;
+    }
+    
+    public JButton getBtnFinalizarVerificacion(){
+        return btnFinalizarVerificacion;
+    }
     
     
     /* 
@@ -322,6 +380,9 @@ public class InventarioPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAyudaCantidadConfirmada;
     private javax.swing.JButton btnAyudaConfirmar;
+    private javax.swing.JButton btnCancelarVerificacion;
+    private javax.swing.JButton btnFinalizarVerificacion;
+    private javax.swing.JPanel contenedorBotones;
     private javax.swing.JPanel contenedorBusquedaYAccionLibre;
     private javax.swing.JPanel contenedorContenidoTabla;
     private javax.swing.JPanel contenedorHeaderTabla;
