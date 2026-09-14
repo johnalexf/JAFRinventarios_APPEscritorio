@@ -337,6 +337,9 @@ public class ServicioVentas {
         if(venta.getDetalles().isEmpty())
             throw new Exception("La venta no se puede crear sin detalles");
         
+        if( !venta.sonProductosUnicosEnDetalles() )
+            throw new Exception("La venta no puede llevar un mismo producto en más de un detalle. Por favor, unificar las cantidades e intentar nuevamente.");
+        
         Connection conexionDB = ConexionDB.getConnection();
         
         comprobarDisponibilidadProductos(conexionDB, venta.getDetalles());
@@ -372,6 +375,9 @@ public class ServicioVentas {
         
         if(ventaAEditar.getDetalles().isEmpty())
             throw new Exception("La venta no se puede editar sin detalles");
+        
+        if( !ventaAEditar.sonProductosUnicosEnDetalles() )
+            throw new Exception("La venta no puede llevar un mismo producto en más de un detalle. Por favor, unificar las cantidades e intentar nuevamente.");
         
         ModeloVenta ventaOriginal = obtenerModeloVenta(ventaAEditar.getIdVenta());
         

@@ -3,7 +3,9 @@ package jafrinventarios.modelos.ventas;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -184,6 +186,26 @@ public class ModeloVenta {
     public boolean sonIgualesDetalles ( ModeloVenta ventaAVerficar ){
     
         return ( Objects.equals(this.detalles, ventaAVerficar.detalles));
+        
+    }
+    
+        /*
+    ============================================================================
+      Metodo para comprobar que los detalles no tengan id productos repetidos
+    ============================================================================
+    */
+    public boolean sonProductosUnicosEnDetalles( ) {
+        
+        Set<Integer> productosUnicos = new HashSet<>();
+        
+        for (ModeloDetalleVenta detalle : detalles) {
+            // Si add() retorna false, significa que el ID ya estaba en la colección
+            if (!productosUnicos.add(detalle.getIdProducto())) {
+                return false;
+            }
+        }
+        
+        return true;
         
     }
     
