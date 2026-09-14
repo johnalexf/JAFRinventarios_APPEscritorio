@@ -340,6 +340,9 @@ public class ServicioCompras {
         if(compra.getDetalles().isEmpty())
             throw new Exception("La compra no se puede crear sin detalles");
         
+        if( !compra.sonProductosUnicosEnDetalles() )
+            throw new Exception("La compra no puede llevar un mismo producto en más de un detalle. Por favor, unificar las cantidades e intentar nuevamente.");
+        
         Connection conexionDB = ConexionDB.getConnection();
         
         try{
@@ -381,6 +384,9 @@ public class ServicioCompras {
         
         if(compraAEditar.getDetalles().isEmpty())
             throw new Exception("La compra no se puede editar sin detalles");
+        
+        if( !compraAEditar.sonProductosUnicosEnDetalles() )
+            throw new Exception("La compra no puede llevar un mismo producto en más de un detalle. Por favor, unificar las cantidades e intentar nuevamente.");
         
         ModeloCompra compraOriginal = obtenerModeloCompra(compraAEditar.getIdCompra());
         

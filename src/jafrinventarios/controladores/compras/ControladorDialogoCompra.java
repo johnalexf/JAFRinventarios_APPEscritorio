@@ -538,6 +538,12 @@ public class ControladorDialogoCompra {
             return;
         }
         
+        //Validar ids unicos de los productos
+        if( !compraAProcesar.sonProductosUnicosEnDetalles() ){
+            dialogoCompra.mostrarAlertaError("La compra no puede llevar un mismo producto en más de un detalle. Por favor, unificar las cantidades e intentar nuevamente.");
+            return;
+        }
+        
         //Verificar si los modelos son iguales en dado caso que tipoDialogo sea EDITAR
         if( tipoDialogo == TipoDialogo.EDITAR_COMPRA ){
             if ( modeloCompra.equals( compraAProcesar )) {
