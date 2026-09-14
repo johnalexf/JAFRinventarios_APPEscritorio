@@ -113,12 +113,11 @@ public class FilaTablaInventario extends javax.swing.JPanel {
         lblDatoId.setText("Id");
         lblDatoId.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblDatoId.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        lblDatoId.setMaximumSize(new java.awt.Dimension(0, 0));
-        lblDatoId.setMinimumSize(new java.awt.Dimension(0, 0));
-        lblDatoId.setPreferredSize(new java.awt.Dimension(0, 0));
+        lblDatoId.setMaximumSize(new java.awt.Dimension(180, 0));
+        lblDatoId.setMinimumSize(new java.awt.Dimension(180, 0));
+        lblDatoId.setPreferredSize(new java.awt.Dimension(180, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         contenedorDatos.add(lblDatoId, gridBagConstraints);
 
@@ -262,6 +261,7 @@ public class FilaTablaInventario extends javax.swing.JPanel {
     }
     
     //Metodo para cambiar el color de la fila si es un item ya verificado
+    //Y desactivar el input de nueva cantidad
     public void setEstadoVisual(boolean confirmado){
         if(confirmado){
             contenedorDatos.setBackground(new java.awt.Color(217, 217, 217));

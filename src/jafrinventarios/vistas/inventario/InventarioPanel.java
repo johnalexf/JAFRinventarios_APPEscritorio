@@ -4,7 +4,6 @@ package jafrinventarios.vistas.inventario;
 import jafrinventarios.vistas.utilidades.componentes.PanelBusquedaYAccionLibre;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 
 /**
@@ -79,12 +78,11 @@ public class InventarioPanel extends javax.swing.JPanel {
         lblTituloId.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTituloId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloId.setText("Id");
-        lblTituloId.setMaximumSize(new java.awt.Dimension(0, 0));
-        lblTituloId.setMinimumSize(new java.awt.Dimension(0, 0));
-        lblTituloId.setPreferredSize(new java.awt.Dimension(0, 0));
+        lblTituloId.setMaximumSize(new java.awt.Dimension(180, 0));
+        lblTituloId.setMinimumSize(new java.awt.Dimension(180, 0));
+        lblTituloId.setPreferredSize(new java.awt.Dimension(180, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         contenedorTitulosTabla.add(lblTituloId, gridBagConstraints);
 
