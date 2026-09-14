@@ -109,6 +109,16 @@ public class ControladorBusquedaYAccionLibre {
         panelBusquedaYAccion.setLimpiarInputBusqueda();
     }
     
+    public void setEnableBotonAccionLibre(boolean enable){
+        panelBusquedaYAccion.getBtnAccionLibre().setEnabled(enable);
+    }
+    
+    public void setEnableBuscador(boolean enable){
+        panelBusquedaYAccion.getInputBusqueda().setEnabled(enable);
+        panelBusquedaYAccion.getBtnBuscar().setEnabled(enable);
+        panelBusquedaYAccion.getBtnLimpiarBusqueda().setEnabled(enable);
+    }
+    
     
     
 }
