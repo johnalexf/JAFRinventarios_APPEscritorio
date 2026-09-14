@@ -3,6 +3,7 @@ package jafrinventarios.controladores.principal;
 
 import jafrinventarios.controladores.clientes.ControladorClientes;
 import jafrinventarios.controladores.compras.ControladorCompras;
+import jafrinventarios.controladores.inventario.ControladorInventario;
 import jafrinventarios.controladores.perfil.ControladorPerfil;
 import jafrinventarios.controladores.productos.ControladorProductos;
 import jafrinventarios.controladores.proveedores.ControladorProveedores;
@@ -11,12 +12,14 @@ import jafrinventarios.controladores.ventas.ControladorVentas;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.clientes.ServicioClientes;
 import jafrinventarios.servicios.compras.ServicioCompras;
+import jafrinventarios.servicios.productos.ServicioInventario;
 import jafrinventarios.servicios.productos.ServicioProductos;
 import jafrinventarios.servicios.proveedores.ServicioProveedores;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.servicios.ventas.ServicioVentas;
 import jafrinventarios.vistas.clientes.ClientesPanel;
 import jafrinventarios.vistas.compras.ComprasPanel;
+import jafrinventarios.vistas.inventario.InventarioPanel;
 import jafrinventarios.vistas.perfil.PerfilPanel;
 import jafrinventarios.vistas.principal.DialogoMenu;
 import jafrinventarios.vistas.principal.HeaderPanel;
@@ -151,6 +154,10 @@ public class ControladorNavegacionModulos {
             case VENTAS:
                 moduloActual = new VentasPanel();
                 new ControladorVentas( (VentasPanel) moduloActual, new ServicioVentas() );
+                break;
+            case INVENTARIO:
+                moduloActual = new InventarioPanel();
+                new ControladorInventario( (InventarioPanel) moduloActual, new ServicioInventario());
                 break;
         }
         

@@ -33,7 +33,7 @@ public class ControladorInventario {
                         CONSTRUCTOR PUBLICO
     ============================================================================
     */
-    public ControladorInventario(ServicioInventario servicioInventario, InventarioPanel panelInventario) {
+    public ControladorInventario(InventarioPanel panelInventario, ServicioInventario servicioInventario) {
         this.servicioInventario = servicioInventario;
         this.panelInventario = panelInventario;
         
@@ -49,7 +49,7 @@ public class ControladorInventario {
         new ControladorBusquedaYAccionLibre(
                 panelInventario.getPanelBusquedaYAccionLibre(),
                 funcionesBusquedaYAccionLibre(),
-                "Nombre  producto o nombre proveedor",
+                "Nombre producto o nombre proveedor",
                 "Verificar Inventario",
                 ModeloSesionUsuario.getInstancia().isAdministrador()
         );
