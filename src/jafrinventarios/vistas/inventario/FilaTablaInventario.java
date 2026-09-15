@@ -306,8 +306,10 @@ public class FilaTablaInventario extends javax.swing.JPanel {
         return campoNuevaCantidad.getValorComponente();
     }
     
-    public void asignarValorNuevaCantidad( int cantidad ){
-        campoNuevaCantidad.setValorComponente( String.valueOf(cantidad));
+    public void asignarValorNuevaCantidad( Integer cantidad ){
+        String valor = (cantidad == null)? "":String.valueOf(cantidad);
+        campoNuevaCantidad.setValorComponente( valor );
+        campoNuevaCantidad.limpiarError();
     }
     
     

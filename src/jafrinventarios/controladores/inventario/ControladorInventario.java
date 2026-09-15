@@ -30,6 +30,8 @@ public class ControladorInventario {
     
     private ControladorBusquedaYAccionLibre controladorBusquedaYAccionLibre;
     
+    private boolean isAdministrador;
+    
     /*
     ============================================================================
                         CONSTRUCTOR PUBLICO
@@ -42,6 +44,7 @@ public class ControladorInventario {
         this.diccionarioFilasInventario = new LinkedHashMap<>();
         this.productosActualizar = new ArrayList<>();
         
+        this.isAdministrador = ModeloSesionUsuario.getInstancia().isAdministrador();
         /*
         Instanciar el controlador de la barra de busqueda y boton de accion libre
         pasando como parametro la instancia de la interfaz que permite asignar
@@ -53,12 +56,13 @@ public class ControladorInventario {
                 funcionesBusquedaYAccionLibre(),
                 "Nombre producto o nombre proveedor",
                 "Verificar Inventario",
-                ModeloSesionUsuario.getInstancia().isAdministrador()
+                isAdministrador //Determina si se muestra o no el boton de accion libre
         );
         
         mostrarTodosLosProductos();
         
-        configurarModoVerificacion(false);
+        //Inicializar los botones del panelInventario (Cancelar verificacion y Finalizar Verificacion)
+        inicializarEventosBotones();
         
     }
     
@@ -82,7 +86,8 @@ public class ControladorInventario {
 
             @Override
             public void ejecutarAccionLibre() {
-                habilitarVerificarInventario();
+                if(isAdministrador)
+                    habilitarVerificarInventario();
             }
             
         };
@@ -95,13 +100,20 @@ public class ControladorInventario {
         
         diccionarioFilasInventario.forEach( ( filaInventario , producto ) -> {
             filaInventario.configurarModoVerificacion( modoVerificacion );
-            if( modoVerificacion )
-                inicializarEventoCheckBox(filaInventario, producto);
         });
         
         controladorBusquedaYAccionLibre.setEnableBotonAccionLibre( !modoVerificacion );
         controladorBusquedaYAccionLibre.setEnableBuscador( !modoVerificacion );
     
+    }
+    
+    
+    private void inicializarEventosBotones(){
+        if(isAdministrador){
+            panelInventario.getBtnCancelarVerificacion().addActionListener(e -> {
+                    cancelarVerificacion();
+            });
+        }
     }
     
     
@@ -130,14 +142,17 @@ public class ControladorInventario {
     ============================================================================
     */
     
-    private FilaTablaInventario crearNuevaFila ( DTOProductoProveedor datosInventario ){
+    private FilaTablaInventario crearNuevaFila ( DTOProductoProveedor producto ){
         FilaTablaInventario filaInventario = new FilaTablaInventario();
         
-        filaInventario.setDatos( datosInventario.getIdProducto(), 
-                                 datosInventario.getNombreProveedor(),
-                                 datosInventario.getNombreProducto(),
-                                 datosInventario.getCantidadDisponible()
+        filaInventario.setDatos( producto.getIdProducto(), 
+                                 producto.getNombreProveedor(),
+                                 producto.getNombreProducto(),
+                                 producto.getCantidadDisponible()
         );
+        
+        if( isAdministrador )
+            inicializarEventoCheckBox(filaInventario, producto);
         
         return filaInventario;
     }
@@ -158,8 +173,8 @@ public class ControladorInventario {
     }
 
     
-    private void agregarFilaADiccionario (FilaTablaInventario filaInventario, DTOProductoProveedor datosInventario ){
-        diccionarioFilasInventario.put(filaInventario, datosInventario);
+    private void agregarFilaADiccionario (FilaTablaInventario filaInventario, DTOProductoProveedor producto ){
+        diccionarioFilasInventario.put(filaInventario, producto);
     }
     
     
@@ -180,12 +195,17 @@ public class ControladorInventario {
             List<DTOProductoProveedor> listaProductosInventario = obtenerTodosLosProductos();
             if( !listaProductosInventario.isEmpty() ){
                 estructurarDiccionarioFilas(listaProductosInventario);
+                
+                configurarModoVerificacion(false);
+                
                 panelInventario.inyectarFilas( new ArrayList<>( diccionarioFilasInventario.keySet()) );
+  
             }else
                 controladorBusquedaYAccionLibre.setEnableBotonAccionLibre(false);
         } catch (Exception e) {
             panelInventario.mostrarModalError(e.getMessage());
         }
+        
     
     }
     
@@ -196,12 +216,15 @@ public class ControladorInventario {
     ============================================================================
     */
     
-    public boolean procesarBusqueda ( String filtro ){
+    private boolean procesarBusqueda ( String filtro ){
     
         try {
             List<DTOProductoProveedor> listaProductosInventario = obtenerTodosLosProductosPorFiltro(filtro);
             if( !listaProductosInventario.isEmpty() ){
                 estructurarDiccionarioFilas(listaProductosInventario);
+                
+                configurarModoVerificacion(false);
+                
                 panelInventario.inyectarFilas( new ArrayList<>( diccionarioFilasInventario.keySet()) );
                 return true;
             }else
@@ -213,7 +236,7 @@ public class ControladorInventario {
         
     }
     
-    public void habilitarVerificarInventario(){
+    private void habilitarVerificarInventario(){
     
         boolean deseaContinuar = panelInventario.mostrarModalAdvertenciaConRespuesta("¡Cuidado! "
                 + "Esta a punto de entrar en el modo verificar el inventario, el cual esta diseñado "
@@ -223,12 +246,32 @@ public class ControladorInventario {
 
         if(deseaContinuar){
             configurarModoVerificacion(true);
+            
         }
         
     }
     
     
+    private void cancelarVerificacion(){
     
+        boolean deseaContinuar = panelInventario.mostrarModalAdvertenciaConRespuesta("Esta a punto de cancelar el modo verificacion de inventario"
+                + "\n Por lo tanto los cambios que haya realizado no se guardaran y se perderan."
+                + "\n ¿Desea cancelar el modo verificacion?");
+        
+        if(deseaContinuar){
+        
+            configurarModoVerificacion(false);
+            diccionarioFilasInventario.forEach( ( filaInventario , producto ) -> {
+                filaInventario.asignarValorNuevaCantidad( null );
+                //Como el check box ya tiene un listener con tan solo asingar false, 
+                //si la fila estaba marcada como confirmada, se restaura a su estado
+                //normal.
+                filaInventario.getCheckBoxConfirmar().setSelected(false);
+            });
+        
+        }
+    
+    }
     
     
     

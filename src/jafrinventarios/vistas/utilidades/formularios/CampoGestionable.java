@@ -59,7 +59,7 @@ public abstract class CampoGestionable {
     }
 
     
-    protected void limpiarError() {
+    public void limpiarError() {
         if (lblError != null) {
             lblError.setText("");
         }
