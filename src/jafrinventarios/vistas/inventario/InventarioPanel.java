@@ -364,6 +364,10 @@ public class InventarioPanel extends javax.swing.JPanel {
         DialogoAlerta.mostrarError( getVentanaPadre(), "Error", mensaje);
     } 
     
+    public void mostrarModalErrorFormatoCampos (){
+        DialogoAlerta.mostrarErrorFormatoCampos(getVentanaPadre());
+    } 
+    
     public void mostrarModalExito (String mensaje){
         DialogoAlerta.mostrarExito(getVentanaPadre(), "Exito", mensaje);
     } 

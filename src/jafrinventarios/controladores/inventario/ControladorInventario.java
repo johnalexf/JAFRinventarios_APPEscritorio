@@ -13,6 +13,7 @@ import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -26,11 +27,13 @@ public class ControladorInventario {
     
     private LinkedHashMap<FilaTablaInventario, DTOProductoProveedor> diccionarioFilasInventario;
     
-    private ArrayList<DTOProductoCantidad> productosActualizar;
-    
     private ControladorBusquedaYAccionLibre controladorBusquedaYAccionLibre;
     
     private boolean isAdministrador;
+    
+    //Se almacena el filtro para poder determinar actualizar los productos en la vista
+    //despues de cualquier cambio en las cantidades
+    private String filtro;
     
     /*
     ============================================================================
@@ -42,9 +45,10 @@ public class ControladorInventario {
         this.panelInventario = panelInventario;
         
         this.diccionarioFilasInventario = new LinkedHashMap<>();
-        this.productosActualizar = new ArrayList<>();
         
         this.isAdministrador = ModeloSesionUsuario.getInstancia().isAdministrador();
+        
+        this.filtro = "";
         /*
         Instanciar el controlador de la barra de busqueda y boton de accion libre
         pasando como parametro la instancia de la interfaz que permite asignar
@@ -112,6 +116,9 @@ public class ControladorInventario {
         if(isAdministrador){
             panelInventario.getBtnCancelarVerificacion().addActionListener(e -> {
                     cancelarVerificacion();
+            });
+            panelInventario.getBtnFinalizarVerificacion().addActionListener(e ->{ 
+                    actualizarInventario();
             });
         }
     }
@@ -191,6 +198,7 @@ public class ControladorInventario {
     
     private void mostrarTodosLosProductos(){
     
+        this.filtro = "";
         try {
             List<DTOProductoProveedor> listaProductosInventario = obtenerTodosLosProductos();
             if( !listaProductosInventario.isEmpty() ){
@@ -226,6 +234,11 @@ public class ControladorInventario {
                 configurarModoVerificacion(false);
                 
                 panelInventario.inyectarFilas( new ArrayList<>( diccionarioFilasInventario.keySet()) );
+                
+                //En controlador de busqueda se encarga de mostrar todos los productos si esta funcion
+                //procesarBusqueda detecta que la lista viene vacia, por consiguiente solo es necesario
+                //Almacenar la palabra de filtro y ya en mostrarTodosProductos se deja vacia
+                this.filtro = filtro;
                 return true;
             }else
                 return false;
@@ -258,19 +271,134 @@ public class ControladorInventario {
                 + "\n Por lo tanto los cambios que haya realizado no se guardaran y se perderan."
                 + "\n ¿Desea cancelar el modo verificacion?");
         
-        if(deseaContinuar){
+        if(deseaContinuar)
+            salirModoVerificacion();
+    
+    }
+    
+    private void salirModoVerificacion(){
         
-            configurarModoVerificacion(false);
-            diccionarioFilasInventario.forEach( ( filaInventario , producto ) -> {
-                filaInventario.asignarValorNuevaCantidad( null );
-                //Como el check box ya tiene un listener con tan solo asingar false, 
-                //si la fila estaba marcada como confirmada, se restaura a su estado
-                //normal.
-                filaInventario.getCheckBoxConfirmar().setSelected(false);
-            });
+        configurarModoVerificacion(false);
+        diccionarioFilasInventario.forEach( ( filaInventario , producto ) -> {
+            filaInventario.asignarValorNuevaCantidad( null );
+            //Como el check box ya tiene un listener con tan solo asingar false, 
+            //si la fila estaba marcada como confirmada, se restaura a su estado
+            //normal.
+            filaInventario.getCheckBoxConfirmar().setSelected(false);
+        });
+        
+    }
+    
+    
+    public void actualizarInventario(){
+    
+        /*
+        ========================================================================
+          Verificar si esta correctamente diligenciados los campos confirmados
+        ========================================================================
+        */
+        //Por lo menos debe existir un campo confirmado
+        boolean existeCamposConfirmados = false;
+        boolean sonCamposValidos = true;
+        
+        for( FilaTablaInventario filaInventario : diccionarioFilasInventario.keySet()){ 
+            if( filaInventario.getCheckBoxConfirmar().isSelected() ){
+                existeCamposConfirmados = true;
+                if( !filaInventario.validarCampoNuevaCantidad() )
+                    sonCamposValidos = false;
+            }
+        }
+        
+        if( !existeCamposConfirmados ){
+            panelInventario.mostrarModalError("No hay campos confirmados para actualizar");
+            return;
+        }
+        
+        if( !sonCamposValidos ){
+            panelInventario.mostrarModalErrorFormatoCampos();
+            return;
+        }
+        
+        
+        /*
+        ========================================================================
+            Extraer los datos de los campos confirmados
+        ========================================================================
+        */
+        int camposIguales = 0;
+        ArrayList<DTOProductoCantidad> productosActualizar = new ArrayList<>();
+            
+        try {
+            for (Map.Entry<FilaTablaInventario, DTOProductoProveedor> entry : diccionarioFilasInventario.entrySet()) {
+                FilaTablaInventario filaInventario = entry.getKey();
+
+                if( filaInventario.getCheckBoxConfirmar().isSelected() ){
+                    DTOProductoProveedor producto = entry.getValue();
+
+                    int cantidadProductoFila = Integer.parseInt(filaInventario.obtenerValorNuevaCantidad());
+                    if (cantidadProductoFila == producto.getCantidadDisponible()) {
+                        camposIguales++;
+                    }else{
+                        productosActualizar.add( 
+                                new DTOProductoCantidad(
+                                        producto.getIdProducto(),
+                                        cantidadProductoFila
+                                )
+                        );
+                    }
+                }
+            }
+        } catch (Exception e) {
+            panelInventario.mostrarModalError("Error al recolectar la informacion de campos confirmados");
+            return;
+        }
+        
+        
+        
+        /*
+        =======================================================================
+           GUARDAR EN LA BASE DE DATOS solo si hay productos para actualizar
+        =======================================================================
+        */
+        
+        if( productosActualizar.isEmpty() ){
+        
+            boolean deseaContinuar = 
+                    panelInventario.mostrarModalAdvertenciaConRespuesta(
+                            "Usted ha confirmado " + camposIguales + " productos"+
+                            "\nDe los cuales ninguno se detecto un cambio en la cantidad del mismo"+
+                            "\nSi esta de acuerdo entonces presione en continuar y se finalizara la verificacion de inventario"
+                    );
+            
+            if(deseaContinuar)
+                salirModoVerificacion();
+        
+        }else{
+            int totalCamposConfirmados = camposIguales + productosActualizar.size();
+            
+            boolean deseaContinuar = 
+                panelInventario.mostrarModalAdvertenciaConRespuesta(
+                        "Usted ha confirmado " + totalCamposConfirmados + " productos"+
+                        "\nDe los cuales " +  productosActualizar.size() +" se detecto un cambio en la cantidad del mismo"+
+                        "\nSi esta de acuerdo entonces presione en continuar y se actualizara el valor de esos productos"
+                );
+            
+            if(deseaContinuar){
+                try {
+                    actualizarCantidadProductos(productosActualizar);
+                    panelInventario.mostrarModalExito("El inventario ha sido actualizado correctamente.");
+                    if(this.filtro.isEmpty())
+                        mostrarTodosLosProductos();
+                    else
+                        procesarBusqueda(this.filtro);
+    
+                } catch (Exception e) {
+                    panelInventario.mostrarModalError(e.getMessage());
+                }           
+            }
         
         }
-    
+
     }
     
     
