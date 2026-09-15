@@ -111,7 +111,7 @@ public class CampoTexto extends CampoGestionable{
     }
 
     @Override
-    protected void setValorComponente(String valor) {
+    public void setValorComponente(String valor) {
         inputTexto.setText(valor);
     }
 

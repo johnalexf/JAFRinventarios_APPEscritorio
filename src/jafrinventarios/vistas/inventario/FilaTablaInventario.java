@@ -269,13 +269,19 @@ public class FilaTablaInventario extends javax.swing.JPanel {
         }else{
             contenedorDatos.setBackground(new java.awt.Color(255, 255, 255));
         }
-        inputNuevaCantidad.setEnabled( confirmado );
+        inputNuevaCantidad.setEnabled( !confirmado );
+        
+        redibujarPanel();
     }
     
   
     public void configurarModoVerificacion( boolean modoVerificar){
         contenedorInputYErrorNuevaCantidad.setVisible(modoVerificar);
-        checkBoxConfirmar.setVisible(modoVerificar);
+        checkBoxConfirmar.setVisible( modoVerificar );
+        redibujarPanel();
+    }
+    
+    private void redibujarPanel(){
         contenedorDatos.revalidate(); // Re calcula el diseño GridBagLayout
         contenedorDatos.repaint();    // Redibuja el panel en pantalla
     }
@@ -298,6 +304,10 @@ public class FilaTablaInventario extends javax.swing.JPanel {
     
     public String obtenerValorNuevaCantidad(){
         return campoNuevaCantidad.getValorComponente();
+    }
+    
+    public void asignarValorNuevaCantidad( int cantidad ){
+        campoNuevaCantidad.setValorComponente( String.valueOf(cantidad));
     }
     
     

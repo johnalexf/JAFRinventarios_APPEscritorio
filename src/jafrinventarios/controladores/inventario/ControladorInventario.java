@@ -95,7 +95,8 @@ public class ControladorInventario {
         
         diccionarioFilasInventario.forEach( ( filaInventario , producto ) -> {
             filaInventario.configurarModoVerificacion( modoVerificacion );
-            
+            if( modoVerificacion )
+                inicializarEventoCheckBox(filaInventario, producto);
         });
         
         controladorBusquedaYAccionLibre.setEnableBotonAccionLibre( !modoVerificacion );
@@ -141,7 +142,22 @@ public class ControladorInventario {
         return filaInventario;
     }
     
+    
+    private void inicializarEventoCheckBox(FilaTablaInventario filaInventario, DTOProductoProveedor producto) {
 
+        filaInventario.getCheckBoxConfirmar().addItemListener((ItemEvent e) -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                if( filaInventario.obtenerValorNuevaCantidad().isEmpty() )
+                    filaInventario.asignarValorNuevaCantidad( producto.getCantidadDisponible());
+                filaInventario.setEstadoVisual(true);
+            } else if (e.getStateChange() == ItemEvent.DESELECTED) { 
+                filaInventario.setEstadoVisual(false);
+            }
+        });
+
+    }
+
+    
     private void agregarFilaADiccionario (FilaTablaInventario filaInventario, DTOProductoProveedor datosInventario ){
         diccionarioFilasInventario.put(filaInventario, datosInventario);
     }
