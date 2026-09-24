@@ -27,6 +27,7 @@ import jafrinventarios.vistas.principal.Menu;
 import jafrinventarios.vistas.principal.PrincipalFrame;
 import jafrinventarios.vistas.productos.ProductosPanel;
 import jafrinventarios.vistas.proveedores.ProveedoresPanel;
+import jafrinventarios.vistas.reportes.ReportePanel;
 import jafrinventarios.vistas.usuarios.UsuariosPanel;
 import jafrinventarios.vistas.utilidades.iconos.IconosSecciones;
 import jafrinventarios.vistas.ventas.VentasPanel;
@@ -158,6 +159,9 @@ public class ControladorNavegacionModulos {
             case INVENTARIO:
                 moduloActual = new InventarioPanel();
                 new ControladorInventario( (InventarioPanel) moduloActual, new ServicioInventario());
+                break;
+            case REPORTE:
+                moduloActual = new ReportePanel();
                 break;
         }
         
