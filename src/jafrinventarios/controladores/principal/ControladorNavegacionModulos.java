@@ -7,6 +7,7 @@ import jafrinventarios.controladores.inventario.ControladorInventario;
 import jafrinventarios.controladores.perfil.ControladorPerfil;
 import jafrinventarios.controladores.productos.ControladorProductos;
 import jafrinventarios.controladores.proveedores.ControladorProveedores;
+import jafrinventarios.controladores.reportes.ControladorReportes;
 import jafrinventarios.controladores.usuarios.ControladorUsuarios;
 import jafrinventarios.controladores.ventas.ControladorVentas;
 import jafrinventarios.modelos.ModeloSesionUsuario;
@@ -162,6 +163,7 @@ public class ControladorNavegacionModulos {
                 break;
             case REPORTE:
                 moduloActual = new ReportePanel();
+                new ControladorReportes( (ReportePanel) moduloActual );
                 break;
         }
         
