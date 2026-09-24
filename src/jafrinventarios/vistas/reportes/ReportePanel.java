@@ -5,6 +5,7 @@
  */
 package jafrinventarios.vistas.reportes;
 
+import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import javax.swing.JButton;
 
 /**
@@ -13,11 +14,22 @@ import javax.swing.JButton;
  */
 public class ReportePanel extends javax.swing.JPanel {
 
+    /*
+      Objeto enum auxiliar para mejorar la legibilidad del codigo
+    */
+    public static enum TipoReporteEspecial {
+        ReporteCompras,
+        ReporteVentas
+    }
     /**
      * Creates new form reportes
      */
     public ReportePanel() {
         initComponents();
+        
+        
+        contenedorConfiguracionReporte.setVisible(false);
+        DinamismoLink.aplicarEfecto(btnLinkCancelar);
     }
 
     /**
@@ -33,10 +45,16 @@ public class ReportePanel extends javax.swing.JPanel {
         contenedorPrincipal = new javax.swing.JPanel();
         contenedorSeleccionReporte = new javax.swing.JPanel();
         tituloSeleccionTipoReporte = new javax.swing.JLabel();
-        contenedorBotonesFiltros = new javax.swing.JPanel();
+        contenedorBotonesPrincipales = new javax.swing.JPanel();
         btnReporteCantidadesComprar = new javax.swing.JButton();
         btnReporteCompras = new javax.swing.JButton();
         btnReporteVentas = new javax.swing.JButton();
+        contenedorConfiguracionReporte = new javax.swing.JPanel();
+        tituloConfiguracionReporte = new javax.swing.JLabel();
+        contenedorCuerpoConfiguracion = new javax.swing.JPanel();
+        contenedorBotones = new javax.swing.JPanel();
+        btnCrearReporte = new javax.swing.JButton();
+        btnLinkCancelar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(205, 205, 205));
         setMaximumSize(new java.awt.Dimension(37210, 37210));
@@ -47,7 +65,7 @@ public class ReportePanel extends javax.swing.JPanel {
         contenedorPrincipal.setMinimumSize(new java.awt.Dimension(600, 0));
         contenedorPrincipal.setOpaque(false);
         contenedorPrincipal.setPreferredSize(new java.awt.Dimension(600, 0));
-        contenedorPrincipal.setLayout(new javax.swing.BoxLayout(contenedorPrincipal, javax.swing.BoxLayout.LINE_AXIS));
+        contenedorPrincipal.setLayout(new javax.swing.OverlayLayout(contenedorPrincipal));
 
         contenedorSeleccionReporte.setBackground(new java.awt.Color(255, 255, 255));
         contenedorSeleccionReporte.setMaximumSize(new java.awt.Dimension(600, 450));
@@ -69,11 +87,11 @@ public class ReportePanel extends javax.swing.JPanel {
         tituloSeleccionTipoReporte.setVerifyInputWhenFocusTarget(false);
         contenedorSeleccionReporte.add(tituloSeleccionTipoReporte, java.awt.BorderLayout.PAGE_START);
 
-        contenedorBotonesFiltros.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 80, 40, 80));
-        contenedorBotonesFiltros.setMinimumSize(new java.awt.Dimension(0, 0));
-        contenedorBotonesFiltros.setOpaque(false);
-        contenedorBotonesFiltros.setPreferredSize(new java.awt.Dimension(0, 0));
-        contenedorBotonesFiltros.setLayout(new java.awt.GridBagLayout());
+        contenedorBotonesPrincipales.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 80, 40, 80));
+        contenedorBotonesPrincipales.setMinimumSize(new java.awt.Dimension(0, 0));
+        contenedorBotonesPrincipales.setOpaque(false);
+        contenedorBotonesPrincipales.setPreferredSize(new java.awt.Dimension(0, 0));
+        contenedorBotonesPrincipales.setLayout(new java.awt.GridBagLayout());
 
         btnReporteCantidadesComprar.setBackground(new java.awt.Color(17, 35, 85));
         btnReporteCantidadesComprar.setFont(new java.awt.Font("Arial", 1, 17)); // NOI18N
@@ -93,7 +111,7 @@ public class ReportePanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        contenedorBotonesFiltros.add(btnReporteCantidadesComprar, gridBagConstraints);
+        contenedorBotonesPrincipales.add(btnReporteCantidadesComprar, gridBagConstraints);
 
         btnReporteCompras.setBackground(new java.awt.Color(17, 35, 85));
         btnReporteCompras.setFont(new java.awt.Font("Arial", 1, 17)); // NOI18N
@@ -113,7 +131,7 @@ public class ReportePanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        contenedorBotonesFiltros.add(btnReporteCompras, gridBagConstraints);
+        contenedorBotonesPrincipales.add(btnReporteCompras, gridBagConstraints);
 
         btnReporteVentas.setBackground(new java.awt.Color(17, 35, 85));
         btnReporteVentas.setFont(new java.awt.Font("Arial", 1, 17)); // NOI18N
@@ -133,11 +151,80 @@ public class ReportePanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        contenedorBotonesFiltros.add(btnReporteVentas, gridBagConstraints);
+        contenedorBotonesPrincipales.add(btnReporteVentas, gridBagConstraints);
 
-        contenedorSeleccionReporte.add(contenedorBotonesFiltros, java.awt.BorderLayout.CENTER);
+        contenedorSeleccionReporte.add(contenedorBotonesPrincipales, java.awt.BorderLayout.CENTER);
 
         contenedorPrincipal.add(contenedorSeleccionReporte);
+
+        contenedorConfiguracionReporte.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorConfiguracionReporte.setMaximumSize(new java.awt.Dimension(600, 450));
+        contenedorConfiguracionReporte.setMinimumSize(new java.awt.Dimension(600, 450));
+        contenedorConfiguracionReporte.setPreferredSize(new java.awt.Dimension(600, 450));
+        contenedorConfiguracionReporte.setLayout(new java.awt.BorderLayout());
+
+        tituloConfiguracionReporte.setBackground(new java.awt.Color(255, 255, 255));
+        tituloConfiguracionReporte.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        tituloConfiguracionReporte.setForeground(new java.awt.Color(17, 35, 85));
+        tituloConfiguracionReporte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloConfiguracionReporte.setText("Configuración del reporte");
+        tituloConfiguracionReporte.setAlignmentX(0.5F);
+        tituloConfiguracionReporte.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        tituloConfiguracionReporte.setMaximumSize(new java.awt.Dimension(500, 80));
+        tituloConfiguracionReporte.setMinimumSize(new java.awt.Dimension(500, 80));
+        tituloConfiguracionReporte.setOpaque(true);
+        tituloConfiguracionReporte.setPreferredSize(new java.awt.Dimension(500, 80));
+        tituloConfiguracionReporte.setVerifyInputWhenFocusTarget(false);
+        contenedorConfiguracionReporte.add(tituloConfiguracionReporte, java.awt.BorderLayout.PAGE_START);
+
+        contenedorCuerpoConfiguracion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 80, 40, 80));
+        contenedorCuerpoConfiguracion.setMinimumSize(new java.awt.Dimension(0, 0));
+        contenedorCuerpoConfiguracion.setOpaque(false);
+        contenedorCuerpoConfiguracion.setPreferredSize(new java.awt.Dimension(0, 0));
+        contenedorCuerpoConfiguracion.setLayout(new java.awt.GridBagLayout());
+        contenedorConfiguracionReporte.add(contenedorCuerpoConfiguracion, java.awt.BorderLayout.CENTER);
+
+        contenedorBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 10, 40));
+        contenedorBotones.setMaximumSize(new java.awt.Dimension(500, 80));
+        contenedorBotones.setMinimumSize(new java.awt.Dimension(500, 80));
+        contenedorBotones.setOpaque(false);
+        contenedorBotones.setPreferredSize(new java.awt.Dimension(500, 80));
+        contenedorBotones.setLayout(new java.awt.GridBagLayout());
+
+        btnCrearReporte.setBackground(new java.awt.Color(17, 35, 85));
+        btnCrearReporte.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        btnCrearReporte.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearReporte.setText("Crear Reporte");
+        btnCrearReporte.setToolTipText("");
+        btnCrearReporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrearReporte.setMargin(new java.awt.Insets(6, 12, 6, 12));
+        btnCrearReporte.setMaximumSize(new java.awt.Dimension(200, 40));
+        btnCrearReporte.setMinimumSize(new java.awt.Dimension(200, 40));
+        btnCrearReporte.setPreferredSize(new java.awt.Dimension(200, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorBotones.add(btnCrearReporte, gridBagConstraints);
+
+        btnLinkCancelar.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnLinkCancelar.setForeground(new java.awt.Color(200, 0, 0));
+        btnLinkCancelar.setText("Cancelar");
+        btnLinkCancelar.setAlignmentX(0.5F);
+        btnLinkCancelar.setIconTextGap(10);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        contenedorBotones.add(btnLinkCancelar, gridBagConstraints);
+
+        contenedorConfiguracionReporte.add(contenedorBotones, java.awt.BorderLayout.PAGE_END);
+
+        contenedorPrincipal.add(contenedorConfiguracionReporte);
 
         add(contenedorPrincipal);
     }// </editor-fold>//GEN-END:initComponents
@@ -160,15 +247,58 @@ public class ReportePanel extends javax.swing.JPanel {
         return btnReporteVentas;
     }
     
+    public JButton getBtnCrearReporte(){
+        return btnCrearReporte;
+    }
+    
+    public JButton getBtnLinkCancelar(){
+        return btnLinkCancelar;
+    }
+    
+    
+    
+    public void mostrarConfiguracionReporte( TipoReporteEspecial tipoReporte){
+    
+        switch(tipoReporte){
+        
+            case ReporteCompras:
+                
+                break;
+            case ReporteVentas:
+                
+                break;
+        
+        }
+        
+        mostrarPanelConfiguracionReporte(true);
+        
+    }
+    
+    public void mostrarPanelConfiguracionReporte (boolean mostrar){
+    
+        contenedorConfiguracionReporte.setVisible(mostrar);
+        contenedorSeleccionReporte.setVisible(!mostrar);
+        
+        contenedorPrincipal.revalidate();
+        contenedorPrincipal.repaint();
+        
+    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCrearReporte;
+    private javax.swing.JButton btnLinkCancelar;
     private javax.swing.JButton btnReporteCantidadesComprar;
     private javax.swing.JButton btnReporteCompras;
     private javax.swing.JButton btnReporteVentas;
-    private javax.swing.JPanel contenedorBotonesFiltros;
+    private javax.swing.JPanel contenedorBotones;
+    private javax.swing.JPanel contenedorBotonesPrincipales;
+    private javax.swing.JPanel contenedorConfiguracionReporte;
+    private javax.swing.JPanel contenedorCuerpoConfiguracion;
     private javax.swing.JPanel contenedorPrincipal;
     private javax.swing.JPanel contenedorSeleccionReporte;
+    private javax.swing.JLabel tituloConfiguracionReporte;
     private javax.swing.JLabel tituloSeleccionTipoReporte;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,6 +2,7 @@
 package jafrinventarios.controladores.reportes;
 
 import jafrinventarios.vistas.reportes.ReportePanel;
+import jafrinventarios.vistas.reportes.ReportePanel.TipoReporteEspecial;
 
 /**
  *
@@ -10,6 +11,8 @@ import jafrinventarios.vistas.reportes.ReportePanel;
 public class ControladorReportes {
     
     private final ReportePanel panelReportes;
+    
+    private TipoReporteEspecial tipoReporte;
 
 /*
 ============================================================================
@@ -33,13 +36,16 @@ public class ControladorReportes {
         });
         
         panelReportes.getBtnReporteCompras().addActionListener( e -> { 
-            mostrarFiltroReporte();
+            mostrarFiltroReporte( TipoReporteEspecial.ReporteCompras );
         });
         
         panelReportes.getBtnReporteVentas().addActionListener( e -> { 
-            mostrarFiltroReporte();
+            mostrarFiltroReporte( TipoReporteEspecial.ReporteVentas );
         });
         
+        panelReportes.getBtnLinkCancelar().addActionListener( e -> { 
+            panelReportes.mostrarPanelConfiguracionReporte(false);
+        });
     }
 
 /*
@@ -51,8 +57,9 @@ public class ControladorReportes {
     
     }
     
-    private void mostrarFiltroReporte(){
-    
+    private void mostrarFiltroReporte( TipoReporteEspecial tipoReporte ){
+        this.tipoReporte = tipoReporte;
+        panelReportes.mostrarConfiguracionReporte( tipoReporte );
     }
     
     
