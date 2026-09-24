@@ -5,7 +5,9 @@
  */
 package jafrinventarios.vistas.reportes;
 
+import jafrinventarios.vistas.utilidades.componentes.CheckBox;
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
+import jafrinventarios.vistas.utilidades.componentes.SelectorFecha;
 import javax.swing.JButton;
 
 /**
@@ -27,9 +29,35 @@ public class ReportePanel extends javax.swing.JPanel {
     public ReportePanel() {
         initComponents();
         
+        configuracionInicial();
         
+    }
+    
+    private void configuracionInicial(){
+    
+        /* 
+        Ocultar contenedor de configuraciones, este se alternara con contenedorSeleccionReporte
+        dependiendo si se seleccion un reporte de compras o de ventas y si se cancela 
+        la configuracion de un reporte de este tipo
+        */
         contenedorConfiguracionReporte.setVisible(false);
+        
+        /*Configuraciones de estilos de los componentes del panel configuracion reporte*/
+        cambiarTamanoCheckBoxs();
         DinamismoLink.aplicarEfecto(btnLinkCancelar);
+        
+        /*Configuracion de los selectores de fecha*/
+        new SelectorFecha(inputFechaInferior);
+        new SelectorFecha(inputFechaSuperior);
+        
+    }
+    
+    private void cambiarTamanoCheckBoxs(){
+        CheckBox.cambiarTamanoCheckBox(checkBoxTiempo);
+        CheckBox.cambiarTamanoCheckBox(checkBoxProveedor);
+        CheckBox.cambiarTamanoCheckBox(checkBoxCliente);
+        CheckBox.cambiarTamanoCheckBox(checkBoxProducto);
+        CheckBox.cambiarTamanoCheckBox(checkBoxUsuario);
     }
 
     /**
@@ -52,6 +80,43 @@ public class ReportePanel extends javax.swing.JPanel {
         contenedorConfiguracionReporte = new javax.swing.JPanel();
         tituloConfiguracionReporte = new javax.swing.JLabel();
         contenedorCuerpoConfiguracion = new javax.swing.JPanel();
+        contenedorLblInstruccion = new javax.swing.JPanel();
+        lblInstrucciones = new javax.swing.JLabel();
+        contenedorTiempo = new javax.swing.JPanel();
+        checkBoxTiempo = new javax.swing.JCheckBox();
+        lblTiempo = new javax.swing.JLabel();
+        lblDesde = new javax.swing.JLabel();
+        contenedorInputYErrorFechaInferior = new javax.swing.JPanel();
+        inputFechaInferior = new javax.swing.JTextField();
+        lblErrorInputFechaInferior = new javax.swing.JLabel();
+        lblHasta = new javax.swing.JLabel();
+        contenedorInputYErrorFechaSuperior = new javax.swing.JPanel();
+        inputFechaSuperior = new javax.swing.JTextField();
+        lblErrorInputFechaSuperior = new javax.swing.JLabel();
+        contenedorProveedor = new javax.swing.JPanel();
+        checkBoxProveedor = new javax.swing.JCheckBox();
+        lblProveedor = new javax.swing.JLabel();
+        contenedorInputYErrorProveedor = new javax.swing.JPanel();
+        comboBoxProveedores = new javax.swing.JComboBox<>();
+        lblErrorComboBoxProveedores = new javax.swing.JLabel();
+        contenedorCliente = new javax.swing.JPanel();
+        checkBoxCliente = new javax.swing.JCheckBox();
+        lblCliente = new javax.swing.JLabel();
+        contenedorInputYErrorProveedor1 = new javax.swing.JPanel();
+        comboBoxCliente = new javax.swing.JComboBox<>();
+        lblErrorComboBoxCliente = new javax.swing.JLabel();
+        contenedorProducto = new javax.swing.JPanel();
+        checkBoxProducto = new javax.swing.JCheckBox();
+        lblProducto = new javax.swing.JLabel();
+        contenedorInputYErrorProveedor2 = new javax.swing.JPanel();
+        comboBoxProducto = new javax.swing.JComboBox<>();
+        lblErrorComboBoxProducto = new javax.swing.JLabel();
+        contenedorUsuario = new javax.swing.JPanel();
+        checkBoxUsuario = new javax.swing.JCheckBox();
+        lblUsuario = new javax.swing.JLabel();
+        contenedorInputYErrorProveedor3 = new javax.swing.JPanel();
+        comboBoxUsuario = new javax.swing.JComboBox<>();
+        lblErrorComboBoxUsuario = new javax.swing.JLabel();
         contenedorBotones = new javax.swing.JPanel();
         btnCrearReporte = new javax.swing.JButton();
         btnLinkCancelar = new javax.swing.JButton();
@@ -158,9 +223,10 @@ public class ReportePanel extends javax.swing.JPanel {
         contenedorPrincipal.add(contenedorSeleccionReporte);
 
         contenedorConfiguracionReporte.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorConfiguracionReporte.setMaximumSize(new java.awt.Dimension(600, 450));
-        contenedorConfiguracionReporte.setMinimumSize(new java.awt.Dimension(600, 450));
-        contenedorConfiguracionReporte.setPreferredSize(new java.awt.Dimension(600, 450));
+        contenedorConfiguracionReporte.setMaximumSize(new java.awt.Dimension(600, 470));
+        contenedorConfiguracionReporte.setMinimumSize(new java.awt.Dimension(600, 470));
+        contenedorConfiguracionReporte.setName(""); // NOI18N
+        contenedorConfiguracionReporte.setPreferredSize(new java.awt.Dimension(600, 470));
         contenedorConfiguracionReporte.setLayout(new java.awt.BorderLayout());
 
         tituloConfiguracionReporte.setBackground(new java.awt.Color(255, 255, 255));
@@ -177,11 +243,338 @@ public class ReportePanel extends javax.swing.JPanel {
         tituloConfiguracionReporte.setVerifyInputWhenFocusTarget(false);
         contenedorConfiguracionReporte.add(tituloConfiguracionReporte, java.awt.BorderLayout.PAGE_START);
 
-        contenedorCuerpoConfiguracion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 80, 40, 80));
+        contenedorCuerpoConfiguracion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 20, 40));
         contenedorCuerpoConfiguracion.setMinimumSize(new java.awt.Dimension(0, 0));
         contenedorCuerpoConfiguracion.setOpaque(false);
         contenedorCuerpoConfiguracion.setPreferredSize(new java.awt.Dimension(0, 0));
-        contenedorCuerpoConfiguracion.setLayout(new java.awt.GridBagLayout());
+        contenedorCuerpoConfiguracion.setLayout(new javax.swing.BoxLayout(contenedorCuerpoConfiguracion, javax.swing.BoxLayout.Y_AXIS));
+
+        contenedorLblInstruccion.setMaximumSize(new java.awt.Dimension(32847, 50));
+        contenedorLblInstruccion.setMinimumSize(new java.awt.Dimension(0, 50));
+        contenedorLblInstruccion.setOpaque(false);
+        contenedorLblInstruccion.setPreferredSize(new java.awt.Dimension(0, 50));
+        contenedorLblInstruccion.setLayout(new javax.swing.BoxLayout(contenedorLblInstruccion, javax.swing.BoxLayout.LINE_AXIS));
+
+        lblInstrucciones.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblInstrucciones.setText("Seleccione el o los filtros con los cuales desea que se genere el reporte");
+        contenedorLblInstruccion.add(lblInstrucciones);
+
+        contenedorCuerpoConfiguracion.add(contenedorLblInstruccion);
+
+        contenedorTiempo.setMaximumSize(new java.awt.Dimension(372710, 60));
+        contenedorTiempo.setMinimumSize(new java.awt.Dimension(440, 60));
+        contenedorTiempo.setOpaque(false);
+        contenedorTiempo.setPreferredSize(new java.awt.Dimension(440, 60));
+        contenedorTiempo.setLayout(new javax.swing.BoxLayout(contenedorTiempo, javax.swing.BoxLayout.X_AXIS));
+
+        checkBoxTiempo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        checkBoxTiempo.setSelected(true);
+        checkBoxTiempo.setAlignmentX(0.5F);
+        checkBoxTiempo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        checkBoxTiempo.setEnabled(false);
+        checkBoxTiempo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        checkBoxTiempo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        checkBoxTiempo.setMargin(new java.awt.Insets(0, 0, 24, 0));
+        checkBoxTiempo.setMaximumSize(new java.awt.Dimension(50, 60));
+        checkBoxTiempo.setMinimumSize(new java.awt.Dimension(50, 60));
+        checkBoxTiempo.setOpaque(false);
+        checkBoxTiempo.setPreferredSize(new java.awt.Dimension(50, 60));
+        contenedorTiempo.add(checkBoxTiempo);
+
+        lblTiempo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblTiempo.setText("Tiempo :");
+        lblTiempo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblTiempo.setAlignmentX(0.5F);
+        lblTiempo.setMaximumSize(new java.awt.Dimension(80, 40));
+        lblTiempo.setMinimumSize(new java.awt.Dimension(80, 40));
+        lblTiempo.setPreferredSize(new java.awt.Dimension(80, 40));
+        contenedorTiempo.add(lblTiempo);
+
+        lblDesde.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblDesde.setText("desde");
+        lblDesde.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblDesde.setAlignmentX(0.5F);
+        lblDesde.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblDesde.setMaximumSize(new java.awt.Dimension(50, 40));
+        lblDesde.setMinimumSize(new java.awt.Dimension(50, 40));
+        lblDesde.setPreferredSize(new java.awt.Dimension(50, 40));
+        contenedorTiempo.add(lblDesde);
+
+        contenedorInputYErrorFechaInferior.setMaximumSize(new java.awt.Dimension(140, 52));
+        contenedorInputYErrorFechaInferior.setMinimumSize(new java.awt.Dimension(120, 52));
+        contenedorInputYErrorFechaInferior.setOpaque(false);
+        contenedorInputYErrorFechaInferior.setPreferredSize(new java.awt.Dimension(120, 52));
+        contenedorInputYErrorFechaInferior.setLayout(new java.awt.BorderLayout());
+
+        inputFechaInferior.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputFechaInferior.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inputFechaInferior.setToolTipText("");
+        inputFechaInferior.setMaximumSize(new java.awt.Dimension(0, 0));
+        inputFechaInferior.setMinimumSize(new java.awt.Dimension(0, 0));
+        inputFechaInferior.setName("fechaHora"); // NOI18N
+        inputFechaInferior.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorInputYErrorFechaInferior.add(inputFechaInferior, java.awt.BorderLayout.NORTH);
+
+        lblErrorInputFechaInferior.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorInputFechaInferior.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorInputFechaInferior.setAlignmentX(0.5F);
+        lblErrorInputFechaInferior.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorInputFechaInferior.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputFechaInferior.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorFechaInferior.add(lblErrorInputFechaInferior, java.awt.BorderLayout.SOUTH);
+
+        contenedorTiempo.add(contenedorInputYErrorFechaInferior);
+
+        lblHasta.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        lblHasta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHasta.setText("hasta");
+        lblHasta.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblHasta.setAlignmentX(0.5F);
+        lblHasta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblHasta.setMaximumSize(new java.awt.Dimension(60, 40));
+        lblHasta.setMinimumSize(new java.awt.Dimension(50, 40));
+        lblHasta.setPreferredSize(new java.awt.Dimension(50, 40));
+        contenedorTiempo.add(lblHasta);
+
+        contenedorInputYErrorFechaSuperior.setMaximumSize(new java.awt.Dimension(140, 52));
+        contenedorInputYErrorFechaSuperior.setMinimumSize(new java.awt.Dimension(120, 52));
+        contenedorInputYErrorFechaSuperior.setOpaque(false);
+        contenedorInputYErrorFechaSuperior.setPreferredSize(new java.awt.Dimension(120, 52));
+        contenedorInputYErrorFechaSuperior.setLayout(new java.awt.BorderLayout());
+
+        inputFechaSuperior.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        inputFechaSuperior.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inputFechaSuperior.setToolTipText("");
+        inputFechaSuperior.setMaximumSize(new java.awt.Dimension(0, 0));
+        inputFechaSuperior.setMinimumSize(new java.awt.Dimension(0, 0));
+        inputFechaSuperior.setName("fechaHora"); // NOI18N
+        inputFechaSuperior.setPreferredSize(new java.awt.Dimension(0, 34));
+        contenedorInputYErrorFechaSuperior.add(inputFechaSuperior, java.awt.BorderLayout.NORTH);
+
+        lblErrorInputFechaSuperior.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorInputFechaSuperior.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorInputFechaSuperior.setAlignmentX(0.5F);
+        lblErrorInputFechaSuperior.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorInputFechaSuperior.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorInputFechaSuperior.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorFechaSuperior.add(lblErrorInputFechaSuperior, java.awt.BorderLayout.SOUTH);
+
+        contenedorTiempo.add(contenedorInputYErrorFechaSuperior);
+
+        contenedorCuerpoConfiguracion.add(contenedorTiempo);
+
+        contenedorProveedor.setMaximumSize(new java.awt.Dimension(372710, 60));
+        contenedorProveedor.setMinimumSize(new java.awt.Dimension(440, 60));
+        contenedorProveedor.setOpaque(false);
+        contenedorProveedor.setPreferredSize(new java.awt.Dimension(440, 60));
+        contenedorProveedor.setLayout(new javax.swing.BoxLayout(contenedorProveedor, javax.swing.BoxLayout.LINE_AXIS));
+
+        checkBoxProveedor.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        checkBoxProveedor.setAlignmentX(0.5F);
+        checkBoxProveedor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        checkBoxProveedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        checkBoxProveedor.setMargin(new java.awt.Insets(0, 0, 24, 0));
+        checkBoxProveedor.setMaximumSize(new java.awt.Dimension(50, 60));
+        checkBoxProveedor.setMinimumSize(new java.awt.Dimension(50, 60));
+        checkBoxProveedor.setOpaque(false);
+        checkBoxProveedor.setPreferredSize(new java.awt.Dimension(50, 60));
+        contenedorProveedor.add(checkBoxProveedor);
+
+        lblProveedor.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblProveedor.setText("Proveedor :");
+        lblProveedor.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblProveedor.setAlignmentX(0.5F);
+        lblProveedor.setMaximumSize(new java.awt.Dimension(100, 40));
+        lblProveedor.setMinimumSize(new java.awt.Dimension(100, 40));
+        lblProveedor.setPreferredSize(new java.awt.Dimension(100, 40));
+        contenedorProveedor.add(lblProveedor);
+
+        contenedorInputYErrorProveedor.setMaximumSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor.setMinimumSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor.setOpaque(false);
+        contenedorInputYErrorProveedor.setPreferredSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor.setLayout(new java.awt.BorderLayout());
+
+        comboBoxProveedores.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        comboBoxProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Proveedor" }));
+        comboBoxProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboBoxProveedores.setEnabled(false);
+        comboBoxProveedores.setMaximumSize(new java.awt.Dimension(32767, 30));
+        comboBoxProveedores.setMinimumSize(new java.awt.Dimension(0, 30));
+        comboBoxProveedores.setName("proveedor"); // NOI18N
+        comboBoxProveedores.setPreferredSize(new java.awt.Dimension(0, 30));
+        contenedorInputYErrorProveedor.add(comboBoxProveedores, java.awt.BorderLayout.NORTH);
+
+        lblErrorComboBoxProveedores.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorComboBoxProveedores.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorComboBoxProveedores.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorComboBoxProveedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorComboBoxProveedores.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorProveedor.add(lblErrorComboBoxProveedores, java.awt.BorderLayout.SOUTH);
+
+        contenedorProveedor.add(contenedorInputYErrorProveedor);
+
+        contenedorCuerpoConfiguracion.add(contenedorProveedor);
+
+        contenedorCliente.setMaximumSize(new java.awt.Dimension(372710, 60));
+        contenedorCliente.setMinimumSize(new java.awt.Dimension(440, 60));
+        contenedorCliente.setOpaque(false);
+        contenedorCliente.setPreferredSize(new java.awt.Dimension(440, 60));
+        contenedorCliente.setLayout(new javax.swing.BoxLayout(contenedorCliente, javax.swing.BoxLayout.LINE_AXIS));
+
+        checkBoxCliente.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        checkBoxCliente.setAlignmentX(0.5F);
+        checkBoxCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        checkBoxCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        checkBoxCliente.setMargin(new java.awt.Insets(0, 0, 24, 0));
+        checkBoxCliente.setMaximumSize(new java.awt.Dimension(50, 60));
+        checkBoxCliente.setMinimumSize(new java.awt.Dimension(50, 60));
+        checkBoxCliente.setOpaque(false);
+        checkBoxCliente.setPreferredSize(new java.awt.Dimension(50, 60));
+        contenedorCliente.add(checkBoxCliente);
+
+        lblCliente.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblCliente.setText("Cliente :");
+        lblCliente.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblCliente.setAlignmentX(0.5F);
+        lblCliente.setMaximumSize(new java.awt.Dimension(100, 40));
+        lblCliente.setMinimumSize(new java.awt.Dimension(100, 40));
+        lblCliente.setPreferredSize(new java.awt.Dimension(100, 40));
+        contenedorCliente.add(lblCliente);
+
+        contenedorInputYErrorProveedor1.setMaximumSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor1.setMinimumSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor1.setOpaque(false);
+        contenedorInputYErrorProveedor1.setPreferredSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor1.setLayout(new java.awt.BorderLayout());
+
+        comboBoxCliente.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        comboBoxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Cliente" }));
+        comboBoxCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboBoxCliente.setEnabled(false);
+        comboBoxCliente.setMaximumSize(new java.awt.Dimension(32767, 30));
+        comboBoxCliente.setMinimumSize(new java.awt.Dimension(0, 30));
+        comboBoxCliente.setName("proveedor"); // NOI18N
+        comboBoxCliente.setPreferredSize(new java.awt.Dimension(0, 30));
+        contenedorInputYErrorProveedor1.add(comboBoxCliente, java.awt.BorderLayout.NORTH);
+
+        lblErrorComboBoxCliente.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorComboBoxCliente.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorComboBoxCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorComboBoxCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorComboBoxCliente.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorProveedor1.add(lblErrorComboBoxCliente, java.awt.BorderLayout.SOUTH);
+
+        contenedorCliente.add(contenedorInputYErrorProveedor1);
+
+        contenedorCuerpoConfiguracion.add(contenedorCliente);
+
+        contenedorProducto.setMaximumSize(new java.awt.Dimension(372710, 60));
+        contenedorProducto.setMinimumSize(new java.awt.Dimension(440, 60));
+        contenedorProducto.setOpaque(false);
+        contenedorProducto.setPreferredSize(new java.awt.Dimension(440, 60));
+        contenedorProducto.setLayout(new javax.swing.BoxLayout(contenedorProducto, javax.swing.BoxLayout.LINE_AXIS));
+
+        checkBoxProducto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        checkBoxProducto.setAlignmentX(0.5F);
+        checkBoxProducto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        checkBoxProducto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        checkBoxProducto.setMargin(new java.awt.Insets(0, 0, 24, 0));
+        checkBoxProducto.setMaximumSize(new java.awt.Dimension(50, 60));
+        checkBoxProducto.setMinimumSize(new java.awt.Dimension(50, 60));
+        checkBoxProducto.setOpaque(false);
+        checkBoxProducto.setPreferredSize(new java.awt.Dimension(50, 60));
+        contenedorProducto.add(checkBoxProducto);
+
+        lblProducto.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblProducto.setText("Producto :");
+        lblProducto.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblProducto.setAlignmentX(0.5F);
+        lblProducto.setMaximumSize(new java.awt.Dimension(100, 40));
+        lblProducto.setMinimumSize(new java.awt.Dimension(100, 40));
+        lblProducto.setPreferredSize(new java.awt.Dimension(100, 40));
+        contenedorProducto.add(lblProducto);
+
+        contenedorInputYErrorProveedor2.setMaximumSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor2.setMinimumSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor2.setOpaque(false);
+        contenedorInputYErrorProveedor2.setPreferredSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor2.setLayout(new java.awt.BorderLayout());
+
+        comboBoxProducto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        comboBoxProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Producto" }));
+        comboBoxProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboBoxProducto.setEnabled(false);
+        comboBoxProducto.setMaximumSize(new java.awt.Dimension(32767, 30));
+        comboBoxProducto.setMinimumSize(new java.awt.Dimension(0, 30));
+        comboBoxProducto.setName("proveedor"); // NOI18N
+        comboBoxProducto.setPreferredSize(new java.awt.Dimension(0, 30));
+        contenedorInputYErrorProveedor2.add(comboBoxProducto, java.awt.BorderLayout.NORTH);
+
+        lblErrorComboBoxProducto.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorComboBoxProducto.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorComboBoxProducto.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorComboBoxProducto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorComboBoxProducto.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorProveedor2.add(lblErrorComboBoxProducto, java.awt.BorderLayout.SOUTH);
+
+        contenedorProducto.add(contenedorInputYErrorProveedor2);
+
+        contenedorCuerpoConfiguracion.add(contenedorProducto);
+
+        contenedorUsuario.setMaximumSize(new java.awt.Dimension(372710, 60));
+        contenedorUsuario.setMinimumSize(new java.awt.Dimension(440, 60));
+        contenedorUsuario.setOpaque(false);
+        contenedorUsuario.setPreferredSize(new java.awt.Dimension(440, 60));
+        contenedorUsuario.setLayout(new javax.swing.BoxLayout(contenedorUsuario, javax.swing.BoxLayout.LINE_AXIS));
+
+        checkBoxUsuario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        checkBoxUsuario.setAlignmentX(0.5F);
+        checkBoxUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        checkBoxUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        checkBoxUsuario.setMargin(new java.awt.Insets(0, 0, 24, 0));
+        checkBoxUsuario.setMaximumSize(new java.awt.Dimension(50, 60));
+        checkBoxUsuario.setMinimumSize(new java.awt.Dimension(50, 60));
+        checkBoxUsuario.setOpaque(false);
+        checkBoxUsuario.setPreferredSize(new java.awt.Dimension(50, 60));
+        contenedorUsuario.add(checkBoxUsuario);
+
+        lblUsuario.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblUsuario.setText("Usuario :");
+        lblUsuario.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblUsuario.setAlignmentX(0.5F);
+        lblUsuario.setMaximumSize(new java.awt.Dimension(100, 40));
+        lblUsuario.setMinimumSize(new java.awt.Dimension(100, 40));
+        lblUsuario.setPreferredSize(new java.awt.Dimension(100, 40));
+        contenedorUsuario.add(lblUsuario);
+
+        contenedorInputYErrorProveedor3.setMaximumSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor3.setMinimumSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor3.setOpaque(false);
+        contenedorInputYErrorProveedor3.setPreferredSize(new java.awt.Dimension(300, 52));
+        contenedorInputYErrorProveedor3.setLayout(new java.awt.BorderLayout());
+
+        comboBoxUsuario.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        comboBoxUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Usuario" }));
+        comboBoxUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboBoxUsuario.setEnabled(false);
+        comboBoxUsuario.setMaximumSize(new java.awt.Dimension(32767, 30));
+        comboBoxUsuario.setMinimumSize(new java.awt.Dimension(0, 30));
+        comboBoxUsuario.setName("proveedor"); // NOI18N
+        comboBoxUsuario.setPreferredSize(new java.awt.Dimension(0, 30));
+        contenedorInputYErrorProveedor3.add(comboBoxUsuario, java.awt.BorderLayout.NORTH);
+
+        lblErrorComboBoxUsuario.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        lblErrorComboBoxUsuario.setForeground(new java.awt.Color(179, 38, 30));
+        lblErrorComboBoxUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 0, 0));
+        lblErrorComboBoxUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblErrorComboBoxUsuario.setPreferredSize(new java.awt.Dimension(0, 17));
+        contenedorInputYErrorProveedor3.add(lblErrorComboBoxUsuario, java.awt.BorderLayout.SOUTH);
+
+        contenedorUsuario.add(contenedorInputYErrorProveedor3);
+
+        contenedorCuerpoConfiguracion.add(contenedorUsuario);
+
         contenedorConfiguracionReporte.add(contenedorCuerpoConfiguracion, java.awt.BorderLayout.CENTER);
 
         contenedorBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 40, 10, 40));
@@ -262,10 +655,12 @@ public class ReportePanel extends javax.swing.JPanel {
         switch(tipoReporte){
         
             case ReporteCompras:
-                
+                contenedorProveedor.setVisible(true);
+                contenedorCliente.setVisible(false);
                 break;
             case ReporteVentas:
-                
+                contenedorProveedor.setVisible(false);
+                contenedorCliente.setVisible(true);
                 break;
         
         }
@@ -292,12 +687,49 @@ public class ReportePanel extends javax.swing.JPanel {
     private javax.swing.JButton btnReporteCantidadesComprar;
     private javax.swing.JButton btnReporteCompras;
     private javax.swing.JButton btnReporteVentas;
+    private javax.swing.JCheckBox checkBoxCliente;
+    private javax.swing.JCheckBox checkBoxProducto;
+    private javax.swing.JCheckBox checkBoxProveedor;
+    private javax.swing.JCheckBox checkBoxTiempo;
+    private javax.swing.JCheckBox checkBoxUsuario;
+    private javax.swing.JComboBox<String> comboBoxCliente;
+    private javax.swing.JComboBox<String> comboBoxProducto;
+    private javax.swing.JComboBox<String> comboBoxProveedores;
+    private javax.swing.JComboBox<String> comboBoxUsuario;
     private javax.swing.JPanel contenedorBotones;
     private javax.swing.JPanel contenedorBotonesPrincipales;
+    private javax.swing.JPanel contenedorCliente;
     private javax.swing.JPanel contenedorConfiguracionReporte;
     private javax.swing.JPanel contenedorCuerpoConfiguracion;
+    private javax.swing.JPanel contenedorInputYErrorFechaInferior;
+    private javax.swing.JPanel contenedorInputYErrorFechaSuperior;
+    private javax.swing.JPanel contenedorInputYErrorProveedor;
+    private javax.swing.JPanel contenedorInputYErrorProveedor1;
+    private javax.swing.JPanel contenedorInputYErrorProveedor2;
+    private javax.swing.JPanel contenedorInputYErrorProveedor3;
+    private javax.swing.JPanel contenedorLblInstruccion;
     private javax.swing.JPanel contenedorPrincipal;
+    private javax.swing.JPanel contenedorProducto;
+    private javax.swing.JPanel contenedorProveedor;
     private javax.swing.JPanel contenedorSeleccionReporte;
+    private javax.swing.JPanel contenedorTiempo;
+    private javax.swing.JPanel contenedorUsuario;
+    private javax.swing.JTextField inputFechaInferior;
+    private javax.swing.JTextField inputFechaSuperior;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblDesde;
+    private javax.swing.JLabel lblErrorComboBoxCliente;
+    private javax.swing.JLabel lblErrorComboBoxProducto;
+    private javax.swing.JLabel lblErrorComboBoxProveedores;
+    private javax.swing.JLabel lblErrorComboBoxUsuario;
+    private javax.swing.JLabel lblErrorInputFechaInferior;
+    private javax.swing.JLabel lblErrorInputFechaSuperior;
+    private javax.swing.JLabel lblHasta;
+    private javax.swing.JLabel lblInstrucciones;
+    private javax.swing.JLabel lblProducto;
+    private javax.swing.JLabel lblProveedor;
+    private javax.swing.JLabel lblTiempo;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel tituloConfiguracionReporte;
     private javax.swing.JLabel tituloSeleccionTipoReporte;
     // End of variables declaration//GEN-END:variables
