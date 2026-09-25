@@ -96,9 +96,25 @@ public class GestorFormulario {
     
     /*
     Metodo para agregar un input de texto, que sea destinado para validar
-    formato de fecha y que esta no sea futura
+    formato de fecha hora y que esta no sea futura
     */
     public void agregarCampoFechaHora(
+                                javax.swing.JTextField inputFecha, 
+                                JLabel lblError,
+                                boolean esObligatorio ){
+        validarNombreEnComponente( inputFecha );
+        
+        listaCamposFormulario.put(
+                inputFecha.getName(), 
+                new CampoFechaHora(inputFecha, lblError, esObligatorio)
+        );
+    }
+    
+    /*
+    Metodo para agregar un input de texto, que sea destinado para validar
+    formato de fecha y que esta no sea futura
+    */
+    public void agregarCampoFecha(
                                 javax.swing.JTextField inputFechaHora, 
                                 JLabel lblError,
                                 boolean esObligatorio ){
@@ -106,7 +122,7 @@ public class GestorFormulario {
         
         listaCamposFormulario.put(
                 inputFechaHora.getName(), 
-                new CampoFechaHora(inputFechaHora, lblError, esObligatorio)
+                new CampoFecha(inputFechaHora, lblError, esObligatorio)
         );
     }
     
