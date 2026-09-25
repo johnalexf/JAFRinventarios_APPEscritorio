@@ -17,14 +17,14 @@ public class CampoComboBox extends CampoGestionable{
      que puede seleccionar el usuario de la siguiente manera:
      clave: idItem, valor: nombreItem 
     */
-    private final LinkedHashMap<Integer , String> listaOpcionesConId;
+    private LinkedHashMap<Integer , String> listaOpcionesConId;
     /*
     Se crea un mapa invertido para cuando se necesite devolver el id del item 
     seleccionado, esto con el fin de evitar recorrer toda la listaOpcionesConId 
     buscando cual es la clave del valor seleccionado, esto facilita que se pueda
-    buscar el valor con el id de la siguiente manera listaOpcionesInvertida.get(valorTextual)
+    buscar el valor del id de la siguiente manera listaOpcionesInvertida.get(valorTextual)
     */
-    private final LinkedHashMap<String , Integer> listaOpcionesInvertida;
+    private LinkedHashMap<String , Integer> listaOpcionesInvertida;
     private final boolean esObligatorio;
     private final String concepto;
 
@@ -36,16 +36,19 @@ public class CampoComboBox extends CampoGestionable{
             boolean esObligatorio ) {
         super(comboBox, lblError);
         this.comboBox = comboBox;
-        this.listaOpcionesConId = listaOpcionesConId;
-        this.listaOpcionesInvertida = invertirLista(listaOpcionesConId);
         this.esObligatorio = esObligatorio;
         this.concepto = concepto;
         
-        cargarListaDatosDisponibles();
+        actualizarLista(listaOpcionesConId);
         
         asignarValidacionEnTiempoReal();
     }
     
+    public void actualizarLista( LinkedHashMap<Integer , String> listaOpcionesConId ){
+        this.listaOpcionesConId = listaOpcionesConId;
+        this.listaOpcionesInvertida = invertirLista(listaOpcionesConId);
+        cargarListaDatosDisponibles();
+    }
     
     private LinkedHashMap< String , Integer > invertirLista( LinkedHashMap<Integer , String> lista ){
          LinkedHashMap< String , Integer > listaInvertida = new LinkedHashMap<>();
