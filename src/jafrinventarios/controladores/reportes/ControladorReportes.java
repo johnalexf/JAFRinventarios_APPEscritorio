@@ -1,6 +1,7 @@
 
 package jafrinventarios.controladores.reportes;
 
+import jafrinventarios.DTOs.reportes.DTOFiltroReporte;
 import jafrinventarios.servicios.clientes.ServicioClientes;
 import jafrinventarios.servicios.productos.ServicioProductos;
 import jafrinventarios.servicios.proveedores.ServicioProveedores;
@@ -8,6 +9,8 @@ import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.reportes.ReportePanel;
 import jafrinventarios.vistas.reportes.ReportePanel.TipoReporteEspecial;
 import java.awt.event.ItemEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -91,6 +94,10 @@ public class ControladorReportes {
         
         panelReportes.getBtnLinkCancelar().addActionListener( e -> { 
             panelReportes.mostrarPanelConfiguracionReporte(false);
+        });
+        
+        panelReportes.getBtnCrearReporte().addActionListener( e -> {  
+            procesarFiltroReporte();
         });
         
     }
@@ -211,6 +218,103 @@ public class ControladorReportes {
                 }
                 break;
         }
+        
+    }
+    
+    
+    private void procesarFiltroReporte(){
+    
+        /*
+        ========================================================================
+               Verificar si esta correctamente diligenciado el formulario
+        ========================================================================
+        */
+        if( !panelReportes.validarFormulario() ){
+            panelReportes.mostrarAlertaErrorFormatoCampos();
+            return;
+        }
+        
+        
+        /*
+        ========================================================================
+         Extraer los datos del formulario y almacenarlos en un DTOFiltroReporte
+        ========================================================================
+        */
+        HashMap<String, String> datosFormulario = panelReportes.recolectarDatosFormulario();
+        DTOFiltroReporte filtro;
+        try {
+            filtro = crearDTOFiltroReporte(datosFormulario);
+        } catch (Exception e) {
+            panelReportes.mostrarAlertaError(e.getMessage());
+            return;
+        }
+        
+        
+        /*
+        ========================================================================
+                   Validar que el rango de fechas sea coherente
+        ========================================================================
+        */
+        if( !filtro.isRangoFechasValido() ){
+            panelReportes.mostrarAlertaError( 
+                    "Las fechas no son validas, se debe cumplir que sea de una "
+                  + "fecha inferior a una superior o igual, por favor "
+                  + "modifiquelas e intente nuevamente");
+            return;
+        }
+        
+        
+        /*
+        ========================================================================
+        TODO: Consultar el servicio pertinente para traer la informacion
+        ========================================================================
+        */
+        //Prueba para verificar si se recolecta la informacion correctamente
+        System.out.println(filtro.toString());
+        
+        
+    }
+    
+    
+    private DTOFiltroReporte crearDTOFiltroReporte( HashMap<String, String> datosFiltro ) throws Exception{
+        
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        DTOFiltroReporte filtro = new DTOFiltroReporte();
+        
+        try {
+            if( datosFiltro.containsKey("fechaInferior") )
+                filtro.setFechaInferior( LocalDate.parse( datosFiltro.get("fechaInferior"), formato) );
+            else
+                throw new Exception("No existe la fecha inferior");
+            
+            if( datosFiltro.containsKey("fechaSuperior") )
+                filtro.setFechaSuperior( LocalDate.parse( datosFiltro.get("fechaSuperior"), formato) );
+            else
+                throw new Exception("No existe la fecha superior");
+            
+            if( panelReportes.getCheckBoxProveedores().isSelected() && datosFiltro.containsKey("proveedor") ){
+                filtro.setIdProveedor( Integer.parseInt( datosFiltro.get("proveedor")));
+            }
+            
+            if( panelReportes.getCheckBoxClientes().isSelected() && datosFiltro.containsKey("cliente") ){
+                filtro.setIdCliente(Integer.parseInt( datosFiltro.get("cliente")));
+            }
+            
+            if( panelReportes.getCheckBoxProductos().isSelected() && datosFiltro.containsKey("producto") ){
+                filtro.setIdProducto(Integer.parseInt( datosFiltro.get("producto")));
+            }
+            
+            if( panelReportes.getCheckBoxUsuarios().isSelected() && datosFiltro.containsKey("usuario") ){
+                filtro.setIdUsuario(Integer.parseInt( datosFiltro.get("usuario")));
+            } 
+
+            return filtro;
+            
+        } catch (Exception e) {
+            throw new Exception( "Error al crear el DTOFiltro reporte, debido a que : "+ e.getMessage());
+        }
+        
         
     }
     
