@@ -101,5 +101,24 @@ public class DTOFiltroReporte {
     public boolean isRangoFechasValido(){
         return ( fechaInferior.isBefore(fechaSuperior) || fechaInferior.isEqual(fechaSuperior) );
     }
+
+    
+    /*
+    ============================================================================
+          to string para verificar por consola la informacion almacenada
+    ============================================================================
+    */
+    @Override
+    public String toString() {
+        return "DTOFiltroReporte{\n" + 
+                "fechaInferior=" + fechaInferior + 
+                "\nfechaSuperior=" + fechaSuperior + 
+                "\nidProveedor=" + idProveedor + 
+                "\nidCliente=" + idCliente + 
+                "\nidProducto=" + idProducto + 
+                "\nidUsuario=" + idUsuario + 
+                "\n}";
+    }
+      
             
 }
