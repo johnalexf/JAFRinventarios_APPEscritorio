@@ -67,6 +67,10 @@ public abstract class CampoGestionable {
         aplicarEstiloNormalAComponente();
     }
     
+    protected JComponent getComponente(){
+        return componente;
+    }
+    
     
     protected abstract void limpiarCampo();
     

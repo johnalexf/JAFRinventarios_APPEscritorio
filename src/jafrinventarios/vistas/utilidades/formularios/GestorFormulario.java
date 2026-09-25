@@ -26,6 +26,16 @@ public class GestorFormulario {
         listaCamposFormulario = new HashMap<>();
     }
     
+    
+    public void agregarCampoGestionable( CampoGestionable campo ){
+    
+        validarNombreEnComponente( campo.getComponente() );
+        
+        listaCamposFormulario.put(campo.getComponente().getName(), campo);
+        
+    }
+    
+    
     /*
     Metodo para agregar campos que permitan obtener el texto con getText
     dentro de su propia caja
