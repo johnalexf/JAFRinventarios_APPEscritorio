@@ -733,10 +733,12 @@ public class ReportePanel extends javax.swing.JPanel {
         switch(tipoReporte){
         
             case ReporteCompras:
+                tituloConfiguracionReporte.setText("Configuración del reporte de compras");
                 contenedorProveedor.setVisible(true);
                 contenedorCliente.setVisible(false);
                 break;
             case ReporteVentas:
+                tituloConfiguracionReporte.setText("Configuración del reporte de ventas");
                 contenedorProveedor.setVisible(false);
                 contenedorCliente.setVisible(true);
                 break;
@@ -808,14 +810,22 @@ public class ReportePanel extends javax.swing.JPanel {
     }
     
     private void restablecerFormulario(){
+        
         habilitarProveedores(false);
         checkBoxProveedor.setSelected(false);
+        comboBoxProveedores.setSelectedIndex(0);
+        
         habilitarClientes(false);
         checkBoxCliente.setSelected(false);
+        comboBoxCliente.setSelectedIndex(0);
+        
         habilitarProductos(false);
         checkBoxProducto.setSelected(false);
+        comboBoxProducto.setSelectedIndex(0);
+        
         habilitarUsuarios(false);
         checkBoxUsuario.setSelected(false);
+        comboBoxUsuario.setSelectedIndex(0);
     }
     
     

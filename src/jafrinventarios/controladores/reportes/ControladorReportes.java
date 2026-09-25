@@ -195,6 +195,9 @@ public class ControladorReportes {
     
     private void mostrarFiltroReporte( TipoReporteEspecial tipoReporte ){
         this.tipoReporte = tipoReporte;
+        
+        panelReportes.mostrarConfiguracionReporte( tipoReporte );
+        
         switch(tipoReporte){
             case ReporteCompras:
                 panelReportes.habilitarCheckBoxProductos(false);
@@ -208,7 +211,6 @@ public class ControladorReportes {
                 }
                 break;
         }
-        panelReportes.mostrarConfiguracionReporte( tipoReporte );
         
     }
     
