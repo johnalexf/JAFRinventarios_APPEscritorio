@@ -34,6 +34,76 @@ public class ServicioProductos {
     Metodo estatico para no instanciar el servicio para los controladores que 
     solo necesitan de esta funcion
     */ 
+    public static LinkedHashMap<Integer, String> obtenerDiccionarioProductos() throws Exception{
+    
+        LinkedHashMap<Integer, String> diccionarioProductos = new LinkedHashMap<>();
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_producto,\n" +
+                "    nombre_producto\n" +
+                "FROM\n" +
+                "    productos\n" +
+                "\n ORDER BY 2" ;
+        
+        try(
+            PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
+            ResultSet respuesta = consulta.executeQuery();
+            ){
+        
+            while( respuesta.next() ){
+                diccionarioProductos.put( respuesta.getInt("id_producto"), 
+                                          respuesta.getString("nombre_producto")
+                );
+            }
+        }
+        
+        return diccionarioProductos;
+        
+    }
+    
+    /*
+    Metodo estatico para no instanciar el servicio para los controladores que 
+    solo necesitan de esta funcion
+    */ 
+    public static LinkedHashMap<Integer, String> obtenerDiccionarioProductosPorProveedor(int idProveedor) throws Exception{
+    
+        LinkedHashMap<Integer, String> diccionarioProductos = new LinkedHashMap<>();
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_producto,\n" +
+                "    nombre_producto\n" +
+                "FROM\n" +
+                "    productos\n" +
+                "WHERE  id_proveedor = ? "+
+                "\n ORDER BY 2" ;
+        
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL)   ){
+        
+            consulta.setInt( 1, idProveedor );
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                while( respuesta.next() ){
+                    diccionarioProductos.put( respuesta.getInt("id_producto"), 
+                                              respuesta.getString("nombre_producto")
+                    );
+                }
+            }
+        }
+        
+        return diccionarioProductos;
+        
+    }
+    
+    
+    /*
+    Metodo estatico para no instanciar el servicio para los controladores que 
+    solo necesitan de esta funcion
+    */ 
     public static LinkedHashMap<Integer, DTOProductoPrecio> obtenerProductosConPrecioVenta(boolean soloHabilitados) throws Exception{
     
         LinkedHashMap<Integer, DTOProductoPrecio> diccionarioProductos = new LinkedHashMap<>();
