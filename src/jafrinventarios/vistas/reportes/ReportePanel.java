@@ -311,7 +311,7 @@ public class ReportePanel extends javax.swing.JPanel {
         inputFechaInferior.setToolTipText("");
         inputFechaInferior.setMaximumSize(new java.awt.Dimension(0, 0));
         inputFechaInferior.setMinimumSize(new java.awt.Dimension(0, 0));
-        inputFechaInferior.setName("fechaHora"); // NOI18N
+        inputFechaInferior.setName("fechaInferior"); // NOI18N
         inputFechaInferior.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorFechaInferior.add(inputFechaInferior, java.awt.BorderLayout.NORTH);
 
@@ -347,7 +347,7 @@ public class ReportePanel extends javax.swing.JPanel {
         inputFechaSuperior.setToolTipText("");
         inputFechaSuperior.setMaximumSize(new java.awt.Dimension(0, 0));
         inputFechaSuperior.setMinimumSize(new java.awt.Dimension(0, 0));
-        inputFechaSuperior.setName("fechaHora"); // NOI18N
+        inputFechaSuperior.setName("fechaSuperior"); // NOI18N
         inputFechaSuperior.setPreferredSize(new java.awt.Dimension(0, 34));
         contenedorInputYErrorFechaSuperior.add(inputFechaSuperior, java.awt.BorderLayout.NORTH);
 
@@ -454,7 +454,7 @@ public class ReportePanel extends javax.swing.JPanel {
         comboBoxCliente.setEnabled(false);
         comboBoxCliente.setMaximumSize(new java.awt.Dimension(32767, 30));
         comboBoxCliente.setMinimumSize(new java.awt.Dimension(0, 30));
-        comboBoxCliente.setName("proveedor"); // NOI18N
+        comboBoxCliente.setName("cliente"); // NOI18N
         comboBoxCliente.setPreferredSize(new java.awt.Dimension(0, 30));
         contenedorInputYErrorProveedor1.add(comboBoxCliente, java.awt.BorderLayout.NORTH);
 
@@ -507,7 +507,7 @@ public class ReportePanel extends javax.swing.JPanel {
         comboBoxProducto.setEnabled(false);
         comboBoxProducto.setMaximumSize(new java.awt.Dimension(32767, 30));
         comboBoxProducto.setMinimumSize(new java.awt.Dimension(0, 30));
-        comboBoxProducto.setName("proveedor"); // NOI18N
+        comboBoxProducto.setName("producto"); // NOI18N
         comboBoxProducto.setPreferredSize(new java.awt.Dimension(0, 30));
         contenedorInputYErrorProveedor2.add(comboBoxProducto, java.awt.BorderLayout.NORTH);
 
@@ -560,7 +560,7 @@ public class ReportePanel extends javax.swing.JPanel {
         comboBoxUsuario.setEnabled(false);
         comboBoxUsuario.setMaximumSize(new java.awt.Dimension(32767, 30));
         comboBoxUsuario.setMinimumSize(new java.awt.Dimension(0, 30));
-        comboBoxUsuario.setName("proveedor"); // NOI18N
+        comboBoxUsuario.setName("usuario"); // NOI18N
         comboBoxUsuario.setPreferredSize(new java.awt.Dimension(0, 30));
         contenedorInputYErrorProveedor3.add(comboBoxUsuario, java.awt.BorderLayout.NORTH);
 
