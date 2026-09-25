@@ -25,7 +25,7 @@ public class CampoComboBox extends CampoGestionable{
     buscar el valor del id de la siguiente manera listaOpcionesInvertida.get(valorTextual)
     */
     private LinkedHashMap<String , Integer> listaOpcionesInvertida;
-    private final boolean esObligatorio;
+    private boolean obligatorio;
     private final String concepto;
 
     public CampoComboBox(
@@ -33,10 +33,10 @@ public class CampoComboBox extends CampoGestionable{
             String concepto,
             LinkedHashMap<Integer , String> listaOpcionesConId, 
             JLabel lblError,
-            boolean esObligatorio ) {
+            boolean obligatorio ) {
         super(comboBox, lblError);
         this.comboBox = comboBox;
-        this.esObligatorio = esObligatorio;
+        this.obligatorio = obligatorio;
         this.concepto = concepto;
         
         actualizarLista(listaOpcionesConId);
@@ -48,6 +48,10 @@ public class CampoComboBox extends CampoGestionable{
         this.listaOpcionesConId = listaOpcionesConId;
         this.listaOpcionesInvertida = invertirLista(listaOpcionesConId);
         cargarListaDatosDisponibles();
+    }
+    
+    public void setObligatorio(boolean obligatorio){
+        this.obligatorio = obligatorio;
     }
     
     private LinkedHashMap< String , Integer > invertirLista( LinkedHashMap<Integer , String> lista ){
@@ -94,7 +98,7 @@ public class CampoComboBox extends CampoGestionable{
     @Override
     protected boolean validar() {
         
-        if( comboBox.getSelectedIndex() == 0 && esObligatorio){
+        if( comboBox.getSelectedIndex() == 0 && obligatorio){
             mostrarError("Este campo es obligatorio");
             return false;
         }
