@@ -8,7 +8,13 @@ package jafrinventarios.vistas.reportes;
 import jafrinventarios.vistas.utilidades.componentes.CheckBox;
 import jafrinventarios.vistas.utilidades.componentes.DinamismoLink;
 import jafrinventarios.vistas.utilidades.componentes.SelectorFecha;
+import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
+import jafrinventarios.vistas.utilidades.formularios.CampoComboBox;
+import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 
 /**
  *
@@ -23,12 +29,31 @@ public class ReportePanel extends javax.swing.JPanel {
         ReporteCompras,
         ReporteVentas
     }
+    
+    private GestorFormulario filtroReporte;
+    
+    /*
+    Campos para poder actualizar las listas de opciones disponibles y 
+    si es obligatorio o no en el formulario
+    */
+    private CampoComboBox proveedores;
+    private CampoComboBox clientes;
+    private CampoComboBox productos;
+    private CampoComboBox usuarios;
+    
     /**
      * Creates new form reportes
      */
     public ReportePanel() {
         initComponents();
-        
+        /*
+        Aun que este formulario es solo para reportes de compras o ventas, 
+        se deja configurado desde la creacion del panel, para evitar que se
+        cree mas de una vez la misma, en dado cas que el usuario abra la 
+        configuracion y la cierra en mas de una ocacion.
+        */
+        filtroReporte = new GestorFormulario();
+       
         configuracionInicial();
         
     }
@@ -50,7 +75,10 @@ public class ReportePanel extends javax.swing.JPanel {
         new SelectorFecha(inputFechaInferior);
         new SelectorFecha(inputFechaSuperior);
         
+        estructurarFormulario();
+        
     }
+    
     
     private void cambiarTamanoCheckBoxs(){
         CheckBox.cambiarTamanoCheckBox(checkBoxTiempo);
@@ -58,6 +86,25 @@ public class ReportePanel extends javax.swing.JPanel {
         CheckBox.cambiarTamanoCheckBox(checkBoxCliente);
         CheckBox.cambiarTamanoCheckBox(checkBoxProducto);
         CheckBox.cambiarTamanoCheckBox(checkBoxUsuario);
+    }
+    
+    
+    private void estructurarFormulario(){
+        
+        filtroReporte.agregarCampoFecha(inputFechaInferior, lblErrorInputFechaInferior, true);
+        filtroReporte.agregarCampoFecha(inputFechaSuperior, lblErrorInputFechaSuperior, true);
+        
+        LinkedHashMap<Integer, String> listaVacia = new LinkedHashMap<>();
+        proveedores = new CampoComboBox( comboBoxProveedores, "proveedores", listaVacia, lblErrorComboBoxProveedores, false );
+        clientes = new CampoComboBox( comboBoxCliente, "clientes", listaVacia, lblErrorComboBoxCliente, false );
+        productos = new CampoComboBox( comboBoxProducto, "productos", listaVacia, lblErrorComboBoxProducto, false );
+        usuarios = new CampoComboBox( comboBoxUsuario, "usuarios", listaVacia, lblErrorComboBoxUsuario, false );
+        
+        filtroReporte.agregarCampoGestionable(proveedores);
+        filtroReporte.agregarCampoGestionable(clientes);
+        filtroReporte.agregarCampoGestionable(productos);
+        filtroReporte.agregarCampoGestionable(usuarios);
+        
     }
 
     /**
@@ -649,9 +696,28 @@ public class ReportePanel extends javax.swing.JPanel {
     }
     
     
+    public JCheckBox getCheckBoxProveedores(){
+        return checkBoxProveedor;
+    }
     
-    public void mostrarConfiguracionReporte( TipoReporteEspecial tipoReporte){
+    public JCheckBox getCheckBoxClientes(){
+        return checkBoxCliente;
+    }
     
+    public JCheckBox getCheckBoxProductos(){
+        return checkBoxProducto;
+    }
+    
+    public JCheckBox getCheckBoxUsuarios(){
+        return checkBoxUsuario;
+    }
+    
+    
+    
+    public void mostrarConfiguracionReporte( TipoReporteEspecial tipoReporte ){
+    
+        restablecerFormulario();
+        
         switch(tipoReporte){
         
             case ReporteCompras:
@@ -679,6 +745,115 @@ public class ReportePanel extends javax.swing.JPanel {
         
     }
     
+    
+    /*
+    ============================================================================
+                         Configuracion combo boxs
+    ============================================================================
+    */
+    
+    public void habilitarProveedores(boolean habilitar){
+        comboBoxProveedores.setEnabled(habilitar);
+        proveedores.setObligatorio(habilitar);
+    }
+    
+    public void setListaProveedores( LinkedHashMap<Integer, String> listaIds ){
+        proveedores.actualizarLista(listaIds);
+    }
+    
+     
+    public void habilitarClientes(boolean habilitar){
+        comboBoxCliente.setEnabled(habilitar);
+        clientes.setObligatorio(habilitar);
+    }
+    
+    public void setListaClientes( LinkedHashMap<Integer, String> listaIds ){
+        clientes.actualizarLista(listaIds);
+    }
+    
+    
+    public void habilitarProductos(boolean habilitar){
+        comboBoxProducto.setEnabled(habilitar);
+        productos.setObligatorio(habilitar);
+    }
+    
+    public void setListaProductos( LinkedHashMap<Integer, String> listaIds ){
+        productos.actualizarLista(listaIds);
+    }
+   
+    
+    public void habilitarUsuarios(boolean habilitar){
+        comboBoxUsuario.setEnabled(habilitar);
+        usuarios.setObligatorio(habilitar);
+    }
+    
+    public void setListaUsuarios( LinkedHashMap<Integer, String> listaIds ){
+        usuarios.actualizarLista(listaIds);
+    }
+    
+    private void restablecerFormulario(){
+        habilitarProveedores(false);
+        checkBoxProveedor.setSelected(false);
+        habilitarClientes(false);
+        checkBoxCliente.setSelected(false);
+        habilitarProductos(false);
+        checkBoxProducto.setSelected(false);
+        habilitarUsuarios(false);
+        checkBoxUsuario.setSelected(false);
+    }
+    
+    
+    /*
+    ============================================================================
+                    Metodos para gestionar el formulario
+    ============================================================================
+    */
+    public boolean validarFormulario(){
+        return filtroReporte.validar();
+    }
+    
+    public HashMap<String, String> recolectarDatosFormulario(){
+        return filtroReporte.recolectarDatos();
+    }
+    
+    
+    /*
+    ============================================================================
+                    Metodos para mostrar alertas
+    ============================================================================
+    */
+    
+    public java.awt.Window getVentanaPadre(){
+        return javax.swing.SwingUtilities.getWindowAncestor( this );
+    }
+    
+    public void mostrarAlertaErrorFormatoCampos(){
+        DialogoAlerta.mostrarErrorFormatoCampos( getVentanaPadre() );
+    }    
+    
+    public void mostrarAlertaExitosa(String mensajeExitoso ){
+        
+        DialogoAlerta.mostrarExito(
+                    getVentanaPadre(), 
+                    "Operacion Exitosa", 
+                    mensajeExitoso
+            );
+        
+    }
+    
+    public boolean mostrarAlertaAdvertencia( String mensaje ){
+        
+       return DialogoAlerta.mostrarAdvertenciaConRespuesta(
+                   getVentanaPadre(),
+                   "Advertencia", 
+                   mensaje
+                );
+    
+    }
+    
+    public void mostrarAlertaError( String mensaje ){
+        DialogoAlerta.mostrarError( getVentanaPadre() , "Error", mensaje );
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
