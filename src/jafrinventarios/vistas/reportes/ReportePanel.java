@@ -755,6 +755,7 @@ public class ReportePanel extends javax.swing.JPanel {
     public void habilitarProveedores(boolean habilitar){
         comboBoxProveedores.setEnabled(habilitar);
         proveedores.setObligatorio(habilitar);
+        proveedores.limpiarError();
     }
     
     public void setListaProveedores( LinkedHashMap<Integer, String> listaIds ){
@@ -765,6 +766,7 @@ public class ReportePanel extends javax.swing.JPanel {
     public void habilitarClientes(boolean habilitar){
         comboBoxCliente.setEnabled(habilitar);
         clientes.setObligatorio(habilitar);
+        clientes.limpiarError();
     }
     
     public void setListaClientes( LinkedHashMap<Integer, String> listaIds ){
@@ -775,6 +777,7 @@ public class ReportePanel extends javax.swing.JPanel {
     public void habilitarProductos(boolean habilitar){
         comboBoxProducto.setEnabled(habilitar);
         productos.setObligatorio(habilitar);
+        productos.limpiarError();
     }
     
     public void setListaProductos( LinkedHashMap<Integer, String> listaIds ){
@@ -785,6 +788,7 @@ public class ReportePanel extends javax.swing.JPanel {
     public void habilitarUsuarios(boolean habilitar){
         comboBoxUsuario.setEnabled(habilitar);
         usuarios.setObligatorio(habilitar);
+        usuarios.limpiarError();
     }
     
     public void setListaUsuarios( LinkedHashMap<Integer, String> listaIds ){
