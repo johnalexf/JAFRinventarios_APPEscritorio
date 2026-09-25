@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -22,6 +23,39 @@ import java.util.List;
 public class ServicioUsuarios {
     
     public ServicioUsuarios() {
+    }
+    
+    /*
+    Metodo estatico para no instanciar el servicio para los controladores que 
+    solo necesitan de esta funcion
+    */ 
+    public static LinkedHashMap<Integer, String> obtenerDiccionarioUsuarios() throws Exception{
+    
+        LinkedHashMap<Integer, String> diccionarioUsuarios = new LinkedHashMap<>();
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = 
+                "SELECT\n" +
+                "    id_usuario,\n" +
+                "    alias_usuario\n" +
+                "FROM\n" +
+                "    usuarios\n" +
+                "\n ORDER BY 2" ;
+        
+        try(
+            PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL);
+            ResultSet respuesta = consulta.executeQuery();
+            ){
+        
+            while( respuesta.next() ){
+                diccionarioUsuarios.put( respuesta.getInt("id_usuario"), 
+                                          respuesta.getString("alias_usuario")
+                );
+            }
+        }
+        
+        return diccionarioUsuarios;
     }
     
     
