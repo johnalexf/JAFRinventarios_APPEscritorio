@@ -109,7 +109,7 @@ public class CampoFecha extends CampoGestionable{
             
             //La fecha no puede ser del futuro
             if (fechaIngresada.isAfter(LocalDate.now())) {
-                mostrarError("La fecha no puede ser futura");
+                mostrarError("No puede ser futura");
                 return false;
             }
 
