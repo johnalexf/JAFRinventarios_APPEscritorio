@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -712,6 +713,17 @@ public class ReportePanel extends javax.swing.JPanel {
         return checkBoxUsuario;
     }
     
+    public void habilitarCheckBoxProductos(boolean habilitar){
+        checkBoxProducto.setEnabled(habilitar);
+        if(!habilitar){
+            checkBoxProducto.setSelected(false);
+            habilitarProductos(false);
+        }
+    }
+    
+    public JComboBox getComboBoxProveedores(){
+        return comboBoxProveedores;
+    }
     
     
     public void mostrarConfiguracionReporte( TipoReporteEspecial tipoReporte ){

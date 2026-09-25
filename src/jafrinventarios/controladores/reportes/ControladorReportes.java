@@ -8,6 +8,7 @@ import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.reportes.ReportePanel;
 import jafrinventarios.vistas.reportes.ReportePanel.TipoReporteEspecial;
 import java.awt.event.ItemEvent;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
@@ -37,6 +38,8 @@ public class ControladorReportes {
         inicializarBotonesPrincipales();
         poblarComboBoxIndependientes();
         inicializarCheckBoxs();
+        inicializarEventoComboBoxProveedores();
+        
         
     }
     
@@ -153,6 +156,34 @@ public class ControladorReportes {
         
     }
     
+    
+    /*
+    ============================================================================
+                INICIALIZAR evento en comboBox proveedores
+    ============================================================================
+    */
+    
+    private void inicializarEventoComboBoxProveedores(){
+    
+        panelReportes.getComboBoxProveedores().addActionListener( e -> {  
+            try {
+                 HashMap<String, String> datosFormulario = panelReportes.recolectarDatosFormulario();
+                 if( datosFormulario.containsKey("proveedor") ){
+                     int idProveedor = Integer.parseInt( datosFormulario.get("proveedor"));
+                     panelReportes.setListaProductos( obtenerDiccionarioProductosPorProveedor(idProveedor));
+                     panelReportes.habilitarCheckBoxProductos(true);
+                 }
+            } catch ( Exception exception ) {
+                LinkedHashMap<Integer, String> listaVacia = new LinkedHashMap<>();
+                panelReportes.setListaProductos( listaVacia );
+                panelReportes.habilitarCheckBoxProductos(false);
+            }
+            
+        });
+        
+    }
+    
+    
 /*
 ============================================================================
         METODOS PARA LAS ACCIONES (CREAR REPORTE DEPENDIENDO DEL TIPO)
@@ -166,9 +197,10 @@ public class ControladorReportes {
         this.tipoReporte = tipoReporte;
         switch(tipoReporte){
             case ReporteCompras:
-                
+                panelReportes.habilitarCheckBoxProductos(false);
                 break;
             case ReporteVentas:
+                panelReportes.habilitarCheckBoxProductos(true);
                 try {
                     panelReportes.setListaProductos( obtenerDiccionarioProductos() );
                 } catch (Exception e) {
