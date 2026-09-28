@@ -9,12 +9,17 @@ import java.time.LocalDate;
  */
 public class DTOFiltroReporte {
     
-    LocalDate fechaInferior;
-    LocalDate fechaSuperior;
-    Integer idProveedor;
-    Integer idCliente;
-    Integer idProducto;
-    Integer idUsuario;
+    private LocalDate fechaInferior;
+    private LocalDate fechaSuperior;
+    private Integer idProveedor;
+    private Integer idCliente;
+    private Integer idProducto;
+    private Integer idUsuario;
+    
+    private String proveedor;
+    private String cliente;
+    private String producto;
+    private String usuario;
 
     
     /*
@@ -28,6 +33,10 @@ public class DTOFiltroReporte {
         idCliente = null;
         idProducto = null;
         idUsuario = null;
+        proveedor = "";
+        cliente = "";
+        producto = "";
+        usuario = "";
     }
     
     
@@ -60,7 +69,22 @@ public class DTOFiltroReporte {
     public Integer getIdUsuario() {
         return idUsuario;
     }
-    
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public String getProducto() {
+        return producto;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
     
     /*
     ============================================================================
@@ -90,6 +114,22 @@ public class DTOFiltroReporte {
 
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setProducto(String producto) {
+        this.producto = producto;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
     
     
