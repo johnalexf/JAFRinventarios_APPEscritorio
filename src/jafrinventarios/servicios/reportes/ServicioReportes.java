@@ -244,7 +244,7 @@ public class ServicioReportes {
                 sentenciaSQL += "INNER JOIN\n" +
                                 "    detalle_de_ventas det\n" +
                                 "ON \n" +
-                                "    det.id_venta = ven.id_venta" ;
+                                "    det.id_venta = ven.id_venta \n" ;
             
             sentenciaSQL += "WHERE\n" +
                             "    (ven.fecha_hora_venta BETWEEN ? AND ?) \n" ;
@@ -284,6 +284,153 @@ public class ServicioReportes {
                                 respuesta.getInt("idCliente"), 
                                 respuesta.getString("nombreCliente"), 
                                 respuesta.getInt("cantidadVentas")
+                        );
+                    }
+                }
+
+            }
+
+        }
+        
+        return reporte;
+    
+    }
+    
+    
+    
+    public DTOConsolidadoTransacciones obtenerConsolidadoCompras( DTOFiltroReporte filtro ) throws Exception{
+    
+        DTOConsolidadoTransacciones reporte = new DTOConsolidadoTransacciones();
+        
+        Connection conexionDB = ConexionDB.getConnection();
+        
+        String sentenciaSQL = "SELECT\n" +
+                            "    comp.id_proveedor AS 'idProveedor',\n" +
+                            "    det.id_producto AS 'idProducto',\n" +
+                            "    prod.nombre_producto AS 'nombreProducto',\n" +
+                            "    SUM(det.cantidad_producto) AS 'totalCantidadProducto',\n" +
+                            "    det.precio_unitario_producto AS 'precioProducto',\n" +
+                            "    SUM(det.precio_total_producto) AS 'totalPrecioProducto'\n" +
+                            "FROM\n" +
+                            "    detalle_de_compras det\n" +
+                            "INNER JOIN\n" +
+                            "    compras comp\n" +
+                            "ON\n" +
+                            "    det.id_compra = comp.id_compra\n" +
+                            "INNER JOIN\n" +
+                            "    productos prod\n" +
+                            "ON\n" +
+                            "    det.id_producto = prod.id_producto\n" +
+                            "WHERE\n" +
+                            "    (comp.fecha_hora_compra BETWEEN ? AND ? )\n" ;
+        
+        if( filtro.getIdProveedor()!= null )
+            sentenciaSQL += "    AND (comp.id_proveedor = ?)\n" ;
+        
+        if( filtro.getIdProducto() != null )
+            sentenciaSQL += "    AND (det.id_producto = ?)\n" ;
+        
+        if( filtro.getIdUsuario() != null )
+            sentenciaSQL += "    AND (comp.id_usuario = ?)\n";
+        
+        sentenciaSQL +=     "GROUP BY\n" +
+                            "    comp.id_proveedor,\n" +
+                            "    det.id_producto,\n" +
+                            "    prod.nombre_producto,\n" +
+                            "    det.precio_unitario_producto\n" +
+                            "ORDER BY \n" +
+                            "    comp.id_proveedor ASC";
+    
+        try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+        
+            int marcador = 1;
+            consulta.setObject( marcador++ , filtro.getFechaInferior() );
+            consulta.setObject( marcador++ , filtro.getFechaSuperior());
+            
+            if( filtro.getIdProveedor() != null )
+                consulta.setInt(marcador++, filtro.getIdProveedor());
+        
+            if( filtro.getIdProducto() != null )
+                consulta.setInt(marcador++, filtro.getIdProducto());
+
+            if( filtro.getIdUsuario() != null )
+                consulta.setInt(marcador++, filtro.getIdUsuario());
+            
+            try( ResultSet respuesta = consulta.executeQuery() ){
+                while( respuesta.next() ){
+                    if( !reporte.existeTerceroComercial( respuesta.getInt("idProveedor") ) ){
+                        reporte.inicializarTerceroComercial( respuesta.getInt("idProveedor"));
+                    }
+                    reporte.agregarProducto( respuesta.getInt("idProveedor"), 
+                            new DTOProductoTransacciones( respuesta.getInt("idProducto"),
+                                                          respuesta.getString("nombreProducto"),
+                                                          respuesta.getDouble("precioProducto"),
+                                                          respuesta.getInt("totalCantidadProducto"),
+                                                          respuesta.getDouble("totalPrecioProducto")
+                            )
+                    );
+                }
+            }
+            
+        }
+        
+        if ( !reporte.isEmpty() ){
+            
+            sentenciaSQL = "SELECT\n" +
+                            "    comp.id_proveedor AS 'idProveedor',\n" +
+                            "    prov.nombre_comercial AS 'nombreProveedor',\n" +
+                            "    COUNT( comp.id_compra ) AS 'cantidadCompras'\n" +
+                            "FROM\n" +
+                            "    compras comp\n" +
+                            "INNER JOIN\n" +
+                            "    proveedores prov\n" +
+                            "ON\n" +
+                            "    comp.id_proveedor = prov.id_proveedor \n";
+                
+            if( filtro.getIdProducto() != null )
+                sentenciaSQL += "INNER JOIN\n" +
+                                "    detalle_de_compras det\n" +
+                                "ON\n" +
+                                "    det.id_compra = comp.id_compra \n" ;
+            
+            sentenciaSQL += "WHERE\n" +
+                            "    (comp.fecha_hora_compra BETWEEN ? AND ?) \n" ;
+                  
+            if( filtro.getIdProveedor()!= null )
+                sentenciaSQL += "    AND (comp.id_proveedor = ?)\n" ;
+        
+            if( filtro.getIdProducto() != null )
+                sentenciaSQL += "    AND (det.id_producto = ?)\n" ;
+
+            if( filtro.getIdUsuario() != null )
+                sentenciaSQL += "    AND (comp.id_usuario = ?)\n";
+            
+            
+            sentenciaSQL += "GROUP BY\n" +
+                            "    comp.id_proveedor,\n" +
+                            "    prov.nombre_comercial";
+            
+            try( PreparedStatement consulta = conexionDB.prepareStatement(sentenciaSQL) ){
+        
+                int marcador = 1;
+                consulta.setObject( marcador++ , filtro.getFechaInferior() );
+                consulta.setObject( marcador++ , filtro.getFechaSuperior());
+
+                if( filtro.getIdProveedor() != null )
+                    consulta.setInt(marcador++, filtro.getIdProveedor());
+
+                if( filtro.getIdProducto() != null )
+                    consulta.setInt(marcador++, filtro.getIdProducto());
+
+                if( filtro.getIdUsuario() != null )
+                    consulta.setInt(marcador++, filtro.getIdUsuario());
+
+                try( ResultSet respuesta = consulta.executeQuery() ){
+                    while( respuesta.next() ){
+                        reporte.agregarInformacionTercero(
+                                respuesta.getInt("idProveedor"), 
+                                respuesta.getString("nombreProveedor"), 
+                                respuesta.getInt("cantidadCompras")
                         );
                     }
                 }
