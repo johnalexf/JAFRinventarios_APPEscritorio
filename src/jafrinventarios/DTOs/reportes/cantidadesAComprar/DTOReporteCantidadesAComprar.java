@@ -37,19 +37,24 @@ public class DTOReporteCantidadesAComprar {
     ============================================================================
     */
     public void agregarProducto( Integer idProveedor, DTOProductoComprar producto){
-        if( proveedores.containsKey(idProveedor)){
+        if( existeProveedor(idProveedor) ){
             proveedores.get(idProveedor).agregarProducto(producto);
         }
     }
     
     /*
     ============================================================================
-                                    GETTER
+                                    GETTERS
     ============================================================================
     */
 
     public LinkedHashMap<Integer, DTOProveedorPedido> getProveedores() {
         return proveedores;
+    }
+    
+    
+    public boolean existeProveedor( Integer idProveedor ){
+        return proveedores.containsKey(idProveedor);
     }
     
 }
