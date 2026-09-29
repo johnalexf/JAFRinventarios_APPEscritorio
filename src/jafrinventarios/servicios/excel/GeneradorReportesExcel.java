@@ -48,7 +48,7 @@ public class GeneradorReportesExcel {
      * Enum para estandarizar los altos de las filas según la plantilla original.
      * Los valores numéricos representan "puntos" (la unidad de medida de Excel).
      */
-    public enum GrosorFila {
+    protected enum GrosorFila {
         DELGADO(8.1f),   // Usado para separadores visuales
         NORMAL(15.0f),   // Tamaño estándar de Excel
         GRUESO(20.1f);   // Usado para las filas de datos y totales
@@ -59,16 +59,22 @@ public class GeneradorReportesExcel {
             this.puntos = puntos;
         }
 
-        public float getPuntos() {
+        protected float getPuntos() {
             return puntos;
         }
     }
 
+    
+    /*
+    ============================================================================
+                            CONSTRUCTOR
+    ============================================================================
+    */
     /**
      * Constructor del generador.
      * @param tituloReporte El título que aparecerá en la parte central del encabezado.
      */
-    public GeneradorReportesExcel(String tituloReporte) {
+    protected GeneradorReportesExcel(String tituloReporte) {
         // 1. Instanciamos un libro de Excel completamente vacío en la memoria RAM
         this.libro = new HSSFWorkbook();
         this.tituloReporte = tituloReporte;
@@ -76,6 +82,12 @@ public class GeneradorReportesExcel {
         inicializarEstilos();
     }
 
+    
+    /*
+    ============================================================================
+                    Configuraciones iniciales de la plantilla
+    ============================================================================
+    */
     /**
      * Inicializa la hoja de trabajo con los grosores y configuraciones de impresión fijas.
      * @param nombreHoja El nombre que tendrá la pestaña (ej: "Cantidades a Comprar")
@@ -233,6 +245,12 @@ public class GeneradorReportesExcel {
     }
     
     
+    
+    /*
+    ============================================================================
+                       Funcion para dibujar un borde
+    ============================================================================
+    */
     /**
      * Dibuja un recuadro (borde exterior) alrededor del rango de coordenadas indicado.
      * 
@@ -241,7 +259,7 @@ public class GeneradorReportesExcel {
      * @param colInicio
      * @param colFin
      */
-    public void dibujarRecuadroExterior(int filaInicio, int filaFin, int colInicio, int colFin) {
+    protected void dibujarRecuadroExterior(int filaInicio, int filaFin, int colInicio, int colFin) {
         
         CellRangeAddress region = new CellRangeAddress(filaInicio, filaFin, colInicio, colFin);
         
@@ -252,14 +270,59 @@ public class GeneradorReportesExcel {
     }
     
     
+    /*
+    ============================================================================
+                                  GETTERS
+    ============================================================================
+    */
     
-    
-    // Getters
-    public HSSFWorkbook getLibro() {
+    protected HSSFWorkbook getLibro() {
         return libro;
     }
 
-    public HSSFSheet getHoja() {
+    protected HSSFSheet getHoja() {
         return hoja;
     }
+
+    protected HSSFCellStyle getEstiloEncabezado() {
+        return estiloEncabezado;
+    }
+
+    protected HSSFCellStyle getEstiloTablaEncabezado() {
+        return estiloTablaEncabezado;
+    }
+
+    protected HSSFCellStyle getEstiloTextoIzquierda() {
+        return estiloTextoIzquierda;
+    }
+
+    protected HSSFCellStyle getEstiloTablaTextoIzquierda() {
+        return estiloTablaTextoIzquierda;
+    }
+
+    protected HSSFCellStyle getEstiloTablaTextoPequenoIzquierda() {
+        return estiloTablaTextoPequenoIzquierda;
+    }
+
+    protected HSSFCellStyle getEstiloTextoIzquierdaNegrita() {
+        return estiloTextoIzquierdaNegrita;
+    }
+
+    protected HSSFCellStyle getEstiloTextoIzquierdaSangria() {
+        return estiloTextoIzquierdaSangria;
+    }
+
+    protected HSSFCellStyle getEstiloTablaNumeroCentro() {
+        return estiloTablaNumeroCentro;
+    }
+
+    protected HSSFCellStyle getEstiloTablaMonedaCentro() {
+        return estiloTablaMonedaCentro;
+    }
+
+    protected HSSFCellStyle getEstiloMonedaCentroNegrita() {
+        return estiloMonedaCentroNegrita;
+    }
+    
+    
 }
