@@ -21,7 +21,7 @@ import org.apache.poi.ss.util.RegionUtil;
  * 
  * @author JOHN FORERO
  */
-public class GeneradorReportesExcel {
+public class PlantillaReporteExcel {
 
     // HSSFWorkbook representa el archivo Excel completo (el libro).
     private HSSFWorkbook libro;
@@ -74,7 +74,7 @@ public class GeneradorReportesExcel {
      * Constructor del generador.
      * @param tituloReporte El título que aparecerá en la parte central del encabezado.
      */
-    protected GeneradorReportesExcel(String tituloReporte) {
+    protected PlantillaReporteExcel(String tituloReporte) {
         // 1. Instanciamos un libro de Excel completamente vacío en la memoria RAM
         this.libro = new HSSFWorkbook();
         this.tituloReporte = tituloReporte;
