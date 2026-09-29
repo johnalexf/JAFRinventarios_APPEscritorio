@@ -2,11 +2,18 @@ package jafrinventarios.servicios.excel;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFPrintSetup;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Header;
 import org.apache.poi.ss.usermodel.Footer;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.RegionUtil;
 
 /**
  * Clase principal encargada de construir los reportes en formato Excel (.xls).
@@ -24,6 +31,18 @@ public class GeneradorReportesExcel {
     
     // Título que se imprimirá en el encabezado
     private String tituloReporte;
+    
+    // Catálogo de estilos según el diseño de la plantilla de reportes
+    private HSSFCellStyle estiloEncabezado;
+    private HSSFCellStyle estiloTablaEncabezado;
+    private HSSFCellStyle estiloTextoIzquierda;
+    private HSSFCellStyle estiloTablaTextoIzquierda;
+    private HSSFCellStyle estiloTablaTextoPequenoIzquierda;
+    private HSSFCellStyle estiloTextoIzquierdaNegrita;
+    private HSSFCellStyle estiloTextoIzquierdaSangria;
+    private HSSFCellStyle estiloTablaNumeroCentro;
+    private HSSFCellStyle estiloTablaMonedaCentro;
+    private HSSFCellStyle estiloMonedaCentroNegrita;
 
     /**
      * Enum para estandarizar los altos de las filas según la plantilla original.
@@ -54,6 +73,7 @@ public class GeneradorReportesExcel {
         this.libro = new HSSFWorkbook();
         this.tituloReporte = tituloReporte;
         inicializarHoja(tituloReporte);
+        inicializarEstilos();
     }
 
     /**
@@ -120,6 +140,118 @@ public class GeneradorReportesExcel {
         
         
     }
+    
+    
+    
+    /**
+     * Crea el catálogo de estilos visuales en la memoria del libro de Excel.
+     */
+    private void inicializarEstilos() {
+        
+        // 1. FUENTES BASE
+        HSSFFont fuenteNormal = libro.createFont();
+        fuenteNormal.setFontName("Calibri");
+        fuenteNormal.setFontHeightInPoints((short) 11);
+
+        HSSFFont fuenteNegrita = libro.createFont();
+        fuenteNegrita.setFontName("Calibri");
+        fuenteNegrita.setFontHeightInPoints((short) 11);
+        fuenteNegrita.setBold(true);
+        
+        HSSFFont fuentePequena = libro.createFont();
+        fuentePequena.setFontName("Calibri");
+        fuentePequena.setFontHeightInPoints((short) 10);
+        
+        // 2. CATÁLOGO DE COMBINACIONES
+        
+        // Para los encabezados de las columnas
+        estiloEncabezado = libro.createCellStyle();
+        estiloEncabezado.setFont(fuenteNegrita);
+        estiloEncabezado.setAlignment(HorizontalAlignment.CENTER);
+        estiloEncabezado.setVerticalAlignment(VerticalAlignment.CENTER);
+        
+        estiloTablaEncabezado = libro.createCellStyle();
+        estiloTablaEncabezado.cloneStyleFrom(estiloEncabezado);
+        asignarBordesCeldaTabla(estiloTablaEncabezado);
+
+        // Para textos normales (nombres de productos, contactos)
+        estiloTextoIzquierda = libro.createCellStyle();
+        estiloTextoIzquierda.setFont(fuenteNormal);
+        estiloTextoIzquierda.setAlignment(HorizontalAlignment.LEFT);
+        estiloTextoIzquierda.setVerticalAlignment(VerticalAlignment.CENTER);
+        
+        estiloTablaTextoIzquierda = libro.createCellStyle();
+        estiloTablaTextoIzquierda.cloneStyleFrom(estiloTextoIzquierda);
+        asignarBordesCeldaTabla(estiloTablaTextoIzquierda);
+        
+        estiloTablaTextoPequenoIzquierda = libro.createCellStyle();
+        estiloTablaTextoPequenoIzquierda.setFont(fuentePequena);
+        estiloTablaTextoPequenoIzquierda.setAlignment(HorizontalAlignment.LEFT);
+        estiloTablaTextoPequenoIzquierda.setVerticalAlignment(VerticalAlignment.CENTER);
+        asignarBordesCeldaTabla(estiloTablaTextoPequenoIzquierda);
+        
+        estiloTextoIzquierdaNegrita = libro.createCellStyle();
+        estiloTextoIzquierdaNegrita.setFont(fuenteNegrita);
+        estiloTextoIzquierdaNegrita.setAlignment(HorizontalAlignment.LEFT);
+        estiloTextoIzquierdaNegrita.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        // Para textos con espacio al inicio (como los detalles debajo de un proveedor)
+        estiloTextoIzquierdaSangria = libro.createCellStyle();
+        estiloTextoIzquierdaSangria.setFont(fuenteNormal);
+        estiloTextoIzquierdaSangria.setAlignment(HorizontalAlignment.LEFT);
+        estiloTextoIzquierdaSangria.setVerticalAlignment(VerticalAlignment.CENTER);
+        estiloTextoIzquierdaSangria.setIndention((short) 1); // Aplica la sangría
+
+        // Para IDs y cantidades
+        estiloTablaNumeroCentro = libro.createCellStyle();
+        estiloTablaNumeroCentro.setFont(fuenteNormal);
+        estiloTablaNumeroCentro.setAlignment(HorizontalAlignment.CENTER);
+        estiloTablaNumeroCentro.setVerticalAlignment(VerticalAlignment.CENTER);
+        asignarBordesCeldaTabla(estiloTablaNumeroCentro);
+
+        // Para precios y totales (centro)
+        estiloTablaMonedaCentro = libro.createCellStyle();
+        estiloTablaMonedaCentro.setFont(fuenteNormal);
+        estiloTablaMonedaCentro.setAlignment(HorizontalAlignment.CENTER);
+        estiloTablaMonedaCentro.setVerticalAlignment(VerticalAlignment.CENTER);
+        asignarBordesCeldaTabla(estiloTablaMonedaCentro);
+        
+        estiloMonedaCentroNegrita = libro.createCellStyle();
+        estiloMonedaCentroNegrita.setFont(fuenteNegrita);
+        estiloMonedaCentroNegrita.setAlignment(HorizontalAlignment.CENTER);
+        estiloMonedaCentroNegrita.setVerticalAlignment(VerticalAlignment.CENTER);
+        
+    }
+    
+    
+    /**
+     * Método auxiliar para inyectar bordes delgados a un estilo específico.
+     */
+    private void asignarBordesCeldaTabla( HSSFCellStyle estilo ) {
+        estilo.setBorderTop(BorderStyle.THIN);
+        estilo.setBorderBottom(BorderStyle.THIN);
+    }
+    
+    
+    /**
+     * Dibuja un recuadro (borde exterior) alrededor del rango de coordenadas indicado.
+     * 
+     * @param filaInicio
+     * @param filaFin
+     * @param colInicio
+     * @param colFin
+     */
+    public void dibujarRecuadroExterior(int filaInicio, int filaFin, int colInicio, int colFin) {
+        
+        CellRangeAddress region = new CellRangeAddress(filaInicio, filaFin, colInicio, colFin);
+        
+        RegionUtil.setBorderTop(BorderStyle.THIN, region, hoja);
+        RegionUtil.setBorderBottom(BorderStyle.THIN, region, hoja);
+        RegionUtil.setBorderLeft(BorderStyle.THIN, region, hoja);
+        RegionUtil.setBorderRight(BorderStyle.THIN, region, hoja);
+    }
+    
+    
     
     
     // Getters
