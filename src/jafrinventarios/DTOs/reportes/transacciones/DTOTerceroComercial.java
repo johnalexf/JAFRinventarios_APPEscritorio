@@ -21,8 +21,8 @@ public class DTOTerceroComercial {
     ============================================================================
     */
 
-    public DTOTerceroComercial(String nombre) {
-        this.nombre = nombre;
+    public DTOTerceroComercial() {
+        this.nombre = "";
         this.cantidadTransacciones = 0;
         this.precioTotalTransacciones = 0.0;
         this.productos = new ArrayList<>();
@@ -61,14 +61,14 @@ public class DTOTerceroComercial {
     ============================================================================
     */
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public void setCantidadTransacciones(int cantidadTransacciones) {
         this.cantidadTransacciones = cantidadTransacciones;
     }
 
-    public void setPrecioTotalTransacciones(double precioTotalTransacciones) {
-        this.precioTotalTransacciones = precioTotalTransacciones;
-    }
-    
     
     /*
     ============================================================================
@@ -77,6 +77,7 @@ public class DTOTerceroComercial {
     */
     public void agregarProducto( DTOProductoTransacciones producto ){
         productos.add(producto);
+        precioTotalTransacciones += producto.getTotalPrecio();
     }
     
     

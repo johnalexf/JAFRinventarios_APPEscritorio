@@ -59,6 +59,9 @@ public class DTOConsolidadoTransacciones {
         return terceros.size();
     }
     
+    public boolean isEmpty(){
+        return terceros.isEmpty();
+    }
     
     /*
     ============================================================================
@@ -66,26 +69,29 @@ public class DTOConsolidadoTransacciones {
     ============================================================================
     */
 
-    public void setPrecioTotalTransacciones(double precioTotalTransacciones) {
-        this.precioTotalTransacciones = precioTotalTransacciones;
-    }
-
     public void setCantidadTransacciones(int cantidadTransacciones) {
         this.cantidadTransacciones = cantidadTransacciones;
     }
-
-    public void setCantidadProductos(int cantidadProductos) {
-        this.cantidadProductos = cantidadProductos;
-    }
     
+    public boolean existeTerceroComercial( Integer idTercero ){
+        return terceros.containsKey(idTercero);
+    }
     
     /*
     ============================================================================
-                           Agregar tercero comercial
+                 Inicializar y agregar informacion a tercero comercial
     ============================================================================
     */
-    public void agregarTerceroComercial( Integer idTercero, DTOTerceroComercial tercero ){
-        terceros.put(idTercero, tercero);
+    public void inicializarTerceroComercial( Integer idTercero ){
+        terceros.put( idTercero, new DTOTerceroComercial() );
+    }
+    
+    public void agregarInformacionTercero( Integer idTercero, String nombre, int cantidadTransacciones ){
+        if( existeTerceroComercial(idTercero) ){
+            DTOTerceroComercial tercero = terceros.get( idTercero );
+            tercero.setNombre(nombre);
+            tercero.setCantidadTransacciones(cantidadTransacciones);
+        } 
     }
     
     
@@ -95,8 +101,10 @@ public class DTOConsolidadoTransacciones {
     ============================================================================
     */
     public void agregarProducto( Integer idTercero, DTOProductoTransacciones producto ){
-        if( terceros.containsKey(idTercero) ){
+        if( existeTerceroComercial(idTercero) ){
             terceros.get(idTercero).agregarProducto(producto);
+            cantidadProductos++;
+            precioTotalTransacciones += producto.getTotalPrecio();
         }
     }
     
