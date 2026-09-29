@@ -25,3 +25,7 @@ Agrupa el selector de fecha/hora de DJ-Raven y todas las dependencias gráficas 
 ## 📂 hasheador
 Herramientas de criptografía y seguridad.
 *   **`jbcrypt-0.4.jar`**: Implementación de Java del algoritmo OpenBSD bcrypt. Se utiliza para encriptar (hashear) las contraseñas de los usuarios antes de guardarlas en la base de datos, garantizando la seguridad de las credenciales.
+
+## 📂 excel
+Librerías para la generación, diseño y exportación de reportes a hojas de cálculo.
+*   **`poi-4.0.1.jar`**: Núcleo de la librería Apache POI. Provee las herramientas nativas para construir archivos en el formato clásico de Excel (`.xls`). Se encarga de inyectar los datos, aplicar estilos visuales (bordes, anchos de columna, combinación de celdas), configurar parámetros de impresión e insertar recursos gráficos como el logo de la aplicación.
