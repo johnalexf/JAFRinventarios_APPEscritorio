@@ -115,10 +115,10 @@ public class GeneradorReportesExcel {
         // Obtener la fecha de hoy desde Java para que quede "congelada" en texto
         String fechaGeneracion = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
-        // Insertamos el título en el centro y la fecha a la derecha del encabezado
-        // Nota: El Logo (&G) se insertará en el lado izquierdo después.
-        encabezado.setCenter(tituloReporte);
-        encabezado.setRight("Fecha: " + fechaGeneracion);
+        // Insertamos el nombre de la app a la izquierda, el título en el centro y la fecha a la derecha del encabezado
+        encabezado.setLeft("&BJAFR");
+        encabezado.setCenter("&B"+tituloReporte);
+        encabezado.setRight(fechaGeneracion);
         
         // El pie de página central con la numeración dinámica nativa de Excel (&P = página, &N = total)
         piePagina.setCenter("Página &P de &N");
