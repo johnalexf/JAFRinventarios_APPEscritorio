@@ -2,9 +2,11 @@ package jafrinventarios.servicios.excel;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFPrintSetup;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -248,9 +250,10 @@ public class PlantillaReporteExcel {
     
     /*
     ============================================================================
-                       Funcion para dibujar un borde
+               Metodos para ingresar los datos a la hoja de excel
     ============================================================================
     */
+    
     /**
      * Dibuja un recuadro (borde exterior) alrededor del rango de coordenadas indicado.
      * 
@@ -259,7 +262,7 @@ public class PlantillaReporteExcel {
      * @param colInicio
      * @param colFin
      */
-    protected void dibujarRecuadroExterior(int filaInicio, int filaFin, int colInicio, int colFin) {
+    protected void dibujarRecuadro(int filaInicio, int filaFin, int colInicio, int colFin) {
         
         CellRangeAddress region = new CellRangeAddress(filaInicio, filaFin, colInicio, colFin);
         
@@ -267,6 +270,54 @@ public class PlantillaReporteExcel {
         RegionUtil.setBorderBottom(BorderStyle.THIN, region, hoja);
         RegionUtil.setBorderLeft(BorderStyle.THIN, region, hoja);
         RegionUtil.setBorderRight(BorderStyle.THIN, region, hoja);
+    }
+    
+    
+    /**
+     * Método para crear filas con un grosor determinado
+     */
+    protected HSSFRow crearFila( int numeroFila , GrosorFila grosor ) {
+        HSSFRow filaExcel = hoja.createRow( numeroFila );
+        filaExcel.setHeightInPoints( grosor.getPuntos() );
+        return filaExcel;
+    }
+    
+    /**
+     * Método para unir celdas
+     */
+    protected void unirCeldas( int filaInicial, int filaFinal, int columnaInicial, int columnaFinal ){
+        // COMBINACIÓN DE CELDAS (Merge)
+        // La clase CellRangeAddress recibe 4 enteros: (Fila inicial, Fila final, Columna inicial, Columna final)
+        hoja.addMergedRegion(new CellRangeAddress(filaInicial, filaFinal, columnaInicial, columnaFinal));
+    }
+    
+    
+     /**
+     * Método auxiliar para crear celdas de texto y aplicarles el estilo de forma limpia.
+     */
+    protected void configurarCelda( HSSFRow fila, int columna, String valor, HSSFCellStyle estilo ) {
+        HSSFCell celda = fila.createCell(columna);
+        celda.setCellValue(valor);
+        celda.setCellStyle(estilo);
+    }
+    
+    /**
+     * Método exclusivo para valores numéricos reales, permitiendo que Excel 
+     * los reconozca como números reales para sumar o aplicar fórmulas.
+     */
+    protected void configurarCeldaNumerica( HSSFRow fila, int columna, double valor, HSSFCellStyle estilo ) {
+        HSSFCell celda = fila.createCell(columna);
+        celda.setCellValue(valor);
+        celda.setCellStyle(estilo);
+    }
+    
+    /**
+     * Método exclusivo para valores numéricos enteros
+     */
+    protected void configurarCeldaNumerica( HSSFRow fila, int columna, int valor, HSSFCellStyle estilo ) {
+        HSSFCell celda = fila.createCell(columna);
+        celda.setCellValue(valor);
+        celda.setCellStyle(estilo);
     }
     
     
