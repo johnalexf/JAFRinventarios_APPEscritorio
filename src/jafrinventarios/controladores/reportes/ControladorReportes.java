@@ -2,17 +2,23 @@
 package jafrinventarios.controladores.reportes;
 
 import jafrinventarios.DTOs.reportes.DTOFiltroReporte;
+import jafrinventarios.DTOs.reportes.cantidadesAComprar.DTOReporteCantidadesAComprar;
+import jafrinventarios.DTOs.reportes.transacciones.DTOConsolidadoTransacciones;
 import jafrinventarios.servicios.clientes.ServicioClientes;
+import jafrinventarios.servicios.excel.GeneradorReportesExcel;
 import jafrinventarios.servicios.productos.ServicioProductos;
 import jafrinventarios.servicios.proveedores.ServicioProveedores;
+import jafrinventarios.servicios.reportes.ServicioReportes;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.reportes.ReportePanel;
 import jafrinventarios.vistas.reportes.ReportePanel.TipoReporteEspecial;
 import java.awt.event.ItemEvent;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  *
@@ -23,14 +29,20 @@ public class ControladorReportes {
     private final ReportePanel panelReportes;
     
     private TipoReporteEspecial tipoReporte;
+    
+    private ServicioReportes servicioReportes;
+    
+    private GeneradorReportesExcel generadorReportesExcel;
 
 /*
 ============================================================================
                     CONSTRUCTOR PUBLICO
 ============================================================================
 */
-    public ControladorReportes(ReportePanel panelReportes) {
+    public ControladorReportes(ReportePanel panelReportes, ServicioReportes servicioReportes, GeneradorReportesExcel generadorReportesExcel ) {
         this.panelReportes = panelReportes;
+        this.servicioReportes = servicioReportes;
+        this.generadorReportesExcel = generadorReportesExcel;
         /*
         NOTA: 
         Se inicializa los eventos para la seccion del filtro de reportes
@@ -42,8 +54,7 @@ public class ControladorReportes {
         poblarComboBoxIndependientes();
         inicializarCheckBoxs();
         inicializarEventoComboBoxProveedores();
-        
-        
+          
     }
     
 /*
@@ -72,6 +83,25 @@ public class ControladorReportes {
         return ServicioUsuarios.obtenerDiccionarioUsuarios();
     }
     
+    private DTOFiltroReporte completarFiltro( DTOFiltroReporte filtro )throws Exception{
+        return servicioReportes.completarFiltro(filtro);
+    }
+    
+    private DTOReporteCantidadesAComprar obtenerInformacionCantidadesAComprar ( ) throws Exception{
+        return servicioReportes.obtenerInformacionCantidadesAComprar();
+    }
+    
+    private DTOConsolidadoTransacciones obtenerConsolidadoVentas( DTOFiltroReporte filtro ) throws Exception{
+        return servicioReportes.obtenerConsolidadoVentas(filtro);
+    }
+    
+    private DTOConsolidadoTransacciones obtenerConsolidadoCompras( DTOFiltroReporte filtro ) throws Exception{
+        return servicioReportes.obtenerConsolidadoCompras(filtro);
+    }
+    
+    private HSSFWorkbook generarReporteCantidadesAComprar( DTOReporteCantidadesAComprar reporte ) throws IOException {
+        return generadorReportesExcel.generarReporteCantidadesAComprar(reporte);
+    }
     
 /*
 ============================================================================

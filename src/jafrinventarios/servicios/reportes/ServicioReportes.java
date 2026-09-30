@@ -7,7 +7,6 @@ import jafrinventarios.DTOs.reportes.cantidadesAComprar.DTOProveedorPedido;
 import jafrinventarios.DTOs.reportes.cantidadesAComprar.DTOReporteCantidadesAComprar;
 import jafrinventarios.DTOs.reportes.transacciones.DTOConsolidadoTransacciones;
 import jafrinventarios.DTOs.reportes.transacciones.DTOProductoTransacciones;
-import jafrinventarios.DTOs.reportes.transacciones.DTOTerceroComercial;
 import jafrinventarios.servicios.ConexionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
