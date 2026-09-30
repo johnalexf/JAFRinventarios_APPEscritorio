@@ -1,6 +1,7 @@
 
 package jafrinventarios.DTOs.reportes.cantidadesAComprar;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -48,8 +49,8 @@ public class DTOReporteCantidadesAComprar {
     ============================================================================
     */
 
-    public LinkedHashMap<Integer, DTOProveedorPedido> getProveedores() {
-        return proveedores;
+    public ArrayList<DTOProveedorPedido> getProveedores() {
+        return new ArrayList<>( proveedores.values() );
     }
     
     
