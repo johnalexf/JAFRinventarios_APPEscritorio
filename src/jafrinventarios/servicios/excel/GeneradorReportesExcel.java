@@ -38,7 +38,7 @@ public class GeneradorReportesExcel {
 
         // Numero de fila que lleva el registro cual es la fila actual sobre la 
         // que se este escribiendo informacion
-        int numeroFilaExcel = 0;
+        int numeroFilaExcel = -1;
         
         //Variables auxiliares para poder dibujar un Recuadro global y otros internos
         // por seccion de proveedores
@@ -66,7 +66,7 @@ public class GeneradorReportesExcel {
         */
         for(DTOProveedorPedido proveedor : proveedores ){
             
-            filaInicialMarcoExterior = numeroFilaExcel;
+            filaInicialMarcoExterior = ++numeroFilaExcel;
             plantilla.crearFila( numeroFilaExcel, GrosorFila.NORMAL );
             
             /*
@@ -84,7 +84,7 @@ public class GeneradorReportesExcel {
             plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 5, 20);
             
             plantilla.configurarCelda( filaExcel, 2, "Proveedor :", plantilla.getEstiloTextoIzquierda() );
-            plantilla.configurarCelda( filaExcel, 5, proveedor.getNombreComercial(), plantilla.getEstiloTextoIzquierda() );
+            plantilla.configurarCelda( filaExcel, 5, proveedor.getNombreComercial(), plantilla.getEstiloEncabezado());
             
             //Fila contacto proveedor
             filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL );
@@ -120,8 +120,8 @@ public class GeneradorReportesExcel {
             ====================================================================
             */
             filaInicialMarcoInterior = ++numeroFilaExcel;
-            filaExcel = plantilla.crearFila( numeroFilaExcel, GrosorFila.NORMAL);
-            plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL);
+            filaExcel = plantilla.crearFila( numeroFilaExcel, GrosorFila.GRUESO);
+            plantilla.crearFila( ++numeroFilaExcel, GrosorFila.GRUESO);
             
             /*
                          Titulos de la tabla productos
@@ -149,7 +149,7 @@ public class GeneradorReportesExcel {
             int filaInicialProductos = ++numeroFilaExcel;
             for( DTOProductoComprar producto : productos ){
             
-                filaExcel = plantilla.crearFila( numeroFilaExcel, GrosorFila.NORMAL);
+                filaExcel = plantilla.crearFila( numeroFilaExcel, GrosorFila.GRUESO);
 
                 plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 1, 2);
                 plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 3, 12);
@@ -176,13 +176,13 @@ public class GeneradorReportesExcel {
 
             plantilla.crearFila( numeroFilaExcel, GrosorFila.DELGADO );
             
+            /*
+                         Fila con el total de la compra a realizar
+            */
             filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
             plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 13, 16);
             plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 18, 23);
             
-            /*
-                         Fila con el total de la compra a realizar
-            */
             String letraColumnaTotalProducto = CellReference.convertNumToColString(20);
             String formulaTotalCompra = "SUM(" + letraColumnaTotalProducto + ( filaInicialProductos + 1 ) + ":" + letraColumnaTotalProducto + (filaFinalProductos + 1) + ")";
             

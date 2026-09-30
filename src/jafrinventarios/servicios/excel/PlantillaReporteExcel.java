@@ -52,8 +52,8 @@ public class PlantillaReporteExcel {
      */
     protected enum GrosorFila {
         DELGADO(8.1f),   // Usado para separadores visuales
-        NORMAL(15.0f),   // Tamaño estándar de Excel
-        GRUESO(20.1f);   // Usado para las filas de datos y totales
+        NORMAL(17.0f),   // Tamaño estándar de Excel
+        GRUESO(21.0f);   // Usado para las filas de datos y totales
 
         private final float puntos;
 
@@ -206,6 +206,7 @@ public class PlantillaReporteExcel {
         
         estiloTablaEncabezado = libro.createCellStyle();
         estiloTablaEncabezado.cloneStyleFrom(estiloEncabezado);
+        estiloTablaEncabezado.setWrapText(true);
         asignarBordesCeldaTabla(estiloTablaEncabezado);
 
         // Para textos normales (nombres de productos, contactos)
@@ -241,6 +242,8 @@ public class PlantillaReporteExcel {
         estiloTablaNumeroCentro.setFont(fuenteNormal);
         estiloTablaNumeroCentro.setAlignment(HorizontalAlignment.CENTER);
         estiloTablaNumeroCentro.setVerticalAlignment(VerticalAlignment.CENTER);
+        // Le dice a Excel que es un número (ej: 1,500)
+        estiloTablaNumeroCentro.setDataFormat(libro.createDataFormat().getFormat("#,##0"));
         asignarBordesCeldaTabla(estiloTablaNumeroCentro);
 
         // Para precios y totales (centro)
@@ -248,12 +251,15 @@ public class PlantillaReporteExcel {
         estiloTablaMonedaCentro.setFont(fuenteNormal);
         estiloTablaMonedaCentro.setAlignment(HorizontalAlignment.CENTER);
         estiloTablaMonedaCentro.setVerticalAlignment(VerticalAlignment.CENTER);
+        // Le dice a Excel que es moneda (ej: $1,500.00).
+        estiloTablaMonedaCentro.setDataFormat(libro.createDataFormat().getFormat("$ #.##0,00"));
         asignarBordesCeldaTabla(estiloTablaMonedaCentro);
         
         estiloMonedaCentroNegrita = libro.createCellStyle();
         estiloMonedaCentroNegrita.setFont(fuenteNegrita);
         estiloMonedaCentroNegrita.setAlignment(HorizontalAlignment.CENTER);
         estiloMonedaCentroNegrita.setVerticalAlignment(VerticalAlignment.CENTER);
+        estiloMonedaCentroNegrita.setDataFormat(libro.createDataFormat().getFormat("$ #.##0,00"));
         
     }
     
