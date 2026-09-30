@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.util.CellReference;
 
 /**
  * Servicio encargado de orquestar la inyección de datos en las plantillas de Excel
@@ -145,9 +146,10 @@ public class GeneradorReportesExcel {
                 Recorrer los productos del proveedor para estructurar la fila
                 que representa la informacion de cada producto.
             */
+            int filaInicialProductos = ++numeroFilaExcel;
             for( DTOProductoComprar producto : productos ){
             
-                filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL);
+                filaExcel = plantilla.crearFila( numeroFilaExcel, GrosorFila.NORMAL);
 
                 plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 1, 2);
                 plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 3, 12);
@@ -159,14 +161,20 @@ public class GeneradorReportesExcel {
                 plantilla.configurarCelda( filaExcel, 3, producto.getNombreProducto(), plantilla.getEstiloTablaTextoPequenoIzquierda() );
                 plantilla.configurarCeldaNumerica(filaExcel, 13, producto.getPrecioCompra(), plantilla.getEstiloTablaMonedaCentro() );
                 plantilla.configurarCeldaNumerica(filaExcel, 17, producto.getCantidadesAComprar(), plantilla.getEstiloTablaNumeroCentro() );
-                plantilla.configurarCeldaNumerica(filaExcel, 20, 12000000 , plantilla.getEstiloTablaMonedaCentro() );
                 
+                String letraColumnaPrecio = CellReference.convertNumToColString(13);
+                String letraColumnaCantidad = CellReference.convertNumToColString(17);
+                // Nota: A numeroFilaExcel se le suma 1 porque para POI la fila 0 es la 1 visual de Excel
+                String formulaTotalProducto = letraColumnaPrecio + (numeroFilaExcel + 1) + "*" + letraColumnaCantidad + (numeroFilaExcel + 1);
+                plantilla.configurarCeldaFormula(filaExcel, 20, formulaTotalProducto , plantilla.getEstiloTablaMonedaCentro() );
+                
+                numeroFilaExcel++;
             }
-            
-            filaFinalMarcoInterior = numeroFilaExcel;
+            int filaFinalProductos = numeroFilaExcel-1;
+            filaFinalMarcoInterior = numeroFilaExcel-1;
             plantilla.dibujarRecuadro(filaInicialMarcoInterior, filaFinalMarcoInterior, 1, 23);
 
-            plantilla.crearFila( ++numeroFilaExcel, GrosorFila.DELGADO );
+            plantilla.crearFila( numeroFilaExcel, GrosorFila.DELGADO );
             
             filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
             plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 13, 16);
@@ -175,8 +183,11 @@ public class GeneradorReportesExcel {
             /*
                          Fila con el total de la compra a realizar
             */
+            String letraColumnaTotalProducto = CellReference.convertNumToColString(20);
+            String formulaTotalCompra = "SUM(" + letraColumnaTotalProducto + ( filaInicialProductos + 1 ) + ":" + letraColumnaTotalProducto + (filaFinalProductos + 1) + ")";
+            
             plantilla.configurarCelda( filaExcel, 13, "Total compra :", plantilla.getEstiloTextoIzquierdaNegrita() );
-            plantilla.configurarCeldaNumerica(filaExcel, 18, 20000, plantilla.getEstiloMonedaCentroNegrita() );
+            plantilla.configurarCeldaFormula(filaExcel, 18, formulaTotalCompra, plantilla.getEstiloMonedaCentroNegrita() );
             
             plantilla.crearFila( ++numeroFilaExcel, GrosorFila.DELGADO );
             

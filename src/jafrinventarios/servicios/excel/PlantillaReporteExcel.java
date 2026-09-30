@@ -320,6 +320,15 @@ public class PlantillaReporteExcel {
         celda.setCellStyle(estilo);
     }
     
+    /**
+     * Método para inyectar formulas en una celda
+     */
+    protected void configurarCeldaFormula( HSSFRow fila, int columna, String formula, HSSFCellStyle estilo ) {
+        HSSFCell celda = fila.createCell(columna);
+        celda.setCellFormula(formula);
+        celda.setCellStyle(estilo);
+    }
+    
     
     /*
     ============================================================================
