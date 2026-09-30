@@ -12,7 +12,10 @@ import jafrinventarios.servicios.reportes.ServicioReportes;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.vistas.reportes.ReportePanel;
 import jafrinventarios.vistas.reportes.ReportePanel.TipoReporteEspecial;
+import java.awt.Desktop;
 import java.awt.event.ItemEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -233,8 +236,9 @@ public class ControladorReportes {
                 panelReportes.mostrarAlertaInformacion("No hay productos con cantidades necesarias para comprar");
                 return;
             }
-            HSSFWorkbook libroExcel = generarReporteCantidadesAComprar(reporte);
-            
+            try( HSSFWorkbook libroExcel = generarReporteCantidadesAComprar(reporte) ){
+                guardarExcel(libroExcel, "Reporte_Cantidades_A_Comprar.xls");
+            }   
         } catch (Exception e) {
             panelReportes.mostrarAlertaError("Error al generar el reporte de cantidades a comprar, debido a que : \n" + e.getMessage());
         }
@@ -358,6 +362,32 @@ public class ControladorReportes {
         
     }
     
+    
+    private void guardarExcel( HSSFWorkbook libroExcel, String nombreSugerido ) throws Exception{
+        
+        // Pedir a la vista que muestre el cuadro y devuelva la ruta
+        String rutaDestino = panelReportes.pedirRutaGuardadoExcel( nombreSugerido );
+
+        // Si la ruta no es null (el usuario no canceló), procedemos a guardar
+        if (rutaDestino != null) {
+            
+            // try-with-resources asegura que el archivo se cierre correctamente aunque haya errores
+            try (FileOutputStream salidaArchivo = new FileOutputStream(rutaDestino)) {
+                libroExcel.write(salidaArchivo);
+                panelReportes.mostrarAlertaExitosa("El reporte se guardó exitosamente.");
+                
+                if (Desktop.isDesktopSupported()) {
+                    try {
+                        Desktop.getDesktop().open(new File(rutaDestino));
+                    } catch (IOException ex) {
+                        panelReportes.mostrarAlertaError("Se guardó el archivo, pero tu sistema no permitió abrirlo automáticamente.");
+                    }
+                }
+            }
+            
+        }
+        
+    }
     
     
 }

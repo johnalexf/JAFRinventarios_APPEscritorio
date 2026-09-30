@@ -11,11 +11,14 @@ import jafrinventarios.vistas.utilidades.componentes.SelectorFecha;
 import jafrinventarios.vistas.utilidades.dialogos.DialogoAlerta;
 import jafrinventarios.vistas.utilidades.formularios.CampoComboBox;
 import jafrinventarios.vistas.utilidades.formularios.GestorFormulario;
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -883,6 +886,39 @@ public class ReportePanel extends javax.swing.JPanel {
     
     public void mostrarAlertaInformacion( String mensaje ){
         DialogoAlerta.mostrarInformacion(getVentanaPadre() , "Informacion", mensaje );
+    }
+    
+    
+    /*
+    =========================================================================================
+    Metodo para que el usuario seleccione la ubicacion donde se guardara el reporte en excel
+    =========================================================================================
+    */
+    public String pedirRutaGuardadoExcel(String nombreSugerido) {
+        
+        JFileChooser seleccionador = new JFileChooser();
+        seleccionador.setDialogTitle("Guardar Reporte Excel");
+        seleccionador.setSelectedFile(new File(nombreSugerido));
+        seleccionador.setAcceptAllFileFilterUsed(false);
+
+        // Filtro para que el usuario sepa que es un Excel
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de Excel (*.xls)", "xls");
+        seleccionador.setFileFilter(filtro);
+
+        // Muestra la ventana sobre el panel padre
+        int opcion = seleccionador.showSaveDialog(this.getVentanaPadre());
+
+        if (opcion == JFileChooser.APPROVE_OPTION) {
+            String ruta = seleccionador.getSelectedFile().getAbsolutePath();
+            // Asegurarnos de que el archivo termine con la extensión correcta
+            if (!ruta.toLowerCase().endsWith(".xls")) {
+                ruta += ".xls";
+            }
+            return ruta;
+        }
+
+        // Retorna null si el usuario cierra la ventana o le da a "Cancelar"
+        return null; 
     }
     
 
