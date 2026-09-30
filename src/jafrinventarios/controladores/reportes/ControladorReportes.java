@@ -227,7 +227,17 @@ public class ControladorReportes {
 ============================================================================
 */
     private void generarReporteCantidadesComprar(){
-    
+        try {
+            DTOReporteCantidadesAComprar reporte = obtenerInformacionCantidadesAComprar();
+            if( reporte.isEmpty() ){
+                panelReportes.mostrarAlertaInformacion("No hay productos con cantidades necesarias para comprar");
+                return;
+            }
+            HSSFWorkbook libroExcel = generarReporteCantidadesAComprar(reporte);
+            
+        } catch (Exception e) {
+            panelReportes.mostrarAlertaError("Error al generar el reporte de cantidades a comprar, debido a que : \n" + e.getMessage());
+        }
     }
     
     private void mostrarFiltroReporte( TipoReporteEspecial tipoReporte ){

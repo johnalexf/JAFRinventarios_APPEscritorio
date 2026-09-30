@@ -881,6 +881,10 @@ public class ReportePanel extends javax.swing.JPanel {
         DialogoAlerta.mostrarError( getVentanaPadre() , "Error", mensaje );
     }
     
+    public void mostrarAlertaInformacion( String mensaje ){
+        DialogoAlerta.mostrarInformacion(getVentanaPadre() , "Informacion", mensaje );
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearReporte;

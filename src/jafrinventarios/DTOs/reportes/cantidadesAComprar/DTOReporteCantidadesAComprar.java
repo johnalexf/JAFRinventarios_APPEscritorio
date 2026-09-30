@@ -58,4 +58,8 @@ public class DTOReporteCantidadesAComprar {
         return proveedores.containsKey(idProveedor);
     }
     
+    public boolean isEmpty(){
+        return proveedores.isEmpty();
+    }
+    
 }
