@@ -110,7 +110,11 @@ public class PlantillaReporteExcel {
         // Orientación horizontal en false para que sea en vertical.
         configuracionImpresion.setLandscape(false);
         // Tamaño Carta (1) o A4 (9). HSSFPrintSetup.LETTER_PAPERSIZE equivale a 1.
-        configuracionImpresion.setPaperSize(HSSFPrintSetup.LETTER_PAPERSIZE);
+        configuracionImpresion.setPaperSize(HSSFPrintSetup.A4_PAPERSIZE);
+
+        // Configurar la calidad de impresión a 600 ppp
+        configuracionImpresion.setHResolution((short) 600);
+        configuracionImpresion.setVResolution((short) 600);
         
         // Desactivamos el escalado automático para mantener los tamaños fijos que vamos a dar
         hoja.setAutobreaks(false);
