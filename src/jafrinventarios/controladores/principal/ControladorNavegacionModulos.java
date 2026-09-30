@@ -13,9 +13,11 @@ import jafrinventarios.controladores.ventas.ControladorVentas;
 import jafrinventarios.modelos.ModeloSesionUsuario;
 import jafrinventarios.servicios.clientes.ServicioClientes;
 import jafrinventarios.servicios.compras.ServicioCompras;
+import jafrinventarios.servicios.excel.GeneradorReportesExcel;
 import jafrinventarios.servicios.productos.ServicioInventario;
 import jafrinventarios.servicios.productos.ServicioProductos;
 import jafrinventarios.servicios.proveedores.ServicioProveedores;
+import jafrinventarios.servicios.reportes.ServicioReportes;
 import jafrinventarios.servicios.usuarios.ServicioUsuarios;
 import jafrinventarios.servicios.ventas.ServicioVentas;
 import jafrinventarios.vistas.clientes.ClientesPanel;
@@ -163,7 +165,7 @@ public class ControladorNavegacionModulos {
                 break;
             case REPORTE:
                 moduloActual = new ReportePanel();
-                new ControladorReportes( (ReportePanel) moduloActual );
+                new ControladorReportes( (ReportePanel) moduloActual, new ServicioReportes(), new GeneradorReportesExcel() );
                 break;
         }
         
