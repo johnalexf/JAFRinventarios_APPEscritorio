@@ -130,7 +130,7 @@ public class PlantillaReporteExcel {
         String fechaGeneracion = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
         // Insertamos el nombre de la app a la izquierda, el título en el centro y la fecha a la derecha del encabezado
-        encabezado.setLeft("&BJAFR");
+        encabezado.setLeft("&BJAFR inventarios");
         encabezado.setCenter("&B"+tituloReporte);
         encabezado.setRight(fechaGeneracion);
         
@@ -144,14 +144,30 @@ public class PlantillaReporteExcel {
         */
         // En Apache POI, el ancho de columna se mide en incrementos de 1/256avo de carácter.
         // Formula aproximada: (ancho en excel * 256)
-        // Fijamos de la columna 0 a la 25 (A hasta Z) según sea necesario
+        // Fijamos de la columna 0 a la 24 (A hasta Y) según sea necesario
         
-        hoja.setColumnWidth(0, (int)(0.83 * 256)); // Columna A
-        for(int columna=1; columna <= 23 ; columna++){
-            hoja.setColumnWidth( columna , (int)(2.86 * 256)); // Columna B a la X
+        /* 
+        =========================================================================================
+                CONTROL DE ANCHO DE COLUMNAS PARA IMPRESIÓN (Cálculo directo según Excel)
+        =========================================================================================
+        Para calcular el factor que se multiplica por 256, toma el "Ancho" en pixeles que
+        muestra Excel directamente en pantalla al dar clic en el borde de la columna y se divide
+        entre 7(el 7 es el ancho en píxeles de un carácter '0' en la fuente estándar Calibri 11).
+        Es aconsejable no poner la formula si no el resultado con tres decimales
+        
+        EJEMPLOS BASADOS EN LA PLANTILLA:
+        - Columna de 10 píxeles -> Excel muestra un ancho de 0.83 ->
+            Se calcula 10/7 = 1.4285 ; se utiliza en la funcion ( 1.428 * 256 )
+        - Columna de 25 píxeles -> Excel muestra un ancho de 2.86  -> 
+            Se calcula 25/7 = 3.5714 ; se utiliza en la funcion ( 3.571 * 256 )
+        =========================================================================================
+        */
+        hoja.setColumnWidth(0, (int)(1.428 * 256)); // Columna A (10 píxeles)
+
+        for (int columna = 1; columna <= 23; columna++) {
+            hoja.setColumnWidth(columna, (int)(3.571 * 256)); // Columnas B a la X (25 píxeles)
         }
-        hoja.setColumnWidth(24, (int)(0.83 * 256)); // Columna Y
-        
+        hoja.setColumnWidth(24, (int)(1.428 * 256)); // Columna Y (10 píxeles)
         
     }
     
