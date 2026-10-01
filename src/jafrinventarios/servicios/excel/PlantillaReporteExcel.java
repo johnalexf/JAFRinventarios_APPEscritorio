@@ -207,7 +207,6 @@ public class PlantillaReporteExcel {
         estiloTablaEncabezado = libro.createCellStyle();
         estiloTablaEncabezado.cloneStyleFrom(estiloEncabezado);
         estiloTablaEncabezado.setWrapText(true);
-        asignarBordesCeldaTabla(estiloTablaEncabezado);
 
         // Para textos normales (nombres de productos, contactos)
         estiloTextoIzquierda = libro.createCellStyle();
@@ -217,13 +216,11 @@ public class PlantillaReporteExcel {
         
         estiloTablaTextoIzquierda = libro.createCellStyle();
         estiloTablaTextoIzquierda.cloneStyleFrom(estiloTextoIzquierda);
-        asignarBordesCeldaTabla(estiloTablaTextoIzquierda);
         
         estiloTablaTextoPequenoIzquierda = libro.createCellStyle();
         estiloTablaTextoPequenoIzquierda.setFont(fuentePequena);
         estiloTablaTextoPequenoIzquierda.setAlignment(HorizontalAlignment.LEFT);
         estiloTablaTextoPequenoIzquierda.setVerticalAlignment(VerticalAlignment.CENTER);
-        asignarBordesCeldaTabla(estiloTablaTextoPequenoIzquierda);
         
         estiloTextoIzquierdaNegrita = libro.createCellStyle();
         estiloTextoIzquierdaNegrita.setFont(fuenteNegrita);
@@ -244,7 +241,6 @@ public class PlantillaReporteExcel {
         estiloTablaNumeroCentro.setVerticalAlignment(VerticalAlignment.CENTER);
         // Le dice a Excel que es un número (ej: 1,500)
         estiloTablaNumeroCentro.setDataFormat(libro.createDataFormat().getFormat("#,##0"));
-        asignarBordesCeldaTabla(estiloTablaNumeroCentro);
 
         // Para precios y totales (centro)
         estiloTablaMonedaCentro = libro.createCellStyle();
@@ -252,31 +248,20 @@ public class PlantillaReporteExcel {
         estiloTablaMonedaCentro.setAlignment(HorizontalAlignment.CENTER);
         estiloTablaMonedaCentro.setVerticalAlignment(VerticalAlignment.CENTER);
         // Le dice a Excel que es moneda (ej: $1,500.00).
-        estiloTablaMonedaCentro.setDataFormat(libro.createDataFormat().getFormat("$ #.##0,00"));
-        asignarBordesCeldaTabla(estiloTablaMonedaCentro);
+        estiloTablaMonedaCentro.setDataFormat(libro.createDataFormat().getFormat("$ #.##0,0"));
         
         estiloMonedaCentroNegrita = libro.createCellStyle();
         estiloMonedaCentroNegrita.setFont(fuenteNegrita);
         estiloMonedaCentroNegrita.setAlignment(HorizontalAlignment.CENTER);
         estiloMonedaCentroNegrita.setVerticalAlignment(VerticalAlignment.CENTER);
-        estiloMonedaCentroNegrita.setDataFormat(libro.createDataFormat().getFormat("$ #.##0,00"));
+        estiloMonedaCentroNegrita.setDataFormat(libro.createDataFormat().getFormat("$ #.##0,0"));
         
     }
     
     
-    /**
-     * Método auxiliar para inyectar bordes delgados a un estilo específico.
-     */
-    private void asignarBordesCeldaTabla( HSSFCellStyle estilo ) {
-        estilo.setBorderTop(BorderStyle.THIN);
-        estilo.setBorderBottom(BorderStyle.THIN);
-    }
-    
-    
-    
     /*
     ============================================================================
-               Metodos para ingresar los datos a la hoja de excel
+    Metodos para estructurar los datos, dibujar bordes y unir celdas en el EXCEL
     ============================================================================
     */
     
@@ -297,7 +282,14 @@ public class PlantillaReporteExcel {
         RegionUtil.setBorderLeft(BorderStyle.THIN, region, hoja);
         RegionUtil.setBorderRight(BorderStyle.THIN, region, hoja);
     }
-    
+     
+    /**
+     * Dibuja una línea superior continua sobre un rango de columnas en una fila específica.
+     */
+    protected void dibujarLineaSuperior(int numeroFila, int columnaInicio, int columnaFin) {
+        CellRangeAddress rango = new CellRangeAddress(numeroFila, numeroFila, columnaInicio, columnaFin);
+        RegionUtil.setBorderTop(BorderStyle.THIN, rango, hoja);
+    }
     
     /**
      * Método para crear filas con un grosor determinado

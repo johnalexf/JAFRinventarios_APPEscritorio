@@ -158,7 +158,7 @@ public class GeneradorReportesExcel {
                 plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 20, 23);
 
                 plantilla.configurarCeldaNumerica(filaExcel, 1, producto.getIdProducto() , plantilla.getEstiloTablaNumeroCentro() );
-                plantilla.configurarCelda( filaExcel, 3, producto.getNombreProducto(), plantilla.getEstiloTablaTextoPequenoIzquierda() );
+                plantilla.configurarCelda( filaExcel, 3, producto.getNombreProducto(), plantilla.getEstiloTablaTextoIzquierda() );
                 plantilla.configurarCeldaNumerica(filaExcel, 13, producto.getPrecioCompra(), plantilla.getEstiloTablaMonedaCentro() );
                 plantilla.configurarCeldaNumerica(filaExcel, 17, producto.getCantidadesAComprar(), plantilla.getEstiloTablaNumeroCentro() );
                 
@@ -167,6 +167,8 @@ public class GeneradorReportesExcel {
                 // Nota: A numeroFilaExcel se le suma 1 porque para POI la fila 0 es la 1 visual de Excel
                 String formulaTotalProducto = letraColumnaPrecio + (numeroFilaExcel + 1) + "*" + letraColumnaCantidad + (numeroFilaExcel + 1);
                 plantilla.configurarCeldaFormula(filaExcel, 20, formulaTotalProducto , plantilla.getEstiloTablaMonedaCentro() );
+                
+                plantilla.dibujarLineaSuperior(numeroFilaExcel, 1, 23);
                 
                 numeroFilaExcel++;
             }
