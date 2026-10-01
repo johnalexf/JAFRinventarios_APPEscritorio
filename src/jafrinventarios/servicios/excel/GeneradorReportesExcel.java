@@ -24,9 +24,8 @@ public class GeneradorReportesExcel {
      * 
      * @param reporte Objeto DTO con los datos del proveedor y los productos.
      * @return El libro de excel diligenciado con la informacion del DTO
-     * @throws IOException Si el archivo está abierto o hay un error de escritura.
      */
-    public HSSFWorkbook generarReporteCantidadesAComprar( DTOReporteCantidadesAComprar reporte ) throws IOException {
+    public HSSFWorkbook generarReporteCantidadesAComprar( DTOReporteCantidadesAComprar reporte ) {
         
         /*
         ========================================================================
