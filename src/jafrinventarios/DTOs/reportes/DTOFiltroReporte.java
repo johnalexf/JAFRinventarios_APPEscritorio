@@ -21,6 +21,35 @@ public class DTOFiltroReporte {
     private String producto;
     private String usuario;
 
+    private TipoReporte tipoReporte;
+    
+    public enum TipoReporte {
+        VENTAS("Ventas", "Cliente", "Clientes"),
+        COMPRAS("Compras", "Proveedor", "Proveedores");
+
+        private final String nombreReporte;
+        private final String etiquetaEntidadSingular;
+        private final String etiquetaEntidadPlural;
+
+        private TipoReporte(String nombreReporte, String etiquetaEntidadSingular, String etiquetaEntidadPlural) {
+            this.nombreReporte = nombreReporte;
+            this.etiquetaEntidadSingular = etiquetaEntidadSingular;
+            this.etiquetaEntidadPlural = etiquetaEntidadPlural;
+        }
+        
+        public String getNombreReporte(){
+            return this.nombreReporte;
+        }
+        
+        public String getEtiquetaEntidadSingular(){
+            return this.etiquetaEntidadSingular;
+        }
+        
+        public String getEtiquetaEntidadPlural(){
+            return this.etiquetaEntidadPlural;
+        }
+        
+    }
     
     /*
     ============================================================================
@@ -28,7 +57,8 @@ public class DTOFiltroReporte {
     ============================================================================
     */
     
-    public DTOFiltroReporte() {
+    public DTOFiltroReporte( TipoReporte tipoReporte ) {
+        this.tipoReporte = tipoReporte;
         idProveedor = null;
         idCliente = null;
         idProducto = null;
@@ -85,6 +115,12 @@ public class DTOFiltroReporte {
     public String getUsuario() {
         return usuario;
     }
+
+    public TipoReporte getTipoReporte() {
+        return tipoReporte;
+    }
+    
+    
     
     /*
     ============================================================================

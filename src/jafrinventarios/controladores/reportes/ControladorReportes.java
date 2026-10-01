@@ -324,7 +324,12 @@ public class ControladorReportes {
         
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
-        DTOFiltroReporte filtro = new DTOFiltroReporte();
+        DTOFiltroReporte filtro = 
+                new DTOFiltroReporte( 
+                        (tipoReporte == TipoReporteEspecial.ReporteVentas)
+                         ? DTOFiltroReporte.TipoReporte.VENTAS : 
+                           DTOFiltroReporte.TipoReporte.COMPRAS
+                );
         
         try {
             if( datosFiltro.containsKey("fechaInferior") )
