@@ -197,7 +197,7 @@ public class ServicioReportes {
         
             int marcador = 1;
             consulta.setObject( marcador++ , filtro.getFechaInferior() );
-            consulta.setObject( marcador++ , filtro.getFechaSuperior());
+            consulta.setObject( marcador++ , filtro.getFechaSuperior().plusDays(1));
             
             if( filtro.getIdCliente() != null )
                 consulta.setInt(marcador++, filtro.getIdCliente());
@@ -266,7 +266,7 @@ public class ServicioReportes {
         
                 int marcador = 1;
                 consulta.setObject( marcador++ , filtro.getFechaInferior() );
-                consulta.setObject( marcador++ , filtro.getFechaSuperior());
+                consulta.setObject( marcador++ , filtro.getFechaSuperior().plusDays(1));
 
                 if( filtro.getIdCliente() != null )
                     consulta.setInt(marcador++, filtro.getIdCliente());
@@ -344,7 +344,7 @@ public class ServicioReportes {
         
             int marcador = 1;
             consulta.setObject( marcador++ , filtro.getFechaInferior() );
-            consulta.setObject( marcador++ , filtro.getFechaSuperior());
+            consulta.setObject( marcador++ , filtro.getFechaSuperior().plusDays(1));
             
             if( filtro.getIdProveedor() != null )
                 consulta.setInt(marcador++, filtro.getIdProveedor());
@@ -413,7 +413,7 @@ public class ServicioReportes {
         
                 int marcador = 1;
                 consulta.setObject( marcador++ , filtro.getFechaInferior() );
-                consulta.setObject( marcador++ , filtro.getFechaSuperior());
+                consulta.setObject( marcador++ , filtro.getFechaSuperior().plusDays(1));
 
                 if( filtro.getIdProveedor() != null )
                     consulta.setInt(marcador++, filtro.getIdProveedor());

@@ -354,8 +354,8 @@ public class GeneradorReportesExcel {
             plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 5, 19);
 
             plantilla.configurarCelda( filaExcel, 1, tipoReporte.getEtiquetaEntidadSingular(), plantilla.getEstiloTextoIzquierdaNegrita() );
-            plantilla.configurarCelda( filaExcel, 6, tercero.getNombre(), plantilla.getEstiloEncabezado() );
-
+            plantilla.configurarCelda( filaExcel, 5, tercero.getNombre(), plantilla.getEstiloEncabezado() );
+            
             plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL );
             
             //Fila cantidad de productos y titulo precio total
@@ -409,6 +409,7 @@ public class GeneradorReportesExcel {
             plantilla.configurarCelda( filaExcel, 16, "Cantidad", plantilla.getEstiloTablaEncabezado() );
             plantilla.configurarCelda( filaExcel, 19, "Total", plantilla.getEstiloTablaEncabezado() );
             
+            plantilla.dibujarLineaSuperior(numeroFilaExcel, 1, 23);
             
             ArrayList<DTOProductoTransacciones> productos = tercero.getProductos();
             

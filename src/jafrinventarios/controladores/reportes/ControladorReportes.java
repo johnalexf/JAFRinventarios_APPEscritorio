@@ -331,15 +331,14 @@ public class ControladorReportes {
             
             try( HSSFWorkbook libroExcel = generarReporteTransacciones(reporte, filtro) ){
                 guardarExcel(libroExcel, "Reporte_transacciones_"+ filtro.getTipoReporte().getNombreReporte()+".xls");
+                panelReportes.mostrarPanelConfiguracionReporte(false);
             }   
         } catch (Exception e) {
             panelReportes.mostrarAlertaError("No se pudo generar el reporte debido a que : " + e.getMessage());
         }
         
         
-        
-        
-        
+          
     }
     
     
