@@ -1,10 +1,15 @@
 package jafrinventarios.servicios.excel;
 
+import jafrinventarios.DTOs.reportes.DTOFiltroReporte;
 import jafrinventarios.DTOs.reportes.cantidadesAComprar.DTOProductoComprar;
 import jafrinventarios.DTOs.reportes.cantidadesAComprar.DTOProveedorPedido;
 import jafrinventarios.DTOs.reportes.cantidadesAComprar.DTOReporteCantidadesAComprar;
+import jafrinventarios.DTOs.reportes.transacciones.DTOConsolidadoTransacciones;
+import jafrinventarios.DTOs.reportes.transacciones.DTOProductoTransacciones;
+import jafrinventarios.DTOs.reportes.transacciones.DTOTerceroComercial;
 import jafrinventarios.servicios.excel.PlantillaReporteExcel.GrosorFila;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -213,6 +218,253 @@ public class GeneradorReportesExcel {
 
         plantilla.configurarCelda( filaExcel, 2, item, estilo );
         plantilla.configurarCelda( filaExcel, 6, valor, estilo );   
+    }
+    
+    
+    
+    public HSSFWorkbook generarReporteTransacciones( DTOConsolidadoTransacciones reporte, DTOFiltroReporte filtro ) {
+        
+        /*
+        ========================================================================
+        Crear la plantilla para empezar a diligenciar la informacion sobre ella
+        ========================================================================
+        */
+        DTOFiltroReporte.TipoReporte tipoReporte = filtro.getTipoReporte();
+        PlantillaReporteExcel plantilla = new PlantillaReporteExcel( "Reporte de " + tipoReporte.getNombreReporte() );
+        //HSSFSheet hoja = plantilla.getHoja();
+
+        // Numero de fila que lleva el registro cual es la fila actual sobre la 
+        // que se este escribiendo informacion
+        int numeroFilaExcel = -1;
+        
+        //Variables auxiliares para poder dibujar un Recuadro global y otros internos
+        // por seccion de proveedores
+        int filaInicialMarcoExterior;
+        int filaFinalMarcoExterior;
+
+        int filaInicialMarcoInterior;
+        int filaFinalMarcoInterior;
+
+        //Fila de excel donde se escribira la informacion
+        HSSFRow filaExcel;
+        
+        plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL );
+        
+        
+        
+        /*
+        ========================================================================
+                      Cuadro de resumen de informacion del reporte
+        ========================================================================
+        */
+        
+        plantilla.crearFila( ++numeroFilaExcel, GrosorFila.DELGADO );
+        filaInicialMarcoExterior = numeroFilaExcel;
+
+        //Fila con el rango de tiempo seleccionado
+        filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
+        plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 1, 5);
+        plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 6, 18);
+
+        plantilla.configurarCelda( filaExcel, 1, "Rango de tiempo :", plantilla.getEstiloTextoIzquierdaNegrita() );
+        
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String rangoTiempo = filtro.getFechaInferior().format(formatoFecha) + " - " + filtro.getFechaSuperior().format(formatoFecha);
+        plantilla.configurarCelda( filaExcel, 6, rangoTiempo, plantilla.getEstiloEncabezado() );
+
+        plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL );
+        
+        //Fila entidad tercero y titulo precio total
+        filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL );
+        if( filtro.getNombreTercero() != null )
+            estructurarDatosGeneralesReporteTransacciones(plantilla, filaExcel, numeroFilaExcel, tipoReporte.getEtiquetaEntidadSingular(), filtro.getNombreTercero());
+        else
+            estructurarDatosGeneralesReporteTransacciones(plantilla, filaExcel, numeroFilaExcel, tipoReporte.getEtiquetaEntidadPlural(), String.valueOf(reporte.getCantidadTerceros()));
+       
+        plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 16, 23);
+        plantilla.configurarCelda( filaExcel, 16, "Precio Total", plantilla.getEstiloEncabezado() );
+        
+        
+        //Fila productos total o nombre del producto y valor precio total de todo el reporte
+        filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
+        if( filtro.getProducto() != null )
+            estructurarDatosGeneralesReporteTransacciones(plantilla, filaExcel, numeroFilaExcel, "Producto", filtro.getProducto());
+        else
+            estructurarDatosGeneralesReporteTransacciones(plantilla, filaExcel, numeroFilaExcel, "Productos", String.valueOf(reporte.getCantidadProductos()));
+       
+        plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 16, 23);
+        plantilla.configurarCeldaNumerica(filaExcel, 16, reporte.getPrecioTotalTransacciones(), plantilla.getEstiloMonedaCentroNegrita() );
+        
+        
+        //Fila usuario si se filtro por usuario para mostrar el nombre
+        if( filtro.getUsuario() != null ){
+            filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
+            estructurarDatosGeneralesReporteTransacciones(plantilla, filaExcel, numeroFilaExcel, "Usuario", filtro.getUsuario());  
+        }
+        
+        
+        //Fila total de transacciones
+        filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
+        estructurarDatosGeneralesReporteTransacciones(plantilla, filaExcel, numeroFilaExcel, tipoReporte.getNombreReporte(), String.valueOf(reporte.getCantidadTransacciones()));
+
+
+        plantilla.crearFila( ++numeroFilaExcel, GrosorFila.DELGADO );
+        filaFinalMarcoExterior = numeroFilaExcel;
+        
+        plantilla.dibujarRecuadro(filaInicialMarcoExterior, filaFinalMarcoExterior, 0, 24);
+        
+        
+        /*
+        ========================================================================
+                  Fin Cuadro de resumen de informacion del reporte
+        ========================================================================
+        */
+        
+        plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
+        plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
+        
+          
+        /*
+        ===============================================================================
+        Extraer la lista de terceros en donde cada uno tiene una lista de productos
+        ===============================================================================
+        */
+        ArrayList<DTOTerceroComercial> terceros = reporte.getTerceros();
+        
+          
+        /*
+        ========================================================================
+        Recorrer cada uno de los terceros para estructurar la informacion
+        ========================================================================
+        */
+        for( DTOTerceroComercial tercero : terceros ){
+            
+            filaInicialMarcoExterior = ++numeroFilaExcel;
+            plantilla.crearFila( numeroFilaExcel, GrosorFila.NORMAL );
+            
+            /*
+            ====================================================================
+                      INICIO SECCIÓN SUPERIOR: DATOS DEL TERCERO
+            ====================================================================
+            */
+            
+            //Fila con el nombre del tercero
+            filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
+            plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 1, 4);
+            plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 5, 19);
+
+            plantilla.configurarCelda( filaExcel, 1, tipoReporte.getEtiquetaEntidadSingular(), plantilla.getEstiloTextoIzquierdaNegrita() );
+            plantilla.configurarCelda( filaExcel, 6, tercero.getNombre(), plantilla.getEstiloEncabezado() );
+
+            plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL );
+            
+            //Fila cantidad de productos y titulo precio total
+            filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL );
+            estructurarDatosGeneralesReporteTransacciones(plantilla, filaExcel, numeroFilaExcel, "Productos", String.valueOf( tercero.getCantidadProductos() ) );
+            
+            plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 16, 23);
+            plantilla.configurarCelda( filaExcel, 16, "Precio Total", plantilla.getEstiloEncabezado() );
+
+
+            //Fila total transacciones y valor precio total de las transacciones del tercero
+            filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
+            estructurarDatosGeneralesReporteTransacciones(plantilla, filaExcel, numeroFilaExcel, tipoReporte.getNombreReporte(), String.valueOf(tercero.getCantidadTransacciones()));
+            
+            plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 16, 23);
+            plantilla.configurarCeldaNumerica(filaExcel, 16, tercero.getPrecioTotalTransacciones(), plantilla.getEstiloMonedaCentroNegrita() );
+                    
+            /*
+            ====================================================================
+                       FIN SECCIÓN SUPERIOR: DATOS DEL TERCERO
+            ====================================================================
+            */
+            
+            plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL );
+            
+            /*
+            ====================================================================
+                             SECCIÓN INFERIOR: PRODUCTOS
+            ====================================================================
+            */
+            filaInicialMarcoInterior = ++numeroFilaExcel;
+            filaExcel = plantilla.crearFila( numeroFilaExcel, GrosorFila.NORMAL);
+            plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 1, 23);
+            plantilla.configurarCelda( filaExcel, 1, "Productos", plantilla.getEstiloTablaEncabezado() );
+            
+            /*
+                         Titulos de la tabla productos
+            */
+            
+            filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL);
+            
+            plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 1, 2);
+            plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 3, 11);
+            plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 12, 15);
+            plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 16, 18);
+            plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 19, 23);
+
+            plantilla.configurarCelda( filaExcel, 1, "Id", plantilla.getEstiloTablaEncabezado() );
+            plantilla.configurarCelda( filaExcel, 3, "Nombre", plantilla.getEstiloTablaEncabezado() );
+            plantilla.configurarCelda( filaExcel, 12, "Precio", plantilla.getEstiloTablaEncabezado() );
+            plantilla.configurarCelda( filaExcel, 16, "Cantidad", plantilla.getEstiloTablaEncabezado() );
+            plantilla.configurarCelda( filaExcel, 19, "Total", plantilla.getEstiloTablaEncabezado() );
+            
+            
+            ArrayList<DTOProductoTransacciones> productos = tercero.getProductos();
+            
+            /*
+                Recorrer los productos del tercero para estructurar la fila
+                que representa la informacion de cada producto.
+            */
+            for( DTOProductoTransacciones producto : productos ){
+            
+                filaExcel = plantilla.crearFila( ++numeroFilaExcel, GrosorFila.GRUESO);
+
+                plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 1, 2);
+                plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 3, 11);
+                plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 12, 15);
+                plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 16, 18);
+                plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 19, 23);
+
+                plantilla.configurarCeldaNumerica(filaExcel, 1, producto.getIdProducto() , plantilla.getEstiloTablaNumeroCentro() );
+                plantilla.configurarCelda( filaExcel, 3, producto.getNombreProducto(), plantilla.getEstiloTablaTextoIzquierda() );
+                plantilla.configurarCeldaNumerica(filaExcel, 12, producto.getPrecio(), plantilla.getEstiloTablaMonedaCentro() );
+                plantilla.configurarCeldaNumerica(filaExcel, 16, producto.getCantidad(), plantilla.getEstiloTablaNumeroCentro() );
+                
+                plantilla.configurarCeldaNumerica(filaExcel, 19, producto.getTotalPrecio() , plantilla.getEstiloTablaMonedaCentro() );
+                
+                plantilla.dibujarLineaSuperior(numeroFilaExcel, 1, 23);
+                
+            }
+            filaFinalMarcoInterior = numeroFilaExcel;
+            plantilla.dibujarRecuadro(filaInicialMarcoInterior, filaFinalMarcoInterior, 1, 23);
+
+            plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL );
+            
+            filaFinalMarcoExterior = numeroFilaExcel;
+            plantilla.dibujarRecuadro(filaInicialMarcoExterior, filaFinalMarcoExterior, 0, 24);
+            
+            plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
+            plantilla.crearFila( ++numeroFilaExcel, GrosorFila.NORMAL ); 
+            
+        }
+
+        
+        return plantilla.getLibro();
+    }
+    
+    
+    private void estructurarDatosGeneralesReporteTransacciones( PlantillaReporteExcel plantilla,
+                                                                HSSFRow  filaExcel,
+                                                                int numeroFilaExcel,
+                                                                String etiqueta,
+                                                                String valor            
+        ){
+        plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 1, 4);
+        plantilla.unirCeldas(numeroFilaExcel, numeroFilaExcel, 5, 15);
+
+        plantilla.configurarCelda( filaExcel, 1, etiqueta, plantilla.getEstiloTextoIzquierda() );
+        plantilla.configurarCelda( filaExcel, 5, valor, plantilla.getEstiloTextoIzquierdaSangria() );
     }
     
     
