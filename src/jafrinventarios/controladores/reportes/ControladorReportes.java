@@ -102,8 +102,12 @@ public class ControladorReportes {
         return servicioReportes.obtenerConsolidadoCompras(filtro);
     }
     
-    private HSSFWorkbook generarReporteCantidadesAComprar( DTOReporteCantidadesAComprar reporte ) throws IOException {
+    private HSSFWorkbook generarReporteCantidadesAComprar( DTOReporteCantidadesAComprar reporte ) {
         return generadorReportesExcel.generarReporteCantidadesAComprar(reporte);
+    }
+    
+    private HSSFWorkbook generarReporteTransacciones( DTOConsolidadoTransacciones reporte, DTOFiltroReporte filtro )  {
+        return generadorReportesExcel.generarReporteTransacciones(reporte, filtro);
     }
     
 /*
@@ -313,8 +317,27 @@ public class ControladorReportes {
         TODO: Consultar el servicio pertinente para traer la informacion
         ========================================================================
         */
-        //Prueba para verificar si se recolecta la informacion correctamente
-        System.out.println(filtro.toString());
+        try {
+            filtro = completarFiltro(filtro);
+            DTOConsolidadoTransacciones reporte = 
+                    (tipoReporte == TipoReporteEspecial.ReporteCompras)
+                    ? obtenerConsolidadoCompras(filtro)
+                    : obtenerConsolidadoVentas(filtro);
+            
+            if(reporte.isEmpty()){
+                panelReportes.mostrarAlertaInformacion("No existe informacion con el filtro aplicado, intente nuevamente con otros valores");
+                return;
+            }
+            
+            try( HSSFWorkbook libroExcel = generarReporteTransacciones(reporte, filtro) ){
+                guardarExcel(libroExcel, "Reporte_transacciones_"+ filtro.getTipoReporte().getNombreReporte()+".xls");
+            }   
+        } catch (Exception e) {
+            panelReportes.mostrarAlertaError("No se pudo generar el reporte debido a que : " + e.getMessage());
+        }
+        
+        
+        
         
         
     }
