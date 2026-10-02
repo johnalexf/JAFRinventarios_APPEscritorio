@@ -63,10 +63,10 @@ public class DTOFiltroReporte {
         idCliente = null;
         idProducto = null;
         idUsuario = null;
-        proveedor = "";
-        cliente = "";
-        producto = "";
-        usuario = "";
+        proveedor = null;
+        cliente = null;
+        producto = null;
+        usuario = null;
     }
     
     
@@ -100,12 +100,16 @@ public class DTOFiltroReporte {
         return idUsuario;
     }
 
-    public String getProveedor() {
-        return proveedor;
-    }
-
-    public String getCliente() {
-        return cliente;
+    public String getNombreTercero(){
+        
+        if( tipoReporte == TipoReporte.COMPRAS )
+            return proveedor;
+        
+        if( tipoReporte == TipoReporte.VENTAS )
+            return cliente;
+        
+        return null;
+      
     }
 
     public String getProducto() {

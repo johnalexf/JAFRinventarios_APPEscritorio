@@ -4,6 +4,7 @@ ya sea de compras o ventas.
 */
 package jafrinventarios.DTOs.reportes.transacciones;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -51,8 +52,8 @@ public class DTOConsolidadoTransacciones {
         return cantidadProductos;
     }
 
-    public LinkedHashMap<Integer, DTOTerceroComercial> getTerceros() {
-        return terceros;
+    public ArrayList<DTOTerceroComercial> getTerceros() {
+        return new ArrayList<>(terceros.values());
     }
     
     public int getCantidadTerceros(){
@@ -91,6 +92,7 @@ public class DTOConsolidadoTransacciones {
             DTOTerceroComercial tercero = terceros.get( idTercero );
             tercero.setNombre(nombre);
             tercero.setCantidadTransacciones(cantidadTransacciones);
+            this.cantidadTransacciones += cantidadTransacciones;
         } 
     }
     
