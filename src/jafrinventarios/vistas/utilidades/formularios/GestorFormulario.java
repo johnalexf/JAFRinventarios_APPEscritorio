@@ -249,8 +249,6 @@ public class GestorFormulario {
                 if( listaCamposFormulario.containsKey( error.getKey()) ){
                     CampoGestionable campoAMostrarError = listaCamposFormulario.get(error.getKey());
                     campoAMostrarError.mostrarError(error.getValue());
-                }else{
-                    imprimirCampoInexistente( error.getKey() );
                 }
            });
         
@@ -272,18 +270,10 @@ public class GestorFormulario {
                 if(listaCamposFormulario.containsKey(dato.getKey())){
                     CampoGestionable campo = listaCamposFormulario.get(dato.getKey());
                     campo.setValorComponente(dato.getValue());
-                }else{
-                    imprimirCampoInexistente( dato.getKey() );
                 }
            });
         
         }
     }
     
-    
-    private void imprimirCampoInexistente( String nameCampo ){
-        System.out.println("El campo con atributo name \"" + nameCampo + "\" No esta en el formulario");
-    }
-    
-
 }

@@ -139,8 +139,6 @@ public class CampoComboBox extends CampoGestionable{
             // Buscar el id en la lista de opciones
             if(  listaOpcionesConId.containsKey(id)  ){
                 comboBox.setSelectedItem( listaOpcionesConId.get(id) );
-            }else{
-                System.out.println("El valor para el id\"" + id + "\" No esta en el comboBox " + concepto );
             }
             
         } catch ( NumberFormatException e ) {

@@ -103,9 +103,6 @@ public class ControladorRegistroUsuario {
         
         // Extracción y construcción del Modelo
         HashMap<String, String> datosFormulario = vistaRegistro.recolectarDatosFormulario();
-        datosFormulario.forEach(    
-            (clave, valor) ->   System.out.println(clave + " -> " + valor)
-        );
 
         ModeloUsuario usuario = new ModeloUsuario();
         usuario = asignarDatosAModeloUsuario( usuario, datosFormulario );

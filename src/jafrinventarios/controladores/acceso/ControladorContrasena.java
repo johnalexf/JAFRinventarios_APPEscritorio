@@ -189,8 +189,6 @@ public class ControladorContrasena {
                     ()->{ enviarCodigoCorreo(correo, codigoRecuperacion); }
             );
             
-            //Linea de prueba para ver el codigo de recuperacion
-            System.out.println(" codigo de recuperacion : " + codigoRecuperacion );
             avanzarSiguienteTarjeta(NombresTarjetasContrasena.CODIGO);
             
         } catch ( ExcepcionValidacionBD e ){ 

@@ -33,7 +33,6 @@ public class ConexionDB {
             conexionDB = DriverManager.getConnection( 
                     "jdbc:mysql://localhost/"+ DB_NAME +"?user="+ USERNAME + "&password=" + PASSWORD
             );
-            System.out.println("Conexion establecida a la base de datos");
         }
         catch(Exception e)
         {
