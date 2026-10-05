@@ -96,8 +96,9 @@ public class ModeloCliente {
                                   SETTERS
     ============================================================================
     */
-    
-    //El set de idCliente no se expone por que la unica fuente que lo asigna es la base de datos
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
 
     public void setNombreNegocio(String nombreNegocio) {
         this.nombreNegocio = nombreNegocio;
