@@ -98,7 +98,9 @@ public class ModeloProducto {
     ============================================================================
     */
 
-    //El set de idProducto no se expone la unica fuente que lo asigna es la base de datos
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
+    }
     
     public void setIdProveedor(int idProveedor) {
         this.idProveedor = idProveedor;
