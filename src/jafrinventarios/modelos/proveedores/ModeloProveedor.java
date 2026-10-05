@@ -110,7 +110,10 @@ public class ModeloProveedor {
     ============================================================================
     */
     
-    //El set de idProveedor no se expone la unica fuente que lo asigna es la base de datos
+    
+    public void setIdProveedor(Integer idProveedor) {
+        this.idProveedor = idProveedor;
+    }
 
     public void setNombreComercial(String nombreComercial) {
         this.nombreComercial = nombreComercial;
