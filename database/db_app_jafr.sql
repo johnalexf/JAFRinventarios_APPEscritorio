@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-11-2026 a las 18:52:08
+-- Tiempo de generación: 04-11-2026 a las 22:09:50
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -46,36 +46,36 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nombre_negocio`, `primer_nombre_contacto`, `segundo_nombre_contacto`, `primer_apellido_contacto`, `segundo_apellido_contacto`, `telefono_contacto`, `direccion_cliente`, `correo_cliente`, `habilitado`) VALUES
-(1, 'Tienda El Buen Vecino', 'JosÃ©', 'Antonio', 'Vargas', 'LÃ³pez', '3109998877', 'Calle 22 # 14-50', 'buenvecino@gmail.com', 1),
-(2, 'Minimercado La 80', 'Marta', 'Cecilia', 'Rojas', 'DÃ­az', '3201112233', 'Carrera 50 # 100-24', 'la80minimercado@hotmail.com', 1),
-(3, 'CafeterÃ­a Dulce Pecado', 'Luis', 'Fernando', 'MuÃ±oz', 'PÃ©rez', '3156667788', 'Avenida 68 # 45-12', 'dulcepecado@empresa.com', 1),
-(4, 'CigarrerÃ­a El Punto', 'Blanca', 'Stella', 'GÃ³mez', 'Silva', '3004445566', 'Calle 80 # 72-10', 'elpuntocigarreria@gmail.com', 1),
-(5, 'Surtimax Las OrquÃ­deas', 'Carlos', 'Eduardo', 'LÃ³pez', 'MÃ©ndez', '3112229988', 'Carrera 15 # 120-45', 'surtilasorquideas@empresa.com', 1),
-(6, 'Tienda Mi Casita', 'Ana', 'MarÃ­a', 'Castro', 'GarcÃ­a', '3148885522', 'Calle 13 # 25-60', 'micasitatienda@gmail.com', 1),
-(7, 'CafeterÃ­a Pan de Bono', 'Roberto', 'Carlos', 'DÃ­az', 'Ruiz', '3173334455', 'Autopista Sur # 45-90', 'pandebonosur@distribucion.com', 1),
+(1, 'Tienda El Buen Vecino', 'José', 'Antonio', 'Vargas', 'López', '3109998877', 'Calle 22 # 14-50', 'buenvecino@gmail.com', 1),
+(2, 'Minimercado La 80', 'Marta', 'Cecilia', 'Rojas', 'Díaz', '3201112233', 'Carrera 50 # 100-24', 'la80minimercado@hotmail.com', 1),
+(3, 'Cafetería Dulce Pecado', 'Luis', 'Fernando', 'Muñoz', 'Pérez', '3156667788', 'Avenida 68 # 45-12', 'dulcepecado@empresa.com', 1),
+(4, 'Cigarrería El Punto', 'Blanca', 'Stella', 'Gómez', 'Silva', '3004445566', 'Calle 80 # 72-10', 'elpuntocigarreria@gmail.com', 1),
+(5, 'Surtimax Las Orquídeas', 'Carlos', 'Eduardo', 'López', 'Méndez', '3112229988', 'Carrera 15 # 120-45', 'surtilasorquideas@empresa.com', 1),
+(6, 'Tienda Mi Casita', 'Ana', 'María', 'Castro', 'García', '3148885522', 'Calle 13 # 25-60', 'micasitatienda@gmail.com', 1),
+(7, 'Cafetería Pan de Bono', 'Roberto', 'Carlos', 'Díaz', 'Ruiz', '3173334455', 'Autopista Sur # 45-90', 'pandebonosur@distribucion.com', 1),
 (8, 'Minimercado Los Pinos', 'Sandra', 'Milena', 'Ruiz', 'Toro', '3012223344', 'Transversal 91 # 130-15', 'lospinos@minimercado.com', 1),
-(9, 'Tienda Escolar San Juan', 'Mario', 'Alberto', 'Silva', 'GÃ³mez', '3125556677', 'Carrera 7 # 45-10', 'sanjuanescolar@gmail.com', 1),
-(10, 'CafeterÃ­a Central', 'Diana', 'Patricia', 'Ortiz', 'Vega', '3169990000', 'Calle 100 # 15-20', 'centralcafeteria@empresa.com', 1),
-(11, 'Tienda La Delicia', 'HÃ©ctor', 'Fabio', 'Giraldo', 'RÃ­os', '3181239876', 'Calle 72 # 11-45', 'ladeliciatienda@hotmail.com', 1),
-(12, 'Tienda Don Chucho', 'JesÃºs', 'MarÃ­a', 'Alvarado', 'SÃ¡nchez', '3009871234', 'Carrera 24 # 63-21', 'donchucho@gmail.com', 1),
-(13, 'CigarrerÃ­a El Foco', 'Alba', 'LucÃ­a', 'BermÃºdez', 'Castro', '3104561234', 'Calle 53 # 71-10', 'elfococigarreria@empresa.com', 1),
-(14, 'Tienda Santa Fe', 'Jorge', 'Eliecer', 'Quintero', 'LÃ³pez', '3203456789', 'Carrera 13 # 32-15', 'tiendasantafe@gmail.com', 1),
-(15, 'DulcerÃ­a La Sorpresa', 'Camila', 'Andrea', 'Reyes', 'GÃ³mez', '3157894561', 'Avenida Caracas # 45-22', 'lasorpresa@dulceria.com', 1),
-(16, 'Tienda La BendiciÃ³n', 'Oswaldo', '', 'PatiÃ±o', 'MuÃ±oz', '3116549870', 'Calle 170 # 54-12', 'labendiciontienda@gmail.com', 1),
-(17, 'Minimercado El Ahorro', 'Flor', 'Alba', 'SuÃ¡rez', 'DÃ­az', '3141592653', 'Carrera 104 # 14-30', 'elahorro@minimercado.com', 1),
-(18, 'CafeterÃ­a Francesa', 'Jean', 'Paul', 'RincÃ³n', 'GarcÃ­a', '3174567891', 'Calle 93 # 15-40', 'cafeteriafrancesa@empresa.com', 1),
-(19, 'CafeterÃ­a El Buen DÃ­a', 'Laura', 'Ximena', 'CortÃ©s', 'Silva', '3017891234', 'Carrera 11 # 98-10', 'elbuendia@cafeteria.com', 1),
-(20, 'Tienda Rica Masa', 'FabiÃ¡n', 'AndrÃ©s', 'Moreno', 'Ortiz', '3129876543', 'Calle 116 # 19-35', 'ricamasa@tienda.com', 1),
-(21, 'Tienda Las Margaritas', 'Margarita', 'Rosa', 'Velandia', 'PÃ©rez', '3161234567', 'Carrera 58 # 137-20', 'lasmargaritas@tienda.com', 1),
+(9, 'Tienda Escolar San Juan', 'Mario', 'Alberto', 'Silva', 'Gómez', '3125556677', 'Carrera 7 # 45-10', 'sanjuanescolar@gmail.com', 1),
+(10, 'Cafetería Central', 'Diana', 'Patricia', 'Ortiz', 'Vega', '3169990000', 'Calle 100 # 15-20', 'centralcafeteria@empresa.com', 1),
+(11, 'Tienda La Delicia', 'Héctor', 'Fabio', 'Giraldo', 'Ríos', '3181239876', 'Calle 72 # 11-45', 'ladeliciatienda@hotmail.com', 1),
+(12, 'Tienda Don Chucho', 'Jesús', 'María', 'Alvarado', 'Sánchez', '3009871234', 'Carrera 24 # 63-21', 'donchucho@gmail.com', 1),
+(13, 'Cigarrería El Foco', 'Alba', 'Lucía', 'Bermúdez', 'Castro', '3104561234', 'Calle 53 # 71-10', 'elfococigarreria@empresa.com', 1),
+(14, 'Tienda Santa Fe', 'Jorge', 'Eliecer', 'Quintero', 'López', '3203456789', 'Carrera 13 # 32-15', 'tiendasantafe@gmail.com', 1),
+(15, 'Dulcería La Sorpresa', 'Camila', 'Andrea', 'Reyes', 'Gómez', '3157894561', 'Avenida Caracas # 45-22', 'lasorpresa@dulceria.com', 1),
+(16, 'Tienda La Bendición', 'Oswaldo', '', 'Patiño', 'Muñoz', '3116549870', 'Calle 170 # 54-12', 'labendiciontienda@gmail.com', 1),
+(17, 'Minimercado El Ahorro', 'Flor', 'Alba', 'Suárez', 'Díaz', '3141592653', 'Carrera 104 # 14-30', 'elahorro@minimercado.com', 1),
+(18, 'Cafetería Francesa', 'Jean', 'Paul', 'Rincón', 'García', '3174567891', 'Calle 93 # 15-40', 'cafeteriafrancesa@empresa.com', 1),
+(19, 'Cafetería El Buen Día', 'Laura', 'Ximena', 'Cortés', 'Silva', '3017891234', 'Carrera 11 # 98-10', 'elbuendia@cafeteria.com', 1),
+(20, 'Tienda Rica Masa', 'Fabián', 'Andrés', 'Moreno', 'Ortiz', '3129876543', 'Calle 116 # 19-35', 'ricamasa@tienda.com', 1),
+(21, 'Tienda Las Margaritas', 'Margarita', 'Rosa', 'Velandia', 'Pérez', '3161234567', 'Carrera 58 # 137-20', 'lasmargaritas@tienda.com', 1),
 (22, 'Surtifamiliar Suba', 'Guillermo', 'Arturo', 'Castillo', 'Rojas', '3184561230', 'Avenida Suba # 118-50', 'surtifamiliarsuba@empresa.com', 1),
 (23, 'Tienda El Trigal', 'Luz', 'Marina', 'Navarro', 'Castro', '3006543210', 'Calle 140 # 9-45', 'eltrigal@tienda.com', 1),
-(24, 'Tienda El Vecino', 'Pedro', 'Antonio', 'Salazar', 'GutiÃ©rrez', '3107894562', 'Carrera 73 # 163-25', 'elvecino@gmail.com', 1),
-(25, 'CigarrerÃ­a La Principal', 'Carmen', 'Alicia', 'Pardo', 'Vega', '3201597534', 'Calle 68 # 17-50', 'laprincipal@empresa.com', 1),
-(26, 'CafeterÃ­a San Antonio', 'Antonio', 'JosÃ©', 'Valderrama', 'RÃ­os', '3153571590', 'Avenida 19 # 120-30', 'sanantonio@cafeteria.com', 1),
-(27, 'DulcerÃ­a Dulces Momentos', 'SofÃ­a', 'Lorena', 'Aguilar', 'MÃ©ndez', '3118529630', 'Carrera 15 # 105-15', 'dulcesmomentos@gmail.com', 1),
-(28, 'Tienda Masa Fina', 'Diego', 'Alejandro', 'MejÃ­a', 'GÃ³mez', '3149517530', 'Calle 85 # 14-20', 'masafina@tienda.com', 1),
-(29, 'Tienda La Abundancia', 'Rosa', 'Elena', 'CastaÃ±eda', 'LÃ³pez', '3171592648', 'Carrera 9 # 165-40', 'laabundancia@tienda.com', 1),
-(30, 'Minimercado Gran Sur', 'Wilson', 'Javier', 'Buitrago', 'DÃ­az', '3013579510', 'Avenida Villavicencio # 45-60', 'gransur@minimercado.com', 1);
+(24, 'Tienda El Vecino', 'Pedro', 'Antonio', 'Salazar', 'Gutiérrez', '3107894562', 'Carrera 73 # 163-25', 'elvecino@gmail.com', 1),
+(25, 'Cigarrería La Principal', 'Carmen', 'Alicia', 'Pardo', 'Vega', '3201597534', 'Calle 68 # 17-50', 'laprincipal@empresa.com', 1),
+(26, 'Cafetería San Antonio', 'Antonio', 'José', 'Valderrama', 'Ríos', '3153571590', 'Avenida 19 # 120-30', 'sanantonio@cafeteria.com', 1),
+(27, 'Dulcería Dulces Momentos', 'Sofía', 'Lorena', 'Aguilar', 'Méndez', '3118529630', 'Carrera 15 # 105-15', 'dulcesmomentos@gmail.com', 1),
+(28, 'Tienda Masa Fina', 'Diego', 'Alejandro', 'Mejía', 'Gómez', '3149517530', 'Calle 85 # 14-20', 'masafina@tienda.com', 1),
+(29, 'Tienda La Abundancia', 'Rosa', 'Elena', 'Castañeda', 'López', '3171592648', 'Carrera 9 # 165-40', 'laabundancia@tienda.com', 1),
+(30, 'Minimercado Gran Sur', 'Wilson', 'Javier', 'Buitrago', 'Díaz', '3013579510', 'Avenida Villavicencio # 45-60', 'gransur@minimercado.com', 1);
 
 -- --------------------------------------------------------
 
@@ -145,8 +145,7 @@ INSERT INTO `compras` (`id_compra`, `fecha_hora_compra`, `total_compra`, `id_pro
 (47, '2026-09-17 09:15:00', '156500.00', 10, 1),
 (48, '2026-09-18 10:00:00', '209000.00', 10, 1),
 (49, '2026-09-19 11:20:00', '238500.00', 10, 1),
-(50, '2026-09-20 14:10:00', '177500.00', 10, 1),
-(52, '2026-10-22 14:33:00', '500000.00', 2, 1);
+(50, '2026-09-20 14:10:00', '177500.00', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -357,8 +356,7 @@ INSERT INTO `detalle_de_compras` (`id_detalle_compra`, `id_compra`, `id_producto
 (187, 50, 46, 10, '4500.00', '45000.00'),
 (188, 50, 48, 10, '7500.00', '75000.00'),
 (189, 50, 49, 5, '6000.00', '30000.00'),
-(190, 50, 50, 5, '5500.00', '27500.00'),
-(192, 52, 52, 50, '10000.00', '500000.00');
+(190, 50, 50, 5, '5500.00', '27500.00');
 
 -- --------------------------------------------------------
 
@@ -709,9 +707,7 @@ INSERT INTO `detalle_de_ventas` (`id_detalle_venta`, `id_venta`, `id_producto`, 
 (327, 50, 47, 5, '6500.00', '32500.00'),
 (328, 50, 48, 5, '10500.00', '52500.00'),
 (329, 50, 49, 5, '8500.00', '42500.00'),
-(330, 50, 50, 5, '7800.00', '39000.00'),
-(331, 51, 6, 10, '5200.00', '52000.00'),
-(333, 52, 52, 30, '13000.00', '390000.00');
+(330, 50, 50, 5, '7800.00', '39000.00');
 
 -- --------------------------------------------------------
 
@@ -730,7 +726,7 @@ CREATE TABLE `empresa` (
 --
 
 INSERT INTO `empresa` (`id_empresa`, `nombre_empresa`, `codigo_registro_usuario_vendedor`) VALUES
-(1, 'Comercio John S.A.S', 'vZC5Wv9jEL');
+(1, 'Comercio John S.A.S.', 'JkgdDi2qB3');
 
 -- --------------------------------------------------------
 
@@ -754,16 +750,16 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id_producto`, `id_proveedor`, `nombre_producto`, `precio_compra`, `precio_venta`, `cantidad_minima_stock`, `cantidad_disponible`, `habilitado`) VALUES
-(1, 1, 'Mogolas Tradicionales x 12 unidades', '4500.00', '6000.00', 150, 450, 1),
+(1, 1, 'Mogollas Tradicionales x 12 unidades', '4500.00', '6000.00', 150, 450, 1),
 (2, 1, 'Mogollas Integrales x 24 unidades', '8500.00', '11500.00', 80, 220, 1),
 (3, 1, 'Pan Tajado Blanco x 24 tajadas', '3500.00', '5000.00', 200, 550, 1),
 (4, 1, 'Pan Perro Caliente x 12 unidades', '4200.00', '5800.00', 120, 320, 1),
 (5, 1, 'Pan Hamburguesa x 12 unidades', '4500.00', '6200.00', 120, 300, 1),
-(6, 2, 'Calados Tradicionales x 12 unidades', '3800.00', '5200.00', 150, 390, 1),
-(7, 2, 'Tostadas Integrales Paquete x 15', '4000.00', '5500.00', 100, 270, 1),
-(8, 2, 'Besitos de Queso Bolsa 500g', '6500.00', '8800.00', 80, 0, 1),
+(6, 2, 'Calados Tradicionales x 12 unidades', '3800.00', '5200.00', 150, 400, 1),
+(7, 2, 'Tostadas Integrales Paquete x 15', '4000.00', '5500.00', 100, 280, 1),
+(8, 2, 'Besitos de Queso Bolsa 500g', '6500.00', '8800.00', 80, 250, 1),
 (9, 2, 'Palitos de Queso Empacados x 20', '7000.00', '9500.00', 100, 300, 1),
-(10, 2, 'Lenguas de PanaderÃ­a x 10 unidades', '5500.00', '7500.00', 70, 200, 1),
+(10, 2, 'Lenguas de Panadería x 10 unidades', '5500.00', '7500.00', 70, 200, 1),
 (11, 3, 'Galleta Mantequilla Figura x 120 uds', '15000.00', '21000.00', 50, 150, 1),
 (12, 3, 'Galleta Rellena Fresa Pote x 100 uds', '12500.00', '17000.00', 60, 180, 1),
 (13, 3, 'Galleta Negra con Crema x 50 uds', '8500.00', '11500.00', 100, 300, 1),
@@ -774,37 +770,36 @@ INSERT INTO `productos` (`id_producto`, `id_proveedor`, `nombre_producto`, `prec
 (18, 4, 'Caramelos Masticables Surtidos x 200', '9500.00', '13000.00', 50, 180, 1),
 (19, 4, 'Chupetas Rellenas Tarro x 100 uds', '14000.00', '19500.00', 40, 120, 1),
 (20, 4, 'Bolas de Chocolate Bolsa x 50 uds', '8000.00', '11000.00', 80, 250, 1),
-(21, 5, 'SalchichÃ³n Cervecero Gran Cerdo 1.5kg', '18000.00', '24500.00', 100, 350, 1),
-(22, 5, 'SalchichÃ³n Tradicional Gran Cerdo 1kg', '12500.00', '17000.00', 150, 450, 1),
+(21, 5, 'Salchichón Cervecero Gran Cerdo 1.5kg', '18000.00', '24500.00', 100, 350, 1),
+(22, 5, 'Salchichón Tradicional Gran Cerdo 1kg', '12500.00', '17000.00', 150, 450, 1),
 (23, 5, 'Salchicha Larga Manguera x 40 uds', '22000.00', '30000.00', 60, 200, 1),
 (24, 5, 'Salchicha Larga para Perro x 20 uds', '11500.00', '15800.00', 120, 380, 1),
 (25, 5, 'Chorizo de Cerdo Precocido x 20 uds', '16000.00', '22000.00', 80, 250, 1),
-(26, 6, 'SalchichÃ³n Familiar La Sabana 2kg', '23000.00', '31000.00', 80, 280, 1),
-(27, 6, 'SalchichÃ³n de Pollo La Sabana 1kg', '13500.00', '18500.00', 100, 300, 1),
+(26, 6, 'Salchichón Familiar La Sabana 2kg', '23000.00', '31000.00', 80, 280, 1),
+(27, 6, 'Salchichón de Pollo La Sabana 1kg', '13500.00', '18500.00', 100, 300, 1),
 (28, 6, 'Salchicha Super Larga Asar x 30 uds', '18500.00', '25000.00', 70, 220, 1),
 (29, 6, 'Salchicha Tradicional x 50 uds', '15000.00', '21000.00', 150, 500, 1),
-(30, 6, 'SalchichÃ³n Premium Ahumado 1.5kg', '20000.00', '27500.00', 50, 160, 1),
+(30, 6, 'Salchichón Premium Ahumado 1.5kg', '20000.00', '27500.00', 50, 160, 1),
 (31, 7, 'Roscones Resobados x 6 unidades', '4800.00', '6500.00', 100, 320, 1),
 (32, 7, 'Croissants de Queso Empacados x 5', '5500.00', '7800.00', 80, 250, 1),
 (33, 7, 'Mogollas Chicharronas x 6 unidades', '5000.00', '7000.00', 120, 360, 1),
-(34, 7, 'Pan MariquiteÃ±o Bolsa x 10 unidades', '6500.00', '9000.00', 60, 180, 1),
+(34, 7, 'Pan Mariquiteño Bolsa x 10 unidades', '6500.00', '9000.00', 60, 180, 1),
 (35, 7, 'Rollos de Canela Empacados x 4 uds', '6000.00', '8500.00', 70, 210, 1),
 (36, 8, 'Galleta Wafer Vainilla Caja x 24 uds', '11000.00', '15000.00', 80, 260, 1),
 (37, 8, 'Panderos Tradicionales Bolsa x 100', '8500.00', '12000.00', 100, 300, 1),
 (38, 8, 'Polvorosas Caja x 20 unidades', '7000.00', '9800.00', 90, 280, 1),
 (39, 8, 'Galletas de Avena con Pasas x 15 uds', '6500.00', '9000.00', 70, 220, 1),
 (40, 8, 'Barquillos de Chocolate x 50 uds', '9500.00', '13000.00', 60, 190, 1),
-(41, 9, 'TurrÃ³n de ManÃ­ Caja x 24 unidades', '10500.00', '14500.00', 60, 200, 1),
+(41, 9, 'Turrón de Maní Caja x 24 unidades', '10500.00', '14500.00', 60, 200, 1),
 (42, 9, 'Panelitas de Leche Caja x 24 uds', '12000.00', '16500.00', 50, 180, 1),
 (43, 9, 'Arequipe Porciones Indiv. x 50 uds', '14000.00', '19000.00', 80, 250, 1),
 (44, 9, 'Cocadas Blancas Empacadas x 12 uds', '7500.00', '10500.00', 100, 320, 1),
-(45, 9, 'TurrÃ³n de Coco y Panela x 15 uds', '8000.00', '11000.00', 70, 210, 1),
+(45, 9, 'Turrón de Coco y Panela x 15 uds', '8000.00', '11000.00', 70, 210, 1),
 (46, 10, 'Achiras Tradicionales Bolsa 250g', '4500.00', '6200.00', 150, 480, 1),
 (47, 10, 'Achiras Picantes Bolsa 250g', '4800.00', '6500.00', 100, 320, 1),
 (48, 10, 'Bizcochos de Cuajada Caja x 20 uds', '7500.00', '10500.00', 80, 260, 1),
 (49, 10, 'Panderitos de Yuca Bolsa 500g', '6000.00', '8500.00', 120, 380, 1),
-(50, 10, 'Rosquillas de Queso Paquete x 12', '5500.00', '7800.00', 130, 400, 1),
-(52, 2, 'Mogollas Tradicionales x 12', '10000.00', '13000.00', 200, 20, 1);
+(50, 10, 'Rosquillas de Queso Paquete x 12', '5500.00', '7800.00', 130, 400, 1);
 
 -- --------------------------------------------------------
 
@@ -830,16 +825,16 @@ CREATE TABLE `proveedores` (
 --
 
 INSERT INTO `proveedores` (`id_proveedor`, `nombre_comercial`, `primer_nombre_contacto`, `segundo_nombre_contacto`, `primer_apellido_contacto`, `segundo_apellido_contacto`, `telefono_contacto`, `direccion_proveedor`, `correo_proveedor`, `habilitado`) VALUES
-(1, 'FÃ¡brica Panificadora El Molino', 'Carlos', 'Alberto', 'GÃ³mez', 'Ruiz', '3101234567', 'Calle 13 # 65-10', 'ventas@panificadoraelmolino.com', 1),
-(2, 'Industrias Horneadas La Espiga', 'Ana', 'MarÃ­a', 'LÃ³pez', 'Castro', '3209876543', 'Autopista Norte # 150-21', 'contacto@horneadosespiga.com', 1),
-(3, 'GalleterÃ­a La Estrella', 'Jorge', 'Enrique', 'Silva', 'MÃ©ndez', '3154567890', 'Avenida BoyacÃ¡ # 72-15', 'distribucion@galleteriaestrella.com', 1),
-(4, 'Dulces y Pasabocas Andinos', 'Luis', 'Ernesto', 'PÃ©rez', 'SÃ¡nchez', '3003216549', 'Carrera 30 # 45-67', 'pedidos@dulcesandinos.com', 1),
-(5, 'FrigorÃ­fico El Gran Cerdo', 'MarÃ­a', 'Fernanda', 'Rojas', 'GarcÃ­a', '3112223344', 'Calle 80 # 68-14', 'ventas@elgrancerdo.com', 1),
-(6, 'Embutidos La Sabana', 'AndrÃ©s', 'Felipe', 'MartÃ­nez', 'Toro', '3145556677', 'Carrera 15 # 80-21', 'logistica@embutidoslasabana.com', 1),
-(7, 'FÃ¡brica de Pan San Jorge', 'Carmen', 'Rosa', 'DÃ­az', 'Ortiz', '3167778899', 'Calle 45 # 12-34', 'ventas@pansanjorge.com', 1),
-(8, 'GalleterÃ­a Fina Colombiana', 'Javier', 'Alfonso', 'MuÃ±oz', 'LÃ³pez', '3189990011', 'Calle 19 # 22-10', 'pedidos@galleteriafina.com', 1),
-(9, 'Distribuidora de Dulces Tradicionales', 'Diana', 'Carolina', 'GutiÃ©rrez', 'Vega', '3123459876', 'Carrera 68 # 12-45', 'contacto@dulcestradicionales.com', 1),
-(10, 'FÃ¡brica de Achiras del Tolima', 'Pedro', 'Pablo', 'Castro', 'RÃ­os', '3015674321', 'Zona Industrial Bodega 15', 'ventas@achirastolima.com', 1);
+(1, 'Fábrica Panificadora El Molino', 'Carlos', 'Alberto', 'Gómez', 'Ruiz', '3101234567', 'Calle 13 # 65-10', 'ventas@panificadoraelmolino.com', 1),
+(2, 'Industrias Horneadas La Espiga', 'Ana', 'María', 'López', 'Castro', '3209876543', 'Autopista Norte # 150-21', 'contacto@horneadosespiga.com', 1),
+(3, 'Galletería La Estrella', 'Jorge', 'Enrique', 'Silva', 'Méndez', '3154567890', 'Avenida Boyacá # 72-15', 'distribucion@galleteriaestrella.com', 1),
+(4, 'Dulces y Pasabocas Andinos', 'Luis', 'Ernesto', 'Pérez', 'Sánchez', '3003216549', 'Carrera 30 # 45-67', 'pedidos@dulcesandinos.com', 1),
+(5, 'Frigorífico El Gran Cerdo', 'María', 'Fernanda', 'Rojas', 'García', '3112223344', 'Calle 80 # 68-14', 'ventas@elgrancerdo.com', 1),
+(6, 'Embutidos La Sabana', 'Andrés', 'Felipe', 'Martínez', 'Toro', '3145556677', 'Carrera 15 # 80-21', 'logistica@embutidoslasabana.com', 1),
+(7, 'Fábrica de Pan San Jorge', 'Carmen', 'Rosa', 'Díaz', 'Ortiz', '3167778899', 'Calle 45 # 12-34', 'ventas@pansanjorge.com', 1),
+(8, 'Galletería Fina Colombiana', 'Javier', 'Alfonso', 'Muñoz', 'López', '3189990011', 'Calle 19 # 22-10', 'pedidos@galleteriafina.com', 1),
+(9, 'Distribuidora de Dulces Tradicionales', 'Diana', 'Carolina', 'Gutiérrez', 'Vega', '3123459876', 'Carrera 68 # 12-45', 'contacto@dulcestradicionales.com', 1),
+(10, 'Fábrica de Achiras del Tolima', 'Pedro', 'Pablo', 'Castro', 'Ríos', '3015674321', 'Zona Industrial Bodega 15', 'ventas@achirastolima.com', 1);
 
 -- --------------------------------------------------------
 
@@ -886,8 +881,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `id_empresa`, `alias_usuario`, `telefono_usuario`, `correo_usuario`, `primer_nombre_usuario`, `segundo_nombre_usuario`, `primer_apellido_usuario`, `segundo_apellido_usuario`, `contrasena_usuario`, `id_rol_usuario`, `habilitado`) VALUES
-(1, 1, 'John12', '3202173409', 'johnalexfr@gmail.com', 'John', '', 'Forero', '', '$2a$10$nI5x/YpSjuS0xJ5VDwUJMujtQrIiamuGa/glu0rv8.51LTdQOFoIy', 1, 1),
-(2, 1, 'Forero12Vendedor', '3202173408', 'johnalexfr@hotmail.com', 'Alexander', '', 'Forero', '', '$2a$10$WBPLxT3HEIo9RdwvzkNu2Oa6HTCkLjl3HOZ/BH1vG6UNrqtDefknm', 2, 1);
+(1, 1, 'JohnAdmin', '3202173409', 'johnalexfr@gmail.com', 'John', '', 'Forero', '', '$2a$10$b65jmrMX4nY90i2xHNX29elp63LjsaKYs2Y2stOWz4E62GvoLY2Yu', 1, 1),
+(2, 1, 'AlexVendedor', '3202173408', 'johnalexfr@hotmail.com', 'Alexander', '', 'Rubio', '', '$2a$10$LvJyZ9jTdFCw7Kt./9U5Q.Q3anImrGXXUaiAf6EIpJonVLvS2aWAi', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -957,9 +952,7 @@ INSERT INTO `ventas` (`id_venta`, `fecha_hora_venta`, `total_venta`, `id_cliente
 (47, '2026-10-05 11:45:00', '87000.00', 17, 1),
 (48, '2026-10-05 14:10:00', '81000.00', 18, 1),
 (49, '2026-10-05 16:30:00', '367600.00', 19, 1),
-(50, '2026-10-05 18:50:00', '555000.00', 20, 1),
-(51, '2026-10-20 16:43:00', '52000.00', 24, 1),
-(52, '2026-10-20 16:49:00', '390000.00', 17, 1);
+(50, '2026-10-05 18:50:00', '555000.00', 20, 1);
 
 --
 -- Índices para tablas volcadas
@@ -1060,19 +1053,19 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_de_compras`
 --
 ALTER TABLE `detalle_de_compras`
-  MODIFY `id_detalle_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
+  MODIFY `id_detalle_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_de_ventas`
 --
 ALTER TABLE `detalle_de_ventas`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=334;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=331;
 
 --
 -- AUTO_INCREMENT de la tabla `empresa`
@@ -1084,7 +1077,7 @@ ALTER TABLE `empresa`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -1108,7 +1101,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- Restricciones para tablas volcadas
