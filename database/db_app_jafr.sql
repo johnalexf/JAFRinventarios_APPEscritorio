@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-11-2026 a las 22:09:50
+-- Tiempo de generación: 05-11-2026 a las 20:29:23
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `db_app_jafr`
 --
+CREATE DATABASE IF NOT EXISTS `db_app_jafr` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+USE `db_app_jafr`;
 
 -- --------------------------------------------------------
 
@@ -30,14 +32,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `clientes` (
   `id_cliente` int(11) NOT NULL,
-  `nombre_negocio` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `primer_nombre_contacto` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `segundo_nombre_contacto` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `primer_apellido_contacto` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `segundo_apellido_contacto` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `telefono_contacto` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `direccion_cliente` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `correo_cliente` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre_negocio` varchar(150) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `primer_nombre_contacto` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `segundo_nombre_contacto` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `primer_apellido_contacto` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `segundo_apellido_contacto` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `telefono_contacto` varchar(10) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `direccion_cliente` varchar(150) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `correo_cliente` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `habilitado` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -717,8 +719,8 @@ INSERT INTO `detalle_de_ventas` (`id_detalle_venta`, `id_venta`, `id_producto`, 
 
 CREATE TABLE `empresa` (
   `id_empresa` int(11) NOT NULL,
-  `nombre_empresa` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `codigo_registro_usuario_vendedor` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL
+  `nombre_empresa` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `codigo_registro_usuario_vendedor` varchar(10) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -737,7 +739,7 @@ INSERT INTO `empresa` (`id_empresa`, `nombre_empresa`, `codigo_registro_usuario_
 CREATE TABLE `productos` (
   `id_producto` int(11) NOT NULL,
   `id_proveedor` int(11) NOT NULL,
-  `nombre_producto` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre_producto` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `precio_compra` decimal(10,2) NOT NULL,
   `precio_venta` decimal(10,2) NOT NULL,
   `cantidad_minima_stock` int(4) NOT NULL,
@@ -809,14 +811,14 @@ INSERT INTO `productos` (`id_producto`, `id_proveedor`, `nombre_producto`, `prec
 
 CREATE TABLE `proveedores` (
   `id_proveedor` int(11) NOT NULL,
-  `nombre_comercial` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `primer_nombre_contacto` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `segundo_nombre_contacto` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `primer_apellido_contacto` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `segundo_apellido_contacto` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `telefono_contacto` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `direccion_proveedor` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `correo_proveedor` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre_comercial` varchar(150) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `primer_nombre_contacto` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `segundo_nombre_contacto` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `primer_apellido_contacto` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `segundo_apellido_contacto` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `telefono_contacto` varchar(10) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `direccion_proveedor` varchar(150) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `correo_proveedor` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `habilitado` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -844,7 +846,7 @@ INSERT INTO `proveedores` (`id_proveedor`, `nombre_comercial`, `primer_nombre_co
 
 CREATE TABLE `roles` (
   `id_rol` int(11) NOT NULL,
-  `nombre_rol` varchar(30) COLLATE utf8_spanish_ci NOT NULL
+  `nombre_rol` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -864,14 +866,14 @@ INSERT INTO `roles` (`id_rol`, `nombre_rol`) VALUES
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `id_empresa` int(11) NOT NULL,
-  `alias_usuario` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `telefono_usuario` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `correo_usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `primer_nombre_usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `segundo_nombre_usuario` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `primer_apellido_usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `segundo_apellido_usuario` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `contrasena_usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `alias_usuario` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `telefono_usuario` varchar(10) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `correo_usuario` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `primer_nombre_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `segundo_nombre_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `primer_apellido_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `segundo_apellido_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `contrasena_usuario` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `id_rol_usuario` int(11) NOT NULL,
   `habilitado` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
